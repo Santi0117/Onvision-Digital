@@ -50,7 +50,8 @@ export default function Marco({ children }: { children: React.ReactNode }) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <Boot />
+      {/* El inicio trae su propia intro: la de la preview, que termina en la laptop. */}
+      {pathname === "/" ? null : <Boot />}
       <Cursor />
       <a href="#contenido" className="od-saltar">
         Saltar al contenido

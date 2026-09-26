@@ -44,7 +44,7 @@ export default function Hud() {
   const [stack1, stack2 = ""] = aboutPage.tools.title.replace(/\.$/, "").split(/ (?=con )/);
 
   return (
-    <div ref={bloque} className="oh-hud">
+    <div ref={bloque} className="oh-hud" data-tema="oscuro">
       <div className="oh-fx" aria-hidden>
         <div className="oh-fx__rayado oh-fx__rayado--hud" />
         <div className="oh-fx__puntos oh-fx__puntos--bordes" />

@@ -1,10 +1,12 @@
 /* ──────────────────────────────────────────────────────────────────────────
    Onvision Digital · Inicio — piezas comunes
-   La misma estructura del inicio de verticales, con el color de Onvision:
-     wisprflow    claros fríos, serif con itálica, tarjeta de menú, cinta
-     clarvos      marco negro con muesca, píldoras negras, filas de color
-     jeffmilanes  negro puro, mayúsculas gigantes, mono, escenas, película
+   El primer acto es la preview oficial (laptop 3D, núcleo, dial) y después
+   sigue la estructura del inicio de verticales, en el color de Onvision:
+     wisprflow    claros fríos, serif con itálica, cinta
+     clarvos      píldoras negras, bloques negros redondeados
+     jeffmilanes  negro puro, mayúsculas gigantes, mono, contador de escenas
      sibaldesign  HUD verde-noche, paneles con cabecera, rayado y estelas
+     hobro        índices entre paréntesis · driveberry  tarjetas de vidrio
    El acento es el cian del ojo; menta, azul e índigo tiñen cada línea.
    ────────────────────────────────────────────────────────────────────────── */
 
@@ -162,36 +164,6 @@ html:has(.oh) .od-pie {
   font-weight: 500;
   line-height: 1.35;
   color: var(--ink);
-}
-
-/* Titular redondo de clarvos. */
-.oh-redondo {
-  font-family: var(--f-sans);
-  font-size: clamp(2.1rem, 4.6vw, 4rem);
-  font-weight: 450;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  color: var(--ink);
-  text-wrap: balance;
-}
-
-.oh-redondo__icono {
-  display: inline-grid;
-  width: 1.05em;
-  height: 1.05em;
-  place-items: center;
-  margin: 0 0.12em;
-  border-radius: 999px;
-  background: var(--sun);
-  vertical-align: -0.18em;
-}
-
-.oh-subrayado {
-  background-image: linear-gradient(var(--sun), var(--sun));
-  background-position: 0 92%;
-  background-repeat: no-repeat;
-  background-size: 100% 0.12em;
-  padding-bottom: 0.04em;
 }
 
 /* ── Píldoras y botones ──────────────────────────────────────────────────── */
@@ -364,10 +336,6 @@ html:has(.oh) .od-pie {
     0 24px 50px -30px rgb(0 0 0 / 0.55);
 }
 
-.oh-card--sol {
-  background: var(--sun);
-}
-
 .oh-card__label {
   display: flex;
   align-items: center;
@@ -411,21 +379,6 @@ html:has(.oh) .od-pie {
   gap: 10px;
 }
 
-.oh-card__item {
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  font-size: 13.5px;
-}
-
-.oh-card__item-nombre {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .oh-card .oh-chip--negro {
   margin-top: 12px;
 }
@@ -455,16 +408,6 @@ html:has(.oh) .od-pie {
   vertical-align: 1px;
 }
 
-.oh-vivo {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 99px;
-  background: #0c9f68;
-  box-shadow: 0 0 0 0 rgb(12 159 104 / 0.5);
-  animation: oh-latido 1.8s ease-out infinite;
-}
-
 .oh-verde {
   color: #0a8a5a;
 }
@@ -477,7 +420,6 @@ html:has(.oh) .od-pie {
   background: var(--panel);
   color: var(--hfg);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   box-shadow:
     inset 0 1px rgb(120 200 225 / 0.06),
     0 20px 60px -30px rgb(0 0 0 / 0.9);
@@ -761,30 +703,10 @@ html:has(.oh) .od-pie {
   isolation: isolate;
 }
 
-.oh-negro--arriba {
-  margin-bottom: 0;
-  border-radius: 36px 36px 0 0;
-}
-
-.oh-negro--abajo {
-  margin-top: 0;
-  border-radius: 0 0 36px 36px;
-}
-
 @media (max-width: 767px) {
   .oh-negro {
     margin: 8px;
     border-radius: 24px;
-  }
-
-  .oh-negro--arriba {
-    margin-bottom: 0;
-    border-radius: 24px 24px 0 0;
-  }
-
-  .oh-negro--abajo {
-    margin-top: 0;
-    border-radius: 0 0 24px 24px;
   }
 }
 
@@ -831,53 +753,7 @@ html:has(.oh) .od-pie {
   color: var(--muted-2);
 }
 
-/* ── Lo fijo: escena, película, WhatsApp y barra de selección ───────────── */
-
-.oh-escena {
-  position: fixed;
-  bottom: 38px;
-  left: 92px;
-  z-index: 70;
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #fff;
-  mix-blend-mode: difference;
-  pointer-events: none;
-  transition: opacity 0.4s;
-}
-
-.oh-escena[data-on="false"] {
-  opacity: 0;
-}
-
-.oh-escena b {
-  margin-left: 6px;
-  font-weight: 500;
-}
-
-.oh-pelicula {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 70;
-  height: 14px;
-  pointer-events: none;
-  mix-blend-mode: difference;
-}
-
-.oh-pelicula__tira {
-  width: 100%;
-  height: 100%;
-  padding: 3px 0;
-  background:
-    repeating-linear-gradient(90deg, #fff 0 9px, transparent 9px 14px) content-box,
-    transparent;
-  border-top: 2px solid #fff;
-  transform-origin: 100% 50%;
-}
+/* ── Lo fijo: la barra del plan elegido ──────────────────────────────────── */
 
 .oh-barra-sel {
   position: fixed;
@@ -897,7 +773,6 @@ html:has(.oh) .od-pie {
   background: rgb(0 0 0 / 0.92);
   color: #fff;
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow:
     0 24px 60px -18px rgb(0 0 0 / 0.6),
     inset 0 0 0 1px rgb(255 255 255 / 0.1);
@@ -954,14 +829,6 @@ html:has(.oh) .od-pie {
   height: 16px;
 }
 
-@media (max-width: 767px) {
-  /* En el celular taparía el texto: el contador de escena queda para escritorio. */
-  .oh-escena {
-    display: none;
-  }
-
-}
-
 /* Con la barra del plan abajo, en el celular se esconden los botones flotantes. */
 @media (max-width: 767px) {
   body:has(.oh-barra-sel) :is(.od-wa, .od-onvi-tab) {
@@ -970,9 +837,27 @@ html:has(.oh) .od-pie {
   }
 }
 
-/* Espacio para que la tira de película no tape el final del pie. */
+/* Espacio para que la línea de avance no tape el final del pie. */
 html:has(.oh) .od-pie {
-  padding-bottom: 28px;
+  padding-bottom: 68px;
+}
+
+@media (max-width: 767px) {
+  html:has(.oh) .od-pie {
+    padding-bottom: 46px;
+  }
+
+  /* En el celular la línea ocupa todo el borde de abajo: WhatsApp sube. */
+  html:has(.vision-line) .od-wa {
+    bottom: calc(48px + env(safe-area-inset-bottom, 0px) * 0.6);
+  }
+}
+
+/* Y Onvi también, cuando es el botón redondo de abajo a la derecha. */
+@media (max-width: 640px) {
+  html:has(.vision-line) .od-onvi-tab {
+    bottom: calc(48px + env(safe-area-inset-bottom, 0px) * 0.6);
+  }
 }
 
 /* ── Movimiento ──────────────────────────────────────────────────────────── */

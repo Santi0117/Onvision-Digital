@@ -60,6 +60,41 @@ export default function Nav() {
   const { scrollYProgress } = useScroll();
   const avance = useSpring(scrollYProgress, { stiffness: 180, damping: 32, mass: 0.3 });
 
+  // Sobre las secciones oscuras (las que dicen data-tema="oscuro") la tarjeta
+  // pasa a vidrio oscuro; sobre las claras vuelve a blanco.
+  useEffect(() => {
+    const html = document.documentElement;
+    let raf = 0;
+    const medir = () => {
+      raf = 0;
+      const barra = document.querySelector<HTMLElement>(".od-nav__barra");
+      if (!barra) return;
+      const r = barra.getBoundingClientRect();
+      const y = r.top + r.height / 2;
+      let tema = "claro";
+      for (const el of document.elementsFromPoint(r.left + 8, y)) {
+        // El menú mismo y las intros (que tapan todo un momento) no cuentan.
+        if (el.closest(".od-nav, .od-boot, .vision-boot")) continue;
+        const marcado = el.closest<HTMLElement>("[data-tema]");
+        if (marcado) tema = marcado.dataset.tema ?? "claro";
+        break;
+      }
+      if (html.dataset.navTema !== tema) html.dataset.navTema = tema;
+    };
+    const pedir = () => {
+      if (!raf) raf = requestAnimationFrame(medir);
+    };
+    medir();
+    window.addEventListener("scroll", pedir, { passive: true });
+    window.addEventListener("resize", pedir);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", pedir);
+      window.removeEventListener("resize", pedir);
+      delete html.dataset.navTema;
+    };
+  }, [pathname]);
+
   useEffect(() => {
     if (!abierto) return;
     const alTecla = (e: KeyboardEvent) => {

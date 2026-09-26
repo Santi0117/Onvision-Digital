@@ -1,29 +1,13 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { webFeatures, webOutro, type VisionFeature } from "@/lib/web";
 import { Ojo } from "../od/ui";
-import { Check, Flecha, Icono, type IconoNombre } from "./ui";
+import { Check, Flecha } from "./ui";
 
-type Pieza = VisionFeature["id"];
-
-const ICONO: Record<string, IconoNombre> = {
-  agenda: "calendario",
-  seo: "rayo",
-  contacto: "codigo",
-  chatbot: "chispa",
-  animaciones: "curva",
-  tienda: "tarjeta",
-};
-
-const ENLACE: Record<string, { label: string; href: string }> = {
-  agenda: { label: "Agendar una reunión", href: "/digital#agendar" },
-  seo: { label: "Ver planes", href: "#precios" },
-  contacto: { label: "Ver trabajos", href: "#trabajos" },
-  chatbot: { label: "Conocer a Onvi", href: "#onvi" },
-  animaciones: { label: "Ver servicios", href: "#servicios" },
-  tienda: { label: "Elegir un plan", href: "#activar" },
-};
+/**
+ * Las tarjetas de producto de cada pieza (agenda, SEO, software, IA,
+ * animaciones y pagos), a la manera de las de clarvos. Las usan el dial del
+ * inicio y cualquier fila que muestre una pieza.
+ */
 
 function VisualAgenda() {
   return (
@@ -216,7 +200,7 @@ function VisualPagos() {
   );
 }
 
-const VISUALES: Record<string, () => ReactNode> = {
+export const VISUALES: Record<string, () => ReactNode> = {
   agenda: VisualAgenda,
   seo: VisualSeo,
   contacto: VisualSoftware,
@@ -224,86 +208,3 @@ const VISUALES: Record<string, () => ReactNode> = {
   animaciones: VisualAnimaciones,
   tienda: VisualPagos,
 };
-
-function Fila({ pieza, indice }: { pieza: VisionFeature; indice: number }) {
-  const sol = indice % 2 === 1;
-  const Visual = VISUALES[pieza.id as Pieza] ?? VisualAgenda;
-  const enlace = ENLACE[pieza.id] ?? { label: "Ver más", href: "/digital" };
-  const interno = enlace.href.startsWith("#");
-  return (
-    <article className={`oh-fila ${sol ? "oh-fila--sol" : "oh-fila--crema"}`}>
-      <div className="oh-fila__texto">
-        <h3 className="oh-fila__titulo">
-          <span className="oh-fila__num">{String(indice + 1).padStart(2, "0")}</span>
-          <span className="oh-fila__pildora">
-            {pieza.title}
-            <span className="oh-fila__circ">
-              <Icono nombre={ICONO[pieza.id] ?? "ventana"} />
-            </span>
-          </span>
-        </h3>
-        <p className="oh-fila__desc">{pieza.lead}</p>
-        <ul className="oh-fila__chips">
-          {pieza.bullets.map((b) => (
-            <li key={b}>
-              <Check className="h-3.5 w-3.5" />
-              {b}
-            </li>
-          ))}
-        </ul>
-        {interno ? (
-          <a href={enlace.href} className="oh-fila__link">
-            {enlace.label}
-            <Flecha className="h-4 w-4" />
-          </a>
-        ) : (
-          <Link href={enlace.href} className="oh-fila__link">
-            {enlace.label}
-            <Flecha className="h-4 w-4" />
-          </Link>
-        )}
-      </div>
-      <div className="oh-fila__visual">
-        <div className="oh-fila__lienzo">
-          <Visual />
-        </div>
-      </div>
-    </article>
-  );
-}
-
-/**
- * "Todo lo que trae tu sitio" a la manera de clarvos: titular con el ojo
- * metido en la frase y subrayado cian, y cada pieza en su fila con número,
- * píldora negra y una tarjeta de producto al lado.
- */
-export default function Nucleo() {
-  const titulo = webOutro.modulesTitle.replace(/\.$/, "");
-  const corte = titulo.lastIndexOf("tu ");
-  const inicio = corte >= 0 ? titulo.slice(0, corte) : titulo;
-  const final = corte >= 0 ? titulo.slice(corte) : "";
-
-  return (
-    <section id="piezas" className="oh-nucleo" aria-labelledby="oh-nucleo-titulo">
-      <div className="oh-nucleo__head">
-        <p className="oh-eyebrow">{webOutro.eyebrow}</p>
-        <h2 id="oh-nucleo-titulo" className="oh-redondo">
-          {inicio}
-          <span className="oh-redondo__icono" aria-hidden>
-            <Ojo className="h-auto w-[0.62em]" />
-          </span>{" "}
-          <span className="oh-subrayado">{final}.</span>
-        </h2>
-        <p className="oh-lede oh-nucleo__lede">
-          Seis piezas que se arman a tu marca. Todas llegan con hosting, soporte y Onvi incluidos.
-        </p>
-      </div>
-
-      <div className="oh-nucleo__filas">
-        {webFeatures.map((t, i) => (
-          <Fila key={t.id} pieza={t} indice={i} />
-        ))}
-      </div>
-    </section>
-  );
-}

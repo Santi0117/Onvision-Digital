@@ -183,23 +183,23 @@ export const SISTEMA = {
   producto: `${SISTEMA_URL}/producto`,
 };
 
-/* ── Escenas de la página (contador de jeffmilanes) ──────────────────── */
+/* ── Escenas de la página (el contador de jeffmilanes en la línea de avance) ── */
 
 export const ESCENAS = [
-  "inicio",
-  "clientes",
-  "piezas",
-  "servicios",
-  "nucleo",
-  "onvi",
-  "como-funciona",
-  "trabajos",
-  "por-que",
-  "comparativa",
-  "stack",
-  "precios",
-  "registro",
-  "activar",
+  { id: "inicio", nombre: "Inicio" },
+  { id: "nucleo", nombre: "Núcleo" },
+  { id: "detalles", nombre: "Detalles" },
+  { id: "clientes", nombre: "Clientes" },
+  { id: "servicios", nombre: "Servicios" },
+  { id: "onvi", nombre: "Onvi" },
+  { id: "como-funciona", nombre: "Cómo funciona" },
+  { id: "trabajos", nombre: "Trabajos" },
+  { id: "por-que", nombre: "Por qué" },
+  { id: "comparativa", nombre: "Precios" },
+  { id: "stack", nombre: "Stack" },
+  { id: "precios", nombre: "Planes" },
+  { id: "registro", nombre: "Contacto" },
+  { id: "activar", nombre: "Pago" },
 ] as const;
 
 /* ── Desplazamiento ───────────────────────────────────────────────────── */
