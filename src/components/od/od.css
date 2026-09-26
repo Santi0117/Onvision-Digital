@@ -313,21 +313,45 @@ main:focus {
   transform: scale(1.08) rotate(45deg);
 }
 
-/* ── Línea de avance (nordpixel) ─────────────────────────────────────── */
+/* ── Franja de anuncio del inicio (wisprflow) ────────────────────── */
 
-.od-avance {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 120;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cian-p), var(--cian));
-  transform-origin: 0 50%;
-  pointer-events: none;
+.od-anuncio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 18px;
+  min-height: 56px;
+  padding: 10px 16px;
+  background: #05303a;
+  color: #eef6f9;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
 }
 
-/* ── Barra de navegación (nordpixel) ─────────────────────────────────── */
+.od-anuncio a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cian);
+}
+
+.od-anuncio a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.od-anuncio .od-flecha {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Barra de navegación (tarjeta de wisprflow + marca de nordpixel) ─ */
+
+:root {
+  --nav-w: min(1120px, calc(100vw - 40px));
+}
 
 .od-nav {
   position: fixed;
@@ -335,31 +359,42 @@ main:focus {
   right: 0;
   left: 0;
   z-index: 100;
-  padding: 0 var(--gut);
   pointer-events: none;
 }
 
+/* En el inicio va en el flujo, encajada en la muesca de la portada, y se pega arriba al bajar. */
+.od-nav--muesca {
+  position: sticky;
+  top: -4px;
+  height: 0;
+}
+
 .od-nav__barra {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 18px;
-  max-width: 1360px;
+  gap: 14px;
+  width: var(--nav-w);
   height: 66px;
   margin: 0 auto;
-  padding: 0 10px 0 22px;
+  padding: 0 10px 0 20px;
   border: 1px solid rgb(10 13 18 / 0.08);
-  border-radius: 16px;
+  border-radius: 14px;
   background: var(--blanco);
-  box-shadow: 0 16px 40px -24px rgb(0 0 0 / 0.45);
+  box-shadow: 0 18px 40px -28px rgb(0 0 0 / 0.5);
   color: var(--tinta);
   pointer-events: auto;
 }
 
+.od-nav--muesca .od-nav__barra {
+  margin-top: 18px;
+}
+
 .od-nav__marca {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: 10px;
-  margin-right: auto;
   font-family: var(--f-display);
   font-size: 15px;
   font-weight: 800;
@@ -377,10 +412,50 @@ main:focus {
   color: var(--tinta);
 }
 
-.od-nav__links {
-  display: flex;
+/* El selector segmentado de wisprflow: Digital (acá) | Sistema (el SaaS). */
+.od-seg {
+  display: none;
+  flex: none;
+  padding: 4px;
+  border-radius: 11px;
+  background: rgb(10 13 18 / 0.06);
+}
+
+.od-seg > * {
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #3b4452;
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    box-shadow 0.25s;
+}
+
+.od-seg > [aria-current="true"] {
+  background: var(--blanco);
+  color: var(--tinta);
+  box-shadow: 0 1px 2px rgb(10 13 18 / 0.14);
+}
+
+.od-seg > a:hover {
+  color: var(--tinta);
+}
+
+.od-seg__ext {
+  width: 11px;
+  height: 11px;
+}
+
+.od-nav__links {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
 }
 
 .od-nav__link {
@@ -388,7 +463,7 @@ main:focus {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 8px 12px;
+  padding: 8px 11px;
   font-size: 15px;
   font-weight: 500;
   color: #3b4452;
@@ -398,9 +473,9 @@ main:focus {
 .od-nav__link::after {
   content: "";
   position: absolute;
-  right: 12px;
+  right: 11px;
   bottom: 2px;
-  left: 12px;
+  left: 11px;
   height: 1.5px;
   background: var(--tinta);
   transform: scaleX(0);
@@ -419,21 +494,18 @@ main:focus {
   transform-origin: left;
 }
 
-.od-nav__ext {
-  width: 12px;
-  height: 12px;
-}
-
 .od-nav__acciones {
   display: flex;
+  flex: none;
   align-items: center;
   gap: 10px;
-  margin-left: 12px;
+  margin-left: auto;
 }
 
 .od-nav__menu {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
   height: 42px;
   padding: 0 16px;
@@ -472,6 +544,7 @@ main:focus {
   color: var(--blanco);
   font-size: 15px;
   font-weight: 600;
+  white-space: nowrap;
   transition: background-color 0.3s;
 }
 
@@ -484,8 +557,41 @@ main:focus {
   height: 15px;
 }
 
-@media (max-width: 1080px) {
+/* El avance de la página, en el borde de abajo de la tarjeta (sibaldesign). */
+.od-nav__avance {
+  position: absolute;
+  right: 14px;
+  bottom: -1px;
+  left: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--cian), var(--azul));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@media (min-width: 760px) {
+  .od-seg {
+    display: flex;
+  }
+}
+
+/* Con los enlaces a la vista, el botón del menú queda solo con sus puntos. */
+@media (min-width: 1200px) {
   .od-nav__links {
+    display: flex;
+  }
+
+  .od-nav__acciones {
+    margin-left: 8px;
+  }
+
+  .od-nav__menu {
+    width: 42px;
+    padding: 0;
+  }
+
+  .od-nav__menu-txt {
     display: none;
   }
 }
@@ -499,7 +605,11 @@ main:focus {
     height: 58px;
     gap: 8px;
     padding: 0 8px 0 14px;
-    border-radius: 14px;
+    border-radius: 12px;
+  }
+
+  .od-nav--muesca .od-nav__barra {
+    margin-top: 14px;
   }
 
   .od-nav__marca {
@@ -513,7 +623,6 @@ main:focus {
 
   .od-nav__acciones {
     gap: 6px;
-    margin-left: 0;
   }
 
   .od-nav__menu {
@@ -694,7 +803,7 @@ a.od-menu__dato:hover {
   }
 }
 
-/* ── Intro (hobro + driveberry + el ojo dibujado) ────────────────────── */
+/* ── Intro (arranque de verticales + el ojo dibujado + driveberry) ─ */
 
 @property --od-hueco {
   syntax: "<length>";
@@ -707,9 +816,13 @@ a.od-menu__dato:hover {
   inset: 0;
   z-index: 300;
   display: grid;
-  place-items: center;
-  background: var(--negro);
-  color: var(--blanco);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  padding: clamp(24px, 6vw, 96px);
+  background:
+    radial-gradient(ellipse 70% 60% at 42% 18%, rgb(52 211 238 / 0.13), transparent 70%),
+    var(--negro);
+  color: #c4dae4;
   --od-hueco: 0px;
   -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--od-hueco), #000 calc(var(--od-hueco) + 1px));
   mask-image: radial-gradient(circle at 50% 50%, transparent var(--od-hueco), #000 calc(var(--od-hueco) + 1px));
@@ -726,40 +839,32 @@ html[data-boot="off"] .od-boot {
   transition: --od-hueco 1s var(--ease-2);
 }
 
-.od-boot__arriba {
-  position: absolute;
-  top: 26px;
-  right: var(--gut);
-  left: var(--gut);
+.od-boot__in {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  color: var(--gris-2);
+  flex-direction: column;
+  gap: 34px;
 }
 
-.od-boot__centro {
-  display: grid;
-  justify-items: center;
-  gap: 18px;
-  transform: translateY(-4vh);
+.od-boot__marca {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .od-boot__ojo {
-  width: min(260px, 52vw);
+  width: clamp(64px, 7vw, 96px);
   height: auto;
+  flex: none;
   overflow: visible;
 }
 
 .od-boot__trazo {
   fill: none;
   stroke: var(--blanco);
-  stroke-width: 0.6;
+  stroke-width: 1.2;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 6px rgb(52 211 238 / 0.8));
+  filter: drop-shadow(0 0 5px rgb(52 211 238 / 0.8));
   animation: od-traza 1.3s var(--ease-2) 0.1s forwards;
 }
 
@@ -775,64 +880,236 @@ html[data-boot="off"] .od-boot {
   animation: od-aparece 0.4s ease 1.3s forwards;
 }
 
-.od-boot__marca {
+.od-boot__nombre {
   font-family: var(--f-display);
-  font-size: 30px;
-  font-weight: 700;
-  font-stretch: 110%;
-  letter-spacing: -0.02em;
+  font-size: clamp(26px, 3.2vw, 42px);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1;
+  letter-spacing: 0.28em;
+  color: #eaf8fc;
   opacity: 0;
-  animation: od-aparece 0.6s ease 0.5s forwards;
+  animation: od-boot-sube 0.8s var(--ease) 0.25s forwards;
 }
 
-.od-boot__marca span {
+.od-boot__nombre span {
   color: var(--cian);
 }
 
-.od-boot__carga {
-  position: absolute;
-  right: 0;
-  bottom: 21vh;
-  left: 0;
-}
-
-.od-boot__etiqueta {
-  padding: 0 var(--gut) 8px;
+.od-boot__sub {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-right: 0.3em;
   font-family: var(--f-mono);
   font-size: 11px;
+  color: #6f93a3;
+  opacity: 0;
+  animation: od-boot-sube 0.8s var(--ease) 0.35s forwards;
+}
+
+.od-boot__lineas {
+  display: grid;
+  gap: 12px;
+  max-width: 560px;
+  font-family: var(--f-mono);
+  font-size: 12px;
   letter-spacing: 0.22em;
-  color: var(--gris-2);
+  color: #6f93a3;
+}
+
+.od-boot__lineas li {
+  opacity: 0;
+  animation: od-boot-sube 0.7s var(--ease) forwards;
+}
+
+.od-boot__lineas li:nth-child(1) {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #16262f;
+  animation-delay: 0.35s;
+}
+
+.od-boot__lineas li:nth-child(2) {
+  color: #c4dae4;
+  animation-delay: 0.5s;
+}
+
+.od-boot__lineas li:nth-child(3) {
+  animation-delay: 0.65s;
+}
+
+.od-boot__lineas b {
+  font-weight: 400;
+  color: var(--cian);
+}
+
+.od-boot__entrar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: #eaf8fc;
+  opacity: 0;
+  animation: od-boot-sube 0.7s var(--ease) 0.9s forwards;
+}
+
+.od-boot__regla {
+  width: 72px;
+  height: 1px;
+  background: #26414e;
+}
+
+.od-boot__barras {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.od-boot__barras > i {
+  width: 5px;
+  height: 11px;
+  background: #9dbccb;
+}
+
+.od-boot__entrar:hover .od-boot__barras > i {
+  background: var(--cian);
+}
+
+.od-boot__carga {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+}
+
+.od-boot__anillo {
+  position: relative;
+  display: grid;
+  width: 128px;
+  height: 128px;
+  place-items: center;
+}
+
+.od-boot__anillo svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.od-boot__pista,
+.od-boot__lleno {
+  fill: none;
+  stroke-width: 2;
 }
 
 .od-boot__pista {
-  display: block;
-  height: 10px;
-  background: rgb(255 255 255 / 0.06);
+  stroke: #16262f;
 }
 
-.od-boot__barra {
-  display: block;
-  height: 100%;
-  background: var(--blanco);
-  transform: scaleX(0);
-  transform-origin: 0 50%;
+.od-boot__lleno {
+  stroke: var(--cian);
+  filter: drop-shadow(0 0 4px rgb(52 211 238 / 0.6));
 }
 
-.od-boot__pct {
-  position: absolute;
-  right: 0;
-  bottom: 28px;
-  left: 0;
+.od-boot__anillo p {
+  font-family: var(--f-display);
+  font-size: 26px;
+  font-weight: 700;
+  font-stretch: 125%;
+  letter-spacing: 0.06em;
+  color: #eaf8fc;
+  font-variant-numeric: tabular-nums;
+}
+
+.od-boot__anillo small {
+  margin-left: 2px;
+  font-size: 11px;
+  color: #6f93a3;
+}
+
+.od-boot__titulo {
   font-family: var(--f-mono);
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-align: center;
-  color: var(--gris-3);
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  color: #9dbccb;
 }
 
-@media (max-width: 640px) {
-  .od-boot__arriba span:nth-child(2) {
-    display: none;
+.od-boot__lista {
+  position: absolute;
+  bottom: clamp(24px, 5vh, 56px);
+  left: clamp(24px, 6vw, 96px);
+  width: min(420px, 100% - 48px);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+}
+
+.od-boot__iniciando {
+  margin-bottom: 12px;
+  color: #9dbccb;
+}
+
+.od-boot__lista ul {
+  display: grid;
+  gap: 6px;
+}
+
+.od-boot__lista li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #3e5663;
+  animation: od-listo-texto 0.01s linear forwards;
+}
+
+.od-boot__lista li > i {
+  flex: 1;
+  height: 1px;
+  background-image: linear-gradient(90deg, #26414e 50%, transparent 50%);
+  background-size: 6px 1px;
+}
+
+.od-boot__lista li > b {
+  font-weight: 400;
+  color: transparent;
+  animation: inherit;
+  animation-name: od-listo;
+}
+
+@media (max-width: 767px) {
+  .od-boot {
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 44px;
+    padding-top: 72px;
+  }
+
+  .od-boot__carga {
+    justify-items: start;
+  }
+}
+
+@keyframes od-boot-sube {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes od-listo-texto {
+  to {
+    color: #9dbccb;
+  }
+}
+
+@keyframes od-listo {
+  to {
+    color: var(--cian);
   }
 }
 
@@ -1656,6 +1933,122 @@ html.od-con-cursor .od-cursor-aro {
     transform: rotateX(-80deg);
     opacity: 0.4;
   }
+}
+
+/* ── Hoja de pago (la usan /digital#planes y el inicio) ──────────── */
+
+.od-pago {
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.od-pago__velo {
+  position: absolute;
+  inset: 0;
+  background: rgb(3 6 10 / 0.7);
+  backdrop-filter: blur(6px);
+  cursor: default;
+}
+
+.od-pago__panel {
+  position: relative;
+  display: grid;
+  width: min(460px, 100%);
+  max-height: calc(100svh - 32px);
+  gap: 18px;
+  overflow-y: auto;
+  padding: 26px;
+  border-radius: 24px;
+  background: var(--blanco);
+  color: var(--tinta);
+  box-shadow: 0 50px 100px -40px rgb(0 0 0 / 0.8);
+}
+
+.od-pago__cabeza {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.od-pago__rotulo {
+  color: var(--cian-t);
+}
+
+.od-pago__titulo {
+  margin-top: 6px;
+  font-family: var(--f-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.od-pago__cerrar {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--linea-2);
+  border-radius: 50%;
+}
+
+.od-pago__resumen {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--papel);
+}
+
+.od-pago__plan {
+  font-size: 14.5px;
+  color: var(--gris);
+}
+
+.od-pago__plan b {
+  color: var(--tinta);
+}
+
+.od-pago__precio {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.od-pago__precio b {
+  font-family: var(--f-display);
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.od-pago__precio span,
+.od-pago__alt {
+  font-size: 14px;
+  color: var(--gris);
+}
+
+.od-pago__nota {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--gris);
+}
+
+.od-pago__error {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff0ee;
+  font-size: 14px;
+  color: #b42318;
+}
+
+.od-pago__acciones {
+  display: grid;
+  gap: 8px;
 }
 
 /* ── Cierre (hobro "Got project? PING US") ───────────────────────────── */

@@ -3,22 +3,26 @@
 import { useEffect, useRef, useState } from "react";
 import { OJO_CONTORNO } from "./ui";
 
+/** Lo que "arranca": las piezas que trae cada proyecto. */
+const FILAS = ["Diseño a tu marca", "Onvi IA", "SEO y velocidad", "SINPE y tarjeta", "Hosting incluido"];
+
+const R = 52;
+const CIRCUNFERENCIA = 2 * Math.PI * R;
 const DURACION = 1900;
-const ETAPAS = ["CARGANDO", "ARMANDO", "LISTO"] as const;
 
 /**
- * La intro, una vez por visita:
- * - el ojo oficial se dibuja con una línea (como la intro de hoy),
- * - la barra blanca de hobro se llena con "CARGANDO…",
- * - el porcentaje de driveberry abajo,
- * - y sale con el círculo que se abre de driveberry.
- * Con movimiento reducido o ya vista, el script del <head> la apaga.
+ * La intro, una vez por visita, con la estructura del arranque de
+ * verticales: el ojo oficial que se dibuja con una línea, la marca
+ * espaciada, las líneas en mono, el anillo de carga y la lista "INICIANDO"
+ * de jeffmilanes; el botón de entrar de sibaldesign. Sale con el círculo
+ * que se abre de driveberry. Con movimiento reducido o ya vista, el script
+ * del <head> la apaga; sin JavaScript, se va sola por CSS.
  */
 export default function Boot() {
   const [estado, setEstado] = useState<"cargando" | "saliendo" | "fuera">("cargando");
   const pct = useRef<HTMLSpanElement>(null);
-  const barra = useRef<HTMLSpanElement>(null);
-  const etapa = useRef<HTMLSpanElement>(null);
+  const anillo = useRef<SVGCircleElement>(null);
+  const año = new Date().getFullYear();
 
   useEffect(() => {
     const html = document.documentElement;
@@ -27,14 +31,11 @@ export default function Boot() {
     let raf = 0;
     const t0 = performance.now();
     const cuadro = (ahora: number) => {
-      const p = Math.min(1, (ahora - t0) / DURACION);
-      // Rápido al principio, se detiene un momento antes de terminar.
-      const e = p < 0.7 ? (p / 0.7) * 0.86 : 0.86 + ((p - 0.7) / 0.3) * 0.14;
-      const n = Math.round(e * 100);
-      if (pct.current) pct.current.textContent = String(n).padStart(2, "0");
-      if (barra.current) barra.current.style.transform = `scaleX(${e})`;
-      if (etapa.current) etapa.current.textContent = ETAPAS[n < 45 ? 0 : n < 96 ? 1 : 2];
-      if (p < 1) raf = requestAnimationFrame(cuadro);
+      const t = Math.min(1, (ahora - t0) / DURACION);
+      const e = 1 - Math.pow(1 - t, 3);
+      if (pct.current) pct.current.textContent = String(Math.round(e * 100)).padStart(2, "0");
+      if (anillo.current) anillo.current.style.strokeDashoffset = String(CIRCUNFERENCIA * (1 - e));
+      if (t < 1) raf = requestAnimationFrame(cuadro);
       else {
         html.setAttribute("data-boot", "done");
         setEstado("saliendo");
@@ -55,37 +56,85 @@ export default function Boot() {
 
   if (estado === "fuera") return null;
 
+  const entrar = () => {
+    document.documentElement.setAttribute("data-boot", "done");
+    setEstado("saliendo");
+  };
+
   return (
     <div className="od-boot" data-estado={estado} aria-hidden>
-      <div className="od-boot__arriba">
-        <span>ONVISION DIGITAL</span>
-        <span>SITIOS · TIENDAS · SOFTWARE · APPS</span>
-        <span>COSTA RICA</span>
-      </div>
+      <div className="od-boot__in">
+        <div className="od-boot__marca">
+          <svg viewBox="0 0 100 56" className="od-boot__ojo">
+            <path d={OJO_CONTORNO} pathLength={1} className="od-boot__trazo" />
+            <path d={OJO_CONTORNO} className="od-boot__relleno" />
+            <circle cx="50" cy="28" r="7.1" className="od-boot__pupila" />
+          </svg>
+          <div>
+            <p className="od-boot__nombre">
+              ONVISION<span>.</span>
+            </p>
+            <p className="od-boot__sub">
+              {"DIGITAL".split("").map((l, i) => (
+                <span key={i}>{l}</span>
+              ))}
+            </p>
+          </div>
+        </div>
 
-      <div className="od-boot__centro">
-        <svg viewBox="0 0 100 56" className="od-boot__ojo">
-          <path d={OJO_CONTORNO} pathLength={1} className="od-boot__trazo" />
-          <path d={OJO_CONTORNO} className="od-boot__relleno" />
-          <circle cx="50" cy="28" r="7.1" className="od-boot__pupila" />
-        </svg>
-        <p className="od-boot__marca">
-          onvision<span>.</span>
-        </p>
+        <ol className="od-boot__lineas">
+          <li>ONVISION DIGITAL · PRESENTA</li>
+          <li>COSTA RICA [DIGITAL / {año}]</li>
+          <li>
+            SITIOS · TIENDAS · SOFTWARE · APPS <b>◤</b>
+          </li>
+        </ol>
+
+        <button type="button" tabIndex={-1} className="od-boot__entrar" onClick={entrar}>
+          <span className="od-boot__regla" />
+          <span className="od-boot__barras">
+            <i />
+            <i />
+            <i />
+          </span>
+          ENTRAR A ONVISION
+        </button>
       </div>
 
       <div className="od-boot__carga">
-        <p className="od-boot__etiqueta">
-          <span ref={etapa}>CARGANDO</span>…
-        </p>
-        <span className="od-boot__pista">
-          <span ref={barra} className="od-boot__barra" />
-        </span>
+        <div className="od-boot__anillo">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r={R} className="od-boot__pista" />
+            <circle
+              ref={anillo}
+              cx="60"
+              cy="60"
+              r={R}
+              className="od-boot__lleno"
+              strokeDasharray={CIRCUNFERENCIA}
+              strokeDashoffset={CIRCUNFERENCIA}
+            />
+          </svg>
+          <p>
+            <span ref={pct}>00</span>
+            <small>%</small>
+          </p>
+        </div>
+        <p className="od-boot__titulo">OD.CARGANDO.SITIO</p>
       </div>
 
-      <p className="od-boot__pct">
-        <span ref={pct}>00</span>%
-      </p>
+      <div className="od-boot__lista">
+        <p className="od-boot__iniciando">INICIANDO</p>
+        <ul>
+          {FILAS.map((f, i) => (
+            <li key={f} style={{ animationDelay: `${0.2 + i * 0.26}s` }}>
+              <span>{f}</span>
+              <i />
+              <b>LISTO</b>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

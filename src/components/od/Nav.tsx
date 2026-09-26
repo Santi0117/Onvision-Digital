@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
-import { navegacion, wa } from "./data";
+import { SISTEMA_URL, navegacion, wa } from "./data";
 import { Cerrar, Flecha, IconoInstagram, IconoWhatsApp, Indice, Ojo } from "./ui";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -47,15 +47,18 @@ function Enlace({
 }
 
 /**
- * La barra blanca flotante de nordpixel (marca espaciada con punto de
- * color, enlaces, botón "Menú" con borde y el botón de color), la línea de
- * avance arriba del todo y el menú a pantalla completa de hobro.
+ * La tarjeta flotante de wisprflow con la marca espaciada de nordpixel, el
+ * selector "Digital | Sistema", los enlaces, el botón "Menú" y el botón de
+ * color; la línea de abajo es el avance de sibaldesign. En el inicio queda
+ * encajada en la muesca de la portada. El menú a pantalla completa es el
+ * de hobro.
  */
 export default function Nav() {
   const pathname = usePathname();
+  const inicio = pathname === "/";
   const [abierto, setAbierto] = useState(false);
   const { scrollYProgress } = useScroll();
-  const avance = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.3 });
+  const avance = useSpring(scrollYProgress, { stiffness: 180, damping: 32, mass: 0.3 });
 
   useEffect(() => {
     if (!abierto) return;
@@ -75,9 +78,7 @@ export default function Nav() {
 
   return (
     <>
-      <motion.div className="od-avance" style={{ scaleX: avance }} aria-hidden />
-
-      <header className="od-nav">
+      <header className={`od-nav${inicio ? " od-nav--muesca" : ""}`}>
         <div className="od-nav__barra">
           <Link href="/" className="od-nav__marca" aria-label="Onvision Digital, inicio">
             <Ojo className="od-nav__ojo" />
@@ -86,28 +87,37 @@ export default function Nav() {
             </span>
           </Link>
 
+          <div className="od-seg" role="group" aria-label="Productos">
+            <span aria-current="true">Digital</span>
+            <a href={`${SISTEMA_URL}/producto`} target="_blank" rel="noopener noreferrer">
+              Sistema
+              <Flecha dir="diagonal" className="od-seg__ext" />
+            </a>
+          </div>
+
           <nav className="od-nav__links" aria-label="Principal">
-            {navegacion.map((l) => {
-              const activo = esActivo(pathname, l.href);
-              return (
-                <Enlace
-                  key={l.href}
-                  href={l.href}
-                  externo={l.externo}
-                  current={activo}
-                  className={`od-nav__link${activo ? " is-on" : ""}`}
-                >
-                  {l.label}
-                  {l.externo ? <Flecha dir="diagonal" className="od-nav__ext" /> : null}
-                </Enlace>
-              );
-            })}
+            {navegacion
+              .filter((l) => !l.externo)
+              .map((l) => {
+                const activo = esActivo(pathname, l.href);
+                return (
+                  <Enlace
+                    key={l.href}
+                    href={l.href}
+                    current={activo}
+                    className={`od-nav__link${activo ? " is-on" : ""}`}
+                  >
+                    {l.label}
+                  </Enlace>
+                );
+              })}
           </nav>
 
           <div className="od-nav__acciones">
             <button
               type="button"
               className="od-nav__menu"
+              aria-label="Menú"
               aria-expanded={abierto}
               aria-controls="od-menu"
               onClick={() => setAbierto(true)}
@@ -118,13 +128,15 @@ export default function Nav() {
                 <i />
                 <i />
               </span>
-              Menú
+              <span className="od-nav__menu-txt">Menú</span>
             </button>
             <Link href="/digital#agendar" className="od-nav__cta">
               <span className="od-nav__cta-txt">Agendar reunión</span>
               <Flecha className="od-nav__cta-ico" />
             </Link>
           </div>
+
+          <motion.span className="od-nav__avance" style={{ scaleX: avance }} aria-hidden />
         </div>
       </header>
 
