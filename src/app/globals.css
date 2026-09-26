@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@source "../";
+
+@theme inline {
+  --font-sans: var(--ff-sans);
+  --font-mono: var(--ff-mono);
+}
+
+/*
+ * Onvision Digital — sistema visual.
+ * Negro y blanco de hobro y jeffmilanes, claros fríos y punto de color de
+ * nordpixel, tarjetas redondeadas con campo de color difuso de driveberry.
+ * El color es el cian del ojo de Onvision.
+ */
+:root {
+  --negro: #000;
+  --n1: #07090c;
+  --n2: #0d1117;
+  --n3: #151b23;
+  --n4: #1f2731;
+  --blanco: #fff;
+  --papel: #f3f6f9;
+  --papel-2: #e8eef4;
+  --hielo: #e3f5f9;
+  --tinta: #0a0d12;
+  --gris: #5b6573;
+  --gris-2: #8a94a2;
+  --gris-3: #b8c0ca;
+  --linea: rgb(10 13 18 / 0.1);
+  --linea-2: rgb(10 13 18 / 0.18);
+  --linea-d: rgb(255 255 255 / 0.12);
+  --linea-d2: rgb(255 255 255 / 0.22);
+
+  /* El cian del ojo: claro sobre negro, profundo sobre blanco. */
+  --cian: #34d3ee;
+  --cian-2: #7ee8fa;
+  --cian-p: #0a86a6;
+  --cian-t: #0e7490;
+  --azul: #3b6ef6;
+  --menta: #2ef2a6;
+  --menta-p: #0c9f68;
+
+  --f-display: var(--ff-display), "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-serif: var(--ff-serif), "Cormorant Garamond", Georgia, serif;
+  --f-sans: var(--ff-sans), "Geist", system-ui, sans-serif;
+  --f-mono: var(--ff-mono), "Geist Mono", ui-monospace, monospace;
+
+  --gut: clamp(16px, 3.2vw, 44px);
+  --radio: 28px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-2: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html {
+  background: var(--negro);
+  color: var(--blanco);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--negro);
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: clip;
+}
+
+:where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(button) {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+:where(img, video, svg, canvas) {
+  display: block;
+}
+
+:where(h1, h2, h3, h4, p, ul, ol, figure, blockquote, dl, dd) {
+  margin: 0;
+}
+
+:where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--cian);
+  color: var(--negro);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cian);
+  outline-offset: 3px;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

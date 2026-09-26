@@ -1,0 +1,218 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Empresas
+   ───────────────────────────────────────────────────────────────────────── */
+
+.od-emp-cab {
+  padding: clamp(150px, 16vw, 230px) var(--gut) clamp(60px, 7vw, 100px);
+}
+
+.od-emp-cab__rotulo {
+  color: var(--cian);
+}
+
+.od-emp-cab__h1 {
+  max-width: 15ch;
+  margin-top: 22px;
+  font-family: var(--f-sans);
+  font-size: clamp(48px, 8vw, 132px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.od-emp-cab__h1 em {
+  font-size: 1.1em;
+  letter-spacing: -0.03em;
+  color: var(--cian-2);
+}
+
+.od-emp-cab__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 60px;
+  margin-top: clamp(30px, 4vw, 60px);
+  padding-top: 26px;
+  border-top: 1px solid var(--linea-d);
+}
+
+.od-emp-cab__lead {
+  max-width: 44ch;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gris-3);
+}
+
+.od-emp-cab__conteo {
+  display: grid;
+  gap: 2px;
+  font-family: var(--f-display);
+  font-size: clamp(24px, 2.6vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.od-emp-cab__conteo span {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gris-2);
+}
+
+.od-emp {
+  margin: 0 12px;
+  padding: clamp(40px, 5vw, 70px) clamp(14px, 3vw, 44px) clamp(70px, 8vw, 120px);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  color: var(--tinta);
+}
+
+.od-emp__filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.od-emp__filtros button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border: 1px solid var(--linea-2);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+
+.od-emp__filtros button:hover {
+  border-color: var(--tinta);
+}
+
+.od-emp__filtros button[aria-pressed="true"] {
+  border-color: var(--tinta);
+  background: var(--tinta);
+  color: var(--blanco);
+}
+
+.od-emp__filtros .od-mono {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.od-emp__grilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1360px;
+  margin: clamp(30px, 4vw, 56px) auto 0;
+}
+
+.od-ficha {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--linea);
+  border-radius: 24px;
+  background: var(--papel);
+}
+
+.od-ficha__imagen {
+  position: relative;
+  aspect-ratio: 940 / 700;
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgb(52 211 238 / 0.18), transparent 70%),
+    #000;
+}
+
+.od-ficha__tipo {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.92);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.od-ficha__texto {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 24px 26px 26px;
+}
+
+.od-ficha__n {
+  color: var(--cian-t);
+}
+
+.od-ficha__nombre {
+  font-family: var(--f-display);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.od-ficha__sector {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.od-ficha__cuerpo {
+  margin-top: 4px;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: #3a4452;
+}
+
+.od-ficha__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid var(--cian-p);
+  font-weight: 700;
+}
+
+.od-ficha__link .od-flecha {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.4s var(--ease);
+}
+
+.od-ficha__link:hover .od-flecha {
+  transform: rotate(-45deg) translateX(3px);
+}
+
+.od-ficha__privado {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--gris-2);
+}
+
+@media (max-width: 860px) {
+  .od-emp__grilla {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .od-emp {
+    margin: 0 8px;
+    border-radius: 22px;
+  }
+}

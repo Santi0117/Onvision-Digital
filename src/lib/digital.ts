@@ -1,0 +1,460 @@
+import { site } from "./site";
+
+export const digitalHero = {
+  eyebrow: "Onvision Digital · Sitios & software",
+  headline: "Construimos lo que tu negocio necesita para vender y operar en digital.",
+  lead: "Sitios, tiendas, software a medida y apps — a tu marca, con Onvi incluido y listos para revisar.",
+  primaryCta: {
+    label: "Agendar una reunión",
+    href: "#agendar",
+  },
+} as const;
+
+export const digitalShowreel = {
+  title: "onvision",
+  lead: "Sitios, tiendas y software a medida — a tu gusto, con Onvi IA incluido.",
+  cta: {
+    label: "Saber más",
+    href: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, quiero una demo de Onvision Digital.")}`,
+  },
+  items: [
+    {
+      id: "web",
+      label: "Sitios web",
+      body: "Páginas web modernas que hacen que tu negocio destaque digitalmente.",
+      video: "/digital/videos/web.mp4",
+      poster: "/digital/web-pro-bafesa-cut2.png",
+    },
+    {
+      id: "shop",
+      label: "E-commerce",
+      body: "Catálogo, carrito, pagos online y panel admin. Con utilidades que las hacen únicas y personalizables.",
+      video: "/digital/videos/ecommerce.mp4",
+      poster: "/digital/ecom-firstdown-tienda-cut2.png",
+    },
+    {
+      id: "saas",
+      label: "Software a medida",
+      body: "Paneles, reservas, inventario y flujos propios. Todo lo que tu operación necesite.",
+      video: "/digital/videos/software.mp4",
+      poster: "/digital/saas-clinicos-inventario-cut2.png",
+    },
+    {
+      id: "mobile",
+      label: "Apps móviles",
+      body: "iOS y Android a medida cuando el negocio necesita estar en el bolsillo del cliente.",
+      video: "/digital/videos/mobile.mp4",
+      poster: "/digital/mobile-run-cut5.png",
+    },
+  ],
+} as const;
+
+export const digitalIncludes = {
+  title: "Qué incluye cada servicio",
+  lead: "Cada tarjeta cuenta qué entregamos y qué queda listo para operar.",
+  items: [
+    {
+      id: 1,
+      title: "Página web",
+      description:
+        "Páginas web con chatbots 100% inteligentes con IA, mapas interactivos, formularios con base de datos, calendarios y todo lo que necesitás para convertir visitas en clientes.",
+      price: "Desde $35/mes o $550",
+    },
+    {
+      id: 2,
+      title: "E-commerce",
+      description:
+        "Catálogo, carrito, métodos de pago y pedidos. La tienda vende; la operación no se traba.",
+      price: "Desde $50/mes o $750",
+    },
+    {
+      id: 3,
+      title: "Software a medida",
+      description:
+        "Reservas, inventario, órdenes y paneles propios. Productos que el equipo abre todos los días, tu operación queda lista.",
+      price: "Desde $150/mes",
+    },
+    {
+      id: 4,
+      title: "App móvil",
+      description:
+        "iOS y Android a medida cuando el cliente necesita la marca en el bolsillo: cuenta, pedidos, alertas y push.",
+      price: "Desde $140/mes o $1.500",
+    },
+  ],
+} as const;
+
+export const digitalImpact = {
+  label: "03 — Impacto",
+  title: "Web que vende. Software que acelera.",
+  lead: "Una página web sube ventas y conversación con clientes. El software a medida libera horas y sube la productividad del equipo.",
+  note: "Trayectorias ilustrativas a 6 meses de lanzar.",
+  web: {
+    eyebrow: "Páginas web",
+    title: "Ventas y comunicación",
+    subtitle: "Con sitio propio vs. sin presencia online",
+    metrics: [
+      { value: "+48%", label: "ventas" },
+      { value: "3.2×", label: "consultas" },
+    ],
+    labels: ["M1", "M2", "M3", "M4", "M5", "M6"],
+    sales: {
+      label: "Ventas",
+      values: [18, 24, 31, 38, 44, 52],
+    },
+    comms: {
+      label: "Comunicación",
+      values: [12, 19, 28, 36, 43, 51],
+    },
+  },
+  software: {
+    eyebrow: "Software a medida",
+    title: "Productividad del equipo",
+    subtitle: "Horas útiles y tareas cerradas con flujos propios",
+    metric: "+62%",
+    metricLabel: "más productividad",
+    labels: ["M1", "M2", "M3", "M4", "M5", "M6"],
+    values: [22, 28, 36, 45, 54, 64],
+    baseline: [22, 23, 22, 24, 23, 24],
+    seriesLabel: "Con software",
+    baselineLabel: "Sin software",
+  },
+} as const;
+
+export const digitalMeeting = {
+  label: "04 — Agendar",
+  title: "Agendá una reunión.",
+  lead: "Elegí fecha, hora y contanos qué necesitás. Te confirmamos por correo o WhatsApp.",
+  weekdays: ["D", "L", "M", "M", "J", "V", "S"],
+  months: [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ],
+  steps: {
+    date: "Fecha",
+    time: "Hora",
+    service: "Servicio",
+    details: "Tus datos",
+  },
+  timeLabel: "¿A qué hora?",
+  times: [
+    { label: "9:00 a.m.", hour: 9, minute: 0 },
+    { label: "10:30 a.m.", hour: 10, minute: 30 },
+    { label: "12:00 p.m.", hour: 12, minute: 0 },
+    { label: "2:00 p.m.", hour: 14, minute: 0 },
+    { label: "3:30 p.m.", hour: 15, minute: 30 },
+    { label: "5:00 p.m.", hour: 17, minute: 0 },
+  ],
+  serviceLabel: "¿Qué querés conversar?",
+  services: [
+    "Sitio web",
+    "Tienda online",
+    "Software a medida",
+    "App móvil",
+    "Consulta general",
+  ],
+  detailsLabel: "Tus datos",
+  fields: {
+    name: "Nombre",
+    namePlaceholder: "Tu nombre",
+    phone: "Número",
+    phonePlaceholder: "8888 8888",
+    email: "Correo",
+    emailPlaceholder: "hola@empresa.com",
+    note: "Nota (opcional)",
+    notePlaceholder: "Contanos breve qué necesitás…",
+  },
+  submit: "Confirmar reunión",
+  hint: "Lun–Vie · hora de Costa Rica",
+} as const;
+
+export const digitalPlans = {
+  label: "02 — Precios",
+  title: "Planes claros. Alcance a tu medida.",
+  description:
+    "Sitios, tiendas, software y apps. Elegí la línea, mirá qué incluye y pagá la mensualidad — o coordiná pago único.",
+  period: "/ mes",
+  yearLabel: "/ año",
+  yearSave: "−17%",
+  onceLabel: "pago único",
+  mostChosen: "Más elegido",
+  payMonthlyCta: "Pagar mensualidad",
+  paySheet: {
+    title: "Continuar al pago",
+    categorySeparator: " · ",
+    monthlyLabel: "Mensualidad",
+    companyNameLabel: "Nombre de tu empresa (opcional)",
+    companyNamePlaceholder: "Ej. Mi negocio S.A.",
+    note: "Vas a pagar la mensualidad con Onvo (tarjeta, SINPE y más). El pago único se coordina aparte.",
+    continueCta: "Pagar",
+    continueLoading: "Abriendo checkout…",
+    cancelCta: "Cancelar",
+    closeAria: "Cerrar",
+    errorGeneric: "No se pudo abrir el checkout. Intentá de nuevo o escribinos por WhatsApp.",
+  },
+  quoteCta: "Cotizar / preguntar",
+  onceAskPrefix: "¿Preferís pago único?",
+  onceAskLink: "Consultanos",
+  customQuotePrefix:
+    "¿Necesitás un SaaS a medida o un proyecto con integraciones complejas?",
+  customQuoteLink: "Solicitá cotización personalizada →",
+  quoteHref: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, quiero cotizar un plan de Onvision Digital.")}`,
+  tabs: {
+    web: "Sitios web",
+    shop: "Tienda online",
+    software: "Software",
+    mobile: "App móvil",
+  },
+  groups: {
+    web: {
+      description:
+        "Presencia digital y sitios corporativos. Pagá la mensualidad; el pago único se coordina aparte.",
+      plans: [
+        {
+          name: "Página estándar",
+          tagline: "Presencia clara y profesional.",
+          price: "$35",
+          priceAlt: "₡15.000",
+          priceYear: "$350",
+          priceFull: "$550",
+          checkoutId: "web-standard",
+          features: [
+            "Panel Onvi incluido",
+            "Mínimo 5 meses de suscripción; después podés cancelar",
+            "Landing o sitio de 1–3 secciones",
+            "Diseño responsive mobile-first a tu marca",
+            "Formulario de contacto + redes sociales",
+            "Integración WhatsApp para consultas",
+            "Chatbot IA para tu empresa",
+            "Animaciones e interacciones personalizadas",
+            "SEO on-page",
+            "Hosting y dominio configurado",
+            "Optimización de velocidad",
+            "Despliegue incluido",
+            "Soporte y ajustes menores incluidos en la mensualidad",
+          ],
+        },
+        {
+          name: "Página Pro",
+          tagline: "Sitios con herramientas a medida.",
+          price: "$55",
+          priceAlt: "₡25.000",
+          priceYear: "$550",
+          priceFull: "$750",
+          checkoutId: "web-pro",
+          highlighted: true,
+          features: [
+            "Panel Onvi incluido",
+            "Mínimo 5 meses de suscripción; después podés cancelar",
+            "Sitio multipágina a medida",
+            "Herramientas (reservas, calculadoras, filtros, mapas)",
+            "Chatbot IA para tu empresa",
+            "Animaciones e interacciones premium",
+            "Blog o gestor de contenido básico",
+            "Analytics e integración de formularios",
+            "SEO on-page",
+            "Integración WhatsApp y redes sociales",
+            "Optimización orientada a conversión",
+            "Hosting y dominio configurado",
+            "Optimización de velocidad",
+            "Despliegue incluido",
+            "Capacitación básica de uso",
+            "Soporte prioritario y actualizaciones mensuales",
+          ],
+        },
+      ],
+    },
+    shop: {
+      description:
+        "Catálogos y tiendas online. Pagá la mensualidad; el pago único se coordina aparte.",
+      plans: [
+        {
+          name: "E-commerce estándar",
+          tagline: "Catálogo listo para vender.",
+          price: "$50",
+          priceAlt: "₡22.000",
+          priceYear: "$500",
+          priceFull: "$750",
+          checkoutId: "shop-standard",
+          features: [
+            "Panel Onvi incluido",
+            "Mínimo 5 meses de suscripción; después podés cancelar",
+            "Catálogo de productos con filtros",
+            "Pedidos por WhatsApp o carrito simple",
+            "Método de pago: tarjeta, pasarela, SINPE o transferencia",
+            "Diseño mobile-first a tu marca",
+            "Panel básico para actualizar stock y precios",
+            "Fichas de producto con galería",
+            "SEO para e-commerce",
+            "Notificaciones de pedidos por email o WhatsApp",
+            "Hosting, SSL y soporte mensual",
+            "Optimización de velocidad",
+            "Despliegue incluido",
+            "1 ronda de revisiones",
+          ],
+        },
+        {
+          name: "E-commerce Pro",
+          tagline: "Tienda completa con checkout.",
+          price: "$65",
+          priceAlt: "₡30.000",
+          priceYear: "$650",
+          priceFull: "$950",
+          checkoutId: "shop-pro",
+          highlighted: true,
+          features: [
+            "Panel Onvi incluido",
+            "Mínimo 5 meses de suscripción; después podés cancelar",
+            "Catálogo ilimitado con filtros y variantes",
+            "Carrito y checkout optimizado para conversión",
+            "Método de pago: tarjeta, pasarela, SINPE o transferencia",
+            "Features a medida (outfits, ligas, personalización)",
+            "Panel admin de pedidos, inventario y cupones",
+            "Reportes de ventas y analytics",
+            "SEO para e-commerce",
+            "Integración WhatsApp para pedidos",
+            "Hosting, SSL y monitoreo incluidos",
+            "2 rondas de revisiones",
+            "Capacitación para gestionar la tienda",
+            "Soporte prioritario y mejoras mensuales",
+          ],
+        },
+      ],
+    },
+    software: {
+      description:
+        "Sistemas como ClinicOS, UniLearn o Sistema Gan. Mensualidad acá; pago único o alcance a medida por cotización.",
+      plans: [
+        {
+          name: "Software SaaS",
+          tagline: "Infraestructura completa de gestión según tu negocio.",
+          price: "$130",
+          priceYear: "$1.300",
+          priceFull: "$1.750",
+          checkoutId: "software-saas",
+          highlighted: true,
+          features: [
+            "Panel Onvi incluido",
+            "App web con autenticación y base de datos",
+            "Panel de administrador personalizado",
+            "Roles, permisos e integraciones externas",
+            "Módulos a medida (ventas, inventario, clientes, rutas, etc.)",
+            "Dashboards y reportes exportables",
+            "Arquitectura escalable en la nube",
+            "Pasarela de pagos (si aplica)",
+            "Notificaciones por email y en app",
+            "Seguridad reforzada (cifrado y headers)",
+            "Hosting, backups automáticos y monitoreo de uptime",
+            "Entrega, capacitación y documentación técnica",
+            "Soporte prioritario y evolución continua del producto",
+          ],
+        },
+      ],
+    },
+    mobile: {
+      description:
+        "App iOS/Android o PWA a medida. Pagá la mensualidad; el pago único se coordina aparte.",
+      plans: [
+        {
+          name: "App móvil",
+          tagline: "Producto nativo para tu operación.",
+          price: "$150",
+          priceYear: "$1.500",
+          priceFull: "$1.500",
+          checkoutId: "mobile-app",
+          highlighted: true,
+          features: [
+            "Panel Onvi incluido",
+            "App nativa cross-platform (iOS + Android) o PWA",
+            "Diseño UI/UX mobile-first personalizado",
+            "Login, registro y recuperación de contraseña",
+            "Flujos de negocio a medida para tu operación",
+            "Notificaciones push",
+            "Modo offline y sincronización de datos",
+            "Integración con API / backend o panel admin",
+            "Pagos in-app y suscripciones (si aplica)",
+            "Publicación asistida en App Store y Google Play",
+            "Analytics, métricas de uso y reporte de errores",
+            "Deep links y compartir contenido",
+            "Capacitación, documentación y soporte mensual",
+          ],
+        },
+      ],
+    },
+  },
+} as const;
+
+export type DigitalPlanGroupKey = keyof typeof digitalPlans.groups;
+
+export const digitalFaq = {
+  label: "05 — FAQ",
+  title: "Lo que se pregunta todo el mundo antes de empezar",
+  description:
+    "Las dudas más comunes sobre la mensualidad, el dominio y qué pasa si querés parar.",
+  itemPrefix: "FAQ-",
+  items: [
+    {
+      q: "¿El sitio es mío o de ustedes?",
+      a: "Tuyo. Con el pago único queda a tu nombre desde que se entrega. Con la mensualidad también es tuyo, mientras la mensualidad esté al día.",
+    },
+    {
+      q: "Si elegís la mensualidad, ¿cuál es el mínimo antes de poder cancelar?",
+      a: "En sitios web y tiendas, el mínimo son 5 meses. Después de eso podés cancelar en cualquier momento, e incluso pedir la devolución de esa mensualidad si la usaste menos de la mitad del mes. Software y apps móviles no tienen ese mínimo.",
+    },
+    {
+      q: "¿Qué pasa si cancelo o me atraso con el pago?",
+      a: "Tenés 5 días para ponerte al día antes de que se desactiven la página y los demás servicios. Tené en cuenta que la mensualidad no cubre solo la página web: incluye el mantenimiento, el pago del servicio de IA y tu espacio promocional en nuestro sitio.",
+    },
+    {
+      q: "¿Qué cubre exactamente el soporte incluido?",
+      a: "La mensualidad cubre dos cosas distintas. Por un lado, cambios sobre el sitio, que coordinamos según lo que vaya necesitando tu negocio:",
+      groups: [
+        {
+          title: "Cambios sobre el sitio",
+          points: [
+            "Cambios de diseño y estructura según las necesidades del negocio.",
+            "Creación y adición de nuevas secciones dentro de la página.",
+            "Actualización de contenido, imágenes y elementos visuales.",
+          ],
+        },
+        {
+          title: "Y de forma ilimitada",
+          points: [
+            "Mantenimiento técnico y solución de errores o fallos que puedan presentarse.",
+            "Atención ante posibles ataques cibernéticos o problemas de seguridad de la página.",
+            "Supervisión general para mantener la página funcionando correctamente.",
+          ],
+        },
+      ],
+    },
+    {
+      q: "¿A nombre de quién queda el dominio?",
+      a: "El dominio lo comprás vos y queda a tu nombre. Ronda los $11 al año (unos ₡5.000 colones). Nosotros lo dejamos comprado, configurado y apuntando a tu sitio.",
+    },
+    {
+      q: "¿Cuánto tarda desde que pago?",
+      a: "Depende bastante de qué tan rápido fluya la información de tu lado, porque el sitio es 100% personalizado. El tiempo promedio es de una semana: la idea es entregar de forma eficiente, sin bajarle a la calidad.",
+    },
+    {
+      q: "Ya tengo página, ¿la pueden migrar?",
+      a: "Sí, y sin ningún costo adicional.",
+    },
+    {
+      q: "¿Por qué mensualidad y no un solo pago?",
+      a: "La mensualidad se añadió para darle la oportunidad a los negocios de tener un servicio digital de manera más accesible. Aun así, podés elegir la que te sirva: el pago único aparece en cada plan.",
+    },
+  ],
+  footerText: "¿Te quedó otra duda? ",
+  footerCta: "Escribinos",
+  footerHref: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, tengo una duda sobre Onvision Digital.")}`,
+} as const;
