@@ -2526,10 +2526,31 @@
     font-size: 9px;
   }
 
+  /* La ventana flota arriba de la tarjeta, sin tapar el título de la imagen. */
   .pz-pop--ventana {
-    left: 42%;
-    top: -38%;
-    width: 64%;
+    left: 44%;
+    top: -74px;
+    width: 62%;
+    font-size: 9px;
+  }
+
+  .pz-px-ventana {
+    box-shadow:
+      0 0 0 2px #f4ecd8,
+      6px 6px 0 2px #f2b705;
+  }
+
+  .pz-px-ventana__cuerpo {
+    padding: 0.6em 0.8em 0.7em;
+    line-height: 1.45;
+  }
+
+  /* El cursor va en la esquina, sin sumar un renglón. */
+  .pz-px-ventana .pz-px-cursor {
+    position: absolute;
+    right: 0.9em;
+    bottom: 0.8em;
+    margin: 0;
   }
 
   .pz-pop--burbuja {
@@ -2555,9 +2576,10 @@
     width: 5%;
   }
 
+  /* "Ventas del mes" arriba de la tarjeta: se ve "Onvi IA" del tablero. */
   .pz-pop--kpi {
     left: -6%;
-    top: -34%;
+    top: -94px;
     width: 44%;
   }
 
@@ -2620,6 +2642,16 @@
 @media (max-height: 720px) and (max-width: 767px) {
   .pz-cuerpo {
     padding-top: 138px;
+  }
+
+  /* Poco lugar sobre la tarjeta: un poco más compactos, sin tocar el texto de arriba. */
+  .pz-pop--kpi {
+    top: -76px;
+    padding: 0.7em 0.9em;
+  }
+
+  .pz-pop--kpi .pz-ui__linea {
+    height: 1.8em;
   }
 
   .pz-texto__bajada {
