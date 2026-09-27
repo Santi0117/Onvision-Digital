@@ -36,21 +36,21 @@
   padding: 0;
 }
 
-/* En Servicios (/digital): la cinta en una tarjeta clara entre el
-   "onvision." gigante y los videos, como los demás bloques de esa página. */
+/* En Servicios (/digital): la cinta sigue al "onvision." en el mismo
+   bloque claro, que cierra redondeado antes de los videos. */
 .oh-abre.oh-abre--tarjeta {
   margin: 0 12px;
-  padding: clamp(44px, 5vw, 72px) 0 clamp(10px, 1.4vw, 18px);
+  padding: clamp(28px, 3.4vw, 52px) 0 clamp(10px, 1.4vw, 18px);
   overflow: clip;
-  border-radius: var(--radio, 28px);
+  border-radius: 0 0 var(--radio, 28px) var(--radio, 28px);
   box-shadow: none;
 }
 
 @media (max-width: 767px) {
   .oh-abre.oh-abre--tarjeta {
     margin: 0 8px;
-    padding-top: 40px;
-    border-radius: 24px;
+    padding-top: 26px;
+    border-radius: 0 0 24px 24px;
   }
 }
 

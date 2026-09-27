@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function ShowreelCabeza() {
   const letras = digitalShowreel.title.split("");
   return (
-    <section className="od-reel od-reel--cabeza" aria-labelledby="od-reel-titulo">
+    <section className="od-reel od-reel--cabeza od-claro" aria-labelledby="od-reel-titulo">
       <div className="od-reel__cabeza">
         <h1 id="od-reel-titulo" className="od-reel__marca">
           <span className="sr-only">Onvision Digital: sitios, tiendas y software a medida</span>

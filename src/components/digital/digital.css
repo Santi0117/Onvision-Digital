@@ -8,11 +8,26 @@
   padding: clamp(90px, 11vw, 160px) var(--gut) clamp(60px, 8vw, 110px);
 }
 
-/* El "onvision." abre la página: debajo del menú y sin la raya, que ahora
-   separa la cinta. */
+/* El "onvision." abre la página en claro, con letras oscuras: arriba del
+   todo, pegado a la tarjeta de la cinta, forman un solo bloque. */
 .od-reel--cabeza {
+  margin: 12px 12px 0;
   padding-top: clamp(128px, 13vw, 190px);
-  padding-bottom: clamp(30px, 3.4vw, 50px);
+  padding-bottom: clamp(18px, 2vw, 30px);
+  border-radius: var(--radio) var(--radio) 0 0;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.od-reel--cabeza .od-reel__lead {
+  color: #4c5663;
+}
+
+@media (max-width: 767px) {
+  .od-reel--cabeza {
+    margin: 8px 8px 0;
+    border-radius: 24px 24px 0 0;
+  }
 }
 
 .od-reel--cabeza .od-reel__cabeza {
