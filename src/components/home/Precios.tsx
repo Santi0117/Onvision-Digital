@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { companyOffers } from "@/lib/company";
 import { digitalPlans } from "@/lib/digital";
 import Pixel, { type FiguraPixel } from "../od/Pixel";
@@ -13,116 +12,12 @@ import { LINEAS, SISTEMA, planDeLinea, planes, type Linea, type PlanPago } from 
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const VENTANAS = [
-  { src: "/web/panel/reservas.png", label: "Reservas" },
-  { src: "/web/panel/registros.png", label: "Registros" },
-  { src: "/web/panel/soporte.png", label: "Soporte" },
-] as const;
-
 const FIGURA_OFERTA: FiguraPixel[] = ["sistema", "digital", "soporte"];
-
-function Ventana({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <span className="oh-ventana">
-      <span className="oh-ventana__barra" aria-hidden>
-        <i />
-        <i />
-        <i />
-        <b>{label}</b>
-      </span>
-      <span className="oh-ventana__vidrio">{children}</span>
-    </span>
-  );
-}
-
-/** "Todos los planes incluyen Onvision Panel": las tres ventanas que se abren grandes. */
-function Panel() {
-  const [abierta, setAbierta] = useState<number | null>(null);
-  const toma = abierta === null ? null : VENTANAS[abierta]!;
-
-  useEffect(() => {
-    if (abierta === null) return;
-    const alTecla = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setAbierta(null);
-    };
-    const antes = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", alTecla);
-    return () => {
-      document.body.style.overflow = antes;
-      window.removeEventListener("keydown", alTecla);
-    };
-  }, [abierta]);
-
-  return (
-    <div className="oh-panelv">
-      <div className="oh-panelv__cabeza">
-        <p className="oh-eyebrow">Incluido en todos los planes</p>
-        <h3 className="oh-panelv__h3">
-          Onvision Panel<span aria-hidden>.</span>
-        </h3>
-        <p className="oh-panelv__lede">
-          Reservas, registros y soporte de tu sitio en un solo lugar. Tocá una ventana para verla grande.
-        </p>
-      </div>
-      <div className="oh-panelv__ventanas">
-        {VENTANAS.map((t, i) => (
-          <motion.button
-            key={t.src}
-            type="button"
-            className="oh-panelv__boton"
-            onClick={() => setAbierta(i)}
-            aria-label={`Ver ${t.label} en grande`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: EASE, delay: i * 0.1 }}
-          >
-            <Ventana label={t.label}>
-              <Image src={t.src} alt="" fill sizes="(min-width: 900px) 30vw, 90vw" className="object-cover object-left-top" />
-            </Ventana>
-          </motion.button>
-        ))}
-      </div>
-
-      <AnimatePresence>
-        {toma ? (
-          <motion.div
-            className="oh-visor"
-            role="dialog"
-            aria-modal="true"
-            aria-label={toma.label}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            data-lenis-prevent
-          >
-            <button type="button" className="oh-visor__velo" aria-label="Cerrar" onClick={() => setAbierta(null)} />
-            <motion.div
-              className="oh-visor__caja"
-              initial={{ scale: 0.92, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 10 }}
-              transition={{ duration: 0.5, ease: EASE }}
-            >
-              <Ventana label={toma.label}>
-                <Image src={toma.src} alt={`Onvision Panel: ${toma.label}`} fill sizes="92vw" className="object-contain" />
-              </Ventana>
-              <button type="button" className="oh-visor__cerrar" onClick={() => setAbierta(null)} autoFocus>
-                Cerrar
-              </button>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </div>
-  );
-}
 
 /**
  * "Planes": titular en serif y selector de wisprflow, las píldoras gigantes
- * de clarvos con el precio adentro, la tarjeta del plan, el Onvision Panel
- * incluido y las tres ofertas de la casa.
+ * de clarvos con el precio adentro, la tarjeta del plan y las tres ofertas
+ * de la casa. Elegir un plan abre el pago.
  */
 export default function Precios({ alElegirPlan }: { alElegirPlan: (plan: PlanPago) => void }) {
   const [linea, setLinea] = useState<Linea>("web");
@@ -170,9 +65,9 @@ export default function Precios({ alElegirPlan }: { alElegirPlan: (plan: PlanPag
             </span>
             al mes
           </p>
-          <a href="#activar" className="oh-pildora__circulo" aria-label="Ir a elegir y pagar">
+          <button type="button" className="oh-pildora__circulo" aria-label={`Elegir ${desde.nombre} y pagar`} onClick={() => alElegirPlan(desde)}>
             <Flecha dir="esquina" className="h-[0.6em] w-[0.6em]" />
-          </a>
+          </button>
         </div>
         <p className="oh-pildora__nota">
           {desde.precioAlt ? `${desde.precioAlt} al mes · ` : ""}o {desde.precioUnico} {digitalPlans.onceLabel} ·{" "}
@@ -225,8 +120,6 @@ export default function Precios({ alElegirPlan }: { alElegirPlan: (plan: PlanPag
           </div>
         </div>
       </article>
-
-      <Panel />
 
       <ul className="oh-ofertas">
         {companyOffers.cards.map((c, i) => {

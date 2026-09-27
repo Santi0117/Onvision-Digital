@@ -1117,11 +1117,6 @@ html:is([data-boot="off"], [data-boot="done"]) .vision-boot--boot {
   stroke: #34d3ee;
 }
 
-/* La barra del plan elegido ocupa ese lugar. */
-body:has(.oh-barra-sel) .vision-line {
-  visibility: hidden;
-}
-
 /* Arriba del todo no se ve, y tampoco se puede tocar. */
 .vision-line[data-on="0"] {
   visibility: hidden;

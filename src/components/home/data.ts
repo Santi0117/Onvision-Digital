@@ -99,10 +99,6 @@ export const planes: PlanPago[] = LINEAS.flatMap((linea) =>
   alt: CAPTURA[linea].alt,
 }));
 
-export function planPorId(id: string | null | undefined) {
-  return planes.find((p) => p.id === id) ?? null;
-}
-
 /** El plan "Más elegido" de cada línea: el que se propone al elegir la línea. */
 export function planDeLinea(linea: Linea) {
   const deLinea = planes.filter((p) => p.linea === linea);
@@ -149,12 +145,10 @@ export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nucleo", nombre: "Núcleo" },
   { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
-  { id: "base-comun", nombre: "Base común" },
-  { id: "clientes", nombre: "Clientes" },
+  { id: "panel", nombre: "Panel Onvi" },
   { id: "comparativa", nombre: "Vs el mercado" },
   { id: "precios", nombre: "Planes" },
   { id: "registro", nombre: "Contacto" },
-  { id: "activar", nombre: "Pago" },
 ] as const;
 
 /* ── Desplazamiento ───────────────────────────────────────────────────── */
