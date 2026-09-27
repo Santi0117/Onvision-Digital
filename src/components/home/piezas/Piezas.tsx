@@ -472,13 +472,8 @@ export default function Piezas() {
                       } as CSSProperties
                     }
                   >
-                    <Image
-                      src={p.imagen}
-                      alt={p.alt}
-                      fill
-                      sizes="(min-width: 1024px) 640px, 88vw"
-                      className="pz-carta__img"
-                    />
+                    {/* Tal cual: ya vienen a su tamaño y comprimidas; otra pasada les borra el texto chico. */}
+                    <Image src={p.imagen} alt={p.alt} fill unoptimized className="pz-carta__img" />
                     <figcaption className="pz-carta__etiqueta" aria-hidden>
                       <b>{p.n}</b>
                       {p.nombre}
