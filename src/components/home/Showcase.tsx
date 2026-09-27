@@ -25,7 +25,7 @@ function Onvi({ e }: { e: EscenaServicio }) {
   );
 }
 
-function Acciones({ e, alElegir }: { e: EscenaServicio; alElegir: (linea: Linea) => void }) {
+function Acciones({ e, alElegir, detalle }: { e: EscenaServicio; alElegir: (linea: Linea) => void; detalle: string }) {
   if (e.linea === "sistema") {
     return (
       <div className="oh-show__acciones">
@@ -51,7 +51,7 @@ function Acciones({ e, alElegir }: { e: EscenaServicio; alElegir: (linea: Linea)
           <Flecha dir="diagonal" />
         </span>
       </button>
-      <Link href="/digital" className="oh-show__detalle">
+      <Link href={detalle} className="oh-show__detalle">
         Ver detalle
         <Flecha className="h-3.5 w-3.5" />
       </Link>
@@ -63,9 +63,16 @@ function Acciones({ e, alElegir }: { e: EscenaServicio; alElegir: (linea: Linea)
  * "Servicios" como el "Across industries" de jeffmilanes: escena fija en
  * negro; al bajar cambia el nombre gigante y su pantalla, que va en un
  * panel de HUD. Al final, el Sistema Onvision. En el celular es un
- * carrusel que se desliza.
+ * carrusel que se desliza. Abre la página de Servicios: su título es el h1.
  */
-export default function Showcase({ alElegir }: { alElegir: (linea: Linea) => void }) {
+export default function Showcase({
+  alElegir,
+  detalle = "#trabajo",
+}: {
+  alElegir: (linea: Linea) => void;
+  /** A dónde lleva "Ver detalle". */
+  detalle?: string;
+}) {
   const pista = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: pista, offset: ["start start", "end end"] });
   const [i, setI] = useState(0);
@@ -83,7 +90,7 @@ export default function Showcase({ alElegir }: { alElegir: (linea: Linea) => voi
         <div className="oh-show__stage" style={tinte(e.linea)}>
           <div className="oh-show__izq">
             <Mono>Servicios · Onvision Digital</Mono>
-            <h2 className="oh-show__h2">{TITULO}.</h2>
+            <h1 className="oh-show__h2">{TITULO}.</h1>
             <p className="oh-show__lede">{LEDE_COMPLETO}</p>
 
             <div className="oh-show__actual">
@@ -108,7 +115,7 @@ export default function Showcase({ alElegir }: { alElegir: (linea: Linea) => voi
                 <span>{e.detalle}</span>
               </p>
               <p className="oh-show__body">{e.cuerpo}</p>
-              <Acciones e={e} alElegir={alElegir} />
+              <Acciones e={e} alElegir={alElegir} detalle={detalle} />
             </div>
           </div>
 
@@ -165,9 +172,10 @@ export default function Showcase({ alElegir }: { alElegir: (linea: Linea) => voi
       </div>
 
       <div className="oh-show__movil">
+        {/* Solo una de las dos cabeceras se ve (escritorio o celular): cada una lleva el h1. */}
         <div className="oh-show__movil-head">
           <Mono>Servicios · Onvision Digital</Mono>
-          <h2 className="oh-show__h2">{TITULO}.</h2>
+          <h1 className="oh-show__h2">{TITULO}.</h1>
           <p className="oh-show__lede">{LEDE_COMPLETO}</p>
         </div>
         <ul className="oh-show__carrusel">
@@ -201,7 +209,7 @@ export default function Showcase({ alElegir }: { alElegir: (linea: Linea) => voi
                 ))}
               </ul>
               <Onvi e={x} />
-              <Acciones e={x} alElegir={alElegir} />
+              <Acciones e={x} alElegir={alElegir} detalle={detalle} />
             </li>
           ))}
         </ul>

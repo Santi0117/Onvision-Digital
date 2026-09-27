@@ -8,7 +8,6 @@ import Activar from "./Activar";
 import BaseComun from "./BaseComun";
 import Chrome from "./Chrome";
 import Cinetica from "./Cinetica";
-import Cinta from "./Cinta";
 import Detalle from "./Detalle";
 import Hud from "./Hud";
 import Listas from "./Listas";
@@ -16,7 +15,6 @@ import Precios from "./Precios";
 import Problema from "./Problema";
 import Registro from "./Registro";
 import Sello from "./Sello";
-import Showcase from "./Showcase";
 import { irA, planDeLinea, planPorId, seleccionDe, type Linea, type PlanPago } from "./data";
 import "./home.css";
 import "./home-secciones.css";
@@ -51,16 +49,10 @@ export default function Home() {
       <div className="oh-resto">
         <BaseComun />
         <Listas />
-        {/* Servicios arranca con la cinta ("Onvi incluida") y sigue con las líneas. */}
-        <div id="servicios">
-          <div className="oh-abre">
-            <Cinta />
-          </div>
-          <div className="oh-negro" data-tema="oscuro">
-            <Showcase alElegir={elegirLinea} />
-          </div>
+        {/* La cinta y las líneas de servicio abren ahora la página de Servicios (/digital). */}
+        <div className="oh-abre oh-abre--sin-cinta">
+          <Problema />
         </div>
-        <Problema />
         <Detalle alElegir={elegirLinea} />
         <Cinetica />
         <Hud />

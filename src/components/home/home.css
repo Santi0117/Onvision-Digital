@@ -64,13 +64,20 @@
   overflow-x: clip;
 }
 
-/* El inicio es claro: el fondo de la página y del pie siguen su color. */
-html:has(.oh),
-html:has(.oh) body {
+/* El inicio es claro: el fondo de la página y del pie siguen su color
+   (no en Servicios, donde va solo la cinta con las líneas). */
+html:has(.oh:not(.oh--incrustado)),
+html:has(.oh:not(.oh--incrustado)) body {
   background: #f3f6f9;
 }
 
-html:has(.oh) .od-pie {
+html:has(.oh:not(.oh--incrustado)) .od-pie {
+  background: transparent;
+}
+
+/* En Servicios: la cinta y las líneas al principio de la página, sobre su negro. */
+.oh.oh--incrustado {
+  min-height: 0;
   background: transparent;
 }
 
@@ -838,12 +845,12 @@ html:has(.oh) .od-pie {
 }
 
 /* Espacio para que la línea de avance no tape el final del pie. */
-html:has(.oh) .od-pie {
+html:has(.oh:not(.oh--incrustado)) .od-pie {
   padding-bottom: 68px;
 }
 
 @media (max-width: 767px) {
-  html:has(.oh) .od-pie {
+  html:has(.oh:not(.oh--incrustado)) .od-pie {
     padding-bottom: 46px;
   }
 

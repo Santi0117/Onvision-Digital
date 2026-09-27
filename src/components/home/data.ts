@@ -191,7 +191,6 @@ export const ESCENAS = [
   { id: "detalles", nombre: "Detalles" },
   { id: "base-comun", nombre: "Base común" },
   { id: "clientes", nombre: "Clientes" },
-  { id: "servicios", nombre: "Servicios" },
   { id: "onvi", nombre: "Onvi" },
   { id: "trabajos", nombre: "Trabajos" },
   { id: "por-que", nombre: "Por qué" },

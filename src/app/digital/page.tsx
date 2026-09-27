@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Agenda from "@/components/digital/Agenda";
-import Cabecera from "@/components/digital/Cabecera";
+import Arranque from "@/components/digital/Arranque";
 import Impacto from "@/components/digital/Impacto";
 import Incluye from "@/components/digital/Incluye";
 import Planes from "@/components/digital/Planes";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function Digital() {
   return (
     <>
-      <Cabecera />
+      <Arranque />
       <Showreel />
       <div className="od-bloque">
         <Incluye />
