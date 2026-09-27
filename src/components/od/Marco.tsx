@@ -4,7 +4,6 @@ import Lenis from "lenis";
 import { MotionConfig } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import Anuncio from "./Anuncio";
 import Boot from "./Boot";
 import Cursor from "./Cursor";
 import Nav from "./Nav";
@@ -56,7 +55,6 @@ export default function Marco({ children }: { children: React.ReactNode }) {
       <a href="#contenido" className="od-saltar">
         Saltar al contenido
       </a>
-      {pathname === "/" ? <Anuncio /> : null}
       <Nav />
       <main id="contenido" tabIndex={-1}>
         {children}

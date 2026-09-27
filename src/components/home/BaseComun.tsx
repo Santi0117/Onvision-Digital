@@ -9,19 +9,11 @@ import Particulas from "./Particulas";
 import { Flecha, Mono } from "./ui";
 import { empresas } from "./data";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 /** De la pregunta frecuente "¿Cuánto tarda desde que pago?". */
 const TIEMPO = "El tiempo promedio es de una semana";
 
 /** Lo que traen los seis planes, sin excepción (ver /digital#planes). */
-const BASE = [
-  { corto: "Onvi IA", nombre: "Onvi IA", frase: "Atiende 24/7 en español y te pasa los leads." },
-  { corto: "Panel Onvi", nombre: "Panel Onvi", frase: "Reservas, registros y soporte en un solo lugar." },
-  { corto: "A tu marca", nombre: "A tu marca", frase: "Diseño a medida, pensado primero para el celular." },
-  { corto: "Hosting", nombre: "Hosting y publicación", frase: "Lo publicamos y lo mantenemos en línea." },
-  { corto: "Soporte", nombre: "Soporte", frase: "Ajustes y soporte incluidos en la mensualidad." },
-];
+const BASE = ["Onvi IA", "Panel Onvi", "A tu marca", "Hosting", "Soporte"];
 
 /** Las cuatro líneas: lo que nos pedís. */
 const PROYECTO = ["Web", "Tienda", "Software", "App"];
@@ -55,21 +47,18 @@ const PASOS = [
     palabra: "Contá",
     titulo: "Nos contás el negocio",
     desc: digitalMeeting.lead,
-    consola: "agenda.reservar({ servicio: 'Sitio web' })",
   },
   {
     step: "02",
     palabra: "Elegí",
     titulo: "Elegimos las piezas",
     desc: "Sobre la base común sumamos las piezas de tu giro. Elegí la línea y mirá qué incluye.",
-    consola: "piezas.elegir(['portada', 'agenda', 'onvi'])",
   },
   {
     step: "03",
     palabra: "Publicá",
     titulo: "Publicado en días",
     desc: `${TIEMPO}: la idea es entregar de forma eficiente, sin bajarle a la calidad.`,
-    consola: "sitio.publicar('tudominio.com') // en días",
   },
 ];
 
@@ -89,14 +78,7 @@ function recorrido(p: number) {
   const giro = encendidos(p, 0.52, 0.74, GIROS.length);
   const publicado = p >= 0.8;
   const paso = p < 0.28 ? 0 : p < 0.78 ? 1 : 2;
-  const etapa = publicado
-    ? { nombre: "Publicado", frase: `En ${DOMINIO}, con Onvi incluida.` }
-    : giro > 0
-      ? { nombre: "Tu giro", frase: "Encima, las piezas de tu negocio." }
-      : base > 0
-        ? BASE[base - 1]!
-        : { nombre: "Tu proyecto", frase: "Sitio, tienda, software o app." };
-  return { proyecto, base, giro, publicado, paso, etapa };
+  return { proyecto, base, giro, publicado, paso };
 }
 
 type Estado = ReturnType<typeof recorrido>;
@@ -122,16 +104,13 @@ const ubicar = (textos: readonly string[], pos: Punto[]): Nodo[] => textos.map((
 /** Escritorio: nombres de fila a la izquierda, los giros en dos renglones de cinco. */
 const ANCHO: Plano = {
   proyecto: ubicar(PROYECTO, [34, 51, 68, 85].map((x) => ({ x, y: 8 }))),
-  base: ubicar(
-    BASE.map((b) => b.corto),
-    [
-      { x: 34, y: 27 },
-      { x: 60, y: 27 },
-      { x: 86, y: 27 },
-      { x: 47, y: 38 },
-      { x: 73, y: 38 },
-    ],
-  ),
+  base: ubicar(BASE, [
+    { x: 34, y: 27 },
+    { x: 60, y: 27 },
+    { x: 86, y: 27 },
+    { x: 47, y: 38 },
+    { x: 73, y: 38 },
+  ]),
   giro: ubicar(
     GIROS,
     GIROS.map((_, k) => ({ x: [20, 37.5, 55, 72.5, 90][k % 5]!, y: k < 5 ? 58 : 69 })),
@@ -166,16 +145,13 @@ const POR_LARGO = GIROS.map((t, k) => ({ t, k }))
 
 const ANGOSTO: Plano = {
   proyecto: ubicar(PROYECTO, [12, 37, 63, 88].map((x) => ({ x, y: 8.5 }))),
-  base: ubicar(
-    BASE.map((b) => b.corto),
-    [
-      { x: 28, y: 26 },
-      { x: 72, y: 26 },
-      { x: 17, y: 34 },
-      { x: 50, y: 34 },
-      { x: 83, y: 34 },
-    ],
-  ),
+  base: ubicar(BASE, [
+    { x: 28, y: 26 },
+    { x: 72, y: 26 },
+    { x: 17, y: 34 },
+    { x: 50, y: 34 },
+    { x: 83, y: 34 },
+  ]),
   giro: GIROS.map((texto, k) => ({ texto, ...LUGARES_GIRO[POR_LARGO.indexOf(k)]! })),
   dominio: { texto: DOMINIO, x: 50, y: 95 },
   filas: [
@@ -267,7 +243,7 @@ function Diagrama({ plano, e, className }: { plano: Plano; e: Estado; className:
  * Base común + cómo funciona: "The journey" de jeffmilanes con los dibujos
  * de puntos de "At the machine". Escena fija en oscuro: a la izquierda el
  * contador de rubros, el dibujo de puntos de cada paso (contá, elegí,
- * publicá) y la consola; a la derecha el diagrama que se enciende — tu
+ * publicá) y su explicación; a la derecha el diagrama que se enciende — tu
  * proyecto, la base común de los seis planes, tu giro y tu dominio.
  */
 export default function BaseComun() {
@@ -314,23 +290,6 @@ export default function BaseComun() {
               <Particulas forma={e.paso} className="oh-bc__puntos" />
             </div>
 
-            <div className="oh-bc__etapa" aria-live="polite">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={e.etapa.nombre}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.35, ease: EASE }}
-                >
-                  <p className="oh-bc__nombre">
-                    <span aria-hidden>◇</span> {e.etapa.nombre}
-                  </p>
-                  <p className="oh-bc__frase">{e.etapa.frase}</p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
             <ol className="oh-bc__pasos">
               {PASOS.map((s, k) => (
                 <li key={s.step} data-on={k === e.paso ? "true" : k < e.paso ? "hecho" : "false"}>
@@ -353,13 +312,6 @@ export default function BaseComun() {
                   <b>{paso.titulo}.</b> {paso.desc}
                 </motion.p>
               </AnimatePresence>
-              <ul className="oh-bc__consola" aria-hidden>
-                {PASOS.slice(0, e.paso + 1).map((s, k) => (
-                  <li key={s.step} data-nueva={k === e.paso ? "true" : "false"}>
-                    <span>›</span> {s.consola}
-                  </li>
-                ))}
-              </ul>
             </div>
 
             <div className="oh-bc__ctas">

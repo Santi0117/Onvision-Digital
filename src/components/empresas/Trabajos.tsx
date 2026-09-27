@@ -1,14 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { empresasPage, type EmpresaFilter } from "@/lib/empresas";
+import Pago, { type Seleccion } from "../digital/Pago";
+import { empresas, planDeLinea, scrollA, seleccionDe, tinte, type Empresa, type Linea } from "../home/data";
+import { Check, Flecha, Mono } from "../home/ui";
 import Pixel from "../od/Pixel";
 import { filtrosEmpresas, servicios } from "../od/data";
-import { Check, Flecha, Mono } from "./ui";
-import { empresas, planDeLinea, tinte, type Empresa, type Linea } from "./data";
+import "../home/home.css";
+import "../home/home-secciones.css";
+import "./empresas.css";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -124,29 +127,42 @@ function Fila({
 }
 
 /**
- * "Empresas" como "Proof, not promises" de jeffmilanes: el número
- * delineado, el nombre gigante y, al abrir, lo que hicimos con su captura.
- * Arriba, los filtros oficiales de /empresas.
+ * La página de Empresas: la sección de trabajos que antes iba en el inicio,
+ * como "Proof, not promises" de jeffmilanes. El número delineado, el nombre
+ * gigante y, al abrir, lo que hicimos con su captura; arriba, los filtros.
+ * "Quiero uno así" abre el pago con el plan sugerido de esa línea.
  */
-export default function Detalle({ alElegir }: { alElegir: (linea: Linea) => void }) {
+export default function Trabajos() {
   const [filtro, setFiltro] = useState<EmpresaFilter>("all");
   const [abierta, setAbierta] = useState<string | null>(empresas[0]!.id);
+  const [pago, setPago] = useState<Seleccion | null>(null);
   const visibles = filtro === "all" ? empresas : empresas.filter((e) => e.kind === filtro);
 
-  // Las marcas de la franja de clientes ("#firstdown", "#guba"…) abren su fila.
+  // Las marcas de la franja de clientes del inicio llegan con su ancla ("/empresas#firstdown"):
+  // se abre esa fila y, cuando se acomoda, la página baja hasta ella.
   useEffect(() => {
     const ids = new Set(empresas.map((e) => e.id));
-    const alClic = (ev: MouseEvent) => {
-      const a = (ev.target as HTMLElement | null)?.closest?.("a[href^='#']");
-      const id = a?.getAttribute("href")?.slice(1);
-      if (id && ids.has(id)) {
-        setFiltro("all");
-        setAbierta(id);
-      }
+    let t = 0;
+    const abrirDesdeAncla = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!ids.has(id)) return;
+      setFiltro("all");
+      setAbierta(id);
+      window.clearTimeout(t);
+      t = window.setTimeout(() => {
+        const fila = document.getElementById(id);
+        if (fila) scrollA(fila, -110);
+      }, 700);
     };
-    document.addEventListener("click", alClic);
-    return () => document.removeEventListener("click", alClic);
+    abrirDesdeAncla();
+    window.addEventListener("hashchange", abrirDesdeAncla);
+    return () => {
+      window.clearTimeout(t);
+      window.removeEventListener("hashchange", abrirDesdeAncla);
+    };
   }, []);
+
+  const elegir = (linea: Linea) => setPago(seleccionDe(planDeLinea(linea)));
 
   const filtrar = (f: EmpresaFilter) => {
     setFiltro(f);
@@ -155,41 +171,40 @@ export default function Detalle({ alElegir }: { alElegir: (linea: Linea) => void
   };
 
   return (
-    <section id="trabajos" className="oh-det" aria-labelledby="oh-det-titulo">
-      <div className="oh-det__head">
-        <Mono>Empresas</Mono>
-        <h2 id="oh-det-titulo" className="oh-det__h2">
-          <span className="oh-det__h2-grande">Trabajos que ya corren:</span>
-          <em className="oh-det__h2-serif">sitios, tiendas y software a medida</em>
-        </h2>
-        <p className="oh-det__lede">{empresasPage.lead}</p>
-        <div className="oh-det__pie">
-          <div className="oh-seg" role="group" aria-label="Filtrar trabajos">
-            {filtrosEmpresas.map((f) => (
-              <button key={f.id} type="button" aria-pressed={filtro === f.id} onClick={() => filtrar(f.id)}>
-                {f.label}
-                <small>{f.cantidad}</small>
-              </button>
-            ))}
+    <div className="oh oh--incrustado oh-emp-marco">
+      <section id="trabajos" className="oh-det" aria-labelledby="oh-det-titulo">
+        <div className="oh-det__head">
+          <Mono>Empresas</Mono>
+          <h1 id="oh-det-titulo" className="oh-det__h2">
+            <span className="oh-det__h2-grande">Trabajos que ya corren:</span>
+            <em className="oh-det__h2-serif">sitios, tiendas y software a medida</em>
+          </h1>
+          <p className="oh-det__lede">{empresasPage.lead}</p>
+          <div className="oh-det__pie">
+            <div className="oh-seg" role="group" aria-label="Filtrar trabajos">
+              {filtrosEmpresas.map((f) => (
+                <button key={f.id} type="button" aria-pressed={filtro === f.id} onClick={() => filtrar(f.id)}>
+                  {f.label}
+                  <small>{f.cantidad}</small>
+                </button>
+              ))}
+            </div>
           </div>
-          <Link href="/empresas" className="oh-det__todas">
-            Ver la vitrina completa
-            <Flecha className="h-4 w-4" />
-          </Link>
         </div>
-      </div>
 
-      <div className="oh-det__lista">
-        {visibles.map((e) => (
-          <Fila
-            key={e.id}
-            e={e}
-            abierta={abierta === e.id}
-            alAlternar={() => setAbierta((a) => (a === e.id ? null : e.id))}
-            alElegir={alElegir}
-          />
-        ))}
-      </div>
-    </section>
+        <div className="oh-det__lista">
+          {visibles.map((e) => (
+            <Fila
+              key={e.id}
+              e={e}
+              abierta={abierta === e.id}
+              alAlternar={() => setAbierta((a) => (a === e.id ? null : e.id))}
+              alElegir={elegir}
+            />
+          ))}
+        </div>
+      </section>
+      <Pago seleccion={pago} alCerrar={() => setPago(null)} />
+    </div>
   );
 }

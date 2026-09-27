@@ -151,11 +151,7 @@ export const ESCENAS = [
   { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
   { id: "base-comun", nombre: "Base común" },
   { id: "clientes", nombre: "Clientes" },
-  { id: "onvi", nombre: "Onvi" },
-  { id: "trabajos", nombre: "Trabajos" },
-  { id: "por-que", nombre: "Por qué" },
-  { id: "comparativa", nombre: "Precios" },
-  { id: "stack", nombre: "Stack" },
+  { id: "comparativa", nombre: "Vs el mercado" },
   { id: "precios", nombre: "Planes" },
   { id: "registro", nombre: "Contacto" },
   { id: "activar", nombre: "Pago" },
@@ -186,12 +182,4 @@ export function irA(id: string, enfocar?: string) {
     const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.setTimeout(() => document.getElementById(enfocar)?.focus({ preventScroll: true }), quieto ? 0 : 1350);
   }
-}
-
-/** Recorrer una escena fija hasta su paso k (el centro de ese tramo). */
-export function irAPaso(pista: HTMLElement | null, k: number, n: number) {
-  if (!pista) return;
-  const top = pista.getBoundingClientRect().top + window.scrollY;
-  const recorrido = pista.offsetHeight - window.innerHeight;
-  scrollA(top + recorrido * ((k + 0.5) / n));
 }

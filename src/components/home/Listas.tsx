@@ -14,18 +14,18 @@ const LLAVES = [
   { valor: "CR", texto: "Hecho en Costa Rica" },
 ];
 
-/** Las marcas que ya están corriendo, con su sigla. */
+/** Las marcas que ya están corriendo, con su sigla: cada una abre su trabajo en /empresas. */
 function Marcas({ oculta = false }: { oculta?: boolean }) {
   return (
     <ul className="oh-marquee__fila" aria-hidden={oculta || undefined}>
       {empresas.map((e) => (
         <li key={e.id}>
-          <a href={`#${e.id}`} tabIndex={oculta ? -1 : undefined}>
+          <Link href={`/empresas#${e.id}`} tabIndex={oculta ? -1 : undefined}>
             <span className="oh-marquee__sigla" aria-hidden>
               {iniciales(e.name)}
             </span>
             <span>{e.name}</span>
-          </a>
+          </Link>
         </li>
       ))}
     </ul>

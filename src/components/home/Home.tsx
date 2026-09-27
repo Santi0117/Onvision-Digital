@@ -8,23 +8,21 @@ import Activar from "./Activar";
 import BaseComun from "./BaseComun";
 import Chrome from "./Chrome";
 import Cinetica from "./Cinetica";
-import Detalle from "./Detalle";
 import Hud from "./Hud";
 import Listas from "./Listas";
 import Precios from "./Precios";
-import Problema from "./Problema";
 import Registro from "./Registro";
 import Sello from "./Sello";
-import { irA, planDeLinea, planPorId, seleccionDe, type Linea, type PlanPago } from "./data";
+import { irA, planPorId, seleccionDe, type PlanPago } from "./data";
 import "./home.css";
 import "./home-secciones.css";
 
 /**
  * El inicio de Onvision Digital: la preview oficial (la laptop 3D que se
- * abre pieza por pieza y el dial de los detalles) como primer acto, y
- * después el recorrido del inicio anterior — clientes, servicios, Onvi,
- * cómo funciona, trabajos, el HUD, planes, contacto y el cobro —, con
- * detalles de jeffmilanes, nordpixel, driveberry y hobro.
+ * abre pieza por pieza y "Lo que hacemos") como primer acto, y después la
+ * base común, los clientes, Onvision vs el mercado, los planes, el
+ * contacto y el cobro, con detalles de jeffmilanes, nordpixel, driveberry
+ * y hobro. Los trabajos de cada empresa viven en /empresas.
  */
 export default function Home() {
   const [ready, setReady] = useState(false);
@@ -37,7 +35,6 @@ export default function Home() {
     setElegidoId(plan.id);
     irA("activar", "oh-pagar");
   };
-  const elegirLinea = (linea: Linea) => elegirYPagar(planDeLinea(linea));
   const pagar = () => {
     if (elegido) setPago(seleccionDe(elegido));
   };
@@ -49,11 +46,6 @@ export default function Home() {
       <div className="oh-resto">
         <BaseComun />
         <Listas />
-        {/* La cinta y las líneas de servicio abren ahora la página de Servicios (/digital). */}
-        <div className="oh-abre oh-abre--sin-cinta">
-          <Problema />
-        </div>
-        <Detalle alElegir={elegirLinea} />
         <Cinetica />
         <Hud />
         <Precios alElegirPlan={elegirYPagar} />

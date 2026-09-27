@@ -313,58 +313,6 @@ main:focus {
   transform: scale(1.08) rotate(45deg);
 }
 
-/* ── Franja de anuncio del inicio (wisprflow) ────────────────────── */
-
-.od-anuncio {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 4px 18px;
-  min-height: 56px;
-  padding: 10px 16px;
-  border-bottom: 1px solid rgb(255 255 255 / 0.08);
-  background: #0a0f14;
-  color: rgb(243 247 250 / 0.86);
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.od-anuncio a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--cian);
-}
-
-.od-anuncio a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.od-anuncio .od-flecha {
-  width: 14px;
-  height: 14px;
-}
-
-/* En el celular, una sola línea: el precio y el enlace. */
-@media (max-width: 639px) {
-  .od-anuncio {
-    flex-wrap: nowrap;
-    gap: 12px;
-    min-height: 44px;
-    padding: 8px 14px;
-    font-size: 13px;
-  }
-
-  .od-anuncio__mas {
-    display: none;
-  }
-}
-
 /* ── Barra de navegación (tarjeta de wisprflow + marca de nordpixel) ─ */
 
 :root {
@@ -380,8 +328,8 @@ main:focus {
   pointer-events: none;
 }
 
-/* En el inicio va en el flujo, debajo del anuncio, y se pega arriba al bajar. flow-root: el
-   margen de la barra no empuja la página (sin la franja clara entre el anuncio y la portada). */
+/* En el inicio va en el flujo, arriba de la portada, y se pega arriba al bajar. flow-root: el
+   margen de la barra no empuja la página (sin una franja clara encima de la portada). */
 .od-nav--muesca {
   position: sticky;
   top: -4px;
