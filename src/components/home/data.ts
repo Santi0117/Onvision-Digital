@@ -148,7 +148,7 @@ export const SISTEMA = {
 export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nucleo", nombre: "Núcleo" },
-  { id: "detalles", nombre: "Detalles" },
+  { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
   { id: "base-comun", nombre: "Base común" },
   { id: "clientes", nombre: "Clientes" },
   { id: "onvi", nombre: "Onvi" },

@@ -87,10 +87,13 @@ export default function Nav() {
     medir();
     window.addEventListener("scroll", pedir, { passive: true });
     window.addEventListener("resize", pedir);
+    // Una escena que cambia de tono sin scroll (las piezas del inicio) avisa.
+    window.addEventListener("od:tema", pedir);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", pedir);
       window.removeEventListener("resize", pedir);
+      window.removeEventListener("od:tema", pedir);
       delete html.dataset.navTema;
     };
   }, [pathname]);
