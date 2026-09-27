@@ -64,7 +64,7 @@ export default function Listas() {
   return (
     <section id="clientes" className="oh-listas" data-tema="oscuro" aria-labelledby="oh-listas-titulo">
       <p className="oh-indice" aria-hidden>
-        (04) Clientes
+        (05) Clientes
       </p>
       <h2 id="oh-listas-titulo" className="oh-listas__eyebrow">
         {companyChats.title}

@@ -78,7 +78,7 @@ export default function Showcase({ alElegir }: { alElegir: (linea: Linea) => voi
   const e = escenasServicio[i]!;
 
   return (
-    <section id="servicios" className="oh-show" aria-label="Servicios">
+    <section className="oh-show" aria-label="Servicios">
       <div ref={pista} className="oh-show__pista" style={{ "--n": N } as CSSProperties}>
         <div className="oh-show__stage" style={tinte(e.linea)}>
           <div className="oh-show__izq">

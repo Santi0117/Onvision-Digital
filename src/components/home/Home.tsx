@@ -5,13 +5,13 @@ import Pago, { type Seleccion } from "../digital/Pago";
 import Acto from "../vision/Acto";
 import VisionBoot from "../vision/VisionBoot";
 import Activar from "./Activar";
+import BaseComun from "./BaseComun";
 import Chrome from "./Chrome";
 import Cinetica from "./Cinetica";
 import Cinta from "./Cinta";
 import Detalle from "./Detalle";
 import Hud from "./Hud";
 import Listas from "./Listas";
-import Pasos from "./Pasos";
 import Precios from "./Precios";
 import Problema from "./Problema";
 import Registro from "./Registro";
@@ -49,17 +49,18 @@ export default function Home() {
       <Acto ready={ready} />
 
       <div className="oh-resto">
+        <BaseComun />
         <Listas />
-        <div className="oh-abre">
-          <Cinta />
-        </div>
-        <div className="oh-negro" data-tema="oscuro">
-          <Showcase alElegir={elegirLinea} />
+        {/* Servicios arranca con la cinta ("Onvi incluida") y sigue con las líneas. */}
+        <div id="servicios">
+          <div className="oh-abre">
+            <Cinta />
+          </div>
+          <div className="oh-negro" data-tema="oscuro">
+            <Showcase alElegir={elegirLinea} />
+          </div>
         </div>
         <Problema />
-        <div className="oh-negro" data-tema="oscuro">
-          <Pasos />
-        </div>
         <Detalle alElegir={elegirLinea} />
         <Cinetica />
         <Hud />
