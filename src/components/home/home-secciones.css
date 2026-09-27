@@ -36,20 +36,20 @@
   padding: 0;
 }
 
-/* Al principio de Servicios (/digital): la cinta en una tarjeta clara
-   debajo del menú, como los demás bloques de esa página. */
-.oh-abre.oh-abre--portada {
-  margin: 12px 12px 0;
-  padding: clamp(100px, 10vw, 140px) 0 14px;
+/* En Servicios (/digital): la cinta en una tarjeta clara entre el
+   "onvision." gigante y los videos, como los demás bloques de esa página. */
+.oh-abre.oh-abre--tarjeta {
+  margin: 0 12px;
+  padding: clamp(44px, 5vw, 72px) 0 clamp(10px, 1.4vw, 18px);
   overflow: clip;
   border-radius: var(--radio, 28px);
   box-shadow: none;
 }
 
 @media (max-width: 767px) {
-  .oh-abre.oh-abre--portada {
-    margin: 8px 8px 0;
-    padding-top: 92px;
+  .oh-abre.oh-abre--tarjeta {
+    margin: 0 8px;
+    padding-top: 40px;
     border-radius: 24px;
   }
 }
@@ -493,103 +493,7 @@
   }
 }
 
-/* ── 04 · Por industria: "Across industries" de jeffmilanes ──────────────── */
-
-.oh-show__pista {
-  height: calc(var(--n) * 52vh + 100vh);
-}
-
-.oh-show__stage {
-  position: sticky;
-  top: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(32px, 4vw, 72px);
-  height: 100vh;
-  padding: 104px clamp(28px, 4vw, 64px) 64px;
-}
-
-.oh-show__izq {
-  display: flex;
-  min-height: 0;
-  flex-direction: column;
-}
-
-.oh-show__izq > .oh-mono {
-  color: var(--g5);
-}
-
-.oh-show__h2 {
-  max-width: 14ch;
-  margin-top: 18px;
-  font-family: var(--f-display);
-  font-size: clamp(28px, 3.3vw, 54px);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-}
-
-.oh-show__lede {
-  max-width: 40ch;
-  margin-top: 18px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--g5);
-}
-
-.oh-show__actual {
-  container-type: inline-size;
-  margin-top: auto;
-  padding-top: 20px;
-}
-
-/* --len es el largo del nombre: CONSTRUCTORAS se achica, RETAIL no. */
-.oh-show__nombre {
-  display: block;
-  overflow: hidden;
-  padding: 0.16em 0 0.05em;
-  margin-top: -0.16em;
-  font-family: var(--f-display);
-  font-size: min(clamp(50px, 7vw, 118px), calc(100cqi / (var(--len, 8) * 0.7)));
-  font-weight: 800;
-  line-height: 0.86;
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
-}
-
-.oh-show__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin-top: 16px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--g5);
-}
-
-.oh-show__meta span:first-child {
-  color: #fff;
-}
-
-.oh-show__body {
-  max-width: 44ch;
-  margin-top: 14px;
-  font-size: 16.5px;
-  line-height: 1.5;
-  color: var(--g6);
-}
-
-.oh-show__acciones {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px 22px;
-  margin-top: 24px;
-}
-
+/* El enlace mono subrayado ("Ver planes"), que usa la base común. */
 .oh-show__detalle {
   display: inline-flex;
   align-items: center;
@@ -600,197 +504,6 @@
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-}
-
-.oh-show__der {
-  display: flex;
-  min-height: 0;
-  flex-direction: column;
-  justify-content: center;
-  gap: 14px;
-}
-
-.oh-show__pantalla {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: #000;
-}
-
-.oh-show__pantalla::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  box-shadow: inset 0 0 90px rgb(0 0 0 / 0.45);
-  pointer-events: none;
-}
-
-.oh-show__esquinas {
-  --c-inset: 10px;
-  --c-size: 13px;
-  --c-color: color-mix(in srgb, var(--acc) 75%, #fff);
-  z-index: 2;
-}
-
-.oh-terminal {
-  display: grid;
-  gap: 7px;
-  padding: 14px 16px;
-  border-top: 1px solid var(--hline);
-  font-family: var(--f-mono);
-  font-size: 11.5px;
-  color: var(--g6);
-}
-
-.oh-terminal li {
-  display: flex;
-  min-width: 0;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.oh-terminal span {
-  color: var(--acc);
-}
-
-.oh-terminal b {
-  flex: none;
-  font-weight: 500;
-  color: #fff;
-}
-
-.oh-terminal em {
-  overflow: hidden;
-  font-style: normal;
-  color: var(--g4);
-  text-overflow: ellipsis;
-}
-
-.oh-show__onvi {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 10px;
-  padding: 12px 16px;
-  border-top: 1px solid var(--hline);
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: var(--hfg);
-}
-
-.oh-show__onvi span {
-  color: var(--cyan);
-}
-
-.oh-show__onvi b {
-  color: #fff;
-  font-weight: 600;
-}
-
-.oh-show__indices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.oh-show__indices button {
-  width: 42px;
-  height: 30px;
-  border: 1px solid var(--hline);
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  color: var(--hdim);
-  transition:
-    border-color 0.25s,
-    color 0.25s,
-    background-color 0.25s;
-}
-
-.oh-show__indices button:hover,
-.oh-show__indices button[aria-current="true"] {
-  border-color: var(--cyan);
-  background: rgb(52 211 238 / 0.08);
-  color: var(--cyan);
-}
-
-.oh-show__movil {
-  display: none;
-}
-
-@media (max-height: 760px) and (min-width: 900px) {
-  .oh-show__lede,
-  .oh-show__onvi {
-    display: none;
-  }
-}
-
-@media (max-width: 899px) {
-  .oh-show__pista {
-    display: none;
-  }
-
-  .oh-show__movil {
-    display: block;
-    padding: 64px 0 56px;
-  }
-
-  .oh-show__movil-head {
-    padding: 0 20px;
-  }
-
-  .oh-show__movil-head > .oh-mono {
-    color: var(--g5);
-  }
-
-  .oh-show__carrusel {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
-    padding: 0 20px 14px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .oh-show__carrusel::-webkit-scrollbar {
-    display: none;
-  }
-
-  .oh-show__tarjeta {
-    container-type: inline-size;
-    display: flex;
-    flex: 0 0 86%;
-    flex-direction: column;
-    gap: 12px;
-    padding: 18px;
-    border: 1px solid var(--g2);
-    border-radius: 20px;
-    background: #0a0a0a;
-    scroll-snap-align: center;
-  }
-
-  .oh-show__tarjeta .oh-show__meta {
-    margin-top: 0;
-  }
-
-  .oh-show__tarjeta .oh-show__nombre {
-    font-size: min(42px, calc(100cqi / (var(--len, 8) * 0.7)));
-  }
-
-  .oh-show__tarjeta .oh-show__pantalla {
-    border-radius: 10px;
-  }
-
-  .oh-show__tarjeta .oh-terminal,
-  .oh-show__tarjeta .oh-show__onvi {
-    padding: 12px 0 0;
-  }
-
-  .oh-show__tarjeta .oh-show__acciones {
-    margin-top: auto;
-  }
 }
 
 /* ── 06 · El problema: funciones de wisprflow ────────────────────────────── */
@@ -2815,12 +2528,6 @@
 /* ──────────────────────────────────────────────────────────────────────────
    Piezas propias del inicio de Onvision Digital
    ────────────────────────────────────────────────────────────────────────── */
-
-/* Las capturas del Sistema traen el ícono de Next abajo a la izquierda: se recorta. */
-.oh-img-sistema {
-  transform: scale(1.09);
-  transform-origin: 0 0;
-}
 
 /* ── Franja de clientes: puntos, siglas y chats ─────────────────────────── */
 

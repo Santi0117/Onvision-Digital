@@ -8,6 +8,39 @@
   padding: clamp(90px, 11vw, 160px) var(--gut) clamp(60px, 8vw, 110px);
 }
 
+/* El "onvision." abre la página: debajo del menú y sin la raya, que ahora
+   separa la cinta. */
+.od-reel--cabeza {
+  padding-top: clamp(128px, 13vw, 190px);
+  padding-bottom: clamp(30px, 3.4vw, 50px);
+}
+
+.od-reel--cabeza .od-reel__cabeza {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.od-reel--lista {
+  padding-top: clamp(24px, 3vw, 44px);
+}
+
+/* Las letras suben dentro de su renglón; el relleno deja ver los puntos de la i. */
+.od-reel__letras {
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.14em 0.04em 0.06em 0;
+  margin: -0.14em -0.04em -0.06em 0;
+}
+
+.od-reel__letra,
+.od-reel__letras .od-punto {
+  display: inline-block;
+}
+
+.od-reel__letras .od-punto {
+  transform-origin: 50% 85%;
+}
+
 .od-reel__cabeza {
   display: flex;
   flex-wrap: wrap;

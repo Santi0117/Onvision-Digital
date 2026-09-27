@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { companySistema } from "@/lib/company";
 import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
 import { empresaProjects, type EmpresaProject } from "@/lib/empresas";
 import type { Seleccion } from "../digital/Pago";
@@ -138,45 +137,6 @@ export const lineaDeEmpresa = (e: EmpresaProject) => LINEA_DE_TIPO[e.kind];
 export const empresas = empresaProjects.map((e, i) => ({ ...e, codigo: pad(i + 1), linea: LINEA_DE_TIPO[e.kind] }));
 
 export type Empresa = (typeof empresas)[number];
-
-/* ── Servicios para la escena fija (los cuatro + el Sistema Onvision) ─── */
-
-export type EscenaServicio = {
-  id: string;
-  nombre: string;
-  detalle: string;
-  cuerpo: string;
-  lineas: string[];
-  imagen: string;
-  alt: string;
-  ajuste: "contain" | "cover";
-  linea: Linea | "sistema";
-};
-
-export const escenasServicio: EscenaServicio[] = [
-  ...servicios.map((s) => ({
-    id: s.id,
-    nombre: s.label,
-    detalle: s.precio,
-    cuerpo: s.body,
-    lineas: s.piezas,
-    imagen: s.poster,
-    alt: `${s.label}: ${s.titulo} hecho por Onvision Digital`,
-    ajuste: "contain" as const,
-    linea: s.grupo,
-  })),
-  {
-    id: "sistema",
-    nombre: "Sistema Onvision",
-    detalle: "₡10.500 al mes",
-    cuerpo: `${companySistema.title} facturación, inventario y SINPE en una sola cuenta.`,
-    lineas: companySistema.points.map(oracion),
-    imagen: "/product/retail-pos-hq2.webp",
-    alt: "Sistema Onvision: punto de venta",
-    ajuste: "cover",
-    linea: "sistema",
-  },
-];
 
 export const SISTEMA = {
   activar: `${SISTEMA_URL}/activar`,

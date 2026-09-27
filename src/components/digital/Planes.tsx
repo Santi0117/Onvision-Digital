@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
 import Pixel, { type FiguraPixel } from "../od/Pixel";
 import { Check, ConPunto, Flecha } from "../od/ui";
@@ -94,22 +94,10 @@ function Tarjeta({
  * línea, íconos de píxeles, la del medio en negro con su pestaña "Más
  * elegido", precio grande y la lista con checks. Pagar abre la hoja de Onvo.
  */
-/** Lo manda "Elegir este plan" en las líneas de arriba: se abre la pestaña de esa línea. */
-export const ELEGIR_LINEA = "od:elegir-linea";
-
 export default function Planes() {
   const [grupo, setGrupo] = useState<DigitalPlanGroupKey>("web");
   const [seleccion, setSeleccion] = useState<Seleccion | null>(null);
   const datos = digitalPlans.groups[grupo];
-
-  useEffect(() => {
-    const alElegir = (e: Event) => {
-      const linea = (e as CustomEvent<string>).detail;
-      if (linea in digitalPlans.groups) setGrupo(linea as DigitalPlanGroupKey);
-    };
-    window.addEventListener(ELEGIR_LINEA, alElegir);
-    return () => window.removeEventListener(ELEGIR_LINEA, alElegir);
-  }, []);
 
   const pagar = (plan: Plan) => {
     if (!("checkoutId" in plan) || !plan.checkoutId) return;

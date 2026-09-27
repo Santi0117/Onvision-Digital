@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Agenda from "@/components/digital/Agenda";
-import Arranque from "@/components/digital/Arranque";
+import CintaOnvi from "@/components/digital/CintaOnvi";
 import Impacto from "@/components/digital/Impacto";
 import Incluye from "@/components/digital/Incluye";
 import Planes from "@/components/digital/Planes";
-import Showreel from "@/components/digital/Showreel";
+import Showreel, { ShowreelCabeza } from "@/components/digital/Showreel";
 import Cierre from "@/components/od/Cierre";
 import Faq from "@/components/od/Faq";
 import "@/components/digital/digital.css";
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
 export default function Digital() {
   return (
     <>
-      <Arranque />
+      <ShowreelCabeza />
+      <CintaOnvi />
       <Showreel />
       <div className="od-bloque">
         <Incluye />
