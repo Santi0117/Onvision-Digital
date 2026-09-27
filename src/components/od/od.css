@@ -1929,6 +1929,56 @@ html.od-con-cursor .od-cursor-aro {
   object-fit: contain;
 }
 
+/* Apps móviles: el video es un iPhone, así que la tarjeta es el teléfono mismo,
+   con las esquinas del iPhone, el canto parejo y la luz de color detrás. */
+.od-pantalla.od-pantalla--telefono {
+  width: auto;
+  height: min(580px, 72vh);
+  aspect-ratio: 720 / 1540;
+  justify-self: center;
+  overflow: visible;
+  isolation: isolate;
+  border-radius: 0;
+  background: none;
+}
+
+.od-pantalla--telefono::before {
+  content: "";
+  position: absolute;
+  top: 6%;
+  bottom: 6%;
+  left: 50%;
+  z-index: -1;
+  width: min(190%, 92vw);
+  translate: -50% 0;
+  background: radial-gradient(closest-side, rgb(52 211 238 / 0.2), transparent 75%);
+  pointer-events: none;
+}
+
+.od-pantalla--telefono video,
+.od-pantalla--telefono::after {
+  border-radius: 14.3% 17.1% 19.1% 18.7% / 6.7% 8% 8.9% 8.7%;
+}
+
+.od-pantalla--telefono video {
+  object-fit: cover;
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.9);
+}
+
+.od-pantalla--telefono::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.16);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .od-pantalla.od-pantalla--telefono {
+    height: min(520px, 64vh);
+  }
+}
+
 /* ── Íconos de píxeles ───────────────────────────────────────────────── */
 
 .od-pixel {

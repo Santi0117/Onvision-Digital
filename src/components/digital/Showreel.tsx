@@ -86,7 +86,7 @@ export default function Showreel() {
                 <Flecha dir="diagonal" /> {digitalShowreel.cta.label}
               </a>
             </div>
-            <Pantalla video={s.video} poster={s.poster} titulo={s.label} className="od-reel__pantalla" />
+            <Pantalla video={s.video} poster={s.portada} titulo={s.label} telefono={s.telefono} className="od-reel__pantalla" />
           </motion.li>
         ))}
       </ol>

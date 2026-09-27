@@ -37,6 +37,9 @@ export const servicios = digitalShowreel.items.map((item, i) => {
     grupo: GRUPO[item.id as keyof typeof GRUPO],
     pestaña: digitalPlans.tabs[GRUPO[item.id as keyof typeof GRUPO]],
     piezas: PIEZAS[item.id as keyof typeof GRUPO],
+    /** Apps móviles se ve como un teléfono: el video es el iPhone recortado, con su primer cuadro de portada. */
+    telefono: item.id === "mobile",
+    portada: item.id === "mobile" ? "/digital/mobile-telefono.jpg" : item.poster,
   };
 });
 

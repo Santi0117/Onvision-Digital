@@ -43,7 +43,7 @@ export const digitalShowreel = {
       id: "mobile",
       label: "Apps móviles",
       body: "iOS y Android a medida cuando el negocio necesita estar en el bolsillo del cliente.",
-      video: "/digital/videos/mobile.mp4",
+      video: "/digital/videos/mobile-telefono.mp4",
       poster: "/digital/mobile-run-cut5.png",
     },
   ],

@@ -4,11 +4,10 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { empresasPage, type EmpresaFilter } from "@/lib/empresas";
-import Pago, { type Seleccion } from "../digital/Pago";
-import { empresas, planDeLinea, scrollA, seleccionDe, tinte, type Empresa, type Linea } from "../home/data";
+import { empresas, planDeLinea, scrollA, tinte, type Empresa, type Linea } from "../home/data";
 import { Check, Flecha, Mono } from "../home/ui";
 import Pixel from "../od/Pixel";
-import { filtrosEmpresas, servicios } from "../od/data";
+import { filtrosEmpresas, servicios, wa } from "../od/data";
 import "../home/home.css";
 import "../home/home-secciones.css";
 import "./empresas.css";
@@ -18,20 +17,11 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /** Lo que trae un proyecto de cada línea y desde cuánto (de "Qué incluye" y los planes). */
 const DE_LINEA = Object.fromEntries(servicios.map((s) => [s.grupo, s])) as Record<Linea, (typeof servicios)[number]>;
 
-function Fila({
-  e,
-  abierta,
-  alAlternar,
-  alElegir,
-}: {
-  e: Empresa;
-  abierta: boolean;
-  alAlternar: () => void;
-  alElegir: (linea: Linea) => void;
-}) {
+function Fila({ e, abierta, alAlternar }: { e: Empresa; abierta: boolean; alAlternar: () => void }) {
   const panel = `oh-det-${e.id}`;
   const linea = DE_LINEA[e.linea];
-  const plan = planDeLinea(e.linea);
+  const figura = planDeLinea(e.linea).figura;
+  const mensaje = `Hola, vi el trabajo de ${e.name} (${e.kindLabel.toLowerCase()}) y quiero uno así para mi negocio.`;
   return (
     <article id={e.id} className="oh-det__fila" data-abierta={abierta ? "true" : "false"} style={tinte(e.linea)}>
       <h3 className="oh-det__h3">
@@ -81,11 +71,8 @@ function Fila({
                 <div>
                   <Mono className="oh-det__label">Línea · {linea.titulo}</Mono>
                   <ul className="oh-det__ayuda">
-                    <li>{linea.precio}</li>
-                    <li>
-                      Plan sugerido: {plan.nombre} · {plan.precio}/mes
-                    </li>
                     <li>Onvi IA, hosting y soporte incluidos</li>
+                    <li>Entrega promedio: una semana</li>
                   </ul>
                 </div>
                 <div className="oh-det__lado">
@@ -98,17 +85,17 @@ function Fila({
                       className="object-contain"
                     />
                     <figcaption>
-                      <Pixel figura={plan.figura} className="h-3.5 w-3.5" />
+                      <Pixel figura={figura} className="h-3.5 w-3.5" />
                       {e.kindLabel}
                     </figcaption>
                   </figure>
                   <div className="oh-det__botones">
-                    <button type="button" className="oh-pill oh-pill--sol oh-pill--chica" onClick={() => alElegir(e.linea)}>
+                    <a href={wa(mensaje)} target="_blank" rel="noopener noreferrer" className="oh-pill oh-pill--sol oh-pill--chica">
                       Quiero uno así
                       <span className="oh-pill__circ">
                         <Flecha dir="diagonal" />
                       </span>
-                    </button>
+                    </a>
                     {e.href ? (
                       <a href={e.href} target="_blank" rel="noopener noreferrer" className="oh-det__visitar">
                         {e.linkLabel ?? "Visitar sitio"}
@@ -130,12 +117,12 @@ function Fila({
  * La página de Empresas: la sección de trabajos que antes iba en el inicio,
  * como "Proof, not promises" de jeffmilanes. El número delineado, el nombre
  * gigante y, al abrir, lo que hicimos con su captura; arriba, los filtros.
- * "Quiero uno así" abre el pago con el plan sugerido de esa línea.
+ * Sin precios ni planes: "Quiero uno así" abre WhatsApp contando qué trabajo
+ * se vio.
  */
 export default function Trabajos() {
   const [filtro, setFiltro] = useState<EmpresaFilter>("all");
   const [abierta, setAbierta] = useState<string | null>(empresas[0]!.id);
-  const [pago, setPago] = useState<Seleccion | null>(null);
   const visibles = filtro === "all" ? empresas : empresas.filter((e) => e.kind === filtro);
 
   // Las marcas de la franja de clientes del inicio llegan con su ancla ("/empresas#firstdown"):
@@ -162,7 +149,6 @@ export default function Trabajos() {
     };
   }, []);
 
-  const elegir = (linea: Linea) => setPago(seleccionDe(planDeLinea(linea)));
 
   const filtrar = (f: EmpresaFilter) => {
     setFiltro(f);
@@ -199,12 +185,10 @@ export default function Trabajos() {
               e={e}
               abierta={abierta === e.id}
               alAlternar={() => setAbierta((a) => (a === e.id ? null : e.id))}
-              alElegir={elegir}
             />
           ))}
         </div>
       </section>
-      <Pago seleccion={pago} alCerrar={() => setPago(null)} />
     </div>
   );
 }
