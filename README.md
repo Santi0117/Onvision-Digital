@@ -77,5 +77,9 @@ WhatsApp y Onvi contesta con sus respuestas de siempre.
    `onvisiondigital.com`, mové el dominio a este proyecto; `sistema.onvisiondigital.com`
    puede seguir apuntando al proyecto de la landing oficial.
 
+En el plan Hobby, Vercel solo publica los commits cuyo autor es el dueño de la
+cuenta: los de otro autor los salta sin avisar (no aparece ningún deploy). Los
+commits de este repositorio van a nombre de `Santi0117`.
+
 Con "reducir movimiento" activado en el sistema no hay intro, ni scroll suave,
 ni animaciones.
