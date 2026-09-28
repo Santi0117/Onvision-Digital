@@ -53,6 +53,7 @@ type PlanFuente = {
   readonly priceFull: string;
   readonly checkoutId: string;
   readonly highlighted?: boolean;
+  readonly startsAt?: boolean;
   readonly features: readonly string[];
 };
 
@@ -68,6 +69,8 @@ export type PlanPago = {
   precioAnual: string;
   precioUnico: string;
   destacado: boolean;
+  /** Software y apps: el precio es "desde". */
+  precioDesde: boolean;
   /** Sitios y tiendas: mínimo de 5 meses (FAQ oficial). Software y apps: sin mínimo. */
   minimo: boolean;
   features: readonly string[];
@@ -92,6 +95,7 @@ export const planes: PlanPago[] = LINEAS.flatMap((linea) =>
   precioAnual: p.priceYear,
   precioUnico: p.priceFull,
   destacado: Boolean(p.highlighted),
+  precioDesde: Boolean(p.startsAt),
   minimo: linea === "web" || linea === "shop",
   features: p.features,
   figura: FIGURA[linea],

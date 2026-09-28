@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useRef } from "react";
 import { companyHero } from "@/lib/company";
 import { webHero } from "@/lib/web";
 import SplitFlapText from "./SplitFlapText";
-import { smoothstep, visionStore } from "./store";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -21,38 +19,15 @@ const RENGLONES = [
   { texto: "marca:", hueco: true },
 ];
 
-/** Las tarjetas de vidrio que flotan alrededor de la laptop (driveberry). */
-const VIDRIOS = [
-  { clase: "a", icono: "⚡", titulo: "Onvi activa", texto: "Atiende 24/7 en español" },
-  { clase: "b", icono: "✓", titulo: "Reserva confirmada", texto: "Consulta · mañana 9:00" },
-  { clase: "c", icono: "98", titulo: "Rendimiento 98 · SEO 100", texto: "Carga en menos de 1 s" },
-];
-
 /**
  * Portada: la laptop 3D de la preview oficial a la derecha (la escena fija
  * detrás) y a la izquierda el titular gigante de nuestro inicio —
  * "PIEZA POR PIEZA, / HECHO A TU MARCA:" — con la palabra que rota en las
- * fichas de la preview. Los botones son las tarjetas de la preview y las
- * notificaciones de vidrio de driveberry flotan alrededor de la laptop.
+ * fichas de la preview. Los botones son las tarjetas de la preview.
  */
 export default function Portada({ ready }: { ready: boolean }) {
   const reduce = useReducedMotion();
   const go = ready || Boolean(reduce);
-  const vidriosRef = useRef<HTMLDivElement>(null);
-
-  // Las notificaciones se van cuando la laptop empieza a abrirse.
-  useEffect(() => {
-    let last = "";
-    return visionStore.subscribe((frame) => {
-      const el = vidriosRef.current;
-      if (!el) return;
-      const o = (1 - smoothstep(-0.34, -0.1, frame.raw)).toFixed(3);
-      if (o !== last) {
-        last = o;
-        el.style.opacity = o;
-      }
-    });
-  }, []);
 
   const entra = (delay: number, y = 16) =>
     reduce
@@ -148,18 +123,6 @@ export default function Portada({ ready }: { ready: boolean }) {
       </div>
 
       <div className="vision-hero__visual" aria-hidden />
-
-      <div ref={vidriosRef} className={`oh-vidrios${go ? " is-on" : ""}`} aria-hidden>
-        {VIDRIOS.map((v) => (
-          <div key={v.clase} className={`oh-vidrio oh-vidrio--${v.clase}`}>
-            <span className="oh-vidrio__ico">{v.icono}</span>
-            <span className="oh-vidrio__txt">
-              <b>{v.titulo}</b>
-              {v.texto}
-            </span>
-          </div>
-        ))}
-      </div>
     </section>
   );
 }

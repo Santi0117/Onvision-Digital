@@ -25,6 +25,7 @@ export default function Precios({ alElegirPlan }: { alElegirPlan: (plan: PlanPag
   const desde = deLinea[0]!;
   const plan = planDeLinea(linea);
   const otros = deLinea.filter((p) => p.id !== plan.id);
+  const deBase = desde.precioDesde ? `${digitalPlans.fromLabel} ` : "";
   const [antes, despues = ""] = companyOffers.title.split(". ");
 
   return (
@@ -70,7 +71,8 @@ export default function Precios({ alElegirPlan }: { alElegirPlan: (plan: PlanPag
           </button>
         </div>
         <p className="oh-pildora__nota">
-          {desde.precioAlt ? `${desde.precioAlt} al mes · ` : ""}o {desde.precioUnico} {digitalPlans.onceLabel} ·{" "}
+          {desde.precioAlt ? `${desde.precioAlt} al mes · ` : ""}o {deBase}
+          {desde.precioUnico} {digitalPlans.onceLabel} · {deBase}
           {desde.precioAnual} {digitalPlans.yearLabel} ({digitalPlans.yearSave})
         </p>
         <p className="oh-pildora oh-pildora--corrida">
@@ -90,6 +92,7 @@ export default function Precios({ alElegirPlan }: { alElegirPlan: (plan: PlanPag
             <h3 className="oh-plan__nombre">{plan.nombre}</h3>
             <span className="oh-plan__badge">{plan.destacado && otros.length ? digitalPlans.mostChosen : plan.lineaNombre}</span>
             <span className="oh-plan__precio">
+              {plan.precioDesde ? <small className="oh-plan__desde">{`${digitalPlans.fromLabel} `}</small> : null}
               {plan.precio}
               <small>{digitalPlans.period}</small>
             </span>

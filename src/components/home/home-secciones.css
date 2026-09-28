@@ -1071,6 +1071,10 @@
   color: var(--muted);
 }
 
+.oh-plan__precio .oh-plan__desde {
+  margin: 0;
+}
+
 .oh-plan__acciones {
   display: flex;
   flex-wrap: wrap;

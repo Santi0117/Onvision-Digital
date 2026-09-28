@@ -28,6 +28,7 @@ function Tarjeta({
 }) {
   const [todo, setTodo] = useState(false);
   const destacado = "highlighted" in plan && plan.highlighted;
+  const desde = "startsAt" in plan && plan.startsAt ? `${digitalPlans.fromLabel} ` : "";
   const lista = todo ? plan.features : plan.features.slice(0, VISIBLES);
   const idLista = `od-plan-${grupo}-${indice}`;
 
@@ -46,6 +47,7 @@ function Tarjeta({
 
       <div className="od-plan__precios">
         <p className="od-plan__precio">
+          {desde ? <span>{digitalPlans.fromLabel}</span> : null}
           <b>{plan.price}</b>
           <span>{digitalPlans.period}</span>
         </p>
@@ -53,11 +55,13 @@ function Tarjeta({
         <p className="od-plan__otros">
           {"priceYear" in plan && plan.priceYear ? (
             <span>
+              {desde}
               {plan.priceYear} {digitalPlans.yearLabel} <em>{digitalPlans.yearSave}</em>
             </span>
           ) : null}
           {"priceFull" in plan && plan.priceFull ? (
             <span>
+              {desde}
               {plan.priceFull} {digitalPlans.onceLabel}
             </span>
           ) : null}

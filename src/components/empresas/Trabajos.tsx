@@ -162,7 +162,7 @@ export default function Trabajos() {
         <div className="oh-det__head">
           <Mono>Empresas</Mono>
           <h1 id="oh-det-titulo" className="oh-det__h2">
-            <span className="oh-det__h2-grande">Trabajos que ya corren:</span>
+            <span className="oh-det__h2-grande">Algunos trabajos que ya corren:</span>
             <em className="oh-det__h2-serif">sitios, tiendas y software a medida</em>
           </h1>
           <p className="oh-det__lede">{empresasPage.lead}</p>

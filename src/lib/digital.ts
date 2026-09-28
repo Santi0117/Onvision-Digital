@@ -147,13 +147,21 @@ export const digitalMeeting = {
     details: "Tus datos",
   },
   timeLabel: "¿A qué hora?",
+  /** De 9:00 a.m. a 9:00 p.m., cada hora (hora de Costa Rica). */
   times: [
     { label: "9:00 a.m.", hour: 9, minute: 0 },
-    { label: "10:30 a.m.", hour: 10, minute: 30 },
+    { label: "10:00 a.m.", hour: 10, minute: 0 },
+    { label: "11:00 a.m.", hour: 11, minute: 0 },
     { label: "12:00 p.m.", hour: 12, minute: 0 },
+    { label: "1:00 p.m.", hour: 13, minute: 0 },
     { label: "2:00 p.m.", hour: 14, minute: 0 },
-    { label: "3:30 p.m.", hour: 15, minute: 30 },
+    { label: "3:00 p.m.", hour: 15, minute: 0 },
+    { label: "4:00 p.m.", hour: 16, minute: 0 },
     { label: "5:00 p.m.", hour: 17, minute: 0 },
+    { label: "6:00 p.m.", hour: 18, minute: 0 },
+    { label: "7:00 p.m.", hour: 19, minute: 0 },
+    { label: "8:00 p.m.", hour: 20, minute: 0 },
+    { label: "9:00 p.m.", hour: 21, minute: 0 },
   ],
   serviceLabel: "¿Qué querés conversar?",
   services: [
@@ -187,6 +195,8 @@ export const digitalPlans = {
   yearLabel: "/ año",
   yearSave: "−17%",
   onceLabel: "pago único",
+  /** Software y apps arrancan en ese precio y suben según el alcance. */
+  fromLabel: "desde",
   mostChosen: "Más elegido",
   payMonthlyCta: "Pagar mensualidad",
   paySheet: {
@@ -343,6 +353,7 @@ export const digitalPlans = {
           priceFull: "$1.750",
           checkoutId: "software-saas",
           highlighted: true,
+          startsAt: true,
           features: [
             "Panel Onvi incluido",
             "App web con autenticación y base de datos",
@@ -373,6 +384,7 @@ export const digitalPlans = {
           priceFull: "$1.500",
           checkoutId: "mobile-app",
           highlighted: true,
+          startsAt: true,
           features: [
             "Panel Onvi incluido",
             "App nativa cross-platform (iOS + Android) o PWA",
