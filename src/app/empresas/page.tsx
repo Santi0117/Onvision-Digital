@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Trabajos from "@/components/empresas/Trabajos";
+import Muestrario from "@/components/empresas/Muestrario";
 import Cierre from "@/components/od/Cierre";
 import { empresasPage } from "@/lib/empresas";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function EmpresasRuta() {
   return (
     <>
-      <Trabajos />
+      <Muestrario />
       <Cierre
         pregunta={empresasPage.cta.title}
         palabra="EL TUYO"

@@ -455,7 +455,7 @@ function Marca() {
           </span>
           <span className="pz-g__url">onvisiondigital.com</span>
           <b className="pz-g__titulo">Onvision Digital — Sitios y software</b>
-          <span className="pz-g__desc">Páginas web, tiendas y software a medida en Costa Rica.</span>
+          <span className="pz-g__desc">Páginas web, tiendas y software a medida en Latinoamérica.</span>
         </span>
         <span className="pz-g__uno">#1</span>
       </div>

@@ -2,7 +2,7 @@ import { site } from "./site";
 
 export const companyNav = [
   { label: "Servicios", href: "/digital" },
-  { label: "Planes", href: "/digital#planes" },
+  { label: "Planes", href: "/planes" },
   { label: "Empresas", href: "/empresas" },
   { label: "Sistema", href: "https://sistema.onvisiondigital.com/producto" },
   { label: "Sobre nosotros", href: "/sobre-nosotros" },
@@ -17,7 +17,7 @@ export const companyHero = {
     "SISTEMAS EN VIVO",
   ],
   primaryCta: { label: "Ver los servicios", href: "/digital" },
-  secondaryCta: { label: "Agendar una reunión", href: "/digital#agendar" },
+  secondaryCta: { label: "Agendar una reunión", href: "/planes#agendar" },
 } as const;
 
 export const companyWalkthrough = {
@@ -41,7 +41,7 @@ export const companyOnvi = {
     "ACOMPAÑA CADA AJUSTE DEL CLIENTE",
     "SIN CONTRATAR OTRA HERRAMIENTA",
   ],
-  cta: { label: "Agendar una reunión", href: "/digital#agendar" },
+  cta: { label: "Agendar una reunión", href: "/planes#agendar" },
 } as const;
 
 export const companyChats = {

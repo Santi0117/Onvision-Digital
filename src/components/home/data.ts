@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
 import { empresaProjects, type EmpresaProject } from "@/lib/empresas";
-import type { Seleccion } from "../digital/Pago";
+import type { Seleccion } from "../planes/Pago";
 import type { FiguraPixel } from "../od/Pixel";
 import { SISTEMA_URL, servicios } from "../od/data";
 
@@ -42,7 +42,7 @@ const CAPTURA = Object.fromEntries(servicios.map((s) => [s.grupo, { src: s.poste
   { src: string; alt: string }
 >;
 
-/* ── Planes con pago (los mismos seis de /digital#planes) ─────────────── */
+/* ── Planes con pago (los mismos seis de /planes) ───────────────────────── */
 
 type PlanFuente = {
   readonly name: string;
@@ -109,7 +109,7 @@ export function planDeLinea(linea: Linea) {
   return deLinea.find((p) => p.destacado) ?? deLinea[0]!;
 }
 
-/** Lo que recibe la hoja de pago de Onvo (igual que en /digital#planes). */
+/** Lo que recibe la hoja de pago de Onvo. */
 export function seleccionDe(p: PlanPago): Seleccion {
   return {
     planId: p.id,
@@ -150,9 +150,7 @@ export const ESCENAS = [
   { id: "nucleo", nombre: "Núcleo" },
   { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
   { id: "panel", nombre: "Panel Onvi" },
-  { id: "comparativa", nombre: "Vs el mercado" },
-  { id: "precios", nombre: "Planes" },
-  { id: "registro", nombre: "Contacto" },
+  { id: "planes-inicio", nombre: "Planes" },
 ] as const;
 
 /* ── Desplazamiento ───────────────────────────────────────────────────── */

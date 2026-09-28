@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Agenda from "@/components/digital/Agenda";
 import CintaOnvi from "@/components/digital/CintaOnvi";
-import Impacto from "@/components/digital/Impacto";
 import Incluye from "@/components/digital/Incluye";
-import Planes from "@/components/digital/Planes";
 import Piezas from "@/components/digital/piezas/Piezas";
+import Retos from "@/components/digital/retos/Retos";
 import { ShowreelCabeza } from "@/components/digital/Showreel";
 import Cierre from "@/components/od/Cierre";
 import Faq from "@/components/od/Faq";
@@ -24,12 +22,8 @@ export default function Digital() {
       <Piezas />
       <div className="od-bloque">
         <Incluye />
-        <Planes />
       </div>
-      <Impacto />
-      <div className="od-bloque od-bloque--hielo">
-        <Agenda />
-      </div>
+      <Retos />
       <div className="od-bloque od-faq-bloque">
         <Faq />
       </div>
@@ -37,8 +31,8 @@ export default function Digital() {
         pregunta="¿Seguís con dudas?"
         palabra="ESCRIBINOS"
         lead="Contanos el negocio, el plazo y si preferís mensualidad o pago único."
-        primario={{ label: "Agendar reunión", href: "/digital#agendar" }}
-        secundario={{ label: "Ver empresas", href: "/empresas" }}
+        primario={{ label: "Agendar reunión", href: "/planes#agendar" }}
+        secundario={{ label: "Ver planes", href: "/planes" }}
       />
     </>
   );

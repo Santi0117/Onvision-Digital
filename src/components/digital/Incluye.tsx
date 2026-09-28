@@ -56,7 +56,7 @@ export default function Incluye() {
       </div>
 
       <div id="od-incl-panel" role="tabpanel" aria-labelledby={`od-incl-tab-${item.id}`} className="od-incl__tarjeta">
-        <Sello texto="AGENDAR REUNIÓN · SIN COMPROMISO · " href="#agendar" etiqueta="Agendar una reunión" className="od-incl__sello" />
+        <Sello texto="AGENDAR REUNIÓN · SIN COMPROMISO · " href="/planes#agendar" etiqueta="Agendar una reunión" className="od-incl__sello" />
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={item.id}

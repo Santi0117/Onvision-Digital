@@ -33,15 +33,16 @@ Abrí [http://localhost:3040](http://localhost:3040). Necesita Node 20.9 o más 
 
 | Ruta              | Qué tiene                                                                 |
 | ----------------- | ------------------------------------------------------------------------- |
-| `/`               | La laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en dibujos de puntos), tu marca en movimiento, Panel Onvi, Onvision vs. el mercado, planes y contacto |
-| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), qué incluye, planes con pago (Onvo), impacto, agenda y preguntas frecuentes |
-| `/empresas`       | Los 10 proyectos con filtros                                              |
-| `/sobre-nosotros` | Manifiesto, precios vs. mercado, objetivo, stack y habilidades            |
+| `/`               | "Soluciones digitales hechas para vender": la laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en puntos blancos, como jeffmilanes; en el celular la escena queda fija y los puntos se rearman con el dedo), tu marca en movimiento, Panel Onvi y la puerta a Planes |
+| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), qué incluye, "¿Y eso se puede?" (lo difícil de cada servicio con una demo que se puede tocar) y preguntas frecuentes |
+| `/planes`         | Los planes en una sola sección (la línea, el precio "desde", las tarjetas con pago por Onvo y las ofertas), la agenda y "Cualquier idea que tengas" |
+| `/empresas`       | El muestrario de los 10 proyectos: por línea, con su pantalla, ficha y señal |
+| `/sobre-nosotros` | Manifiesto, objetivo, stack y habilidades                                 |
 | `/pago/exito`, `/pago/cancelado` | La vuelta desde Onvo                                       |
 
 En todas: el menú, Onvi (la IA, a la derecha), WhatsApp y el pie. "Sistema"
 lleva a `sistema.onvisiondigital.com`, como en el sitio oficial. Las
-direcciones viejas (`/planes`, `/agendar`, `/portafolio`…) redirigen igual que antes.
+direcciones viejas (`/agendar`, `/cotizar`, `/portafolio`…) redirigen igual que antes; `/agendar`, `/cotizar` y `/contacto` llevan a la agenda de Planes.
 
 ## Qué hay adentro
 
@@ -53,9 +54,11 @@ src/
 │   └── api/chat         Onvi (OpenAI o sus respuestas de siempre)
 ├── components/
 │   ├── od/              lo común: marco, intro, menú, Onvi, pie, cierre, piezas chicas
-│   ├── inicio/          las secciones del inicio
+│   ├── vision/          la laptop 3D, la portada y la línea de avance del inicio
+│   ├── home/            las demás secciones del inicio
 │   ├── digital/         las secciones de servicios
-│   ├── empresas/        empresas
+│   ├── planes/          planes, pago, agenda y "Cualquier idea"
+│   ├── empresas/        el muestrario de empresas
 │   └── nosotros/        sobre nosotros
 └── lib/                 los textos, planes y proyectos (los mismos del sitio oficial)
 ```

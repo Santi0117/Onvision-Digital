@@ -1,0 +1,152 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Planes: "No te atrasés…" y "Planes claros" en una sola sección, la
+   agenda y "Cualquier idea que tengas", cada una en su tarjeta clara.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.pl-pagina {
+  padding-top: 12px;
+}
+
+.pl-pagina .od-bloque + .od-bloque {
+  margin-top: 12px;
+}
+
+.pl {
+  padding: clamp(130px, 13vw, 180px) var(--gut) clamp(70px, 8vw, 120px);
+}
+
+.pl-cabeza {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  max-width: 1040px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pl-cabeza .oh-lede {
+  text-align: center;
+}
+
+/* ── La línea de servicio: pegada arriba mientras se ven los precios ─── */
+
+.pl-pegado {
+  position: sticky;
+  top: 88px;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+  pointer-events: none;
+}
+
+.pl-lineas {
+  display: flex;
+  max-width: 100%;
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid rgb(10 13 18 / 0.1);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.86);
+  box-shadow: 0 14px 34px -22px rgb(10 13 18 / 0.45);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  pointer-events: auto;
+}
+
+.pl-lineas button {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 15.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #3a4552;
+  transition: color 0.3s;
+}
+
+/* El nombre va arriba del fondo negro: así se lee la línea elegida. */
+.pl-lineas button > span {
+  position: relative;
+  z-index: 1;
+}
+
+.pl-lineas__n {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--muted-2);
+  transition: color 0.3s;
+}
+
+.pl-lineas button:not([aria-pressed="true"]):hover {
+  color: var(--ink);
+}
+
+.pl-lineas button[aria-pressed="true"] {
+  color: #fff;
+}
+
+.pl-lineas button[aria-pressed="true"] .pl-lineas__n {
+  color: var(--cyan);
+}
+
+.pl-lineas__fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--ink);
+  box-shadow: 0 6px 16px -8px rgb(10 13 18 / 0.6);
+}
+
+.pl-lineas button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+/* ── Las tarjetas de la línea ───────────────────────────────────────── */
+
+.pl-planes {
+  max-width: 1180px;
+  margin: clamp(80px, 9vw, 130px) auto 0;
+}
+
+.pl-planes__cabeza {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.pl .oh-ofertas {
+  margin-top: clamp(64px, 7vw, 100px);
+}
+
+/* ── Celular: la línea en dos por dos ───────────────────────────────── */
+
+@media (max-width: 640px) {
+  .pl-pegado {
+    top: 78px;
+    margin-top: 26px;
+  }
+
+  .pl-lineas {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 20px;
+  }
+
+  .pl-lineas button {
+    padding: 11px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+  }
+}

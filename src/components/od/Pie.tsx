@@ -156,7 +156,7 @@ export default function Pie() {
         </p>
 
         <div className="od-pie__abajo">
-          <span>© {año} Onvision Digital · Costa Rica</span>
+          <span>© {año} Onvision Digital · Latinoamérica</span>
           <span className="od-pie__estado">
             <i aria-hidden /> Hora CR <Hora />
           </span>

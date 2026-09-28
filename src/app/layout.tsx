@@ -13,8 +13,10 @@ const ARRANQUE = `(function(){try{var d=document.documentElement;if(sessionStora
 export const metadata: Metadata = {
   title: `${site.parentName} — Sitios, software y SaaS`,
   description:
-    "Onvision Digital construye sitios, tiendas y software a medida, y el SaaS Onvision para empresas en Costa Rica.",
+    "Onvision Digital construye sitios, tiendas y software a medida para empresas en Latinoamérica, y el SaaS Onvision.",
   keywords: [
+    "páginas web Latinoamérica",
+    "tiendas online Latinoamérica",
     "páginas web Costa Rica",
     "tiendas online Costa Rica",
     "software a medida",
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CR",
     siteName: site.parentName,
-    title: `${site.parentName} — Tu sitio, pieza por pieza`,
+    title: `${site.parentName} — Soluciones digitales hechas para vender`,
     description: "Construimos lo que tu negocio necesita para vender y operar en digital.",
   },
 };

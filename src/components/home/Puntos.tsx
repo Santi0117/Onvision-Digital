@@ -1,10 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { OJO_D } from "../od/ui";
 
 type P = { x: number; y: number };
 type Azar = () => number;
+
+/**
+ * Lo que manda sobre la figura, leído en cada cuadro (sin renders):
+ * `p` es la pieza (-1 = la nube del principio, 0…5 las figuras).
+ * - "tiempo": la figura de la pieza más cercana y los puntos viajan solos,
+ *   como en jeffmilanes.
+ * - "scroll": el dedo manda: entre una pieza y la siguiente los puntos
+ *   estallan, giran y se vuelven a juntar al ritmo del scroll.
+ */
+export type Senal = { p: number; modo: "tiempo" | "scroll" };
 
 /** Azar con semilla: las formas salen iguales en cada visita. */
 function generador(semilla: number): Azar {
@@ -13,6 +23,12 @@ function generador(semilla: number): Azar {
     s = (s * 16807) % 2147483647;
     return s / 2147483647;
   };
+}
+
+/** Normal (Box-Muller): el grosor de tiza de cada trazo. */
+function normal(azar: Azar) {
+  const u = Math.max(azar(), 1e-9);
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * azar());
 }
 
 function linea(a: P, b: P, n: number, azar: Azar): P[] {
@@ -73,14 +89,18 @@ function mezclar(puntos: P[], azar: Azar): P[] {
 }
 
 /**
- * Exactamente N puntos, mezclados. Si sobran se elige al azar entre todos
- * (no los primeros: si no, en el celular se perdían las últimas partes del
- * dibujo); si faltan, se repiten.
+ * Exactamente N puntos, mezclados y con grosor de tiza. Si sobran se elige
+ * al azar entre todos (no los primeros: si no, en el celular se perdían
+ * las últimas partes del dibujo); si faltan, se repiten.
  */
 function ajustar(puntos: P[], n: number, azar: Azar): P[] {
   const out = mezclar(puntos, azar).slice(0, n);
   while (out.length < n) out.push(puntos[Math.floor(azar() * puntos.length)]!);
-  return mezclar(out, azar);
+  return mezclar(out, azar).map((p) => {
+    // Casi todos pegados al trazo; unos pocos sueltos, como polvo de tiza.
+    const s = azar() < 0.05 ? 0.011 : 0.0034;
+    return { x: p.x + normal(azar) * s, y: p.y + normal(azar) * s };
+  });
 }
 
 /** Estrella de cuatro puntas (astroide), rellena. */
@@ -231,23 +251,46 @@ function formaPanel(n: number): P[] {
 
 const FORMAS = [formaWeb, formaOnvi, formaSoftware, formaComponentes, formaMarca, formaPanel];
 
-/** Los colores de Onvision: casi todo cian, algo de blanco y un poco de azul. */
-const TONOS = ["rgba(52, 211, 238, 0.95)", "rgba(234, 248, 252, 0.9)", "rgba(91, 140, 255, 0.9)"];
+/** La nube del principio: polvo suelto, más ancho y más alto que la figura. */
+function nube(n: number): P[] {
+  const azar = generador(97);
+  return Array.from({ length: n }, () => {
+    const t = azar() * Math.PI * 2;
+    const r = Math.sqrt(azar());
+    return { x: 0.5 + Math.cos(t) * r * 0.78, y: 0.5 + Math.sin(t) * r * 1.02 };
+  });
+}
+
+/** Blanco, como la tiza de jeffmilanes: casi todo brillante, algo gris. */
+const TONOS = ["rgba(255, 255, 255, 0.96)", "rgba(255, 255, 255, 0.6)", "rgba(206, 216, 226, 0.34)"];
+
+/** El fondo de la sección: se pinta en vez de borrar para dejar la estela. */
+const FONDO = "10, 15, 20";
+
+const pisar = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+const escalon = (a: number, b: number, v: number) => {
+  const t = pisar((v - a) / (b - a), 0, 1);
+  return t * t * (3 - 2 * t);
+};
+const suave = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 /**
- * Los dibujos de puntos de jeffmilanes, en los colores de Onvision: cada
- * pieza es una figura y los puntos viajan de una a otra. Se detiene fuera de
- * pantalla y, con movimiento reducido, dibuja la figura quieta.
+ * Los dibujos de puntos de jeffmilanes, en blanco: cada pieza es una figura
+ * y los puntos viajan de una a otra. La figura se acomoda en `caja` (o en
+ * el lienzo entero) y los puntos pueden volar por todo el lienzo. Se
+ * detiene fuera de pantalla y, con movimiento reducido, cambia de figura
+ * sin viajar.
  */
-export default function Puntos({ forma, className = "" }: { forma: number; className?: string }) {
+export default function Puntos({
+  senal,
+  caja,
+  className = "",
+}: {
+  senal: RefObject<Senal>;
+  caja?: RefObject<HTMLElement | null>;
+  className?: string;
+}) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const formaRef = useRef(forma);
-  const motor = useRef<{ cambiar: (f: number) => void } | null>(null);
-
-  useEffect(() => {
-    formaRef.current = forma;
-    motor.current?.cambiar(forma);
-  }, [forma]);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -257,35 +300,93 @@ export default function Puntos({ forma, className = "" }: { forma: number; class
     const ctx: CanvasRenderingContext2D = contexto;
     const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const N = window.matchMedia("(max-width: 767px)").matches ? 620 : 980;
-    const objetivos = FORMAS.map((f) => f(N));
+    const N = window.matchMedia("(max-width: 767px)").matches ? 1100 : 1500;
+    const formas = FORMAS.map((f) => f(N));
+    const polvo = nube(N);
+    const M = formas.length;
     const azar = generador(5);
     const fase = Array.from({ length: N }, () => azar() * Math.PI * 2);
     const demora = Array.from({ length: N }, () => azar() * 420);
     const tono = Array.from({ length: N }, () => {
       const r = azar();
-      return r < 0.72 ? 0 : r < 0.9 ? 1 : 2;
+      return r < 0.58 ? 0 : r < 0.86 ? 1 : 2;
     });
-    const tamano = Array.from({ length: N }, () => 1.4 + azar() * 0.9);
-    // Arrancan desperdigados y se juntan en la primera figura.
-    let desde: P[] = Array.from({ length: N }, () => ({ x: azar(), y: azar() }));
-    let hacia: P[] = objetivos[formaRef.current] ?? objetivos[0]!;
-    const actual: P[] = desde.map((p) => ({ ...p }));
+    const tamano = Array.from({ length: N }, () => 1.15 + azar() * 0.85);
+    const brillo = Array.from({ length: N }, () => 0.6 + azar() * 1.6);
+    // El estallido: cuánto gira cada punto, cuánto se aleja y hacia dónde.
+    // Llega a cubrir la pantalla entera antes de volver a juntarse.
+    const giro = Array.from({ length: N }, () => (azar() < 0.72 ? 1 : -1) * (0.8 + azar() * 1.6));
+    const empuje = Array.from({ length: N }, () => 0.2 + azar() * 1.05);
+    const deriva = Array.from({ length: N }, () => {
+      const t = azar() * Math.PI * 2;
+      const r = 0.04 + azar() * 0.3;
+      return { x: Math.cos(t) * r, y: Math.sin(t) * r };
+    });
+
+    // Modo "tiempo": de dónde salen, a qué figura van y desde cuándo.
+    let desde: P[] = polvo.map((p) => ({ ...p }));
+    let destino = -2;
+    let hacia: P[] = polvo;
     let t0 = performance.now();
     const DUR = 1100;
+    const actual: P[] = polvo.map((p) => ({ ...p }));
+    let modoAntes = senal.current?.modo ?? "tiempo";
 
     let ancho = 0;
     let alto = 0;
+    let lado = 0;
+    let ox = 0;
+    let oy = 0;
     let raf = 0;
     let visible = false;
+    let ultimo = "";
 
-    const suave = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const posiciones = (ahora: number) => {
+      const s = senal.current ?? { p: 0, modo: "tiempo" as const };
+      if (s.modo !== modoAntes) {
+        // Cambió el ancho de la pantalla: sigue desde donde estaban los puntos.
+        modoAntes = s.modo;
+        desde = actual.map((q) => ({ ...q }));
+        destino = -2;
+      }
 
-    const dibujar = (ahora: number) => {
-      ctx.clearRect(0, 0, ancho, alto);
-      const lado = Math.min(ancho, alto);
-      const ox = (ancho - lado) / 2;
-      const oy = (alto - lado) / 2;
+      if (s.modo === "scroll") {
+        const p = pisar(s.p, -1, M - 1);
+        const k = Math.min(Math.floor(p), M - 2);
+        const f = p - k;
+        const a = k < 0 ? polvo : formas[k]!;
+        const b = formas[k + 1]!;
+        const e = quieto ? (f < 0.5 ? 0 : 1) : escalon(0.26, 0.74, f);
+        const onda = quieto ? 0 : Math.sin(Math.PI * e);
+        for (let i = 0; i < N; i++) {
+          let x = a[i]!.x + (b[i]!.x - a[i]!.x) * e;
+          let y = a[i]!.y + (b[i]!.y - a[i]!.y) * e;
+          if (onda > 0.001) {
+            const dx = x - 0.5;
+            const dy = y - 0.5;
+            const ang = giro[i]! * onda;
+            const c = Math.cos(ang);
+            const sn = Math.sin(ang);
+            const lejos = 1 + empuje[i]! * onda;
+            x = 0.5 + (dx * c - dy * sn) * lejos + deriva[i]!.x * onda;
+            y = 0.5 + (dx * sn + dy * c) * lejos + deriva[i]!.y * onda;
+          }
+          if (!quieto) {
+            x += Math.sin(ahora * 0.0012 + fase[i]!) * 0.0026;
+            y += Math.cos(ahora * 0.001 + fase[i]!) * 0.0026;
+          }
+          actual[i] = { x, y };
+        }
+        return onda;
+      }
+
+      const objetivo = pisar(Math.round(s.p), 0, M - 1);
+      if (objetivo !== destino) {
+        desde = actual.map((q) => ({ ...q }));
+        hacia = formas[objetivo]!;
+        destino = objetivo;
+        t0 = ahora;
+      }
       for (let i = 0; i < N; i++) {
         let x: number;
         let y: number;
@@ -293,21 +394,33 @@ export default function Puntos({ forma, className = "" }: { forma: number; class
           x = hacia[i]!.x;
           y = hacia[i]!.y;
         } else {
-          const t = Math.min(1, Math.max(0, (ahora - t0 - demora[i]!) / DUR));
-          const e = suave(t);
+          const e = suave(pisar((ahora - t0 - demora[i]!) / DUR, 0, 1));
           x = desde[i]!.x + (hacia[i]!.x - desde[i]!.x) * e;
           y = desde[i]!.y + (hacia[i]!.y - desde[i]!.y) * e;
-          x += Math.sin(ahora * 0.0012 + fase[i]!) * 0.0028;
-          y += Math.cos(ahora * 0.001 + fase[i]!) * 0.0028;
+          x += Math.sin(ahora * 0.0012 + fase[i]!) * 0.0026;
+          y += Math.cos(ahora * 0.001 + fase[i]!) * 0.0026;
         }
         actual[i] = { x, y };
       }
+      return 0;
+    };
+
+    const dibujar = (ahora: number) => {
+      const estela = posiciones(ahora);
+      // En el estallido no se borra del todo: queda la estela de los puntos.
+      ctx.fillStyle = `rgba(${FONDO}, ${estela > 0.02 ? 1 - 0.7 * estela : 1})`;
+      ctx.fillRect(0, 0, ancho, alto);
       // Por color, para no cambiar el pincel en cada punto.
       for (let k = 0; k < TONOS.length; k++) {
         ctx.fillStyle = TONOS[k]!;
         for (let i = 0; i < N; i++) {
           if (tono[i] !== k) continue;
-          const s = tamano[i]!;
+          let s = tamano[i]!;
+          if (k === 0 && !quieto) {
+            // Algunos destellan un instante, como la tiza al sol.
+            const b = Math.sin(ahora * 0.0021 * brillo[i]! + fase[i]! * 3);
+            if (b > 0.93) s *= 1 + (b - 0.93) * 14;
+          }
           ctx.fillRect(ox + actual[i]!.x * lado - s / 2, oy + actual[i]!.y * lado - s / 2, s, s);
         }
       }
@@ -321,37 +434,46 @@ export default function Puntos({ forma, className = "" }: { forma: number; class
       canvas.width = Math.round(ancho * dpr);
       canvas.height = Math.round(alto * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (quieto) dibujar(performance.now());
+      const c = caja?.current?.getBoundingClientRect();
+      const bx = c ? c.left - r.left : 0;
+      const by = c ? c.top - r.top : 0;
+      const bw = c ? c.width : ancho;
+      const bh = c ? c.height : alto;
+      lado = Math.max(0, Math.min(bw, bh));
+      ox = bx + (bw - lado) / 2;
+      oy = by + (bh - lado) / 2;
+      ultimo = "";
+      dibujar(performance.now());
     };
 
     const cuadro = (ahora: number) => {
-      dibujar(ahora);
+      if (quieto) {
+        // Quieto: se vuelve a pintar solo si cambió la figura.
+        const s = senal.current;
+        const clave = s ? `${s.modo}:${s.modo === "scroll" ? (s.p - Math.floor(s.p) < 0.5 ? Math.floor(s.p) : Math.floor(s.p) + 1) : Math.round(s.p)}` : "";
+        if (clave !== ultimo) {
+          ultimo = clave;
+          dibujar(ahora);
+        }
+      } else {
+        dibujar(ahora);
+      }
       raf = visible && !document.hidden ? requestAnimationFrame(cuadro) : 0;
     };
 
     const arrancar = () => {
-      if (quieto || raf || !visible || document.hidden) return;
+      if (raf || !visible || document.hidden) return;
       raf = requestAnimationFrame(cuadro);
-    };
-
-    motor.current = {
-      cambiar: (f: number) => {
-        const nueva = objetivos[f];
-        if (!nueva || nueva === hacia) return;
-        desde = actual.map((p) => ({ ...p }));
-        hacia = nueva;
-        t0 = performance.now();
-        if (quieto) dibujar(t0);
-      },
     };
 
     medir();
     const ro = new ResizeObserver(medir);
     ro.observe(canvas);
+    if (caja?.current) ro.observe(caja.current);
     let primeraVez = true;
     const io = new IntersectionObserver(([e]) => {
       visible = Boolean(e?.isIntersecting);
-      // La primera vez que se ve, los puntos se juntan desde cero.
+      // La primera vez que se ve, los puntos se juntan desde la nube.
       if (visible && primeraVez) {
         primeraVez = false;
         t0 = performance.now();
@@ -366,9 +488,8 @@ export default function Puntos({ forma, className = "" }: { forma: number; class
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", arrancar);
-      motor.current = null;
     };
-  }, []);
+  }, [senal, caja]);
 
   return <canvas ref={ref} className={className} aria-hidden />;
 }

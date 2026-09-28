@@ -6,7 +6,7 @@ export const digitalHero = {
   lead: "Sitios, tiendas, software a medida y apps — a tu marca, con Onvi incluido y listos para revisar.",
   primaryCta: {
     label: "Agendar una reunión",
-    href: "#agendar",
+    href: "/planes#agendar",
   },
 } as const;
 
@@ -80,45 +80,8 @@ export const digitalIncludes = {
   ],
 } as const;
 
-export const digitalImpact = {
-  label: "03 — Impacto",
-  title: "Web que vende. Software que acelera.",
-  lead: "Una página web sube ventas y conversación con clientes. El software a medida libera horas y sube la productividad del equipo.",
-  note: "Trayectorias ilustrativas a 6 meses de lanzar.",
-  web: {
-    eyebrow: "Páginas web",
-    title: "Ventas y comunicación",
-    subtitle: "Con sitio propio vs. sin presencia online",
-    metrics: [
-      { value: "+48%", label: "ventas" },
-      { value: "3.2×", label: "consultas" },
-    ],
-    labels: ["M1", "M2", "M3", "M4", "M5", "M6"],
-    sales: {
-      label: "Ventas",
-      values: [18, 24, 31, 38, 44, 52],
-    },
-    comms: {
-      label: "Comunicación",
-      values: [12, 19, 28, 36, 43, 51],
-    },
-  },
-  software: {
-    eyebrow: "Software a medida",
-    title: "Productividad del equipo",
-    subtitle: "Horas útiles y tareas cerradas con flujos propios",
-    metric: "+62%",
-    metricLabel: "más productividad",
-    labels: ["M1", "M2", "M3", "M4", "M5", "M6"],
-    values: [22, 28, 36, 45, 54, 64],
-    baseline: [22, 23, 22, 24, 23, 24],
-    seriesLabel: "Con software",
-    baselineLabel: "Sin software",
-  },
-} as const;
-
 export const digitalMeeting = {
-  label: "04 — Agendar",
+  label: "02 — Agendar",
   title: "Agendá una reunión.",
   lead: "Elegí fecha, hora y contanos qué necesitás. Te confirmamos por correo o WhatsApp.",
   weekdays: ["D", "L", "M", "M", "J", "V", "S"],
@@ -179,7 +142,7 @@ export const digitalMeeting = {
     notePlaceholder: "Contanos breve qué necesitás…",
   },
   submit: "Confirmar reunión",
-  hint: "Lun–Vie · hora de Costa Rica",
+  hint: "Lun–Vie · hora de Costa Rica (GMT-6)",
 } as const;
 
 export const digitalPlans = {
@@ -405,7 +368,7 @@ export const digitalPlans = {
 export type DigitalPlanGroupKey = keyof typeof digitalPlans.groups;
 
 export const digitalFaq = {
-  label: "05 — FAQ",
+  label: "03 — FAQ",
   title: "Lo que se pregunta todo el mundo antes de empezar",
   description:
     "Las dudas más comunes sobre la mensualidad, el dominio y qué pasa si querés parar.",

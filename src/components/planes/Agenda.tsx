@@ -115,7 +115,7 @@ function Calendario({ hoy, elegido, alElegir }: { hoy: Date; elegido: Date | nul
 }
 
 /**
- * "04 — Agendar" con la tarjeta de demo de nordpixel: el calendario a la
+ * "02 — Agendar" con la tarjeta de demo de nordpixel: el calendario a la
  * izquierda y los pasos que aparecen uno tras otro (hora, servicio y
  * datos). Guarda la cita con POST /api/booking, como el sitio oficial.
  */

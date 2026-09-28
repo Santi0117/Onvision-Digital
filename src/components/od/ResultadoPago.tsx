@@ -33,11 +33,11 @@ export default function ResultadoPago({ variante }: { variante: "success" | "can
         </h1>
         <p className="od-resultado__cuerpo">{c.body}</p>
         <div className="od-resultado__botones">
-          <Link href="/digital#planes" className="od-boton od-boton--blanco">
+          <Link href="/planes" className="od-boton od-boton--blanco">
             {c.primary} <Flecha />
           </Link>
           {ok ? (
-            <Link href="/digital#agendar" className="od-boton od-boton--linea-d">
+            <Link href="/planes#agendar" className="od-boton od-boton--linea-d">
               {c.secondary}
             </Link>
           ) : (

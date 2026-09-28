@@ -8,7 +8,7 @@ export const site = {
   phone: "+506 6303-0204",
   whatsapp: "50663030204",
   instagram: "https://www.instagram.com/onvisiondigital",
-  location: "Costa Rica",
-  region: "Costa Rica",
+  location: "Latinoamérica",
+  region: "Latinoamérica",
   trialDays: 15,
 } as const;

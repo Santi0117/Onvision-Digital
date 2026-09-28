@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { irA, scrollA } from "../../home/data";
+import { scrollA } from "../../home/data";
 import { abrirOnvi } from "../../od/OnviChat";
 import { celda, pintar, type Pintura } from "./cortina";
 import { PIEZAS, type Accion, type Pieza } from "./datos";
@@ -65,10 +66,30 @@ function lugarDe(i: number, estado: number, visto: boolean, movil: boolean) {
   };
 }
 
-/** Los botones llevan a los planes o a la agenda de esta misma página, o abren a Onvi. */
-function hacer(accion: Accion) {
-  if (accion.destino === "onvi") abrirOnvi();
-  else irA(accion.destino);
+/** Adónde lleva cada botón: a Planes, a su agenda o a Onvi (que se abre acá mismo). */
+const DESTINO: Record<Exclude<Accion["destino"], "onvi">, string> = { planes: "/planes", agendar: "/planes#agendar" };
+
+function BotonAccion({ accion }: { accion: Accion }) {
+  const contenido = (
+    <>
+      <span>{accion.texto}</span>
+      <svg viewBox="0 0 16 16" aria-hidden>
+        <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      </svg>
+    </>
+  );
+  if (accion.destino === "onvi") {
+    return (
+      <button type="button" className="pz-texto__accion" onClick={abrirOnvi}>
+        {contenido}
+      </button>
+    );
+  }
+  return (
+    <Link href={DESTINO[accion.destino]} className="pz-texto__accion">
+      {contenido}
+    </Link>
+  );
 }
 
 function TextoPieza({ pieza }: { pieza: Pieza }) {
@@ -86,12 +107,7 @@ function TextoPieza({ pieza }: { pieza: Pieza }) {
           <li key={e}>{e}</li>
         ))}
       </ul>
-      <button type="button" className="pz-texto__accion" onClick={() => hacer(pieza.accion)}>
-        <span>{pieza.accion.texto}</span>
-        <svg viewBox="0 0 16 16" aria-hidden>
-          <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
-        </svg>
-      </button>
+      <BotonAccion accion={pieza.accion} />
     </>
   );
 }

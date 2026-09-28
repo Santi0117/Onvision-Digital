@@ -84,7 +84,7 @@ export default function Boot() {
 
         <ol className="od-boot__lineas">
           <li>ONVISION DIGITAL · PRESENTA</li>
-          <li>COSTA RICA [DIGITAL / {año}]</li>
+          <li>LATINOAMÉRICA [DIGITAL / {año}]</li>
           <li>
             SITIOS · TIENDAS · SOFTWARE · APPS <b>◤</b>
           </li>

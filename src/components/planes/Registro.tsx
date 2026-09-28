@@ -6,8 +6,8 @@ import { companyWalkthrough } from "@/lib/company";
 import { digitalHero, digitalMeeting } from "@/lib/digital";
 import { site } from "@/lib/site";
 import { wa } from "../od/data";
-import { Check, Flecha } from "./ui";
-import { oracion } from "./data";
+import { oracion } from "../home/data";
+import { Check, Flecha } from "../home/ui";
 
 /**
  * "Cualquier idea que tengas, la volvemos realidad" como las preguntas
@@ -15,7 +15,7 @@ import { oracion } from "./data";
  * entregamos y el formulario al lado.
  *
  * No se finge un envío: el formulario abre WhatsApp con los datos ya
- * escritos. Para elegir fecha y hora está la agenda de /digital.
+ * escritos. Para elegir fecha y hora está la agenda, justo arriba.
  */
 export default function Registro() {
   const [servicio, setServicio] = useState("");
@@ -124,7 +124,7 @@ export default function Registro() {
             <Flecha className="h-4 w-4" />
           </button>
           <p className="oh-caja__pie">
-            ¿Preferís elegir fecha y hora? <Link href="/digital#agendar">Agendá una reunión</Link> · o escribinos a{" "}
+            ¿Preferís elegir fecha y hora? <Link href="#agendar">Agendá una reunión</Link> · o escribinos a{" "}
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
         </form>

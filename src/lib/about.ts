@@ -19,21 +19,6 @@ export const aboutPage = {
     ],
     lead: "Sitios, tiendas y software a medida — calidad seria, precios que se pueden sostener.",
   },
-  prices: {
-    kicker: "Precios",
-    title: "Los precios son los más competitivos del mercado,",
-    emphasis: "para que cualquiera pueda accederlos.",
-    market: [
-      { label: "Agencia típica", value: "$2.500+" },
-      { label: "Freelance premium", value: "$1.200+" },
-      { label: "Plantilla + extras", value: "$800+" },
-    ],
-    ours: [
-      { label: "Página estándar", value: "$35/mes" },
-      { label: "Página Pro", value: "$55/mes" },
-      { label: "E-commerce", value: "desde $50/mes" },
-    ],
-  },
   mission: {
     kicker: "01 · Objetivo",
     title: "Hacer la digitalización accesible de verdad.",
@@ -86,7 +71,7 @@ export const aboutPage = {
     primary: { label: "Ver los servicios", href: "/digital" },
     secondary: {
       label: "Agendar reunión",
-      href: "/digital#agendar",
+      href: "/planes#agendar",
     },
   },
 } as const;

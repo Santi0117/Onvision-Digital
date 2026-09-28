@@ -57,16 +57,16 @@ export type VisionContent = {
 
 export const webHero = {
   eyebrow: "Onvision Digital",
-  title: ["Tu sitio,", "pieza por pieza,", "hecho a tu marca."],
+  title: ["Soluciones digitales", "hechas para vender."],
   lead: "Construimos lo que tu negocio necesita para vender y operar en digital.",
   pill: "Moderno y accesible",
-  primaryCta: { label: "Quiero mi sitio", href: "/digital#agendar" },
+  primaryCta: { label: "Quiero mi sitio", href: "/planes#agendar" },
   secondaryCta: { label: "Ver cómo se arma", href: "#nucleo" },
 } as const;
 
 export const webCore = {
   title: ["Un sitio completo,", "pieza por pieza."],
-  lead: "Componentes fundamentales de tu sitio, listos para armar a tu marca.",
+  lead: "Todo lo que tu sitio necesita para funcionar, ya incluido.",
 } as const;
 
 /** Orden = tapa → piezas del sitio → cuerpo, igual que en la escena 3D. */
@@ -145,8 +145,8 @@ export const webOutro = {
   title: "Un sitio a tu medida, no una plantilla.",
   lead:
     "Nos contás el negocio, elegimos las piezas y en días tenés tu sitio publicado en tu dominio, con Onvi incluida.",
-  primaryCta: { label: "Quiero mi sitio", href: "/digital#agendar" },
-  secondaryCta: { label: "Ver planes", href: "/#planes" },
+  primaryCta: { label: "Quiero mi sitio", href: "/planes#agendar" },
+  secondaryCta: { label: "Ver planes", href: "/planes" },
 } as const;
 
 export const webContent: VisionContent = {

@@ -23,7 +23,8 @@ export default function Marco({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ autoRaf: true, lerp: 0.1, anchors: { offset: -90 } });
+    // Los enlaces "#…" de la misma página respetan el scroll-margin de su destino (90 px, debajo del menú).
+    const lenis = new Lenis({ autoRaf: true, lerp: 0.1, anchors: true });
     const w = window as unknown as { __odLenis?: Lenis };
     w.__odLenis = lenis;
     return () => {
@@ -32,15 +33,18 @@ export default function Marco({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Al cambiar de página, arriba; si trae #ancla, hasta la sección.
+  // Al cambiar de página, arriba; si trae #ancla, hasta la sección: siempre a
+  // 90 px del borde, debajo del menú. Lenis ya descuenta el scroll-margin del
+  // destino, así que el corrimiento es lo que falta para llegar a 90.
   useEffect(() => {
     const w = window as unknown as { __odLenis?: Lenis };
     const hash = window.location.hash;
     const el = hash ? document.querySelector<HTMLElement>(hash) : null;
     if (el) {
       const t = window.setTimeout(() => {
-        if (w.__odLenis) w.__odLenis.scrollTo(el, { offset: -90, immediate: true });
-        else el.scrollIntoView();
+        const margen = Number.parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+        if (w.__odLenis) w.__odLenis.scrollTo(el, { offset: margen - 90, immediate: true });
+        else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90 });
       }, 120);
       return () => window.clearTimeout(t);
     }

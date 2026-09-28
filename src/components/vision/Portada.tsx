@@ -8,22 +8,22 @@ import SplitFlapText from "./SplitFlapText";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/** "…hecho a tu marca: TU SITIO." La palabra que rota, en las fichas de la preview. */
+/** La palabra que rota debajo del titular, en las fichas de la preview. */
 const PALABRAS = ["TU SITIO", "TU TIENDA", "TU SOFTWARE", "TU APP", "TU SISTEMA"];
 
-/** El titular en cuatro renglones de cartel (jeffmilanes), el final hueco. */
+/** El titular en cuatro renglones de cartel (jeffmilanes): arriba macizo, abajo hueco. */
 const RENGLONES = [
-  { texto: "Pieza por", hueco: false },
-  { texto: "pieza,", hueco: false },
-  { texto: "hecho a tu", hueco: true },
-  { texto: "marca:", hueco: true },
+  { texto: "Soluciones", hueco: false },
+  { texto: "digitales", hueco: false },
+  { texto: "hechas para", hueco: true },
+  { texto: "vender.", hueco: true },
 ];
 
 /**
  * Portada: la laptop 3D de la preview oficial a la derecha (la escena fija
  * detrás) y a la izquierda el titular gigante de nuestro inicio —
- * "PIEZA POR PIEZA, / HECHO A TU MARCA:" — con la palabra que rota en las
- * fichas de la preview. Los botones son las tarjetas de la preview.
+ * "SOLUCIONES DIGITALES / HECHAS PARA VENDER." — con la palabra que rota en
+ * las fichas de la preview. Los botones son las tarjetas de la preview.
  */
 export default function Portada({ ready }: { ready: boolean }) {
   const reduce = useReducedMotion();
@@ -50,7 +50,7 @@ export default function Portada({ ready }: { ready: boolean }) {
   return (
     <section id="inicio" className="vision-hero vision-hero--scene oh-vh" data-tema="oscuro" aria-labelledby="oh-vh-titulo">
       <p className="oh-riel oh-riel--izq oh-vh__riel" aria-hidden>
-        ONVISION <b>{"//"}</b> COSTA RICA
+        ONVISION <b>{"//"}</b> LATINOAMÉRICA
       </p>
 
       <div className="vision-hero__copy oh-vh__copy">
@@ -113,7 +113,7 @@ export default function Portada({ ready }: { ready: boolean }) {
         </div>
 
         <motion.ul className="oh-vh__meta" {...entra(1, 8)}>
-          {[companyHero.headline.replace(/\.$/, ""), "Onvi IA incluida", "Costa Rica"].map((parte, i) => (
+          {[companyHero.headline.replace(/\.$/, ""), "Onvi IA incluida", "Latinoamérica"].map((parte, i) => (
             <li key={parte}>
               {i > 0 ? <em aria-hidden>/</em> : null}
               {parte}

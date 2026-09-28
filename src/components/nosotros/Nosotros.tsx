@@ -1,8 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion, useInView } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { aboutPage } from "@/lib/about";
 import { herramientas } from "../od/Herramientas";
 import { irA } from "../od/data";
@@ -78,7 +78,7 @@ function Manifiesto() {
       <div className="od-man__pie">
         <p className="od-man__lead">{aboutPage.hero.lead}</p>
         <div className="od-man__botones">
-          <button type="button" className="od-boton od-boton--linea-d" onClick={() => irA("#precios")}>
+          <button type="button" className="od-boton od-boton--linea-d" onClick={() => irA("#objetivo")}>
             Seguir leyendo <Flecha dir="abajo" />
           </button>
           <Link href={aboutPage.cta.primary.href} className="od-boton od-boton--blanco">
@@ -95,60 +95,9 @@ function Manifiesto() {
   );
 }
 
-/** Tachado que se dibuja (el "NEXT" tachado de jeffmilanes). */
-function Tachado({ children }: { children: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const visto = useInView(ref, { once: true, amount: 0.8 });
-  return (
-    <span ref={ref} className="od-tachado" data-on={visto ? "si" : "no"}>
-      <s>{children}</s>
-    </span>
-  );
-}
-
-function Precios() {
-  return (
-    <section id="precios" className="od-np od-claro" aria-labelledby="od-np-titulo">
-      <div className="od-np__cabeza">
-        <p className="od-eyebrow">{aboutPage.prices.kicker}</p>
-        <h2 id="od-np-titulo" className="od-np__h2">
-          {aboutPage.prices.title} <em className="od-serif">{aboutPage.prices.emphasis}</em>
-        </h2>
-      </div>
-      <div className="od-np__tabla">
-        <div className="od-np__col">
-          <p className="od-mono od-np__rotulo">Mercado</p>
-          <ul>
-            {aboutPage.prices.market.map((m) => (
-              <li key={m.label}>
-                <span>{m.label}</span>
-                <Tachado>{m.value}</Tachado>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="od-np__col od-np__col--nuestra">
-          <p className="od-mono od-np__rotulo">Onvision</p>
-          <ul>
-            {aboutPage.prices.ours.map((m) => (
-              <li key={m.label}>
-                <span>{m.label}</span>
-                <b>{m.value}</b>
-              </li>
-            ))}
-          </ul>
-          <Link href="/digital#planes" className="od-boton od-boton--negro od-boton--chico">
-            Ver planes <Flecha />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Mision() {
   return (
-    <section className="od-mision od-claro" aria-labelledby="od-mision-titulo">
+    <section id="objetivo" className="od-mision od-claro" aria-labelledby="od-mision-titulo">
       <div className="od-mision__texto">
         <p className="od-eyebrow">{aboutPage.mission.kicker}</p>
         <h2 id="od-mision-titulo" className="od-h2">
@@ -231,7 +180,6 @@ export default function Nosotros() {
     <>
       <Manifiesto />
       <div className="od-bloque">
-        <Precios />
         <Mision />
       </div>
       <Stack />

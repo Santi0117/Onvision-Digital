@@ -46,7 +46,7 @@ export default function Cierre({
   pregunta = "¿Tenés un proyecto?",
   palabra = "HABLEMOS",
   lead = "Agendá una reunión y vemos qué vale la pena construir primero.",
-  primario = { label: "Agendar reunión", href: "/digital#agendar" },
+  primario = { label: "Agendar reunión", href: "/planes#agendar" },
   secundario,
 }: {
   pregunta?: string;

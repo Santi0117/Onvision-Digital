@@ -168,7 +168,7 @@ export default function Nav() {
               </span>
               <span className="od-nav__menu-txt">Menú</span>
             </button>
-            <Link href="/digital#agendar" className="od-nav__cta">
+            <Link href="/planes#agendar" className="od-nav__cta">
               <span className="od-nav__cta-txt">Agendar reunión</span>
               <Flecha className="od-nav__cta-ico" />
             </Link>
@@ -244,7 +244,7 @@ export default function Nav() {
                   </a>
                 </div>
                 <div className="od-menu__botones">
-                  <Link href="/digital#agendar" className="od-boton od-boton--cian" onClick={cerrar}>
+                  <Link href="/planes#agendar" className="od-boton od-boton--cian" onClick={cerrar}>
                     Agendar reunión <Flecha />
                   </Link>
                   <a href={wa()} target="_blank" rel="noopener noreferrer" className="od-boton od-boton--linea-d">

@@ -12,7 +12,7 @@ export const empresasPage = {
     title: "¿Querés ver el tuyo acá?",
     lead: "Agendá una reunión y vemos qué vale la pena construir primero.",
     label: "Agendar reunión",
-    href: "/digital#agendar",
+    href: "/planes#agendar",
   },
 } as const;
 
@@ -39,7 +39,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "website",
     kindLabel: "Sitio web",
     body: "Estudio de grabación y producción musical. Sesiones, producción y servicios para artistas, bandas y proyectos creativos.",
-    image: "/digital/web-std-alchemy-cut2.png",
+    image: "/empresas/alchemy.webp",
     href: "https://www.alchemymusicstudio.com",
   },
   {
@@ -49,7 +49,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "software",
     kindLabel: "Software",
     body: "Plataforma de gestión para clínicas y consultorios: agenda, pacientes, inventario y finanzas en un solo lugar.",
-    image: "/digital/saas-clinicos-mock.png",
+    image: "/empresas/clinicos.webp",
     href: "https://clinicos.onvisiondigital.com",
     linkLabel: "Visitar sitio de ejemplo",
   },
@@ -60,7 +60,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "software",
     kindLabel: "Software",
     body: "Distribuidora de productos lácteos. Sistema a medida para rutas, inventario y control operativo de la zona cartaginesa.",
-    image: "/digital/saas-fasamar-mock.png",
+    image: "/empresas/fasamar.webp",
   },
   {
     id: "jopa-realestate",
@@ -69,7 +69,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "website",
     kindLabel: "Sitio web",
     body: "Agencia inmobiliaria en Cartago. Compra, venta y asesoría de propiedades residenciales y comerciales en la zona central.",
-    image: "/digital/web-jopa-realestate-cut8.png",
+    image: "/empresas/jopa-realestate.webp",
     href: "https://joparealestate.com",
   },
   {
@@ -79,7 +79,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "website",
     kindLabel: "Sitio web",
     body: "Firma de servicios legales que acompaña clientes en temas jurídicos con atención personalizada, claridad y confianza.",
-    image: "/digital/web-std-crestview-cut2.png",
+    image: "/empresas/crestview.webp",
     href: "https://www.crestview-legal.com",
   },
   {
@@ -89,7 +89,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "ecommerce",
     kindLabel: "E-commerce",
     body: "Tienda de jerseys de fútbol americano y béisbol. Camisetas por liga y equipo, con personalización y pedidos con envío.",
-    image: "/digital/ecom-firstdown-tienda-cut2.png",
+    image: "/empresas/firstdown.webp",
     href: "https://firstdown-store.com",
   },
   {
@@ -99,7 +99,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "website",
     kindLabel: "Sitio web",
     body: "Centro odontológico en San Francisco de Dos Ríos. Cirugía dental, ortodoncia, endodoncia, periodoncia y atención integral.",
-    image: "/digital/web-la-pacifica-mock.png",
+    image: "/empresas/la-pacifica.webp",
     href: "https://la-pacifica.com",
   },
   {
@@ -109,7 +109,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "software",
     kindLabel: "Software",
     body: "Plataforma académica para instituciones. Conecta administración, docentes y estudiantes con cursos, calendario y seguimiento.",
-    image: "/digital/saas-unilearn-cut2.png",
+    image: "/empresas/unilearn.webp",
     href: "https://unilearn.onvisiondigital.com",
     linkLabel: "Visitar sitio de ejemplo",
   },
@@ -120,7 +120,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "website",
     kindLabel: "Sitio web",
     body: "Concesionario de vehículos usados y nuevos en Pitahaya, Cartago. Inventario, financiamiento y asesoría para encontrar el carro adecuado.",
-    image: "/digital/web-pro-jopa-autos-cut2.png",
+    image: "/empresas/jopa-autos.webp",
     href: "https://autosjopa.com",
   },
   {
@@ -130,7 +130,7 @@ export const empresaProjects: EmpresaProject[] = [
     kind: "ecommerce",
     kindLabel: "E-commerce",
     body: "Tienda retail con catálogo de productos para compra online. Variedad de artículos con compra directa desde la web.",
-    image: "/digital/ecom-guba-cut2.png",
+    image: "/empresas/guba.webp",
     href: "https://frutasguba.onvisiondigital.com",
   },
 ];
