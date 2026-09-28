@@ -3,14 +3,14 @@
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { Ojo } from "../../od/ui";
-import type { IdEscena } from "./datos";
+import type { IdPieza } from "./datos";
 
 /**
  * Los pop-ups de cada escena, alrededor de la tarjeta activa: notas pegadas
  * y flechas a mano en el cuaderno, ventanas de píxeles con Onvi, piezas de
- * interfaz en el software, controles elegantes en los componentes y la marca
- * conectada con Google e Instagram. Son decorado: el contenido real está en
- * el texto de la escena.
+ * interfaz en el software, avisos y widgets de iPhone en las apps, los datos
+ * del panel en vidrio oscuro y la marca conectada con Google e Instagram.
+ * Son decorado: el contenido real está en el texto de la escena.
  */
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
@@ -99,20 +99,6 @@ const Lupa = () => (
     <path d="M10.6 10.6 14 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
   </svg>
 );
-
-/* ── Portada: el cielo de noche con las cinco ─────────────────────────── */
-
-function Intro() {
-  return (
-    <div className="pz-pop pz-pop--trabajo" style={v({ "--d": "880ms", "--z": 10 })}>
-      <span>nuestro trabajo</span>
-      <svg viewBox="0 0 120 70" className="pz-trazo" aria-hidden>
-        <path d="M8 8 C 44 2, 86 14, 100 52" pathLength={1} />
-        <path d="M86 44 L101 56 L108 38" pathLength={1} />
-      </svg>
-    </div>
-  );
-}
 
 /* ── 01 Páginas web: cuaderno, notas pegadas y lapicero rojo ──────────── */
 
@@ -270,41 +256,156 @@ function Software() {
   );
 }
 
-/* ── 04 Componentes: la calculadora elegante de Jopa ──────────────────── */
+/* ── 04 Apps: avisos, widgets y la isla del iPhone, en vidrio ───────── */
 
-function Componentes() {
+const Gota = () => (
+  <svg viewBox="0 0 16 16" aria-hidden>
+    <path d="M8 1.8C8 1.8 3.4 7 3.4 10a4.6 4.6 0 0 0 9.2 0C12.6 7 8 1.8 8 1.8z" fill="currentColor" />
+  </svg>
+);
+
+function Apps() {
   return (
     <>
-      <div className="pz-pop pz-lujo pz-pop--plazo" style={v({ "--d": "100ms", "--z": 18 })}>
-        <span className="pz-lujo__label">Plazo</span>
-        <span className="pz-lujo__seg">
-          <i className="pz-lujo__pastilla" />
-          <span>10 años</span>
-          <span>15 años</span>
-          <span>20 años</span>
-          <span>25 años</span>
+      <div className="pz-pop pz-ios pz-ios--isla pz-pop--isla" style={v({ "--d": "120ms", "--z": 22 })}>
+        <span className="pz-ios__gota">
+          <Gota />
+        </span>
+        <span className="pz-ios__isla-txt">
+          <b>Hidratación</b>
+          <small>
+            <Cuenta hasta={1500} retraso={700} dur={1400} despues=" ml" /> de 2 L
+          </small>
+        </span>
+        <svg viewBox="0 0 36 36" className="pz-ios__aro" aria-hidden>
+          <circle cx="18" cy="18" r="14" />
+          <circle cx="18" cy="18" r="14" pathLength={1} />
+        </svg>
+      </div>
+      <div className="pz-pop pz-ios pz-ios--aviso pz-pop--aviso" style={v({ "--d": "330ms", "--z": 18 })}>
+        <span className="pz-ios__icono">
+          <Gota />
+        </span>
+        <span className="pz-ios__cuerpo">
+          <span className="pz-ios__cabeza">
+            <span>Hidratación</span>
+            <small>ahora</small>
+          </span>
+          <b>Hora de tomar agua 💧</b>
+          <span>Te faltan 2 vasos para tu meta de hoy.</span>
         </span>
       </div>
-      <div className="pz-pop pz-lujo pz-pop--prima" style={v({ "--d": "300ms", "--z": 14 })}>
-        <span className="pz-lujo__label">Prima</span>
-        <b className="pz-lujo__monto">₡6.000.000</b>
-        <span className="pz-lujo__riel">
-          <i />
-        </span>
-      </div>
-      <div className="pz-pop pz-lujo pz-lujo--cuota pz-pop--cuota" style={v({ "--d": "500ms", "--z": 24 })}>
-        <span className="pz-lujo__label">Cuota mensual</span>
-        <b className="pz-lujo__grande">
-          <Cuenta antes="₡" hasta={532837} retraso={900} dur={1300} />
+      <div className="pz-pop pz-ios pz-ios--widget pz-pop--anillo" style={v({ "--d": "540ms", "--z": 26 })}>
+        <svg viewBox="0 0 64 64" className="pz-ios__anillo" aria-hidden>
+          <circle cx="32" cy="32" r="26" />
+          <circle cx="32" cy="32" r="26" pathLength={1} />
+        </svg>
+        <b className="pz-ios__vasos">
+          <Cuenta hasta={6} retraso={900} dur={1000} />
+          <small>de 8</small>
         </b>
-        <span className="pz-lujo__nota">BAC · 7,80% · 15 años</span>
+        <span className="pz-ios__meta">Vasos hoy · 2 L</span>
       </div>
-      <div className="pz-pop pz-lujo pz-lujo--interruptor pz-pop--seguro" style={v({ "--d": "700ms", "--z": 12 })}>
-        <span>Incluir seguro</span>
-        <i className="pz-lujo__switch" />
+      <div className="pz-pop pz-ios pz-ios--fila pz-pop--familia" style={v({ "--d": "760ms", "--z": 14 })}>
+        <span>Notificar a mi familia</span>
+        <i className="pz-ios__switch" />
       </div>
-      <div className="pz-pop pz-lujo-boton pz-pop--agendar" style={v({ "--d": "880ms", "--z": 20 })}>
-        Agendar visita <span aria-hidden>→</span>
+      <div className="pz-pop pz-tiendas pz-pop--tiendas" style={v({ "--d": "940ms", "--z": 20 })}>
+        <span className="pz-tienda">
+          <svg viewBox="0 0 16 16" aria-hidden>
+            <path
+              d="M11.2 8.5c0-1.6 1.3-2.4 1.4-2.4-.8-1.1-2-1.3-2.4-1.3-1-.1-2 .6-2.5.6s-1.3-.6-2.2-.6C4.4 4.8 3.3 5.5 2.7 6.6c-1.2 2.1-.3 5.2.9 6.9.6.8 1.2 1.7 2.1 1.7.8 0 1.2-.5 2.2-.5s1.3.5 2.2.5c.9 0 1.5-.8 2-1.7.7-1 .9-1.9.9-2-.1 0-1.8-.7-1.8-3zM9.6 3.6c.5-.6.8-1.4.7-2.2-.7 0-1.5.5-2 1.1-.4.5-.8 1.3-.7 2.1.8.1 1.5-.4 2-1z"
+              fill="currentColor"
+            />
+          </svg>
+          <span>
+            <small>Descargalo en</small>
+            App Store
+          </span>
+        </span>
+        <span className="pz-tienda">
+          <svg viewBox="0 0 16 16" aria-hidden>
+            <path d="M2.6 1.6 9.4 8l-6.8 6.4c-.3-.2-.5-.5-.5-.9V2.5c0-.4.2-.7.5-.9z" fill="#34d3ee" />
+            <path d="M11.6 5.9 9.4 8l2.2 2.1 2.6-1.5c.6-.4.6-1.2 0-1.6z" fill="#fbbf24" />
+            <path d="M2.6 1.6c.2-.1.6-.1.9 0l8.1 4.3L9.4 8z" fill="#4ade80" />
+            <path d="M9.4 8l2.2 2.1-8.1 4.3c-.3.2-.6.2-.9 0z" fill="#f87171" />
+          </svg>
+          <span>
+            <small>Disponible en</small>
+            Google Play
+          </span>
+        </span>
+      </div>
+    </>
+  );
+}
+
+/* ── 05 Panel Onvi: los datos del panel, en vidrio oscuro ────────────── */
+
+function Check() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden>
+      <path d="M4 8.4l2.6 2.5L12 5.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const MONITOR = [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+function Panel() {
+  return (
+    <>
+      <div className="pz-pop pz-pn pz-pn--toast pz-pop--preserva" style={v({ "--d": "120ms", "--z": 20 })}>
+        <span className="pz-pn__vivo" />
+        <span>
+          <b>Nueva reserva</b> Tatiana Mora · 11:15 a. m.
+        </span>
+      </div>
+      <div className="pz-pop pz-pn pz-pop--pcita" style={v({ "--d": "300ms", "--z": 24 })}>
+        <span className="pz-pn__icono pz-pn__icono--ok">
+          <Check />
+        </span>
+        <span className="pz-pn__txt">
+          <b>Karla Cordero</b>
+          <small>Atendida · 8:45 a. m.</small>
+        </span>
+      </div>
+      <div className="pz-pop pz-pn pz-pop--pconfirmar" style={v({ "--d": "480ms", "--z": 16 })}>
+        <span className="pz-pn__icono">
+          <svg viewBox="0 0 16 16" aria-hidden>
+            <path d="M2 11.5 6 7.5l2.6 2.6L14 4.6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+        <span className="pz-pn__txt">
+          <b>
+            <Cuenta hasta={7} retraso={800} dur={900} /> por confirmar
+          </b>
+          <small>Próximos 30 días</small>
+        </span>
+      </div>
+      <div className="pz-pop pz-pn pz-pn--monitor pz-pop--pmonitor" style={v({ "--d": "660ms", "--z": 12 })}>
+        <span className="pz-pn__cabeza">
+          <span className="pz-pn__vivo pz-pn__vivo--ok" />
+          <b>Todo en línea</b>
+          <em>99,91 %</em>
+        </span>
+        <span className="pz-pn__barras">
+          {MONITOR.map((ok, i) => (
+            <i key={i} data-ok={ok ? "1" : "0"} style={v({ "--i": i })} />
+          ))}
+        </span>
+        <small>Revisado cada 10 minutos</small>
+      </div>
+      <div className="pz-pop pz-pn pz-pn--wa pz-pop--pwa" style={v({ "--d": "860ms", "--z": 28 })}>
+        <span className="pz-pn__icono pz-pn__icono--wa">
+          <svg viewBox="0 0 16 16" aria-hidden>
+            <path
+              d="M8 1.6a6.3 6.3 0 0 0-5.4 9.5L1.7 14.4l3.4-.9A6.3 6.3 0 1 0 8 1.6Zm3.2 8.9c-.1.4-.8.8-1.1.8-.3 0-.6.2-2.1-.4a7 7 0 0 1-2.8-2.5c-.3-.4-.7-1-.7-1.7s.4-1.1.5-1.3c.2-.2.4-.2.5-.2h.4c.1 0 .3 0 .4.3l.6 1.4c0 .1 0 .2 0 .3l-.3.4c-.1.1-.2.3-.1.4.2.3.6.9 1.2 1.4.7.6 1.3.8 1.5.9.2.1.3 0 .4-.1l.5-.6c.1-.2.3-.2.4-.1l1.3.6c.2.1.3.2.3.2.1.1.1.5-.1.9Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <b>Escribir por WhatsApp</b>
       </div>
     </>
   );
@@ -405,16 +506,16 @@ function Marca() {
   );
 }
 
-const ESCENAS: Record<IdEscena, () => React.JSX.Element> = {
-  intro: Intro,
+const ESCENAS: Record<IdPieza, () => React.JSX.Element> = {
   web: Papel,
   onvi: Pixeles,
   software: Software,
-  componentes: Componentes,
+  apps: Apps,
+  panel: Panel,
   marca: Marca,
 };
 
-export default function Popups({ escena, saliendo }: { escena: IdEscena; saliendo: boolean }) {
+export default function Popups({ escena, saliendo }: { escena: IdPieza; saliendo: boolean }) {
   const Escena = ESCENAS[escena];
   return (
     <div className="pz-pops" data-escena={escena} data-sale={saliendo || undefined} aria-hidden>

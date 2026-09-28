@@ -4,7 +4,8 @@ import CintaOnvi from "@/components/digital/CintaOnvi";
 import Impacto from "@/components/digital/Impacto";
 import Incluye from "@/components/digital/Incluye";
 import Planes from "@/components/digital/Planes";
-import Showreel, { ShowreelCabeza } from "@/components/digital/Showreel";
+import Piezas from "@/components/digital/piezas/Piezas";
+import { ShowreelCabeza } from "@/components/digital/Showreel";
 import Cierre from "@/components/od/Cierre";
 import Faq from "@/components/od/Faq";
 import "@/components/digital/digital.css";
@@ -20,7 +21,7 @@ export default function Digital() {
     <>
       <ShowreelCabeza />
       <CintaOnvi />
-      <Showreel />
+      <Piezas />
       <div className="od-bloque">
         <Incluye />
         <Planes />

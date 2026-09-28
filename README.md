@@ -33,8 +33,8 @@ Abrí [http://localhost:3040](http://localhost:3040). Necesita Node 20.9 o más 
 
 | Ruta              | Qué tiene                                                                 |
 | ----------------- | ------------------------------------------------------------------------- |
-| `/`               | Portada, stack, lo que hacemos, servicios, el sitio pieza por pieza, las 6 funciones, Onvi, chats de clientes, trabajos, Sistema Onvision, Onvision Panel y las 3 ofertas |
-| `/digital`        | Servicios: showreel, qué incluye, planes con pago (Onvo), impacto, agenda y preguntas frecuentes |
+| `/`               | La laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en dibujos de puntos), tu marca en movimiento, Panel Onvi, Onvision vs. el mercado, planes y contacto |
+| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), qué incluye, planes con pago (Onvo), impacto, agenda y preguntas frecuentes |
 | `/empresas`       | Los 10 proyectos con filtros                                              |
 | `/sobre-nosotros` | Manifiesto, precios vs. mercado, objetivo, stack y habilidades            |
 | `/pago/exito`, `/pago/cancelado` | La vuelta desde Onvo                                       |

@@ -2,29 +2,26 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { irA, scrollA } from "../../home/data";
 import { abrirOnvi } from "../../od/OnviChat";
-import { visionStore } from "../../vision/store";
-import { irA, scrollA } from "../data";
 import { celda, pintar, type Pintura } from "./cortina";
-import { INTRO, PIEZAS, escenaDe, type Accion, type Pieza } from "./datos";
+import { PIEZAS, type Accion, type Pieza } from "./datos";
 import Popups from "./Popups";
 import "./piezas.css";
 
 const N = PIEZAS.length;
-/** La portada con las cinco juntas, y después una por una. */
-const ESTADOS = N + 1;
-/** Pantallas de scroll por estado. */
+/** Pantallas de scroll por pieza. */
 const TRAMO = 0.85;
 
 const c01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const fmt = (v: number) => Number(v.toFixed(2));
 
-type Lugar = "oculta" | "cascada" | "activa" | "mazo" | "fuera";
+type Lugar = "oculta" | "activa" | "mazo" | "fuera";
 
 /**
- * Dónde va la tarjeta i según el estado (-1 portada, 0…4 pieza). Los
- * desplazamientos son en % del tamaño de la propia tarjeta, así la
- * coreografía es la misma en cualquier pantalla.
+ * Dónde va la tarjeta i según la pieza activa. Los desplazamientos son en %
+ * del tamaño de la propia tarjeta, así la coreografía es la misma en
+ * cualquier pantalla.
  */
 function lugarDe(i: number, estado: number, visto: boolean, movil: boolean) {
   if (!visto) {
@@ -36,20 +33,6 @@ function lugarDe(i: number, estado: number, visto: boolean, movil: boolean) {
       opacity: 0,
       niebla: 0,
       retraso: 0,
-    };
-  }
-  if (estado < 0) {
-    // La cascada de la referencia: la primera abajo a la izquierda, la última arriba a la derecha.
-    const k = i - 2;
-    const dx = movil ? 6.5 : 9;
-    const dy = movil ? 10 : 12.5;
-    return {
-      lugar: "cascada" as Lugar,
-      transform: `translate3d(${fmt(k * dx)}%, ${fmt(-k * dy)}%, 0) scale(${movil ? 0.84 : 0.78})`,
-      z: 10 - i,
-      opacity: 1,
-      niebla: 0,
-      retraso: (N - 1 - i) * 90,
     };
   }
   if (i === estado) {
@@ -82,6 +65,7 @@ function lugarDe(i: number, estado: number, visto: boolean, movil: boolean) {
   };
 }
 
+/** Los botones llevan a los planes o a la agenda de esta misma página, o abren a Onvi. */
 function hacer(accion: Accion) {
   if (accion.destino === "onvi") abrirOnvi();
   else irA(accion.destino);
@@ -112,46 +96,14 @@ function TextoPieza({ pieza }: { pieza: Pieza }) {
   );
 }
 
-function TextoIntro({ alElegir }: { alElegir: (k: number) => void }) {
-  return (
-    <>
-      <p className="pz-texto__ante">(03) Lo que hacemos</p>
-      <h3 className="pz-texto__titulo">
-        Cinco piezas.
-        <em>Una sola marca.</em>
-      </h3>
-      <p className="pz-texto__bajada">
-        Todo lo que tu negocio necesita para vender en digital, hecho a medida y conectado entre sí.
-      </p>
-      <ol className="pz-texto__lista">
-        {PIEZAS.map((p, i) => (
-          <li key={p.id}>
-            <button type="button" onClick={() => alElegir(i)}>
-              <span>{p.n}</span>
-              {p.nombre}
-              <svg viewBox="0 0 16 16" aria-hidden>
-                <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
-              </svg>
-            </button>
-          </li>
-        ))}
-      </ol>
-      <p className="pz-texto__pista" aria-hidden>
-        Bajá y miralas una por una <span>↓</span>
-      </p>
-    </>
-  );
-}
-
 /**
- * "Lo que hacemos": en lugar del dial, la escena de barras de etílico
- * llevada más lejos. Primero las cinco piezas juntas en cascada, como un
- * portafolio sobre el cielo de noche; después, con el scroll, una por una.
- * Cada pieza trae su mundo: el cuaderno de la página web, los píxeles de
- * Onvi, el tablero del software, la calculadora elegante de los
- * componentes y la marca conectada con Google e Instagram. El fondo nuevo
- * entra con una cortina propia de cada escena mientras la tarjeta anterior
- * sale volando y la siguiente pasa al frente.
+ * Servicios, pieza por pieza: la escena de barras de etílico llevada más
+ * lejos. Con el scroll pasan una por una, desde la página web. Cada pieza
+ * trae su mundo: el cuaderno de la página web, los píxeles de Onvi, el
+ * tablero del software, el teléfono de las apps, el panel en oscuro y la
+ * marca conectada con Google e Instagram. El fondo nuevo entra con una
+ * cortina propia de cada escena mientras la tarjeta anterior sale volando y
+ * la siguiente pasa al frente.
  */
 export default function Piezas() {
   const pistaRef = useRef<HTMLElement>(null);
@@ -161,13 +113,13 @@ export default function Piezas() {
   const fantasmaRef = useRef<HTMLSpanElement>(null);
   const lineasRef = useRef<(HTMLElement | null)[]>([]);
 
-  const [objetivo, setObjetivo] = useState(-1);
-  const [mostrada, setMostrada] = useState(-1);
+  const [objetivo, setObjetivo] = useState(0);
+  const [mostrada, setMostrada] = useState(0);
   const [visto, setVisto] = useState(false);
   const [movil, setMovil] = useState(false);
 
-  const mostradaRef = useRef(-1);
-  const estadoRef = useRef(-1);
+  const mostradaRef = useRef(0);
+  const estadoRef = useRef(0);
   const localRef = useRef(0);
   const iniciado = useRef(false);
   const quieto = useRef(false);
@@ -224,7 +176,7 @@ export default function Piezas() {
       }
       cancelAnimationFrame(corrida.current.raf);
       cancelAnimationFrame(limpieza.current);
-      const datos = destino < 0 ? INTRO : PIEZAS[destino]!;
+      const datos = PIEZAS[destino]!;
       const anterior = corrida.current.corriendo ? corrida.current.destino : mostradaRef.current;
       const { w, h } = tamano.current;
       let cx = w * 0.62;
@@ -255,14 +207,11 @@ export default function Piezas() {
     [fijar],
   );
 
-  // El scroll decide el estado. La sección se anota en la escena 3D: la laptop
-  // se apaga mientras esta entra.
+  // El scroll decide qué pieza se ve.
   useLayoutEffect(() => {
     const pista = pistaRef.current;
     const escenario = escenarioRef.current;
     if (!pista || !escenario) return;
-    visionStore.featuresEl = pista;
-    visionStore.featureCount = 1;
     quieto.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mq = window.matchMedia("(max-width: 767px)");
     const alMq = () => {
@@ -282,12 +231,12 @@ export default function Piezas() {
     const leer = () => {
       raf = 0;
       const p = c01((window.scrollY - top) / recorrido);
-      const x = p * ESTADOS;
-      const k = Math.min(ESTADOS - 1, Math.floor(x));
-      estadoRef.current = k - 1;
+      const x = p * N;
+      const k = Math.min(N - 1, Math.floor(x));
+      estadoRef.current = k;
       localRef.current = c01(x - k);
       pintarAvance();
-      setObjetivo(k - 1);
+      setObjetivo(k);
     };
     const pedir = () => {
       if (!raf) raf = requestAnimationFrame(leer);
@@ -314,7 +263,6 @@ export default function Piezas() {
       mq.removeEventListener("change", alMq);
       window.removeEventListener("scroll", pedir);
       window.removeEventListener("resize", alCambiar);
-      if (visionStore.featuresEl === pista) visionStore.featuresEl = null;
     };
   }, [pintarAvance]);
 
@@ -338,7 +286,7 @@ export default function Piezas() {
     return () => ro.disconnect();
   }, []);
 
-  // Las cinco entran en cascada la primera vez que se ve la sección.
+  // Las tarjetas entran la primera vez que se ve la sección.
   useEffect(() => {
     const escenario = escenarioRef.current;
     if (!escenario) return;
@@ -385,14 +333,14 @@ export default function Piezas() {
     [],
   );
 
-  /** Ir al estado k (-1 portada): un poco pasada la mitad de su tramo. */
+  /** Ir a la pieza k: un poco pasada la mitad de su tramo. */
   const irAEstado = useCallback((k: number) => {
     const pista = pistaRef.current;
     const escenario = escenarioRef.current;
     if (!pista || !escenario) return;
     const top = pista.getBoundingClientRect().top + window.scrollY;
     const recorrido = pista.offsetHeight - escenario.offsetHeight;
-    scrollA(top + (recorrido * (k + 1 + 0.42)) / ESTADOS);
+    scrollA(top + (recorrido * (k + 0.42)) / N);
   }, []);
 
   /** Inclinación con el mouse y paralaje de los pop-ups. */
@@ -409,29 +357,27 @@ export default function Piezas() {
     e.currentTarget.style.setProperty("--my", "0");
   };
 
-  const escena = escenaDe(mostrada);
-  const pieza = mostrada >= 0 ? PIEZAS[mostrada]! : null;
+  const pieza = PIEZAS[mostrada]!;
+  const escena = pieza.id;
   const saliendo = objetivo !== mostrada;
-  const tema = pieza ? pieza.tema : INTRO.tema;
-  const fantasma = pieza ? pieza.fantasma : INTRO.fantasma;
 
   return (
     <section
-      id="lo-que-hacemos"
+      id="servicios"
       ref={pistaRef}
       className="pz"
       aria-labelledby="pz-titulo"
-      style={{ "--pz-alto": `${(ESTADOS * TRAMO + 1) * 100}` } as CSSProperties}
+      style={{ "--pz-alto": `${(N * TRAMO + 1) * 100}` } as CSSProperties}
     >
       <h2 id="pz-titulo" className="sr-only">
-        Lo que hacemos: páginas web, Onvi, software, componentes personalizados y tu marca desde cero
+        Servicios: páginas web, Onvi, software, apps móviles, Panel Onvi y tu marca desde cero
       </h2>
       <div
         ref={escenarioRef}
         className="pz-escenario"
         data-escena={escena}
-        data-objetivo={escenaDe(objetivo)}
-        data-tema={tema}
+        data-objetivo={PIEZAS[objetivo]!.id}
+        data-tema={pieza.tema}
         data-visto={visto || undefined}
         onPointerMove={alMover}
         onPointerLeave={alSalir}
@@ -440,7 +386,7 @@ export default function Piezas() {
           <span className="pz-fondo__textura" />
           <span className="pz-fondo__halo" />
           <span ref={fantasmaRef} className="pz-fondo__fantasma">
-            {fantasma}
+            {pieza.fantasma}
           </span>
           <span className="pz-fondo__extra" />
           <span className="pz-fondo__extra pz-fondo__extra--b" />
@@ -450,7 +396,7 @@ export default function Piezas() {
 
         <div className="pz-cuerpo">
           <div key={escena} className="pz-texto" data-sale={saliendo || undefined}>
-            {pieza ? <TextoPieza pieza={pieza} /> : <TextoIntro alElegir={irAEstado} />}
+            <TextoPieza pieza={pieza} />
           </div>
 
           <div className="pz-rig">
@@ -474,10 +420,6 @@ export default function Piezas() {
                   >
                     {/* Tal cual: ya vienen a su tamaño y comprimidas; otra pasada les borra el texto chico. */}
                     <Image src={p.imagen} alt={p.alt} fill unoptimized className="pz-carta__img" />
-                    <figcaption className="pz-carta__etiqueta" aria-hidden>
-                      <b>{p.n}</b>
-                      {p.nombre}
-                    </figcaption>
                   </figure>
                 );
               })}
@@ -486,7 +428,7 @@ export default function Piezas() {
           </div>
         </div>
 
-        <nav className="pz-selector" aria-label="Las cinco piezas">
+        <nav className="pz-selector" aria-label="Las seis piezas">
           {PIEZAS.map((p, i) => (
             <button
               key={p.id}

@@ -35,10 +35,6 @@
   border-bottom: 0;
 }
 
-.od-reel--lista {
-  padding-top: clamp(24px, 3vw, 44px);
-}
-
 /* Las letras suben dentro de su renglón; el relleno deja ver los puntos de la i. */
 .od-reel__letras {
   display: inline-block;
@@ -80,87 +76,6 @@
   font-size: 18px;
   line-height: 1.45;
   color: var(--gris-3);
-}
-
-.od-reel__fila {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: center;
-  gap: clamp(24px, 4vw, 70px);
-  padding: clamp(40px, 5vw, 70px) 0;
-  border-bottom: 1px solid var(--linea-d);
-}
-
-.od-reel__fila--der .od-reel__texto {
-  order: 2;
-}
-
-.od-reel__texto {
-  display: grid;
-  justify-items: start;
-  gap: 16px;
-}
-
-.od-reel__num {
-  font-family: var(--f-display);
-  font-size: clamp(80px, 10vw, 150px);
-  font-weight: 800;
-  line-height: 0.8;
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.4);
-}
-
-.od-reel__nombre {
-  display: flex;
-  align-items: center;
-  gap: 0.2em;
-  font-family: var(--f-display);
-  font-size: clamp(36px, 4.4vw, 70px);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
-}
-
-.od-reel__flecha {
-  width: 0.6em;
-  height: 0.6em;
-  color: var(--cian);
-}
-
-.od-reel__cuerpo {
-  max-width: 40ch;
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--gris-3);
-}
-
-.od-reel__precio {
-  color: var(--cian);
-}
-
-.od-pastilla--clara {
-  background: var(--blanco);
-  color: var(--tinta);
-}
-
-.od-pastilla--clara:hover {
-  background: var(--cian);
-}
-
-.od-reel__pantalla {
-  width: 100%;
-}
-
-@media (max-width: 900px) {
-  .od-reel__fila {
-    grid-template-columns: 1fr;
-  }
-
-  .od-reel__fila--der .od-reel__texto {
-    order: 0;
-  }
 }
 
 /* ── Qué incluye (nordpixel) ─────────────────────────────────────────── */

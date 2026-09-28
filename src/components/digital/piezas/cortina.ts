@@ -38,6 +38,8 @@ function medidas(tipo: Cortina, movil: boolean): Medidas {
       return { crece: 420, paso: 34, atras: 80, tiras: movil ? 6 : 8 };
     case "iris":
       return { crece: 600, paso: 0, atras: 110, tiras: 0 };
+    case "app":
+      return { crece: 540, paso: 0, atras: 120, tiras: 0 };
     default:
       return { crece: 400, paso: 36, atras: 90, tiras: movil ? 5 : 8 };
   }
@@ -171,6 +173,24 @@ function iris(ctx: Ctx, w: number, h: number, t: number, p: Pintura, m: Medidas)
   }
 }
 
+/** Una app que se abre: el ícono crece desde la tarjeta hasta cubrir todo. */
+function app(ctx: Ctx, w: number, h: number, t: number, p: Pintura, m: Medidas) {
+  const dx = Math.max(p.cx, w - p.cx) + 24;
+  const dy = Math.max(p.cy, h - p.cy) + 24;
+  const icono = 34;
+  for (const [color, retraso] of [
+    [p.colores.borde, 0],
+    [p.colores.fondo, m.atras],
+  ] as const) {
+    const e = suave(c01((t - retraso) / m.crece));
+    if (e <= 0) continue;
+    const mw = icono + (dx - icono) * e;
+    const mh = icono + (dy - icono) * e;
+    ctx.fillStyle = color;
+    redondo(ctx, p.cx - mw, p.cy - mh, mw * 2, mh * 2, Math.min(mw, mh, 16 + 40 * e));
+  }
+}
+
 /** Pinta el instante t (ms). Devuelve true cuando ya cubrió todo el escenario. */
 export function pintar(ctx: Ctx, w: number, h: number, t: number, p: Pintura, movil: boolean) {
   const m = medidas(p.tipo, movil);
@@ -191,6 +211,9 @@ export function pintar(ctx: Ctx, w: number, h: number, t: number, p: Pintura, mo
       break;
     case "iris":
       iris(ctx, w, h, t, p, m);
+      break;
+    case "app":
+      app(ctx, w, h, t, p, m);
       break;
     default:
       barras(ctx, w, h, t, p, m);

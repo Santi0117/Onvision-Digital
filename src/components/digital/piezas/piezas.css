@@ -1,14 +1,26 @@
 /* ==========================================================================
-   "Lo que hacemos": las cinco piezas, una por una (la escena de barras de
+   Servicios, pieza por pieza: las seis, una por una (la escena de barras de
    etílico, llevada más lejos). Cada escena cambia fondo, letra, colores,
    tarjetas y pop-ups; el fondo nuevo entra con la cortina del canvas.
    ========================================================================== */
 
+/* Una tarjeta más de Servicios, redondeada y con el mismo margen que las otras. */
 .pz {
   position: relative;
   height: calc(var(--pz-alto) * 1vh);
   height: calc(var(--pz-alto) * 1svh);
-  background: #070d24;
+  margin: 12px;
+  overflow: clip;
+  border-radius: var(--radio);
+  background: #f3ecdc;
+}
+
+/* En el celular, igual que la tarjeta de arriba ("onvision." y la cinta). */
+@media (max-width: 767px) {
+  .pz {
+    margin: 8px;
+    border-radius: 24px;
+  }
 }
 
 .pz-escenario {
@@ -78,18 +90,32 @@
   --pz-grano: 0.08;
 }
 
-.pz-escenario[data-escena="componentes"] {
-  --pz-fondo: #f6f1e8;
-  --pz-tinta: #1f1a14;
-  --pz-suave: rgb(31 26 20 / 0.66);
-  --pz-acento: #9a7442;
-  --pz-linea: rgb(154 116 66 / 0.35);
-  --pz-sombra: 0 34px 60px -30px rgb(80 55 20 / 0.5), 0 0 0 1px rgb(176 138 87 / 0.4);
-  --pz-sel-fondo: rgb(255 253 249 / 0.8);
-  --pz-sel-on: #b08a57;
-  --pz-sel-on-tinta: #fff;
-  --pz-sel-barra: #fff;
-  --pz-grano: 0.16;
+.pz-escenario[data-escena="apps"] {
+  --pz-fondo: #120b2e;
+  --pz-tinta: #f5f3ff;
+  --pz-suave: rgb(245 243 255 / 0.72);
+  --pz-acento: #b4a5ff;
+  --pz-linea: rgb(245 243 255 / 0.18);
+  --pz-sombra: 0 50px 90px -40px rgb(76 50 220 / 0.75), 0 0 0 1px rgb(255 255 255 / 0.14);
+  --pz-sel-fondo: rgb(255 255 255 / 0.1);
+  --pz-sel-on: #fff;
+  --pz-sel-on-tinta: #1d1147;
+  --pz-sel-barra: #b4a5ff;
+  --pz-grano: 0.06;
+}
+
+.pz-escenario[data-escena="panel"] {
+  --pz-fondo: #03070b;
+  --pz-tinta: #eaf8fc;
+  --pz-suave: rgb(234 248 252 / 0.66);
+  --pz-acento: #34d3ee;
+  --pz-linea: rgb(234 248 252 / 0.14);
+  --pz-sombra: 0 60px 110px -50px rgb(52 211 238 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.1);
+  --pz-sel-fondo: rgb(3 7 11 / 0.72);
+  --pz-sel-on: #34d3ee;
+  --pz-sel-on-tinta: #03070b;
+  --pz-sel-barra: #34d3ee;
+  --pz-grano: 0.05;
 }
 
 .pz-escenario[data-escena="marca"] {
@@ -152,52 +178,6 @@
   user-select: none;
   animation: pz-fantasma 1.1s var(--pz-ease) both;
   transition: translate 0.4s linear;
-}
-
-/* Portada: cielo de noche con estrellas, como la cascada de la referencia. */
-.pz-escenario[data-escena="intro"] .pz-fondo {
-  background:
-    radial-gradient(95% 58% at 50% 120%, rgb(110 150 255 / 0.95) 0%, rgb(59 110 246 / 0.55) 34%, transparent 70%),
-    linear-gradient(180deg, #02040b 0%, #050b22 36%, #0a1a52 70%, #1b3b9e 100%);
-}
-
-.pz-escenario[data-escena="intro"] .pz-fondo__textura,
-.pz-escenario[data-escena="intro"] .pz-fondo__extra--b {
-  inset: 0;
-  background-image:
-    radial-gradient(1.3px 1.3px at 12% 18%, #fff 50%, transparent 55%),
-    radial-gradient(1px 1px at 31% 64%, #fff 50%, transparent 55%),
-    radial-gradient(1.6px 1.6px at 47% 12%, #fff 50%, transparent 55%),
-    radial-gradient(1px 1px at 58% 44%, #fff 50%, transparent 55%),
-    radial-gradient(1.2px 1.2px at 73% 26%, #fff 50%, transparent 55%),
-    radial-gradient(1px 1px at 86% 71%, #fff 50%, transparent 55%),
-    radial-gradient(1.4px 1.4px at 22% 86%, #fff 50%, transparent 55%),
-    radial-gradient(1px 1px at 93% 9%, #fff 50%, transparent 55%);
-  background-size: 290px 290px;
-  mask-image: linear-gradient(180deg, #000 30%, rgb(0 0 0 / 0.3) 85%);
-  animation:
-    pz-aparece 0.7s ease both,
-    pz-titila 4.5s ease-in-out 0.7s infinite alternate;
-}
-
-.pz-escenario[data-escena="intro"] .pz-fondo__extra--b {
-  background-size: 430px 430px;
-  background-position: 120px 60px;
-  opacity: 0.6;
-  animation-delay: 0s, 2.2s;
-}
-
-/* Una estrella fugaz, de vez en cuando. */
-.pz-escenario[data-escena="intro"] .pz-fondo__extra:not(.pz-fondo__extra--b) {
-  left: 78%;
-  top: 12%;
-  width: 150px;
-  height: 1.5px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #fff, rgb(255 255 255 / 0));
-  rotate: -28deg;
-  opacity: 0;
-  animation: pz-fugaz 7s ease-in 1.5s infinite;
 }
 
 /* 01 Web: la hoja del cuaderno, con renglones, margen rojo y garabatos. */
@@ -324,44 +304,93 @@
   animation-delay: 0s, -4s;
 }
 
-/* 04 Componentes: marfil, líneas de plano y arcos dorados. */
-.pz-escenario[data-escena="componentes"] .pz-fondo {
-  background: radial-gradient(80% 70% at 64% 45%, #fcf9f3, #f4ede1 68%, #eadfcb 100%);
-}
-
-.pz-escenario[data-escena="componentes"] .pz-fondo__textura {
+/* 04 Apps: fondo de pantalla de iPhone, con manchas de color que se mueven. */
+.pz-escenario[data-escena="apps"] .pz-fondo {
   background:
-    repeating-linear-gradient(90deg, rgb(176 138 87 / 0.1) 0 1px, transparent 1px 96px),
-    repeating-linear-gradient(0deg, rgb(176 138 87 / 0.07) 0 1px, transparent 1px 96px);
-  mask-image: radial-gradient(ellipse 80% 80% at 62% 50%, #000 20%, transparent 80%);
+    radial-gradient(46% 52% at 22% 20%, rgb(124 92 255 / 0.55), transparent 70%),
+    radial-gradient(40% 48% at 86% 86%, rgb(47 109 246 / 0.5), transparent 70%),
+    radial-gradient(30% 36% at 92% 12%, rgb(236 72 153 / 0.28), transparent 70%),
+    linear-gradient(160deg, #150d36, #0d0826 60%, #0a0a2a);
 }
 
-.pz-escenario[data-escena="componentes"] .pz-fondo__fantasma {
-  font-family: var(--f-serif);
-  font-style: italic;
-  font-weight: 400;
+.pz-escenario[data-escena="apps"] .pz-fondo__textura {
+  background: radial-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1.4px) 0 0 / 26px 26px;
+  mask-image: radial-gradient(ellipse 70% 70% at 60% 50%, #000 20%, transparent 80%);
+}
+
+.pz-escenario[data-escena="apps"] .pz-fondo__halo {
+  background: radial-gradient(closest-side, rgb(160 120 255 / 0.3), transparent 72%);
+}
+
+.pz-escenario[data-escena="apps"] .pz-fondo__fantasma {
+  font-family: var(--f-sans);
+  font-weight: 700;
   font-stretch: normal;
-  letter-spacing: -0.02em;
-  color: rgb(176 138 87 / 0.13);
+  letter-spacing: -0.06em;
+  color: rgb(255 255 255 / 0.05);
 }
 
-.pz-escenario[data-escena="componentes"] .pz-fondo__extra:not(.pz-fondo__extra--b),
-.pz-escenario[data-escena="componentes"] .pz-fondo__extra--b {
-  left: 64%;
-  top: 56%;
-  width: min(50vw, 680px);
-  aspect-ratio: 0.8;
-  translate: -50% -50%;
-  border: 1px solid rgb(176 138 87 / 0.32);
-  border-bottom: 0;
-  border-radius: 999px 999px 0 0;
-  animation: pz-arco 1.4s var(--pz-ease) both;
+.pz-escenario[data-escena="apps"] .pz-fondo__extra:not(.pz-fondo__extra--b),
+.pz-escenario[data-escena="apps"] .pz-fondo__extra--b {
+  left: 78%;
+  top: 8%;
+  width: 280px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #f0abfc, #c084fc 45%, #7c3aed 100%);
+  filter: blur(60px);
+  opacity: 0.45;
+  animation:
+    pz-aparece 1s ease both,
+    pz-deriva 10s ease-in-out infinite alternate;
 }
 
-.pz-escenario[data-escena="componentes"] .pz-fondo__extra--b {
-  width: min(38vw, 520px);
-  border-color: rgb(176 138 87 / 0.22);
-  animation-delay: 0.15s;
+.pz-escenario[data-escena="apps"] .pz-fondo__extra--b {
+  left: 30%;
+  top: 72%;
+  width: 240px;
+  background: radial-gradient(circle at 40% 40%, #93c5fd, #3b82f6 50%, #1e3a8a 100%);
+  opacity: 0.4;
+  animation-delay: 0s, -5s;
+}
+
+/* 05 Panel: negro Onvision, luz cian y el piso de grilla del panel. */
+.pz-escenario[data-escena="panel"] .pz-fondo {
+  background:
+    radial-gradient(60% 55% at 64% 46%, rgb(52 211 238 / 0.2), transparent 70%),
+    radial-gradient(40% 40% at 30% 80%, rgb(59 110 246 / 0.16), transparent 70%),
+    #03070b;
+}
+
+.pz-escenario[data-escena="panel"] .pz-fondo__textura {
+  inset: auto -30% -14% -30%;
+  height: 56%;
+  background-image:
+    linear-gradient(rgb(52 211 238 / 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(52 211 238 / 0.16) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(700px) rotateX(64deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+}
+
+.pz-escenario[data-escena="panel"] .pz-fondo__halo {
+  background: radial-gradient(closest-side, rgb(52 211 238 / 0.22), transparent 72%);
+}
+
+.pz-escenario[data-escena="panel"] .pz-fondo__fantasma {
+  font-stretch: 118%;
+  color: rgb(52 211 238 / 0.05);
+}
+
+/* Una línea de luz que baja, como el monitor que revisa el sitio. */
+.pz-escenario[data-escena="panel"] .pz-fondo__extra:not(.pz-fondo__extra--b) {
+  inset: 0 0 auto;
+  height: 180px;
+  background: linear-gradient(180deg, transparent, rgb(52 211 238 / 0.025) 80%, rgb(52 211 238 / 0.1) 99%, transparent);
+  animation:
+    pz-aparece 1s ease both,
+    pz-escaneo 6s linear 1s infinite;
 }
 
 /* 05 Marca: estudio gris claro, luz arriba y sombra de piso. */
@@ -420,8 +449,7 @@
   transition: opacity 0.6s;
 }
 
-.pz-escenario[data-escena="web"] .pz-grano,
-.pz-escenario[data-escena="componentes"] .pz-grano {
+.pz-escenario[data-escena="web"] .pz-grano {
   mix-blend-mode: multiply;
 }
 
@@ -568,86 +596,6 @@
 
 .pz-texto__accion:hover svg {
   transform: translateX(3px);
-}
-
-/* Portada: título editorial y la lista de las cinco. */
-.pz-escenario[data-escena="intro"] .pz-texto__titulo {
-  font-size: clamp(40px, 3.9vw, 57px);
-}
-
-.pz-escenario[data-escena="intro"] .pz-texto__titulo em {
-  display: block;
-  margin-top: 0.08em;
-  font-family: var(--f-serif);
-  font-size: 1.06em;
-  white-space: nowrap;
-  font-style: italic;
-  font-weight: 400;
-  font-stretch: normal;
-  letter-spacing: -0.02em;
-  color: #b9c9ff;
-}
-
-.pz-texto__lista {
-  margin-top: 26px;
-  border-top: 1px solid var(--pz-linea);
-}
-
-.pz-texto__lista button {
-  display: flex;
-  width: 100%;
-  align-items: baseline;
-  gap: 14px;
-  padding: 11px 2px;
-  border-bottom: 1px solid var(--pz-linea);
-  font-size: 15px;
-  text-align: left;
-  color: var(--pz-tinta);
-  transition:
-    padding 0.4s var(--pz-ease),
-    color 0.3s;
-}
-
-.pz-texto__lista button span {
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  color: var(--pz-acento);
-}
-
-.pz-texto__lista svg {
-  width: 14px;
-  height: 14px;
-  margin-left: auto;
-  align-self: center;
-  opacity: 0;
-  transform: translateX(-6px);
-  transition:
-    opacity 0.3s,
-    transform 0.4s var(--pz-ease);
-}
-
-.pz-texto__lista button:hover {
-  padding-left: 10px;
-}
-
-.pz-texto__lista button:hover svg {
-  opacity: 1;
-  transform: none;
-}
-
-.pz-texto__pista {
-  margin-top: 18px;
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--pz-suave);
-}
-
-.pz-texto__pista span {
-  display: inline-block;
-  animation: pz-baja 1.6s ease-in-out infinite;
 }
 
 /* 01 Web: letra a mano, resaltador y lapicero rojo. */
@@ -817,43 +765,86 @@
   color: #0c0f0a;
 }
 
-/* 04 Componentes: serif fina, dorado y detalles de joyería. */
-.pz-escenario[data-escena="componentes"] .pz-texto__ante {
-  font-family: var(--f-serif);
-  font-size: 21px;
-  font-style: italic;
-  letter-spacing: 0.01em;
+/* 04 Apps: como un aviso de iPhone, sans redonda y un degradé en "móviles". */
+.pz-escenario[data-escena="apps"] .pz-texto__ante {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(12px);
+  color: #f5f3ff;
+  letter-spacing: 0.14em;
+}
+
+.pz-escenario[data-escena="apps"] .pz-texto__ante::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #a78bfa, #6d28d9);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35);
+}
+
+.pz-escenario[data-escena="apps"] .pz-texto__titulo {
+  font-family: var(--f-sans);
+  font-size: clamp(56px, 6vw, 96px);
+  font-weight: 700;
+  font-stretch: normal;
+  letter-spacing: -0.06em;
+}
+
+.pz-escenario[data-escena="apps"] .pz-texto__titulo em {
+  display: block;
+  padding-bottom: 0.06em;
+  background: linear-gradient(95deg, #c4b5fd, #f0abfc 45%, #93c5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pz-escenario[data-escena="apps"] .pz-texto__etiquetas li {
+  border-color: rgb(255 255 255 / 0.16);
+  background: rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(10px);
+  font-family: var(--f-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0;
   text-transform: none;
 }
 
-.pz-escenario[data-escena="componentes"] .pz-texto__titulo {
-  font-family: var(--f-serif);
-  font-size: clamp(48px, 5.2vw, 86px);
-  font-weight: 500;
-  font-stretch: normal;
-  line-height: 0.92;
-  letter-spacing: -0.025em;
+.pz-escenario[data-escena="apps"] .pz-texto__accion {
+  border-radius: 14px;
+  background: #fff;
+  color: #1d1147;
+  box-shadow: 0 18px 40px -18px rgb(124 92 255 / 0.9);
 }
 
-.pz-escenario[data-escena="componentes"] .pz-texto__titulo em {
-  display: block;
-  font-style: italic;
-  font-weight: 400;
-  color: #9a7442;
+/* 05 Panel: la grotesca ancha del Panel Onvi, con su punto cian. */
+.pz-escenario[data-escena="panel"] .pz-texto__titulo {
+  font-size: clamp(48px, 5.4vw, 88px);
+  font-weight: 700;
+  font-stretch: 118%;
 }
 
-.pz-escenario[data-escena="componentes"] .pz-texto__etiquetas li {
-  border-color: rgb(176 138 87 / 0.55);
-  color: #7a5a30;
-  letter-spacing: 0.16em;
+.pz-escenario[data-escena="panel"] .pz-texto__titulo em::after {
+  content: ".";
+  color: #34d3ee;
 }
 
-.pz-escenario[data-escena="componentes"] .pz-texto__accion {
-  border-radius: 6px;
-  background: #b08a57;
-  color: #fff;
-  letter-spacing: 0.02em;
-  box-shadow: 0 14px 28px -16px rgb(120 80 30 / 0.7);
+.pz-escenario[data-escena="panel"] .pz-texto__etiquetas li {
+  border-color: rgb(52 211 238 / 0.3);
+  background: rgb(52 211 238 / 0.06);
+  color: #bdf2fb;
+}
+
+.pz-escenario[data-escena="panel"] .pz-texto__accion {
+  background: #34d3ee;
+  color: #03070b;
+  box-shadow: 0 16px 36px -16px rgb(52 211 238 / 0.9);
 }
 
 /* 05 Marca: grotesca ancha en minúscula, con el punto cian de "onvision.". */
@@ -938,44 +929,6 @@
   rotate: -1.2deg;
 }
 
-.pz-carta__etiqueta {
-  position: absolute;
-  left: 3.5%;
-  top: 5%;
-  z-index: 1;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
-  padding: 6px 12px 6px 10px;
-  border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: 999px;
-  background: rgb(4 8 24 / 0.72);
-  backdrop-filter: blur(8px);
-  color: #eef2ff;
-  font-size: clamp(10px, 2.1cqw, 13px);
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 0.4s ease,
-    transform 0.5s var(--pz-ease);
-}
-
-.pz-carta__etiqueta b {
-  font-family: var(--f-mono);
-  font-size: 0.85em;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: #9db4ff;
-}
-
-.pz-escenario[data-objetivo="intro"] .pz-carta__etiqueta {
-  opacity: 1;
-  transform: none;
-  transition-delay: 0.9s;
-}
-
 /* ── Selector (barras de etílico, con la piel de cada escena) ──────────── */
 
 .pz-selector {
@@ -985,7 +938,7 @@
   bottom: 22px;
   display: grid;
   width: min(720px, calc(100% - clamp(92px, 7vw, 120px) - 460px));
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 4px;
   padding: 5px;
   border: 1px solid var(--pz-linea);
@@ -1125,18 +1078,27 @@
   box-shadow: 0 18px 40px -24px rgb(12 15 10 / 0.35);
 }
 
-.pz-escenario[data-escena="componentes"] .pz-selector {
-  border-radius: 8px;
+.pz-escenario[data-escena="apps"] .pz-selector {
+  border-color: rgb(255 255 255 / 0.16);
+  border-radius: 20px;
+  box-shadow: 0 20px 44px -26px rgb(0 0 0 / 0.6);
 }
 
-.pz-escenario[data-escena="componentes"] .pz-selector__item {
-  border-radius: 5px;
+.pz-escenario[data-escena="apps"] .pz-selector__item {
+  border-radius: 15px;
 }
 
-.pz-escenario[data-escena="componentes"] .pz-selector__nombre {
-  font-family: var(--f-serif);
-  font-size: 17px;
-  font-style: italic;
+.pz-escenario[data-escena="panel"] .pz-selector {
+  border-color: rgb(52 211 238 / 0.22);
+  box-shadow: 0 20px 50px -30px rgb(52 211 238 / 0.5);
+}
+
+.pz-escenario[data-escena="panel"] .pz-selector__n {
+  color: var(--pz-acento);
+}
+
+.pz-escenario[data-escena="panel"] .pz-selector__item[aria-current] .pz-selector__n {
+  color: inherit;
 }
 
 .pz-escenario[data-escena="marca"] .pz-selector {
@@ -1194,24 +1156,6 @@
 .pz-mano {
   font-family: var(--ff-mano), cursive;
   font-weight: 700;
-}
-
-/* Portada: "nuestro trabajo" en rojo, a mano, como la referencia. */
-.pz-pop--trabajo {
-  left: -8%;
-  top: -40%;
-  color: #ff5a47;
-  font-family: var(--ff-mano), cursive;
-  font-size: clamp(22px, 5.2cqw, 42px);
-  font-weight: 700;
-  line-height: 1;
-  rotate: -7deg;
-  animation-name: pz-aparece;
-}
-
-.pz-pop--trabajo .pz-trazo {
-  width: 3.2em;
-  margin: 0.1em 0 0 5.4em;
 }
 
 /* 01 Web ------------------------------------------------------------------ */
@@ -1828,195 +1772,442 @@
   width: 29%;
 }
 
-/* 04 Componentes ---------------------------------------------------------- */
+/* 04 Apps ----------------------------------------------------------------- */
 
-.pz-lujo {
-  display: grid;
-  gap: 0.45em;
-  padding: 0.9em 1em;
-  border: 1px solid rgb(176 138 87 / 0.38);
-  border-radius: 12px;
-  background: #fffdf9;
-  color: #1f1a14;
+.pz-ios {
+  color: #fff;
   font-family: var(--f-sans);
-  box-shadow: 0 20px 40px -24px rgb(80 55 20 / 0.45);
-  animation-name: pz-lujo-entra;
-  animation-duration: 1s;
+  animation-name: pz-sube;
+  animation-duration: 0.9s;
   animation-timing-function: var(--pz-ease);
 }
 
-.pz-lujo__label {
-  font-size: 0.72em;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #9a7442;
-}
-
-.pz-lujo__seg {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 0.25em;
-  border: 1px solid rgb(176 138 87 / 0.3);
-  border-radius: 8px;
-  background: #f8f3ea;
-  font-size: 0.86em;
-}
-
-.pz-lujo__seg span {
-  position: relative;
-  z-index: 1;
-  padding: 0.45em 0.2em;
-  text-align: center;
+/* La isla del iPhone, con la actividad en vivo. */
+.pz-ios--isla {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.55em 0.6em 0.55em 0.55em;
+  border-radius: 999px;
+  background: #000;
+  box-shadow:
+    0 18px 40px -18px rgb(0 0 0 / 0.9),
+    0 0 0 1px rgb(255 255 255 / 0.06);
   white-space: nowrap;
 }
 
-.pz-lujo__pastilla {
-  position: absolute;
-  top: 0.25em;
-  bottom: 0.25em;
-  left: 0.25em;
-  width: calc((100% - 0.5em) / 4);
-  border: 1px solid #b08a57;
-  border-radius: 6px;
-  background: #fff;
-  box-shadow: 0 4px 10px -6px rgb(80 55 20 / 0.5);
-  animation: pz-pastilla 0.8s var(--pz-ease) calc(var(--d, 0ms) + 900ms) forwards;
+.pz-ios__gota,
+.pz-ios__icono {
+  display: grid;
+  flex: none;
+  place-items: center;
+  background: linear-gradient(145deg, #a78bfa, #6d28d9);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35);
 }
 
-.pz-pop--plazo {
-  left: -14%;
-  top: -14%;
-  width: 42%;
-}
-
-.pz-lujo__monto {
-  font-family: var(--f-serif);
-  font-size: 1.7em;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.pz-lujo__riel {
-  position: relative;
-  height: 4px;
-  margin: 0.6em 0 0.3em;
-  border-radius: 4px;
-  background: rgb(176 138 87 / 0.2);
-}
-
-.pz-lujo__riel i {
-  position: absolute;
-  top: 50%;
-  left: 18%;
-  width: 1.1em;
-  height: 1.1em;
-  border: 2px solid #fff;
+.pz-ios__gota {
+  width: 2.2em;
+  height: 2.2em;
   border-radius: 50%;
-  background: #b08a57;
-  box-shadow: 0 2px 8px rgb(80 55 20 / 0.45);
-  translate: -50% -50%;
-  animation: pz-perilla 1.2s var(--pz-ease) calc(var(--d, 0ms) + 700ms) forwards;
 }
 
-.pz-lujo__riel::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 18%;
-  border-radius: inherit;
-  background: #b08a57;
-  animation: pz-riel 1.2s var(--pz-ease) calc(var(--d, 0ms) + 700ms) forwards;
+.pz-ios__gota svg,
+.pz-ios__icono svg {
+  width: 1em;
+  color: #fff;
 }
 
-.pz-pop--prima {
-  left: -13%;
-  top: 72%;
-  width: 32%;
+.pz-ios__isla-txt {
+  display: grid;
+  line-height: 1.2;
 }
 
-.pz-lujo--cuota {
-  gap: 0.3em;
-  padding: 1.1em 1.2em;
-  background: linear-gradient(160deg, #fffdf9, #f7efe2);
+.pz-ios__isla-txt b {
+  font-size: 0.95em;
+  font-weight: 600;
 }
 
-.pz-lujo__grande {
-  font-family: var(--f-serif);
-  font-size: 2.5em;
-  font-weight: 500;
-  line-height: 1;
-  color: #8c6a3c;
+.pz-ios__isla-txt small {
+  font-size: 0.8em;
+  color: rgb(255 255 255 / 0.6);
   font-variant-numeric: tabular-nums;
 }
 
-.pz-lujo__nota {
-  font-size: 0.78em;
-  color: rgb(31 26 20 / 0.55);
+.pz-ios__aro,
+.pz-ios__anillo {
+  rotate: -90deg;
 }
 
-.pz-pop--cuota {
-  left: 81%;
-  top: 30%;
-  width: 29%;
+.pz-ios__aro {
+  width: 2.2em;
+  margin-left: 0.4em;
 }
 
-.pz-lujo--interruptor {
+.pz-ios__aro circle,
+.pz-ios__anillo circle {
+  fill: none;
+  stroke: rgb(167 139 250 / 0.22);
+  stroke-width: 4;
+}
+
+.pz-ios__anillo circle {
+  stroke-width: 6;
+}
+
+/* Los anillos se llenan hasta 6 de 8 vasos. */
+.pz-ios__aro circle + circle,
+.pz-ios__anillo circle + circle {
+  stroke: #a78bfa;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pz-anillo 1.4s var(--pz-ease) calc(var(--d, 0ms) + 500ms) forwards;
+}
+
+.pz-pop--isla {
+  left: 30%;
+  top: -12%;
+}
+
+/* El aviso del iPhone, en vidrio. */
+.pz-ios--aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75em;
+  padding: 0.85em 1em 0.9em 0.85em;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 1.4em;
+  background: rgb(255 255 255 / 0.16);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 24px 50px -24px rgb(10 5 40 / 0.8);
+}
+
+.pz-ios__icono {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 0.7em;
+}
+
+.pz-ios__cuerpo {
+  display: grid;
+  gap: 0.15em;
+  min-width: 0;
+  font-size: 0.92em;
+  line-height: 1.3;
+  color: rgb(255 255 255 / 0.85);
+}
+
+.pz-ios__cabeza {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  font-size: 0.82em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.62);
+}
+
+.pz-ios__cuerpo b {
+  font-weight: 600;
+  color: #fff;
+}
+
+.pz-pop--aviso {
+  left: -17%;
+  top: 16%;
+  width: 36%;
+}
+
+/* El widget del anillo, como en la pantalla de inicio. */
+.pz-ios--widget {
+  display: grid;
+  grid-template-areas:
+    "aro"
+    "meta";
+  justify-items: center;
+  padding: 1em 1em 0.9em;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 1.6em;
+  background: rgb(22 14 60 / 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 50px -24px rgb(10 5 40 / 0.9);
+}
+
+.pz-ios__anillo {
+  grid-area: aro;
+  width: 5.4em;
+}
+
+.pz-ios__vasos {
+  display: grid;
+  grid-area: aro;
+  align-self: center;
+  justify-items: center;
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pz-ios__vasos small {
+  font-size: 0.4em;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.62);
+}
+
+.pz-ios__meta {
+  grid-area: meta;
+  margin-top: 0.55em;
+  font-size: 0.8em;
+  color: rgb(255 255 255 / 0.62);
+}
+
+.pz-pop--anillo {
+  left: 80%;
+  top: 40%;
+  width: 20%;
+}
+
+/* El ajuste de la app, con el interruptor que se prende. */
+.pz-ios--fila {
   display: flex;
   align-items: center;
-  gap: 0.9em;
-  padding: 0.6em 0.7em 0.6em 1em;
-  border-radius: 999px;
+  gap: 1.1em;
+  padding: 0.75em 0.8em 0.75em 1.1em;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 1.1em;
+  background: rgb(22 14 60 / 0.78);
+  backdrop-filter: blur(16px);
   font-size: 0.95em;
   white-space: nowrap;
 }
 
-.pz-lujo__switch {
+.pz-ios__switch {
   position: relative;
-  width: 2.4em;
-  height: 1.35em;
+  width: 2.9em;
+  height: 1.75em;
+  flex: none;
   border-radius: 999px;
-  background: rgb(176 138 87 / 0.25);
-  animation: pz-switch-fondo 0.4s ease calc(var(--d, 0ms) + 1000ms) forwards;
+  background: rgb(255 255 255 / 0.22);
+  animation: pz-ios-switch-fondo 0.35s ease calc(var(--d, 0ms) + 900ms) forwards;
 }
 
-.pz-lujo__switch::after {
+.pz-ios__switch::after {
   content: "";
   position: absolute;
-  top: 0.15em;
   left: 0.15em;
-  width: 1.05em;
-  height: 1.05em;
+  top: 0.15em;
+  width: 1.45em;
+  height: 1.45em;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 1px 4px rgb(80 55 20 / 0.4);
-  animation: pz-switch 0.4s var(--pz-ease) calc(var(--d, 0ms) + 1000ms) forwards;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+  animation: pz-ios-switch 0.35s var(--pz-ease) calc(var(--d, 0ms) + 900ms) forwards;
 }
 
-.pz-pop--seguro {
+.pz-pop--familia {
   left: 64%;
+  top: 88%;
+}
+
+/* Las dos tiendas. */
+.pz-tiendas {
+  display: flex;
+  gap: 0.6em;
+}
+
+.pz-tienda {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.5em 1em 0.5em 0.8em;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  border-radius: 0.8em;
+  background: #000;
+  color: #fff;
+  font-family: var(--f-sans);
+  font-size: 0.95em;
+  font-weight: 600;
+  line-height: 1.05;
+  white-space: nowrap;
+  box-shadow: 0 16px 34px -18px rgb(0 0 0 / 0.9);
+}
+
+.pz-tienda svg {
+  width: 1.35em;
+}
+
+.pz-tienda > span {
+  display: grid;
+}
+
+.pz-tienda small {
+  font-size: 0.66em;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.7);
+}
+
+.pz-pop--tiendas {
+  left: -8%;
+  top: 90%;
+}
+
+/* 05 Panel Onvi ----------------------------------------------------------- */
+
+.pz-pn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.7em 1.1em 0.7em 0.7em;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 1.1em;
+  background: rgb(12 20 27 / 0.8);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 44px -22px rgb(0 0 0 / 0.9);
+  color: #eaf8fc;
+  font-family: var(--f-sans);
+  white-space: nowrap;
+  animation-name: pz-sube;
+  animation-duration: 0.9s;
+  animation-timing-function: var(--pz-ease);
+}
+
+.pz-pn__icono {
+  display: grid;
+  width: 2.2em;
+  height: 2.2em;
+  flex: none;
+  place-items: center;
+  border-radius: 0.7em;
+  background: rgb(52 211 238 / 0.16);
+  color: #34d3ee;
+}
+
+.pz-pn__icono svg {
+  width: 1.1em;
+}
+
+.pz-pn__icono--ok {
+  background: rgb(34 197 94 / 0.18);
+  color: #4ade80;
+}
+
+.pz-pn__icono--wa {
+  background: #25d366;
+  color: #fff;
+}
+
+.pz-pn__txt {
+  display: grid;
+  gap: 0.1em;
+  line-height: 1.25;
+}
+
+.pz-pn b {
+  font-weight: 600;
+}
+
+.pz-pn__txt small {
+  font-size: 0.8em;
+  color: rgb(234 248 252 / 0.58);
+}
+
+.pz-pop--pcita {
+  left: -15%;
+  top: 30%;
+}
+
+.pz-pop--pconfirmar {
+  left: 84%;
+  top: 12%;
+}
+
+.pz-pop--pwa {
+  left: 40%;
+  top: 92%;
+}
+
+/* La reserva nueva, con el punto que late. */
+.pz-pn--toast {
+  padding: 0.6em 1.1em 0.6em 0.9em;
+  border-radius: 999px;
+  font-size: 0.92em;
+  color: rgb(234 248 252 / 0.8);
+}
+
+.pz-pn--toast b {
+  margin-right: 0.3em;
+  color: #fff;
+}
+
+.pz-pn__vivo {
+  width: 0.6em;
+  height: 0.6em;
+  flex: none;
+  border-radius: 50%;
+  background: #34d3ee;
+  animation: pz-vivo 1.8s ease-out infinite;
+}
+
+.pz-pn__vivo--ok {
+  background: #4ade80;
+}
+
+.pz-pop--preserva {
+  left: 50%;
   top: -12%;
 }
 
-.pz-lujo-boton {
-  padding: 0.8em 1.3em;
-  border-radius: 6px;
-  background: linear-gradient(110deg, #b08a57 0%, #b08a57 40%, #d8b684 50%, #b08a57 60%, #b08a57 100%) 0 0 / 250% 100%;
-  color: #fff;
-  font-size: 1em;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  box-shadow: 0 16px 30px -16px rgb(120 80 30 / 0.8);
-  animation:
-    pz-lujo-entra 1s var(--pz-ease) var(--d, 0ms) both,
-    pz-brillo 3.2s ease-in-out calc(var(--d, 0ms) + 1200ms) infinite;
+/* El monitor: todo en línea, con sus barras. */
+.pz-pn--monitor {
+  display: grid;
+  gap: 0.55em;
+  padding: 0.9em 1em;
+  white-space: normal;
 }
 
-.pz-pop--agendar {
-  left: 62%;
-  top: 92%;
+.pz-pn__cabeza {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  font-size: 0.95em;
+}
+
+.pz-pn__cabeza em {
+  margin-left: auto;
+  font-style: normal;
+  color: #4ade80;
+  font-variant-numeric: tabular-nums;
+}
+
+.pz-pn__barras {
+  display: grid;
+  height: 1.6em;
+  grid-template-columns: repeat(18, 1fr);
+  gap: 0.2em;
+}
+
+.pz-pn__barras i {
+  border-radius: 2px;
+  background: #22c55e;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  animation: pz-crece 0.5s var(--pz-ease) calc(var(--d, 0ms) + 300ms + var(--i) * 40ms) forwards;
+}
+
+.pz-pn__barras i[data-ok="0"] {
+  background: #f97316;
+}
+
+.pz-pn--monitor small {
+  font-size: 0.78em;
+  color: rgb(234 248 252 / 0.55);
+}
+
+.pz-pop--pmonitor {
+  left: -9%;
+  top: 72%;
+  width: 30%;
 }
 
 /* 05 Marca ---------------------------------------------------------------- */
@@ -2407,11 +2598,6 @@
     left: 50%;
     top: 64%;
   }
-
-  .pz-texto__lista,
-  .pz-texto__pista {
-    display: none;
-  }
 }
 
 @media (max-width: 767px) {
@@ -2435,12 +2621,15 @@
     font-size: clamp(44px, 13vw, 58px);
   }
 
-  .pz-escenario[data-escena="componentes"] .pz-texto__titulo {
-    font-size: clamp(38px, 11vw, 50px);
+  .pz-escenario[data-escena="apps"] .pz-texto__titulo {
+    font-size: clamp(40px, 12vw, 54px);
   }
 
-  .pz-escenario[data-escena="web"] .pz-texto__ante,
-  .pz-escenario[data-escena="componentes"] .pz-texto__ante {
+  .pz-escenario[data-escena="panel"] .pz-texto__titulo {
+    font-size: clamp(36px, 10.5vw, 48px);
+  }
+
+  .pz-escenario[data-escena="web"] .pz-texto__ante {
     font-size: 19px;
   }
 
@@ -2495,17 +2684,47 @@
   .pz-pop--chispa-c,
   .pz-pop--cmdk,
   .pz-pop--ia,
-  .pz-pop--prima,
-  .pz-pop--seguro,
   .pz-pop--kit,
-  .pz-pop--red {
+  .pz-pop--red,
+  .pz-pop--familia,
+  .pz-pop--tiendas,
+  .pz-pop--pmonitor,
+  .pz-pop--pwa {
     display: none;
   }
 
-  .pz-pop--trabajo {
-    left: -4%;
-    top: -52%;
-    font-size: 24px;
+  /* Apps: la isla arriba, el aviso abajo a la izquierda y el anillo a la derecha. */
+  .pz-pop--isla {
+    left: 24%;
+    top: -26%;
+  }
+
+  .pz-pop--aviso {
+    left: -5%;
+    top: 72%;
+    width: 64%;
+  }
+
+  .pz-pop--anillo {
+    left: 74%;
+    top: -4%;
+    width: 30%;
+  }
+
+  /* Panel: la reserva nueva arriba y los datos abajo. */
+  .pz-pop--preserva {
+    left: 8%;
+    top: -24%;
+  }
+
+  .pz-pop--pcita {
+    left: -5%;
+    top: 76%;
+  }
+
+  .pz-pop--pconfirmar {
+    left: 54%;
+    top: 92%;
   }
 
   .pz-pop--dominio {
@@ -2594,23 +2813,6 @@
     width: 48%;
   }
 
-  .pz-pop--plazo {
-    left: -6%;
-    top: -34%;
-    width: 80%;
-  }
-
-  .pz-pop--cuota {
-    left: 52%;
-    top: 74%;
-    width: 52%;
-  }
-
-  .pz-pop--agendar {
-    left: -6%;
-    top: 96%;
-  }
-
   .pz-pop--google {
     left: -5%;
     top: -40%;
@@ -2681,27 +2883,6 @@
   }
 }
 
-@keyframes pz-titila {
-  to {
-    opacity: 0.45;
-  }
-}
-
-@keyframes pz-fugaz {
-  0%,
-  86% {
-    opacity: 0;
-    transform: translateX(0);
-  }
-  88% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-60vw);
-  }
-}
-
 @keyframes pz-parpadea {
   50% {
     opacity: 0;
@@ -2711,16 +2892,6 @@
 @keyframes pz-deriva {
   to {
     transform: translate(-40px, 30px) scale(1.15);
-  }
-}
-
-@keyframes pz-arco {
-  from {
-    opacity: 0;
-    clip-path: inset(100% 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
   }
 }
 
@@ -2737,12 +2908,6 @@
     opacity: 0;
     transform: translateY(-12px);
     filter: blur(6px);
-  }
-}
-
-@keyframes pz-baja {
-  50% {
-    transform: translateY(4px);
   }
 }
 
@@ -2896,53 +3061,6 @@
   }
 }
 
-@keyframes pz-lujo-entra {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.97);
-  }
-}
-
-@keyframes pz-pastilla {
-  to {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes pz-perilla {
-  to {
-    left: 46%;
-  }
-}
-
-@keyframes pz-riel {
-  to {
-    width: 46%;
-  }
-}
-
-@keyframes pz-switch-fondo {
-  to {
-    background: #b08a57;
-  }
-}
-
-@keyframes pz-switch {
-  to {
-    transform: translateX(1.05em);
-  }
-}
-
-@keyframes pz-brillo {
-  0%,
-  60% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: -50% 0;
-  }
-}
-
 @keyframes pz-doble-toque {
   0% {
     opacity: 0;
@@ -2976,6 +3094,43 @@
     transform: scale(1);
     fill: #ed4956;
     stroke: #ed4956;
+  }
+}
+
+@keyframes pz-escaneo {
+  from {
+    transform: translateY(-160px);
+  }
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+@keyframes pz-anillo {
+  to {
+    stroke-dashoffset: 0.25;
+  }
+}
+
+@keyframes pz-ios-switch-fondo {
+  to {
+    background: #34c759;
+  }
+}
+
+@keyframes pz-ios-switch {
+  to {
+    transform: translateX(1.15em);
+  }
+}
+
+@keyframes pz-vivo {
+  0% {
+    box-shadow: 0 0 0 0 rgb(52 211 238 / 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.6em rgb(52 211 238 / 0);
   }
 }
 
