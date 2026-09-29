@@ -20,18 +20,6 @@ export const companyHero = {
   secondaryCta: { label: "Agendar una reunión", href: "/planes#agendar" },
 } as const;
 
-export const companyWalkthrough = {
-  title: "Cualquier idea que tengas, la volvemos realidad",
-  points: [
-    "PERSONALIZACIÓN 100%",
-    "IA ENTRENADA PARA TU NEGOCIO",
-    "DISEÑO A TU MARCA",
-    "FLUJO HECHO A TU OPERACIÓN",
-    "SOFTWARE, PÁGINA WEB, APPS MÓVILES",
-  ],
-  cta: { label: "Ver los servicios", href: "/digital" },
-} as const;
-
 export const companyOnvi = {
   title: "Nuestra IA Onvi se incluye y te ayuda en cualquier proyecto.",
   points: [
@@ -68,30 +56,6 @@ export const companySistema = {
 
 export const companyOffers = {
   title: "No te atrasés en digitalizar tu negocio. Onvision es para todos.",
-  cards: [
-    {
-      title: "Sistema Onvision",
-      body: "Unificá cada parte del negocio en un solo sistema, con IA y personalización asistida por industria.",
-      cta: { label: "Activar el sistema", href: "/activar" },
-    },
-    {
-      title: "Onvision Digital",
-      body: "Software o página a medida: tienda, landing o app con tu marca, lista para vender y con Onvi incluido.",
-      cta: {
-        label: "Ver Digital",
-        href: "/digital",
-      },
-    },
-    {
-      title: "Soporte 24/7",
-      body: "English and Spanish, around the clock. Te respondemos cuando el negocio no puede parar.",
-      cta: {
-        label: "Hablar ahora",
-        href: `https://wa.me/${site.whatsapp}`,
-        external: true,
-      },
-    },
-  ],
 } as const;
 
 export type CliStepKind = "think" | "read" | "search" | "write" | "text" | "code";

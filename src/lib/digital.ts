@@ -1,15 +1,5 @@
 import { site } from "./site";
 
-export const digitalHero = {
-  eyebrow: "Onvision Digital · Sitios & software",
-  headline: "Construimos lo que tu negocio necesita para vender y operar en digital.",
-  lead: "Sitios, tiendas, software a medida y apps — a tu marca, con Onvi incluido y listos para revisar.",
-  primaryCta: {
-    label: "Agendar una reunión",
-    href: "/planes#agendar",
-  },
-} as const;
-
 export const digitalShowreel = {
   title: "onvision",
   lead: "Sitios, tiendas y software a medida — a tu gusto, con Onvi IA incluido.",
@@ -41,41 +31,6 @@ export const digitalShowreel = {
       label: "Apps móviles",
       body: "iOS y Android a medida cuando el negocio necesita estar en el bolsillo del cliente.",
       poster: "/digital/mobile-run-cut5.png",
-    },
-  ],
-} as const;
-
-export const digitalIncludes = {
-  title: "Qué incluye cada servicio",
-  lead: "Cada tarjeta cuenta qué entregamos y qué queda listo para operar.",
-  items: [
-    {
-      id: 1,
-      title: "Página web",
-      description:
-        "Páginas web con chatbots 100% inteligentes con IA, mapas interactivos, formularios con base de datos, calendarios y todo lo que necesitás para convertir visitas en clientes.",
-      price: "Desde $35/mes o $550",
-    },
-    {
-      id: 2,
-      title: "E-commerce",
-      description:
-        "Catálogo, carrito, métodos de pago y pedidos. La tienda vende; la operación no se traba.",
-      price: "Desde $50/mes o $750",
-    },
-    {
-      id: 3,
-      title: "Software a medida",
-      description:
-        "Reservas, inventario, órdenes y paneles propios. Productos que el equipo abre todos los días, tu operación queda lista.",
-      price: "Desde $150/mes",
-    },
-    {
-      id: 4,
-      title: "App móvil",
-      description:
-        "iOS y Android a medida cuando el cliente necesita la marca en el bolsillo: cuenta, pedidos, alertas y push.",
-      price: "Desde $140/mes o $1.500",
     },
   ],
 } as const;
@@ -368,7 +323,7 @@ export const digitalPlans = {
 export type DigitalPlanGroupKey = keyof typeof digitalPlans.groups;
 
 export const digitalFaq = {
-  label: "03 — FAQ",
+  label: "02 — FAQ",
   title: "Lo que se pregunta todo el mundo antes de empezar",
   description:
     "Las dudas más comunes sobre la mensualidad, el dominio y qué pasa si querés parar.",

@@ -149,38 +149,6 @@ export function Indice({ n, className = "" }: { n: number | string; className?: 
   return <span className={`od-indice ${className}`}>({t})</span>;
 }
 
-/** Texto en círculo que gira alrededor de una flecha (nordpixel). */
-export function Sello({
-  texto,
-  href,
-  className = "",
-  etiqueta,
-}: {
-  texto: string;
-  href: string;
-  className?: string;
-  etiqueta: string;
-}) {
-  const id = `od-sello-${texto.replace(/[^a-z]/gi, "").slice(0, 12).toLowerCase()}`;
-  return (
-    <a href={href} className={`od-sello ${className}`} aria-label={etiqueta}>
-      <svg viewBox="0 0 120 120" className="od-sello__aro" aria-hidden focusable="false">
-        <defs>
-          <path id={id} d="M60 60 m -46 0 a 46 46 0 1 1 92 0 a 46 46 0 1 1 -92 0" />
-        </defs>
-        <text>
-          <textPath href={`#${id}`} startOffset="0">
-            {texto}
-          </textPath>
-        </text>
-      </svg>
-      <span className="od-sello__centro">
-        <Flecha dir="diagonal" />
-      </span>
-    </a>
-  );
-}
-
 /** Tono de acento local para una pieza (variables CSS). */
 export function tono(color: string): CSSProperties {
   return { "--tono": color } as CSSProperties;

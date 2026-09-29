@@ -658,6 +658,107 @@
   color: #fff;
 }
 
+.rt-inv__col--facturas {
+  display: flex;
+  flex-direction: column;
+  border-color: rgb(52 211 238 / 0.35);
+  background: rgb(52 211 238 / 0.06);
+}
+
+.rt-inv__monto {
+  margin-top: 12px;
+  font-family: var(--f-display);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.rt-inv__col--facturas small {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--rt-gris);
+}
+
+/* Cada parada con su estado y la factura que salió sola al entregar. */
+.rt-inv__paradas {
+  display: grid;
+  gap: 6px;
+}
+
+.rt-inv__paradas li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.2fr);
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border: 1px solid var(--rt-borde);
+  border-radius: 12px;
+  font-size: 13.5px;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+}
+
+.rt-inv__paradas li[data-siguiente] {
+  border-color: rgb(52 211 238 / 0.5);
+}
+
+.rt-inv__paradas li[data-entregada] {
+  background: rgb(46 242 166 / 0.05);
+}
+
+.rt-inv__parada {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rt-inv__parada i {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.08);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  font-style: normal;
+}
+
+.rt-inv__estado {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--rt-gris);
+}
+
+.rt-inv__paradas li[data-siguiente] .rt-inv__estado {
+  color: var(--rt-cian);
+}
+
+.rt-inv__paradas li[data-entregada] .rt-inv__estado {
+  color: var(--rt-menta);
+}
+
+.rt-inv__factura {
+  overflow: hidden;
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  text-align: right;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--rt-gris-2);
+}
+
+.rt-inv__factura[data-aceptada] {
+  color: var(--rt-menta);
+}
+
 .rt-inv__acciones {
   display: flex;
   flex-wrap: wrap;
@@ -1254,6 +1355,26 @@
 
   .rt-inv__col li {
     font-size: 12px;
+  }
+
+  .rt-inv__nombre {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+  }
+
+  /* La factura baja a su propio renglón. */
+  .rt-inv__paradas li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 10px;
+  }
+
+  .rt-inv__factura {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .rt-inv__factura[data-vacia] {
+    display: none;
   }
 
   .rt-panel__lista li {

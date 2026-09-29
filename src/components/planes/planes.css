@@ -1,6 +1,6 @@
 /* ──────────────────────────────────────────────────────────────────────────
-   Planes: "No te atrasés…" y "Planes claros" en una sola sección, la
-   agenda y "Cualquier idea que tengas", cada una en su tarjeta clara.
+   Planes: "No te atrasés…" y "Planes claros" en una sola sección, con el
+   ojo de Onvision que cuida el resto, y la agenda, cada una en su tarjeta.
    ────────────────────────────────────────────────────────────────────────── */
 
 .pl-pagina {
@@ -125,10 +125,6 @@
   text-align: center;
 }
 
-.pl .oh-ofertas {
-  margin-top: clamp(64px, 7vw, 100px);
-}
-
 /* ── Celular: la línea en dos por dos ───────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -148,5 +144,269 @@
     padding: 11px 10px;
     border-radius: 15px;
     font-size: 14px;
+  }
+}
+
+/* ── "Nosotros nos encargamos del resto": el ojo en el radar ────────── */
+
+.pl-vigila {
+  display: grid;
+  max-width: 1180px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  align-items: center;
+  gap: 40px;
+  margin: clamp(64px, 7vw, 100px) auto 0;
+  padding: clamp(28px, 4vw, 56px);
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(55% 80% at 78% 50%, rgb(52 211 238 / 0.1), transparent 70%),
+    radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1.2px) 0 0 / 18px 18px,
+    #0a0f14;
+  color: #eaf8fc;
+}
+
+.pl-vigila__ante {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.pl-vigila__h2 {
+  margin-top: 14px;
+  font-family: var(--f-display);
+  font-size: clamp(34px, 4.2vw, 60px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.pl-vigila__h2 i {
+  font-style: normal;
+  color: var(--cyan);
+}
+
+.pl-vigila__lede {
+  max-width: 44ch;
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgb(234 248 252 / 0.66);
+}
+
+.pl-radar {
+  --vuelta: 6s;
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1;
+  justify-self: center;
+  container-type: inline-size;
+}
+
+.pl-radar__aro {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 50%;
+}
+
+.pl-radar__aro--2 {
+  inset: 17%;
+  border-color: rgb(255 255 255 / 0.08);
+}
+
+.pl-radar__aro--3 {
+  inset: 34%;
+  border-style: dashed;
+  border-color: rgb(52 211 238 / 0.28);
+}
+
+/* El barrido: su borde brillante va adelante y enciende lo que toca. */
+.pl-radar__barrido {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 74%, rgb(52 211 238 / 0.05) 82%, rgb(52 211 238 / 0.4) 99.5%, transparent 100%);
+  animation: pl-gira var(--vuelta) linear infinite;
+}
+
+.pl-radar__cosas li {
+  --r: 41cqw;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1));
+}
+
+.pl-radar__cosas li[data-anillo="adentro"] {
+  --r: 27cqw;
+}
+
+.pl-radar__cosas span {
+  --borde: rgb(255 255 255 / 0.14);
+  --tinta: rgb(234 248 252 / 0.62);
+  display: block;
+  width: max-content;
+  padding: 7px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: rgb(10 15 20 / 0.88);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tinta);
+  translate: -50% -50%;
+  animation: pl-luz var(--vuelta) linear infinite;
+  animation-delay: var(--d);
+}
+
+/* Onvi IA y el Panel: vienen en todos, siempre un poco encendidos. */
+.pl-radar__cosas li[data-anillo="adentro"] span {
+  --borde: rgb(52 211 238 / 0.45);
+  --tinta: #fff;
+}
+
+.pl-radar__nucleo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  width: 28cqw;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, #17222c, #070b0f 72%);
+  box-shadow:
+    0 0 0 1px rgb(52 211 238 / 0.35),
+    0 0 44px rgb(52 211 238 / 0.2);
+  translate: -50% -50%;
+}
+
+.pl-radar__ojo {
+  width: 68%;
+  overflow: visible;
+  fill: #fff;
+}
+
+.pl-radar__parpado {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: pl-parpadea 5.2s ease-in-out infinite;
+}
+
+.pl-radar__pupila {
+  fill: var(--cyan);
+  transform: translate(calc(var(--mx, 0) * 1px), calc(var(--my, 0) * 1px));
+  transition: transform 0.25s ease-out;
+}
+
+/* Sin puntero (celular): la pupila mira sola. */
+@media (pointer: coarse) {
+  .pl-radar__pupila {
+    animation: pl-mira 7s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 900px) {
+  .pl-vigila {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+}
+
+/* Celular: chico, sin el texto largo. */
+@media (max-width: 640px) {
+  .pl-vigila {
+    margin-top: 56px;
+    padding: 24px 20px 28px;
+    border-radius: 22px;
+  }
+
+  .pl-vigila__lede {
+    display: none;
+  }
+
+  .pl-radar {
+    max-width: 264px;
+  }
+
+  .pl-radar__cosas li[data-anillo="adentro"] {
+    --r: 30cqw;
+  }
+
+  .pl-radar__cosas span {
+    padding: 5px 9px;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .pl-radar__nucleo {
+    width: 25cqw;
+  }
+}
+
+@keyframes pl-gira {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes pl-luz {
+  0%,
+  3% {
+    border-color: var(--cyan);
+    background: rgb(52 211 238 / 0.16);
+    box-shadow: 0 0 18px rgb(52 211 238 / 0.45);
+    color: #fff;
+  }
+  26%,
+  100% {
+    border-color: var(--borde);
+    background: rgb(10 15 20 / 0.88);
+    box-shadow: 0 0 0 rgb(52 211 238 / 0);
+    color: var(--tinta);
+  }
+}
+
+@keyframes pl-parpadea {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes pl-mira {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(2.4px, -1px);
+  }
+  50% {
+    transform: translate(-2.2px, 1.2px);
+  }
+  75% {
+    transform: translate(1px, 1.6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-radar__barrido,
+  .pl-radar__cosas span,
+  .pl-radar__parpado,
+  .pl-radar__pupila {
+    animation: none;
   }
 }

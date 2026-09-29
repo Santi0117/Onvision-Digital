@@ -1,19 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { companyOffers } from "@/lib/company";
 import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
-import { LINEAS, SISTEMA, pad, planes, seleccionDe, type Linea } from "../home/data";
+import { LINEAS, pad, planes, seleccionDe, type Linea } from "../home/data";
 import { Flecha as FlechaOh, Icono } from "../home/ui";
 import Pixel, { type FiguraPixel } from "../od/Pixel";
 import { Check, ConPunto, Flecha } from "../od/ui";
 import Pago, { type Seleccion } from "./Pago";
+import Vigila from "./Vigila";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const FIGURA: Record<DigitalPlanGroupKey, FiguraPixel> = { web: "web", shop: "tienda", software: "software", mobile: "movil" };
-const FIGURA_OFERTA: FiguraPixel[] = ["sistema", "digital", "soporte"];
 
 type Plan = (typeof digitalPlans.groups)[DigitalPlanGroupKey]["plans"][number];
 
@@ -121,7 +120,7 @@ function Lineas({ linea, alElegir }: { linea: Linea; alElegir: (l: Linea) => voi
  * Planes: "No te atrasés…" y "Planes claros" en una sola sección. Arriba el
  * titular en serif y la línea de servicio; después la píldora gigante con
  * el precio "desde", las tarjetas de la línea (pagar la mensualidad con
- * Onvo, cotizar y qué incluye) y las tres ofertas de la casa.
+ * Onvo, cotizar y qué incluye) y el ojo de Onvision que cuida el resto.
  */
 export default function Planes() {
   const [linea, setLinea] = useState<Linea>("web");
@@ -233,40 +232,7 @@ export default function Planes() {
         </div>
       </div>
 
-      <ul className="oh-ofertas">
-        {companyOffers.cards.map((c, i) => {
-          const externo = "external" in c.cta && c.cta.external;
-          const href = c.cta.href === "/activar" ? SISTEMA.activar : c.cta.href;
-          const fuera = externo || href.startsWith("http");
-          return (
-            <motion.li
-              key={c.title}
-              className={`oh-oferta oh-oferta--${i}`}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
-            >
-              <span className="oh-oferta__icono">
-                <Pixel figura={FIGURA_OFERTA[i] ?? "digital"} className="h-7 w-7" />
-              </span>
-              <h3 className="oh-oferta__titulo">{c.title}</h3>
-              <p className="oh-oferta__texto">{c.body}</p>
-              {fuera ? (
-                <a href={href} target="_blank" rel="noopener noreferrer" className="oh-oferta__cta">
-                  {c.cta.label}
-                  <FlechaOh dir="diagonal" className="h-4 w-4" />
-                </a>
-              ) : (
-                <Link href={href} className="oh-oferta__cta">
-                  {c.cta.label}
-                  <FlechaOh className="h-4 w-4" />
-                </Link>
-              )}
-            </motion.li>
-          );
-        })}
-      </ul>
+      <Vigila />
 
       <Pago seleccion={seleccion} alCerrar={() => setSeleccion(null)} />
     </section>

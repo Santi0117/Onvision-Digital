@@ -118,7 +118,7 @@ export default function Pie() {
               <ul>
                 {servicios.map((s) => (
                   <li key={s.id}>
-                    <Link href="/digital#incluye">{s.label}</Link>
+                    <Link href="/digital#servicios">{s.label}</Link>
                   </li>
                 ))}
                 <li>

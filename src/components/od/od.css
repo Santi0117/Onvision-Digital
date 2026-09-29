@@ -6,8 +6,7 @@
   color: var(--cian);
 }
 
-.od-claro .od-punto,
-.od-punto--p {
+.od-claro .od-punto {
   color: var(--cian-p);
 }
 
@@ -98,19 +97,6 @@ main:focus {
 }
 
 /* Gigante de hobro/jeff: grotesca pesada en mayúsculas. */
-.od-gigante {
-  font-family: var(--f-display);
-  font-weight: 800;
-  font-stretch: 112%;
-  line-height: 0.84;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
-}
-
-.od-hueca {
-  color: transparent;
-  -webkit-text-stroke: 1.5px currentColor;
-}
 
 .od-lede {
   max-width: 46ch;
@@ -234,57 +220,6 @@ main:focus {
   font-weight: 700;
   font-stretch: 110%;
   letter-spacing: -0.02em;
-}
-
-/* ── Sello giratorio (nordpixel) ─────────────────────────────────────── */
-
-.od-sello {
-  position: relative;
-  display: grid;
-  width: 118px;
-  height: 118px;
-  place-items: center;
-  border-radius: 50%;
-  color: var(--cian-t);
-}
-
-.od-sello__aro {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  animation: od-gira 16s linear infinite;
-}
-
-.od-sello__aro text {
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.26em;
-  fill: currentColor;
-}
-
-.od-sello__centro {
-  display: grid;
-  width: 52px;
-  height: 52px;
-  place-items: center;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #fff, var(--hielo));
-  box-shadow:
-    0 10px 24px -10px rgb(10 134 166 / 0.45),
-    inset 0 0 0 1px rgb(10 134 166 / 0.18);
-  color: var(--tinta);
-  transition: transform 0.5s var(--ease);
-}
-
-.od-sello__centro .od-flecha {
-  width: 18px;
-  height: 18px;
-}
-
-.od-sello:hover .od-sello__centro {
-  transform: scale(1.08) rotate(45deg);
 }
 
 /* ── Barra de navegación (tarjeta de wisprflow + marca de nordpixel) ─ */
@@ -1853,34 +1788,6 @@ html.od-con-cursor .od-cursor-aro {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-}
-
-/* ── Aros de progreso (driveberry) ───────────────────────────────────── */
-
-.od-aro-fondo,
-.od-aro-valor {
-  fill: none;
-  stroke-width: 6;
-}
-
-.od-aro-fondo {
-  stroke: rgb(255 255 255 / 0.18);
-}
-
-.od-claro .od-aro-fondo {
-  stroke: rgb(10 13 18 / 0.08);
-}
-
-.od-aro-valor {
-  stroke: var(--cian);
-  stroke-linecap: round;
-  stroke-dasharray: 100;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-
-.od-claro .od-aro-valor {
-  stroke: var(--cian-p);
 }
 
 /* ── Íconos de píxeles ───────────────────────────────────────────────── */

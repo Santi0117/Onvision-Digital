@@ -1,0 +1,540 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   "Contanos tu idea": el formulario en tres pasos, en una tarjeta oscura
+   sobre el inicio claro. A la izquierda la pregunta y lo que ya contaste;
+   a la derecha los campos.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.oc {
+  padding: clamp(24px, 3vw, 48px) var(--gut) clamp(100px, 11vw, 160px);
+}
+
+.oc-cabeza {
+  display: grid;
+  max-width: 980px;
+  justify-items: center;
+  gap: 22px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.oc-tarjeta {
+  --oc-borde: rgb(255 255 255 / 0.1);
+  position: relative;
+  display: grid;
+  max-width: 1120px;
+  min-height: 540px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  margin: clamp(40px, 5vw, 64px) auto 0;
+  overflow: hidden;
+  border-radius: 32px;
+  background: #0a0f14;
+  color: #eaf8fc;
+  box-shadow: 0 50px 100px -60px rgb(10 13 18 / 0.7);
+}
+
+/* ── El lado de la pregunta ─────────────────────────────────────────── */
+
+.oc-lado {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 52px);
+  border-right: 1px solid var(--oc-borde);
+  background:
+    radial-gradient(70% 60% at 0% 100%, rgb(52 211 238 / 0.16), transparent 70%),
+    radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1.2px) 0 0 / 18px 18px;
+}
+
+.oc-lado__ojo {
+  position: absolute;
+  right: -70px;
+  bottom: -30px;
+  width: 330px;
+  color: rgb(52 211 238 / 0.07);
+  pointer-events: none;
+}
+
+.oc-pasos {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(234 248 252 / 0.4);
+}
+
+.oc-pasos li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+
+.oc-pasos__n {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid var(--oc-borde);
+  border-radius: 50%;
+  font-size: 10px;
+  letter-spacing: 0;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.oc-pasos li[data-estado="ahora"] {
+  color: #fff;
+}
+
+.oc-pasos li[data-estado="ahora"] .oc-pasos__n {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.oc-pasos li[data-estado="hecho"] {
+  color: rgb(234 248 252 / 0.7);
+}
+
+.oc-pasos li[data-estado="hecho"] .oc-pasos__n {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  color: #06232b;
+}
+
+.oc-barra {
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.1);
+}
+
+.oc-barra i {
+  display: block;
+  height: 100%;
+  background: var(--cyan);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease);
+}
+
+.oc-lado__texto {
+  position: relative;
+  margin-top: 14px;
+}
+
+.oc-pregunta {
+  font-family: var(--f-serif);
+  font-size: clamp(34px, 3.6vw, 52px);
+  font-style: italic;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.oc-ayuda {
+  max-width: 34ch;
+  margin-top: 12px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: rgb(234 248 252 / 0.6);
+}
+
+.oc-resumen {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--oc-borde);
+}
+
+.oc-resumen div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 14px;
+}
+
+.oc-resumen dt {
+  padding-top: 2px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(234 248 252 / 0.45);
+}
+
+.oc-resumen dd {
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+/* ── El lado de los campos ──────────────────────────────────────────── */
+
+.oc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(28px, 4vw, 52px);
+}
+
+.oc-cuerpo {
+  flex: 1;
+}
+
+.oc-paso {
+  display: grid;
+  gap: 22px;
+}
+
+.oc-grupo {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.oc-grupo legend {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(234 248 252 / 0.85);
+}
+
+.oc-grupo legend small {
+  margin-left: 8px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(234 248 252 / 0.4);
+}
+
+.oc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.oc-chips button {
+  padding: 11px 16px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #eaf8fc;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    color 0.2s;
+}
+
+@media (hover: hover) {
+  .oc-chips button:hover {
+    border-color: rgb(52 211 238 / 0.6);
+  }
+}
+
+.oc-chips button[aria-pressed="true"] {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  color: #06232b;
+}
+
+.oc-chips button[aria-pressed="true"]::before {
+  content: "✓ ";
+}
+
+.oc-chips--chicas button {
+  padding: 8px 13px;
+  font-size: 13.5px;
+}
+
+.oc-campo {
+  display: grid;
+  gap: 8px;
+}
+
+.oc-campo span {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(234 248 252 / 0.8);
+}
+
+.oc-campo input,
+.oc-campo textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.04);
+  font: inherit;
+  font-size: 16px;
+  color: #fff;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.oc-campo textarea {
+  min-height: 150px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.oc-campo input::placeholder,
+.oc-campo textarea::placeholder {
+  color: rgb(234 248 252 / 0.32);
+}
+
+.oc-campo input:focus,
+.oc-campo textarea:focus {
+  border-color: var(--cyan);
+  outline: none;
+  background: rgb(52 211 238 / 0.06);
+  box-shadow: 0 0 0 4px rgb(52 211 238 / 0.15);
+}
+
+.oc-campo [aria-invalid="true"],
+.oc-campo [aria-invalid="true"]:focus {
+  border-color: #ff8a8a;
+  box-shadow: 0 0 0 4px rgb(255 107 107 / 0.16);
+}
+
+.oc-cuenta {
+  margin-top: -12px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: rgb(234 248 252 / 0.4);
+}
+
+.oc-cuenta[data-ok] {
+  color: #2ef2a6;
+}
+
+.oc-empujones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.oc-empujones span {
+  width: 100%;
+  margin-bottom: 2px;
+  font-size: 12.5px;
+  color: rgb(234 248 252 / 0.5);
+}
+
+.oc-empujones button {
+  padding: 6px 11px;
+  border: 1px dashed rgb(255 255 255 / 0.22);
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: rgb(234 248 252 / 0.75);
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+@media (hover: hover) {
+  .oc-empujones button:hover {
+    border-color: var(--cyan);
+    color: #fff;
+  }
+}
+
+.oc-trampa {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.oc-error {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgb(255 107 107 / 0.12);
+  font-size: 14px;
+  color: #ffb4b4;
+}
+
+.oc-botones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.oc-boton {
+  display: inline-flex;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 22px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 14px;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #eaf8fc;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+@media (hover: hover) {
+  .oc-boton:hover {
+    border-color: #fff;
+  }
+
+  .oc-boton--lleno:hover {
+    border-color: var(--cyan);
+    transform: translateY(-1px);
+  }
+}
+
+.oc-boton--lleno {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  color: #06232b;
+}
+
+.oc-boton:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.oc-privado {
+  font-size: 12px;
+  text-align: right;
+  color: rgb(234 248 252 / 0.4);
+}
+
+/* ── Enviado ────────────────────────────────────────────────────────── */
+
+.oc-listo {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 14px;
+  padding: clamp(28px, 4vw, 52px);
+}
+
+.oc-listo__check {
+  width: 72px;
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.oc-listo__check circle {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  animation: oc-traza 0.8s 0.1s var(--ease) forwards;
+}
+
+.oc-listo__check path {
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+  animation: oc-traza 0.5s 0.7s var(--ease) forwards;
+}
+
+.oc-listo__titulo {
+  font-family: var(--f-display);
+  font-size: clamp(30px, 3vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.oc-listo__texto {
+  max-width: 40ch;
+  font-size: 16px;
+  color: rgb(234 248 252 / 0.7);
+}
+
+.oc-listo__botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* ── Tablet y celular: una columna, la pregunta arriba ──────────────── */
+
+@media (max-width: 860px) {
+  .oc-tarjeta {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 24px;
+  }
+
+  .oc-lado {
+    gap: 14px;
+    border-right: 0;
+    border-bottom: 1px solid var(--oc-borde);
+  }
+
+  .oc-lado__ojo,
+  .oc-resumen {
+    display: none;
+  }
+
+  .oc-lado__texto {
+    margin-top: 4px;
+  }
+
+  .oc-pregunta {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+}
+
+@media (max-width: 480px) {
+  .oc-botones {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .oc-botones > span:empty {
+    display: none;
+  }
+
+  .oc-boton {
+    width: 100%;
+  }
+
+  .oc-privado {
+    text-align: center;
+  }
+
+  .oc-chips button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}
+
+@keyframes oc-traza {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-listo__check circle,
+  .oc-listo__check path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}

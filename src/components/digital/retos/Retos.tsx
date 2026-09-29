@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { Calculadora, Chat, Inventario, Marca, PanelVivo, SinSenal } from "./demos";
+import { Calculadora, Chat, Marca, PanelVivo, SinSenal, TodoEnUno } from "./demos";
 import "./retos.css";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -42,14 +42,14 @@ const RETOS: { id: string; servicio: string; pregunta: string; ventana: string; 
   {
     id: "software",
     servicio: "Software",
-    pregunta: "¿Que producción, bodega y rutas cuadren solas, sin Excel?",
-    ventana: "sistema · inventario en vivo",
+    pregunta: "¿Que las rutas de distribución, la facturación electrónica y el inventario estén en un mismo lugar?",
+    ventana: "sistema · rutas, facturas e inventario",
     como: [
+      "Al entregar, la factura electrónica sale sola con lo que se bajó del camión.",
+      "Bodega, camiones y facturas leen el mismo inventario, al mismo tiempo.",
       "Cada movimiento queda anotado con hora y con quién lo hizo.",
-      "Planta, bodega y camiones ven lo mismo al mismo tiempo.",
-      "El reporte del día sale solo, sin armar hojas de cálculo.",
     ],
-    Demo: Inventario,
+    Demo: TodoEnUno,
   },
   {
     id: "apps",
@@ -126,7 +126,7 @@ export default function Retos() {
   return (
     <section ref={seccion} id="retos" className="rt" data-tema="oscuro" aria-labelledby="rt-titulo">
       <header className="rt-cabeza">
-        <p className="rt-ante">02 — Lo difícil</p>
+        <p className="rt-ante">01 — Lo difícil</p>
         <h2 id="rt-titulo" className="rt-h2">
           ¿Y eso <span>se puede?</span>
         </h2>

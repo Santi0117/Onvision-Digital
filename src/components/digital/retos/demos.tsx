@@ -234,7 +234,7 @@ export function Chat({ enVista }: { enVista: boolean }) {
   );
 }
 
-/* ── 03 · Software: producción, bodega y rutas que cuadran solas ────── */
+/* ── 03 · Software: rutas, facturación electrónica e inventario en un lugar ── */
 
 type Conteo = { leche: number; yogurt: number; queso: number };
 const PRODUCTOS: { id: keyof Conteo; nombre: string }[] = [
@@ -242,59 +242,68 @@ const PRODUCTOS: { id: keyof Conteo; nombre: string }[] = [
   { id: "yogurt", nombre: "Yogurt" },
   { id: "queso", nombre: "Queso" },
 ];
+const PRECIO: Conteo = { leche: 950, yogurt: 1200, queso: 2800 };
+const CARGA: Conteo = { leche: 60, yogurt: 24, queso: 12 };
+const PARADA: Conteo = { leche: 20, yogurt: 8, queso: 4 };
+const PARADAS = ["Pulpería La Esquina", "Súper Don Beto", "Soda El Parque"];
 const suma = (c: Conteo) => c.leche + c.yogurt + c.queso;
+const valor = (c: Conteo) => c.leche * PRECIO.leche + c.yogurt * PRECIO.yogurt + c.queso * PRECIO.queso;
+const menos = (a: Conteo, b: Conteo): Conteo => ({ leche: a.leche - b.leche, yogurt: a.yogurt - b.yogurt, queso: a.queso - b.queso });
 const hora = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
-export function Inventario() {
-  const [planta, setPlanta] = useState<Conteo>({ leche: 0, yogurt: 0, queso: 0 });
-  const [bodega, setBodega] = useState<Conteo>({ leche: 180, yogurt: 96, queso: 48 });
-  const [ruta, setRuta] = useState<Conteo>({ leche: 0, yogurt: 0, queso: 0 });
-  const [entregado, setEntregado] = useState(0);
-  const [log, setLog] = useState<string[]>(["07:58 · Bodega abrió con 324 productos"]);
+type Parada = { nombre: string; entregada: boolean; factura?: { numero: string; aceptada: boolean } };
+const nuevaRuta = (): Parada[] => PARADAS.map((nombre) => ({ nombre, entregada: false }));
+
+export function TodoEnUno() {
+  const [bodega, setBodega] = useState<Conteo>({ leche: 120, yogurt: 72, queso: 36 });
+  const [camion, setCamion] = useState<Conteo>({ ...CARGA });
+  const [paradas, setParadas] = useState<Parada[]>(nuevaRuta);
+  const [numero, setNumero] = useState(128);
+  const [facturas, setFacturas] = useState(0);
+  const [log, setLog] = useState<string[]>(["08:02 · Ruta 03 cargó 96 productos", "07:58 · Bodega abrió con 324 productos"]);
   const [reloj, setReloj] = useState(8 * 60 + 2);
-  const [ocupado, setOcupado] = useState(false);
   const luego = useLuego();
 
   const anotar = (texto: string) => {
-    setReloj((r) => r + 4);
-    setLog((l) => [`${hora(reloj + 4)} · ${texto}`, ...l].slice(0, 4));
+    const t = reloj + 4;
+    setReloj(t);
+    setLog((l) => [`${hora(t)} · ${texto}`, ...l].slice(0, 3));
   };
 
-  const producir = () => {
-    setOcupado(true);
-    setPlanta({ leche: 120, yogurt: 48, queso: 24 });
-    anotar("Planta terminó un lote de 192 productos");
-    luego(1100, () => {
-      setPlanta({ leche: 0, yogurt: 0, queso: 0 });
-      setBodega((b) => ({ leche: b.leche + 120, yogurt: b.yogurt + 48, queso: b.queso + 24 }));
-      setReloj((r) => r + 3);
-      setLog((l) => [`${hora(reloj + 7)} · Bodega recibió el lote`, ...l].slice(0, 4));
-      setOcupado(false);
-    });
+  const vacio = suma(camion) === 0;
+  const siguiente = paradas.findIndex((p) => !p.entregada);
+  const puedeEntregar = !vacio && siguiente >= 0;
+  const puedeCargar = vacio && bodega.leche >= CARGA.leche && bodega.yogurt >= CARGA.yogurt && bodega.queso >= CARGA.queso;
+
+  // Al entregar baja el camión y la factura electrónica sale sola, con lo que se bajó.
+  const entregar = () => {
+    if (!puedeEntregar) return;
+    const k = siguiente;
+    const fe = `FE-${String(numero).padStart(5, "0")}`;
+    setNumero((n) => n + 1);
+    setFacturas((f) => f + 1);
+    setCamion((c) => menos(c, PARADA));
+    setParadas((ps) => ps.map((p, i) => (i === k ? { ...p, entregada: true, factura: { numero: fe, aceptada: false } } : p)));
+    anotar(`${PARADAS[k]}: 32 productos y ${fe}`);
+    luego(1000, () => setParadas((ps) => ps.map((p, i) => (i === k && p.factura ? { ...p, factura: { ...p.factura, aceptada: true } } : p))));
   };
 
-  const carga = { leche: 60, yogurt: 24, queso: 12 };
-  const puedeCargar = bodega.leche >= carga.leche && bodega.yogurt >= carga.yogurt && bodega.queso >= carga.queso;
   const cargar = () => {
     if (!puedeCargar) return;
-    setBodega((b) => ({ leche: b.leche - carga.leche, yogurt: b.yogurt - carga.yogurt, queso: b.queso - carga.queso }));
-    setRuta((r) => ({ leche: r.leche + carga.leche, yogurt: r.yogurt + carga.yogurt, queso: r.queso + carga.queso }));
+    setBodega((b) => menos(b, CARGA));
+    setCamion({ ...CARGA });
+    setParadas(nuevaRuta());
     anotar("Ruta 03 cargó 96 productos");
   };
 
-  const parada = { leche: 20, yogurt: 8, queso: 4 };
-  const puedeEntregar = ruta.leche >= parada.leche;
-  const entregar = () => {
-    if (!puedeEntregar) return;
-    setRuta((r) => ({ leche: r.leche - parada.leche, yogurt: r.yogurt - parada.yogurt, queso: r.queso - parada.queso }));
-    setEntregado((e) => e + 32);
-    anotar("Pulpería La Esquina recibió 32 productos");
+  const reponer = () => {
+    setBodega((b) => ({ leche: b.leche + 120, yogurt: b.yogurt + 48, queso: b.queso + 24 }));
+    anotar("Planta pasó 192 productos a bodega");
   };
 
   const columnas: { nombre: string; conteo: Conteo }[] = [
-    { nombre: "Planta", conteo: planta },
     { nombre: "Bodega", conteo: bodega },
-    { nombre: "Ruta 03", conteo: ruta },
+    { nombre: "Camión · ruta 03", conteo: camion },
   ];
 
   return (
@@ -318,23 +327,47 @@ export function Inventario() {
             </ul>
           </div>
         ))}
+        <div className="rt-inv__col rt-inv__col--facturas">
+          <p className="rt-inv__nombre">Facturación electrónica</p>
+          <motion.b key={facturas} className="rt-inv__monto" initial={{ opacity: 0.2, y: -4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+            ₡{miles(facturas * valor(PARADA))}
+          </motion.b>
+          <small>
+            {facturas} {facturas === 1 ? "factura" : "facturas"} hoy
+          </small>
+        </div>
       </div>
 
+      <ol className="rt-inv__paradas" aria-live="polite">
+        {paradas.map((p, i) => (
+          <li key={p.nombre} data-entregada={p.entregada ? "true" : undefined} data-siguiente={i === siguiente && !vacio ? "true" : undefined}>
+            <span className="rt-inv__parada">
+              <i aria-hidden>{i + 1}</i>
+              {p.nombre}
+            </span>
+            <span className="rt-inv__estado">{p.entregada ? "✓ Entregada" : i === siguiente && !vacio ? "Siguiente" : "Pendiente"}</span>
+            <span className="rt-inv__factura" data-aceptada={p.factura?.aceptada ? "true" : undefined} data-vacia={p.factura ? undefined : "true"}>
+              {p.factura ? `${p.factura.numero} · ₡${miles(valor(PARADA))} · ${p.factura.aceptada ? "Aceptada ✓" : "Enviando…"}` : "—"}
+            </span>
+          </li>
+        ))}
+      </ol>
+
       <div className="rt-inv__acciones">
-        <button type="button" onClick={producir} disabled={ocupado}>
-          Producir lote
+        <button type="button" onClick={entregar} disabled={!puedeEntregar}>
+          Entregar en la siguiente parada
         </button>
-        <button type="button" onClick={cargar} disabled={!puedeCargar || ocupado}>
+        <button type="button" onClick={cargar} disabled={!puedeCargar}>
           Cargar ruta 03
         </button>
-        <button type="button" onClick={entregar} disabled={!puedeEntregar}>
-          Entregar en una parada
+        <button type="button" onClick={reponer}>
+          Reponer bodega
         </button>
       </div>
 
       <div className="rt-inv__pie">
-        <p className="rt-inv__cuadra" aria-live="polite">
-          <i aria-hidden /> Todo cuadra: 0 de diferencia · {entregado} entregados hoy
+        <p className="rt-inv__cuadra">
+          <i aria-hidden /> Inventario, ruta y facturas cuadran: 0 de diferencia
         </p>
         <ol className="rt-inv__log">
           {log.map((l, i) => (

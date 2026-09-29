@@ -33,16 +33,16 @@ Abrí [http://localhost:3040](http://localhost:3040). Necesita Node 20.9 o más 
 
 | Ruta              | Qué tiene                                                                 |
 | ----------------- | ------------------------------------------------------------------------- |
-| `/`               | "Soluciones digitales hechas para vender": la laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en puntos blancos, como jeffmilanes; en el celular la escena queda fija y los puntos se rearman con el dedo), tu marca en movimiento, Panel Onvi y la puerta a Planes |
-| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), qué incluye, "¿Y eso se puede?" (lo difícil de cada servicio con una demo que se puede tocar) y preguntas frecuentes |
-| `/planes`         | Los planes en una sola sección (la línea, el precio "desde", las tarjetas con pago por Onvo y las ofertas), la agenda y "Cualquier idea que tengas" |
+| `/`               | "Soluciones digitales hechas para vender": la laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en puntos blancos, como jeffmilanes; en el celular la escena queda fija y los puntos se rearman con el dedo), tu marca en movimiento, Panel Onvi, la puerta a Planes y "Contanos tu idea" (un formulario en tres pasos que se guarda para el equipo) |
+| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), "¿Y eso se puede?" (lo difícil de cada servicio con una demo que se puede tocar) y preguntas frecuentes |
+| `/planes`         | Los planes en una sola sección (la línea, el precio "desde", las tarjetas con pago por Onvo y el ojo de Onvision que cuida el resto) y la agenda |
 | `/empresas`       | El muestrario de los 10 proyectos: por línea, con su pantalla, ficha y señal |
 | `/sobre-nosotros` | Manifiesto, objetivo, stack y habilidades                                 |
 | `/pago/exito`, `/pago/cancelado` | La vuelta desde Onvo                                       |
 
 En todas: el menú, Onvi (la IA, a la derecha), WhatsApp y el pie. "Sistema"
 lleva a `sistema.onvisiondigital.com`, como en el sitio oficial. Las
-direcciones viejas (`/agendar`, `/cotizar`, `/portafolio`…) redirigen igual que antes; `/agendar`, `/cotizar` y `/contacto` llevan a la agenda de Planes.
+direcciones viejas (`/agendar`, `/cotizar`, `/portafolio`…) redirigen igual que antes; `/agendar` y `/cotizar` llevan a la agenda de Planes, y `/contacto` a "Contanos tu idea".
 
 ## Qué hay adentro
 
@@ -50,14 +50,15 @@ direcciones viejas (`/agendar`, `/cotizar`, `/portafolio`…) redirigen igual qu
 src/
 ├── app/                 páginas y APIs
 │   ├── api/booking      guarda la reunión (Supabase)
+│   ├── api/contact      guarda "Contanos tu idea" (Supabase, la misma tabla del sitio oficial)
 │   ├── api/checkout/onvo  abre el pago de la mensualidad (Onvo)
 │   └── api/chat         Onvi (OpenAI o sus respuestas de siempre)
 ├── components/
 │   ├── od/              lo común: marco, intro, menú, Onvi, pie, cierre, piezas chicas
 │   ├── vision/          la laptop 3D, la portada y la línea de avance del inicio
-│   ├── home/            las demás secciones del inicio
+│   ├── home/            las demás secciones del inicio y "Contanos tu idea"
 │   ├── digital/         las secciones de servicios
-│   ├── planes/          planes, pago, agenda y "Cualquier idea"
+│   ├── planes/          planes, pago y agenda
 │   ├── empresas/        el muestrario de empresas
 │   └── nosotros/        sobre nosotros
 └── lib/                 los textos, planes y proyectos (los mismos del sitio oficial)
@@ -70,7 +71,8 @@ cambian ahí.
 
 Copiá `.env.example` a `.env.local` y llenalo. Sin llaves, el sitio funciona
 igual: "Pagar" avisa que Onvo no está configurado, la agenda pide escribir por
-WhatsApp y Onvi contesta con sus respuestas de siempre.
+WhatsApp, "Contanos tu idea" pide escribir al correo y Onvi contesta con sus
+respuestas de siempre.
 
 ## Publicarlo en Vercel
 

@@ -3,15 +3,9 @@ import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
 import { empresaProjects, type EmpresaProject } from "@/lib/empresas";
 import type { Seleccion } from "../planes/Pago";
 import type { FiguraPixel } from "../od/Pixel";
-import { SISTEMA_URL, servicios } from "../od/data";
+import { servicios } from "../od/data";
 
 export const pad = (n: number) => String(n).padStart(2, "0");
-
-/** "PERSONALIZACIÓN 100%" → "Personalización 100%" (los puntos oficiales vienen en mayúscula). */
-export const oracion = (t: string) => {
-  const bajo = t.toLocaleLowerCase("es").replace(/\bia\b/g, "IA").replace(/\bsinpe\b/g, "SINPE");
-  return bajo.charAt(0).toLocaleUpperCase("es") + bajo.slice(1);
-};
 
 /* ── Líneas de servicio y su color ─────────────────────────────────────── */
 
@@ -138,11 +132,6 @@ export const empresas = empresaProjects.map((e, i) => ({ ...e, codigo: pad(i + 1
 
 export type Empresa = (typeof empresas)[number];
 
-export const SISTEMA = {
-  activar: `${SISTEMA_URL}/activar`,
-  producto: `${SISTEMA_URL}/producto`,
-};
-
 /* ── Escenas de la página (el contador de jeffmilanes en la línea de avance) ── */
 
 export const ESCENAS = [
@@ -151,6 +140,7 @@ export const ESCENAS = [
   { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
   { id: "panel", nombre: "Panel Onvi" },
   { id: "planes-inicio", nombre: "Planes" },
+  { id: "contacto", nombre: "Contacto" },
 ] as const;
 
 /* ── Desplazamiento ───────────────────────────────────────────────────── */

@@ -199,10 +199,6 @@ html:has(.oh:not(.oh--incrustado)) .od-pie {
   box-shadow: 3px 3px 0 var(--ink);
 }
 
-.oh-boton-lila--ancho {
-  width: 100%;
-}
-
 /* ── HUD de sibaldesign ─────────────────────────────────────────────────── */
 
 .oh-tag {

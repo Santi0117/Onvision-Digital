@@ -1,5 +1,5 @@
 import { companyNav } from "@/lib/company";
-import { digitalIncludes, digitalPlans, digitalShowreel } from "@/lib/digital";
+import { digitalShowreel } from "@/lib/digital";
 import { empresaProjects, empresasPage } from "@/lib/empresas";
 import { site } from "@/lib/site";
 
@@ -15,30 +15,13 @@ export const navegacion = companyNav.map((l) => ({
 export const wa = (texto?: string) =>
   `https://wa.me/${site.whatsapp}${texto ? `?text=${encodeURIComponent(texto)}` : ""}`;
 
-/** Los cuatro servicios: lo del showreel + precio de "Qué incluye" + la pestaña de planes. */
+/** Los cuatro servicios del showreel, cada uno con su línea de planes. */
 const GRUPO = { web: "web", shop: "shop", saas: "software", mobile: "mobile" } as const;
 
-/** Lo que trae cada línea, sacado de los planes (para la lista de hobro). */
-const PIEZAS: Record<keyof typeof GRUPO, string[]> = {
-  web: ["Diseño a tu marca", "Chatbot IA", "Reservas y mapas", "SEO on-page", "Hosting y dominio"],
-  shop: ["Catálogo con filtros", "Carrito y checkout", "SINPE y tarjeta", "Pedidos por WhatsApp", "Panel de stock"],
-  saas: ["Panel administrativo", "Roles y permisos", "Inventario y rutas", "Dashboards", "Backups y monitoreo"],
-  mobile: ["iOS y Android", "Notificaciones push", "Modo offline", "Pagos in-app", "Publicación asistida"],
-};
-
-export const servicios = digitalShowreel.items.map((item, i) => {
-  const incluye = digitalIncludes.items[i]!;
-  return {
-    ...item,
-    n: i + 1,
-    titulo: incluye.title,
-    descripcion: incluye.description,
-    precio: incluye.price,
-    grupo: GRUPO[item.id as keyof typeof GRUPO],
-    pestaña: digitalPlans.tabs[GRUPO[item.id as keyof typeof GRUPO]],
-    piezas: PIEZAS[item.id as keyof typeof GRUPO],
-  };
-});
+export const servicios = digitalShowreel.items.map((item) => ({
+  ...item,
+  grupo: GRUPO[item.id as keyof typeof GRUPO],
+}));
 
 export type Servicio = (typeof servicios)[number];
 

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import CintaOnvi from "@/components/digital/CintaOnvi";
-import Incluye from "@/components/digital/Incluye";
 import Piezas from "@/components/digital/piezas/Piezas";
 import Retos from "@/components/digital/retos/Retos";
 import { ShowreelCabeza } from "@/components/digital/Showreel";
@@ -20,9 +19,6 @@ export default function Digital() {
       <ShowreelCabeza />
       <CintaOnvi />
       <Piezas />
-      <div className="od-bloque">
-        <Incluye />
-      </div>
       <Retos />
       <div className="od-bloque od-faq-bloque">
         <Faq />
