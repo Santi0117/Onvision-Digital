@@ -6,8 +6,8 @@ import { Flecha, Icono } from "./ui";
 const [ANTES, DESPUES = ""] = digitalPlans.title.split(". ");
 
 /**
- * El final del inicio: la píldora gigante con el precio de entrada y la
- * puerta a Planes, donde se elige, se paga o se agenda.
+ * La píldora gigante con el precio de entrada y la puerta a Planes (la
+ * flecha), a los servicios y a la agenda.
  */
 export default function PlanesInicio() {
   const base = planes[0]!;
@@ -40,8 +40,8 @@ export default function PlanesInicio() {
       </div>
 
       <div className="oh-entrada__botones">
-        <Link href="/planes" className="oh-boton-lila">
-          Ver los planes
+        <Link href="/digital" className="oh-boton-lila">
+          Ver servicios
           <Flecha className="h-4 w-4" />
         </Link>
         <Link href="/planes#agendar" className="oh-entrada__agendar">

@@ -128,7 +128,6 @@ export default function Planes() {
   const datos = digitalPlans.groups[linea];
   const deLinea = planes.filter((p) => p.linea === linea);
   const desde = deLinea[0]!;
-  const deBase = desde.precioDesde ? `${digitalPlans.fromLabel} ` : "";
   const [antes, despues = ""] = companyOffers.title.split(". ");
 
   const pagar = (plan: Plan) => {
@@ -184,14 +183,6 @@ export default function Planes() {
               <FlechaOh dir="esquina" className="h-[0.6em] w-[0.6em]" />
             </button>
           </div>
-          <p className="oh-pildora__nota">
-            {desde.precioAlt ? `${desde.precioAlt} al mes · ` : ""}o {deBase}
-            {desde.precioUnico} {digitalPlans.onceLabel} · {deBase}
-            {desde.precioAnual} {digitalPlans.yearLabel} ({digitalPlans.yearSave})
-          </p>
-          <p className="oh-pildora oh-pildora--corrida">
-            Onvi IA y el Panel incluidos en los <span className="oh-pildora__sol">{planes.length}</span> planes.
-          </p>
         </div>
 
         <div className="pl-planes">

@@ -100,8 +100,8 @@ function Letras({ texto, dir }: { texto: string; dir: "baja" | "sube" }) {
  * piezas y la de la línea de lectura se enciende.
  *
  * En el celular la escena queda fija a pantalla completa: arriba el avance,
- * en el medio los puntos (que estallan y se rearman con el dedo) y abajo el
- * título que entra letra por letra. Las piezas de la derecha siguen ahí,
+ * en el medio los puntos (se arman en un instante y se apartan del dedo) y
+ * abajo el título que entra letra por letra. Las piezas de la derecha siguen ahí,
  * invisibles, para los lectores de pantalla y para medir el scroll.
  *
  * La sección se anota en la escena 3D: la laptop se apaga mientras esta entra.
@@ -110,7 +110,7 @@ export default function LoQueHacemos() {
   const seccion = useRef<HTMLElement>(null);
   const caja = useRef<HTMLDivElement>(null);
   const pasos = useRef<(HTMLLIElement | null)[]>([]);
-  const senal = useRef<Senal>({ p: -1, modo: "tiempo" });
+  const senal = useRef<Senal>({ p: -1 });
   const [activa, setActiva] = useState(0);
   const [angosta, setAngosta] = useState(false);
   const [dir, setDir] = useState<"baja" | "sube">("baja");
@@ -150,8 +150,8 @@ export default function LoQueHacemos() {
         while (k < TOTAL - 2 && linea >= centros[k + 1]!) k++;
         p = k + (linea - centros[k]!) / (centros[k + 1]! - centros[k]!);
       }
-      senal.current.p = p;
-      senal.current.modo = movil ? "scroll" : "tiempo";
+      // En la compu la primera figura ya está al entrar; el globo es la portada del celular.
+      senal.current.p = movil ? p : Math.max(0, p);
       el.style.setProperty("--lq-p", p.toFixed(3));
 
       // En el celular, antes de la primera pieza se ve el título de la sección.

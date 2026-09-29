@@ -33,8 +33,8 @@ Abrí [http://localhost:3040](http://localhost:3040). Necesita Node 20.9 o más 
 
 | Ruta              | Qué tiene                                                                 |
 | ----------------- | ------------------------------------------------------------------------- |
-| `/`               | "Soluciones digitales hechas para vender": la laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en puntos blancos, como jeffmilanes; en el celular la escena queda fija y los puntos se rearman con el dedo), tu marca en movimiento, Panel Onvi, la puerta a Planes y "Contanos tu idea" (un formulario en tres pasos que se guarda para el equipo) |
-| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), "¿Y eso se puede?" (lo difícil de cada servicio con una demo que se puede tocar) y preguntas frecuentes |
+| `/`               | "Soluciones digitales hechas para vender": la laptop 3D que se arma pieza por pieza, lo que hacemos (las seis piezas en puntos blancos que se arman en un instante y se apartan del cursor o del dedo, como jeffmilanes; en el celular la escena queda fija y abre con un globo de puntos), tu marca en movimiento, Panel Onvi, la puerta a Planes y "Contanos tu idea" (un formulario en tres pasos que se guarda para el equipo) |
+| `/digital`        | Servicios: "onvision." y la cinta, las seis piezas una por una (web, Onvi, software, apps, Panel Onvi y marca), "¿Y eso se puede?" (lo difícil de cada servicio, con la captura de un trabajo de verdad y cómo lo resolvemos) y preguntas frecuentes |
 | `/planes`         | Los planes en una sola sección (la línea, el precio "desde", las tarjetas con pago por Onvo y el ojo de Onvision que cuida el resto) y la agenda |
 | `/empresas`       | El muestrario de los 10 proyectos: por línea, con su pantalla, ficha y señal |
 | `/sobre-nosotros` | Manifiesto, objetivo, stack y habilidades                                 |

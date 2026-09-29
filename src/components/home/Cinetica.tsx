@@ -9,8 +9,8 @@ import { empresas } from "./data";
 /** Lo que hacemos: las cuatro líneas y lo que va incluido en todas. */
 const HACEMOS = [...servicios.map((s) => s.label), "Onvi IA", "Hosting"];
 
-/** Para quién: el rubro de cada empresa que ya está corriendo. */
-const PARA = [...new Set(empresas.map((e) => e.sector.split(" · ")[0]!))];
+/** Para quién: el rubro de cada empresa que ya está corriendo (en grande, Software en vez de Estudio musical). */
+const PARA = [...new Set(empresas.map((e) => e.sector.split(" · ")[0]!))].map((s) => (s === "Estudio musical" ? "Software" : s));
 
 function Palabras({ palabras, desfase }: { palabras: readonly string[]; desfase: number }) {
   // Una vuelta alcanza: la fila se corre menos de media pantalla.

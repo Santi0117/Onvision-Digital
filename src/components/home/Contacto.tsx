@@ -247,7 +247,8 @@ export default function Contacto() {
                   {paso === 0 ? (
                     <>
                       <fieldset className="oc-grupo">
-                        <legend>Qué querés construir</legend>
+                        {/* La pregunta ya está grande al lado (o arriba, en el celular). */}
+                        <legend className="sr-only">Qué querés construir</legend>
                         <div className="oc-chips">
                           {SERVICIOS.map((s) => (
                             <button
