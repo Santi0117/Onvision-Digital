@@ -12,9 +12,10 @@ import "./home-secciones.css";
 
 /**
  * El inicio de Onvision Digital: la preview oficial (la laptop 3D que se
- * abre pieza por pieza y "Lo que hacemos") como primer acto, y después tu
- * marca en movimiento, la puerta a Planes y "Contanos tu idea", con
- * detalles de jeffmilanes, nordpixel, driveberry y hobro.
+ * abre pieza por pieza, los trabajos en video y "Lo que hacemos") como
+ * primer acto, y después tu marca en movimiento, la puerta a Planes y
+ * "Contanos tu idea", con detalles de jeffmilanes, nordpixel, driveberry y
+ * hobro.
  */
 export default function Home() {
   const [ready, setReady] = useState(false);

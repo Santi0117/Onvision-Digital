@@ -55,6 +55,7 @@ export type Empresa = (typeof empresas)[number];
 export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nucleo", nombre: "Núcleo" },
+  { id: "trabajos", nombre: "Trabajos" },
   { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
   { id: "planes-inicio", nombre: "Planes" },
   { id: "contacto", nombre: "Contacto" },
@@ -85,4 +86,13 @@ export function irA(id: string, enfocar?: string) {
     const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.setTimeout(() => document.getElementById(enfocar)?.focus({ preventScroll: true }), quieto ? 0 : 1350);
   }
+}
+
+/* ── "Quiero uno así": el formulario de contacto, con el servicio ya elegido ── */
+
+export const QUIERO = "od:quiero";
+
+export function pedirServicio(servicio: string) {
+  window.dispatchEvent(new CustomEvent<string>(QUIERO, { detail: servicio }));
+  irA("contacto");
 }

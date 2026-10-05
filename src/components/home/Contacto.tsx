@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { site } from "@/lib/site";
 import { Ojo } from "../od/ui";
-import { scrollA } from "./data";
+import { QUIERO, scrollA } from "./data";
 import "./contacto.css";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -54,6 +54,19 @@ export default function Contacto() {
   useEffect(() => {
     if (movido.current && tarjeta.current && tarjeta.current.getBoundingClientRect().top < 80) scrollA(tarjeta.current, -90);
   }, [paso, listo]);
+
+  // "Quiero uno así" (en Trabajos) llega con el servicio ya elegido.
+  useEffect(() => {
+    const alPedir = (e: Event) => {
+      const elegido = (e as CustomEvent<string>).detail;
+      if (!SERVICIOS.includes(elegido)) return;
+      setServicio(elegido);
+      setError(null);
+      setMal(null);
+    };
+    window.addEventListener(QUIERO, alPedir);
+    return () => window.removeEventListener(QUIERO, alPedir);
+  }, []);
 
   // Cuando entra el paso nuevo, el foco va a su primer campo. En el celular
   // no: abriría el teclado encima de la pregunta.

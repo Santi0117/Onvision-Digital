@@ -1,7 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { visionStore } from "../vision/store";
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
 import Puntos, { type Senal } from "./Puntos";
 import "./lo-que-hacemos.css";
 
@@ -103,8 +102,6 @@ function Letras({ texto, dir }: { texto: string; dir: "baja" | "sube" }) {
  * en el medio los puntos (se arman en un instante y se apartan del dedo) y
  * abajo el título que entra letra por letra. Las piezas de la derecha siguen ahí,
  * invisibles, para los lectores de pantalla y para medir el scroll.
- *
- * La sección se anota en la escena 3D: la laptop se apaga mientras esta entra.
  */
 export default function LoQueHacemos() {
   const seccion = useRef<HTMLElement>(null);
@@ -114,16 +111,6 @@ export default function LoQueHacemos() {
   const [activa, setActiva] = useState(0);
   const [angosta, setAngosta] = useState(false);
   const [dir, setDir] = useState<"baja" | "sube">("baja");
-
-  useLayoutEffect(() => {
-    const el = seccion.current;
-    if (!el) return;
-    visionStore.featuresEl = el;
-    visionStore.featureCount = 1;
-    return () => {
-      if (visionStore.featuresEl === el) visionStore.featuresEl = null;
-    };
-  }, []);
 
   // Dónde va la lectura: p = pieza (con decimales) según la línea de lectura.
   useEffect(() => {
@@ -244,7 +231,7 @@ export default function LoQueHacemos() {
               </>
             ) : (
               <>
-                <p className="lq__m-n">(03) Lo que hacemos</p>
+                <p className="lq__m-n">(04) Lo que hacemos</p>
                 <p key="intro" className="lq__m-titulo lq__m-titulo--intro">
                   <Letras texto="Seis piezas." dir={dir} />
                   <Letras texto="Una sola marca." dir={dir} />
