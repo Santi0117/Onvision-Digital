@@ -4,8 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { companyOffers } from "@/lib/company";
 import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
-import { LINEAS, pad, planes, seleccionDe, type Linea } from "../home/data";
-import { Flecha as FlechaOh, Icono } from "../home/ui";
+import { LINEAS, pad, type Linea } from "../home/data";
 import Pixel, { type FiguraPixel } from "../od/Pixel";
 import { Check, ConPunto, Flecha } from "../od/ui";
 import Pago, { type Seleccion } from "./Pago";
@@ -98,9 +97,9 @@ function Tarjeta({
 }
 
 /**
- * La línea de servicio, una sola vez para toda la sección: el precio
- * "desde", las tarjetas y el pago cambian juntos. La elegida se ve en negro
- * con su nombre en blanco (antes el fondo negro tapaba el nombre).
+ * La línea de servicio, una sola vez para toda la sección: las tarjetas y
+ * el pago cambian juntos. La elegida se ve en negro con su nombre en blanco
+ * (antes el fondo negro tapaba el nombre).
  */
 function Lineas({ linea, alElegir }: { linea: Linea; alElegir: (l: Linea) => void }) {
   return (
@@ -118,16 +117,14 @@ function Lineas({ linea, alElegir }: { linea: Linea; alElegir: (l: Linea) => voi
 
 /**
  * Planes: "No te atrasés…" y "Planes claros" en una sola sección. Arriba el
- * titular en serif y la línea de servicio; después la píldora gigante con
- * el precio "desde", las tarjetas de la línea (pagar la mensualidad con
- * Onvo, cotizar y qué incluye) y el ojo de Onvision que cuida el resto.
+ * titular en serif y la línea de servicio; después, directo, las tarjetas
+ * de la línea (pagar la mensualidad con Onvo, cotizar y qué incluye) y el
+ * ojo de Onvision que cuida el resto.
  */
 export default function Planes() {
   const [linea, setLinea] = useState<Linea>("web");
   const [seleccion, setSeleccion] = useState<Seleccion | null>(null);
   const datos = digitalPlans.groups[linea];
-  const deLinea = planes.filter((p) => p.linea === linea);
-  const desde = deLinea[0]!;
   const [antes, despues = ""] = companyOffers.title.split(". ");
 
   const pagar = (plan: Plan) => {
@@ -152,37 +149,10 @@ export default function Planes() {
         <p className="oh-lede">{digitalPlans.description}</p>
       </header>
 
-      {/* La línea queda pegada arriba mientras se ven la píldora y las tarjetas; antes de las ofertas se suelta. */}
+      {/* La línea queda pegada arriba mientras se ven las tarjetas; antes de las ofertas se suelta. */}
       <div className="pl-elegir">
         <div className="pl-pegado">
           <Lineas linea={linea} alElegir={setLinea} />
-        </div>
-
-        <div className="oh-pildoras">
-          <div className="oh-pildoras__fila">
-            <p className="oh-pildora">
-              <span className="oh-pildora__desde">desde</span>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={desde.id}
-                  className="inline-block"
-                  initial={{ y: "60%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  exit={{ y: "-60%", opacity: 0 }}
-                  transition={{ duration: 0.35, ease: EASE }}
-                >
-                  {desde.precio}
-                </motion.span>
-              </AnimatePresence>
-              <span className="oh-pildora__icono" aria-hidden>
-                <Icono nombre="calendario" className="h-[0.5em] w-[0.5em]" />
-              </span>
-              al mes
-            </p>
-            <button type="button" className="oh-pildora__circulo" aria-label={`Elegir ${desde.nombre} y pagar`} onClick={() => setSeleccion(seleccionDe(desde))}>
-              <FlechaOh dir="esquina" className="h-[0.6em] w-[0.6em]" />
-            </button>
-          </div>
         </div>
 
         <div className="pl-planes">

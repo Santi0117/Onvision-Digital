@@ -115,7 +115,7 @@
 
 .pl-planes {
   max-width: 1180px;
-  margin: clamp(80px, 9vw, 130px) auto 0;
+  margin: clamp(56px, 7vw, 96px) auto 0;
 }
 
 .pl-planes__cabeza {

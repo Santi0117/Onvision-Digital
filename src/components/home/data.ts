@@ -1,6 +1,5 @@
 import { digitalPlans, type DigitalPlanGroupKey } from "@/lib/digital";
 import { empresaProjects, type EmpresaProject } from "@/lib/empresas";
-import type { Seleccion } from "../planes/Pago";
 
 export const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -39,18 +38,6 @@ export const planes: PlanPago[] = LINEAS.flatMap((linea) =>
   })),
 );
 
-/** Lo que recibe la hoja de pago de Onvo. */
-export function seleccionDe(p: PlanPago): Seleccion {
-  return {
-    planId: p.id,
-    planName: p.nombre,
-    categoryLabel: p.lineaNombre,
-    price: p.precio,
-    priceAlt: p.precioAlt,
-    period: digitalPlans.period,
-  };
-}
-
 /* ── Empresas: de qué línea es cada trabajo ─────────────────────────────── */
 
 const LINEA_DE_TIPO: Record<EmpresaProject["kind"], Linea> = {
@@ -69,7 +56,6 @@ export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nucleo", nombre: "Núcleo" },
   { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
-  { id: "panel", nombre: "Panel Onvi" },
   { id: "planes-inicio", nombre: "Planes" },
   { id: "contacto", nombre: "Contacto" },
 ] as const;

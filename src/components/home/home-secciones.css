@@ -235,7 +235,7 @@
    Piezas propias del inicio de Onvision Digital
    ────────────────────────────────────────────────────────────────────────── */
 
-/* ── Planes: "desde", el plan y el Panel ──────────────────────────────── */
+/* ── Planes: el "desde" de la píldora ─────────────────────────────────── */
 
 .oh-pildora__desde {
   align-self: center;
@@ -244,40 +244,6 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
-}
-
-.oh-visor {
-  position: fixed;
-  inset: 0;
-  z-index: 170;
-  display: grid;
-  place-items: center;
-  padding: 16px;
-}
-
-.oh-visor__velo {
-  position: absolute;
-  inset: 0;
-  background: rgb(3 6 10 / 0.72);
-  backdrop-filter: blur(6px);
-  cursor: default;
-}
-
-.oh-visor__caja {
-  position: relative;
-  display: grid;
-  justify-items: end;
-  gap: 12px;
-  width: min(1200px, 100%);
-}
-
-.oh-visor__cerrar {
-  padding: 11px 18px;
-  border-radius: 999px;
-  background: #fff;
-  color: var(--ink);
-  font-size: 14.5px;
-  font-weight: 600;
 }
 
 /* ── Planes: la puerta al final del inicio ──────────────────────────── */

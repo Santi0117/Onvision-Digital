@@ -323,7 +323,7 @@ export const digitalPlans = {
 export type DigitalPlanGroupKey = keyof typeof digitalPlans.groups;
 
 export const digitalFaq = {
-  label: "02 — FAQ",
+  label: "01 — FAQ",
   title: "Lo que se pregunta todo el mundo antes de empezar",
   description:
     "Las dudas más comunes sobre la mensualidad, el dominio y qué pasa si querés parar.",

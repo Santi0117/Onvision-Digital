@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import CintaOnvi from "@/components/digital/CintaOnvi";
 import Piezas from "@/components/digital/piezas/Piezas";
-import Retos from "@/components/digital/retos/Retos";
 import { ShowreelCabeza } from "@/components/digital/Showreel";
 import Cierre from "@/components/od/Cierre";
 import Faq from "@/components/od/Faq";
@@ -19,7 +18,6 @@ export default function Digital() {
       <ShowreelCabeza />
       <CintaOnvi />
       <Piezas />
-      <Retos />
       <div className="od-bloque od-faq-bloque">
         <Faq />
       </div>
