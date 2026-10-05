@@ -19,6 +19,7 @@ import Popups from "./Popups";
 import PopupsMas from "./PopupsMas";
 import { BotonAccion, TextoPieza } from "./Texto";
 import "./masinfo.css";
+import "./mundos.css";
 
 type Punto = { x: number; y: number };
 type ConLenis = { __odLenis?: { stop: () => void; start: () => void } };
@@ -136,16 +137,16 @@ function Portada({ pieza }: { pieza: Pieza }) {
   );
 }
 
-/** Otro trabajo del mismo servicio: su captura, su texto y sus pop-ups. */
-function SeccionExtra({ pieza, extra, carta }: { pieza: Pieza; extra: Extra; carta: "izq" | "der" }) {
+/** Otro trabajo del mismo servicio, en su propio mundo: su captura, su texto y sus pop-ups. */
+function SeccionExtra({ extra, carta }: { extra: Extra; carta: "izq" | "der" }) {
   const [ref, visto] = useVisto<HTMLElement>();
   const [antes, resalto] = extra.titulo;
   return (
     <section
       ref={ref}
       className="pz-escenario mi-escena"
-      data-escena={pieza.id}
-      data-tema={pieza.tema}
+      data-escena={extra.mundo}
+      data-tema={extra.tema}
       data-carta={carta}
       data-visto={visto || undefined}
       aria-labelledby={`mi-${extra.id}`}
@@ -212,20 +213,25 @@ function Cierre({ pieza, mas, alCerrar }: { pieza: Pieza; mas: Mas; alCerrar: ()
   );
 }
 
-/** El menú de las seis piezas, siempre abajo: cambia de servicio o vuelve a Servicios. */
+/**
+ * El menú de las seis piezas, siempre abajo: cambia de servicio o vuelve a
+ * Servicios. Toma la piel de la sección que pasa por debajo.
+ */
 function Barra({
   actual,
+  mundo,
   alElegir,
   alCerrar,
   riel,
 }: {
   actual: IdPieza;
+  mundo: string;
   alElegir: (id: IdPieza) => void;
   alCerrar: () => void;
   riel: RefObject<HTMLElement | null>;
 }) {
   return (
-    <div className="pz-escenario mi-barra" data-escena={actual}>
+    <div className="pz-escenario mi-barra" data-escena={mundo}>
       <nav className="pz-selector mi-selector" aria-label="Servicios">
         <button type="button" className="pz-selector__item mi-selector__volver" onClick={alCerrar} aria-label="Volver a Servicios">
           <svg viewBox="0 0 16 16" aria-hidden>
@@ -259,6 +265,7 @@ function Detalle({ id, alElegir, alCerrar }: { id: IdPieza; alElegir: (id: IdPie
   const caja = useRef<HTMLDivElement>(null);
   const riel = useRef<HTMLElement>(null);
   const raf = useRef(0);
+  const [mundo, setMundo] = useState<string>(id);
 
   // El teclado queda en el detalle (flechas y espacio bajan) y el menú de arriba toma el tono.
   useEffect(() => {
@@ -283,6 +290,15 @@ function Detalle({ id, alElegir, alCerrar }: { id: IdPieza; alElegir: (id: IdPie
       if (!el) return;
       const p = el.scrollTop / Math.max(1, el.scrollHeight - el.clientHeight);
       if (riel.current) riel.current.style.transform = `scaleX(${Math.max(0.04, p).toFixed(3)})`;
+      // La sección que está a la altura del menú le presta su piel.
+      const y = el.clientHeight - 48;
+      for (const s of el.querySelectorAll<HTMLElement>(".mi-escena")) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= y && r.bottom >= y) {
+          setMundo(s.dataset.escena ?? id);
+          break;
+        }
+      }
       window.dispatchEvent(new Event("od:tema"));
     });
   };
@@ -303,10 +319,10 @@ function Detalle({ id, alElegir, alCerrar }: { id: IdPieza; alElegir: (id: IdPie
       </h2>
       <Portada pieza={pieza} />
       {mas.extras.map((x, i) => (
-        <SeccionExtra key={x.id} pieza={pieza} extra={x} carta={i % 2 === 0 ? "izq" : "der"} />
+        <SeccionExtra key={x.id} extra={x} carta={i % 2 === 0 ? "izq" : "der"} />
       ))}
       <Cierre pieza={pieza} mas={mas} alCerrar={alCerrar} />
-      <Barra actual={id} alElegir={alElegir} alCerrar={alCerrar} riel={riel} />
+      <Barra actual={id} mundo={mundo} alElegir={alElegir} alCerrar={alCerrar} riel={riel} />
     </div>
   );
 }

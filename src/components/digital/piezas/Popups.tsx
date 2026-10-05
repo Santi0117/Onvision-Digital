@@ -17,7 +17,7 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 const miles = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 /** Un número que sube hasta su valor cuando aparece. */
-function Cuenta({ hasta, antes = "", despues = "", dur = 1100, retraso = 0 }: {
+export function Cuenta({ hasta, antes = "", despues = "", dur = 1100, retraso = 0 }: {
   hasta: number;
   antes?: string;
   despues?: string;
