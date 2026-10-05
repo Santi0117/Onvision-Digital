@@ -1,14 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { scrollA } from "../../home/data";
-import { abrirOnvi } from "../../od/OnviChat";
 import { celda, pintar, type Pintura } from "./cortina";
-import { PIEZAS, type Accion, type Pieza } from "./datos";
+import { PIEZAS, type IdPieza } from "./datos";
+import { tieneMas } from "./mas";
+import { useMasInfo } from "./MasInfo";
 import Popups from "./Popups";
+import { TextoPieza } from "./Texto";
 import "./piezas.css";
+
+type ConLenis = { __odLenis?: { scrollTo: (y: number, o?: object) => void } };
 
 const N = PIEZAS.length;
 /** Pantallas de scroll por pieza. */
@@ -66,52 +69,6 @@ function lugarDe(i: number, estado: number, visto: boolean, movil: boolean) {
   };
 }
 
-/** Adónde lleva cada botón: a Planes, a su agenda o a Onvi (que se abre acá mismo). */
-const DESTINO: Record<Exclude<Accion["destino"], "onvi">, string> = { planes: "/planes", agendar: "/planes#agendar" };
-
-function BotonAccion({ accion }: { accion: Accion }) {
-  const contenido = (
-    <>
-      <span>{accion.texto}</span>
-      <svg viewBox="0 0 16 16" aria-hidden>
-        <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
-    </>
-  );
-  if (accion.destino === "onvi") {
-    return (
-      <button type="button" className="pz-texto__accion" onClick={abrirOnvi}>
-        {contenido}
-      </button>
-    );
-  }
-  return (
-    <Link href={DESTINO[accion.destino]} className="pz-texto__accion">
-      {contenido}
-    </Link>
-  );
-}
-
-function TextoPieza({ pieza }: { pieza: Pieza }) {
-  const [antes, resalto] = pieza.titulo;
-  return (
-    <>
-      <p className="pz-texto__ante">{pieza.antetitulo}</p>
-      <h3 className="pz-texto__titulo">
-        {antes}
-        <em>{resalto}</em>
-      </h3>
-      <p className="pz-texto__bajada">{pieza.bajada}</p>
-      <ul className="pz-texto__etiquetas">
-        {pieza.etiquetas.map((e) => (
-          <li key={e}>{e}</li>
-        ))}
-      </ul>
-      <BotonAccion accion={pieza.accion} />
-    </>
-  );
-}
-
 /**
  * Servicios, pieza por pieza: la escena de barras de etílico llevada más
  * lejos. Con el scroll pasan una por una, desde la página web. Cada pieza
@@ -144,6 +101,8 @@ export default function Piezas() {
   const tamano = useRef({ w: 1, h: 1 });
   const corrida = useRef({ raf: 0, destino: -1, corriendo: false });
   const limpieza = useRef(0);
+  /** Un salto sin cortina (al volver de "Más información", con la pantalla tapada). */
+  const directo = useRef(false);
 
   /** Subrayados del selector y deriva de la palabra de fondo, sin pasar por React. */
   const pintarAvance = useCallback(() => {
@@ -321,7 +280,8 @@ export default function Piezas() {
   useEffect(() => {
     // Un render viejo (el scroll ya siguió) no mueve nada.
     if (!iniciado.current || objetivo !== estadoRef.current) return;
-    if (quieto.current || !enPantalla.current) {
+    if (quieto.current || !enPantalla.current || directo.current) {
+      directo.current = false;
       cancelAnimationFrame(corrida.current.raf);
       corrida.current.corriendo = false;
       fijar(objetivo);
@@ -358,6 +318,26 @@ export default function Piezas() {
     const recorrido = pista.offsetHeight - escenario.offsetHeight;
     scrollA(top + (recorrido * (k + 0.42)) / N);
   }, []);
+
+  /** Lo mismo, sin animación: al cerrar "Más información", Servicios queda en esa pieza. */
+  const irDirecto = useCallback((id: IdPieza) => {
+    const pista = pistaRef.current;
+    const escenario = escenarioRef.current;
+    const k = PIEZAS.findIndex((p) => p.id === id);
+    if (!pista || !escenario || k < 0) return;
+    const top = pista.getBoundingClientRect().top + window.scrollY;
+    const recorrido = pista.offsetHeight - escenario.offsetHeight;
+    const dentro = window.scrollY >= top - 2 && window.scrollY <= top + recorrido + 2;
+    if (dentro && k === estadoRef.current) return;
+    const y = top + (recorrido * (k + 0.42)) / N;
+    directo.current = true;
+    const lenis = (window as unknown as ConLenis).__odLenis;
+    if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+    else window.scrollTo({ top: y, behavior: "instant" });
+    window.setTimeout(() => (directo.current = false), 600);
+  }, []);
+
+  const mas = useMasInfo(irDirecto);
 
   /** Inclinación con el mouse y paralaje de los pop-ups. */
   const alMover = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -412,7 +392,10 @@ export default function Piezas() {
 
         <div className="pz-cuerpo">
           <div key={escena} className="pz-texto" data-sale={saliendo || undefined}>
-            <TextoPieza pieza={pieza} />
+            <TextoPieza
+              pieza={pieza}
+              alMas={tieneMas(pieza.id) ? (e) => mas.abrir(pieza.id, e.currentTarget) : undefined}
+            />
           </div>
 
           <div className="pz-rig">
@@ -466,6 +449,7 @@ export default function Piezas() {
           ))}
         </nav>
       </div>
+      {mas.portal}
     </section>
   );
 }

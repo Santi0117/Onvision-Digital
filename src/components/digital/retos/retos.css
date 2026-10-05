@@ -1,38 +1,39 @@
 /* ──────────────────────────────────────────────────────────────────────────
-   "¿Y eso se puede?": lo difícil de cada servicio, con un trabajo de verdad.
-   En negro, entre las tarjetas claras de Servicios: las preguntas a la
-   izquierda y la captura con sus avisos a la derecha. En el celular,
-   tarjetas que se deslizan de lado.
+   "¿Y eso se puede?", sin imágenes: en negro, entre Servicios y las
+   preguntas frecuentes. A la izquierda (fijo en la compu) el título y el
+   contador de imposibles; a la derecha, seis preguntas tachadas que se
+   destachan al cruzar el medio de la pantalla. En el celular, el contador
+   viaja en una pastilla abajo.
    ────────────────────────────────────────────────────────────────────────── */
 
 .rt {
-  --rt-borde: rgb(255 255 255 / 0.08);
-  --rt-texto: #eaf8fc;
-  --rt-gris: rgb(234 248 252 / 0.56);
-  --rt-gris-2: rgb(234 248 252 / 0.36);
+  --rt-borde: rgb(255 255 255 / 0.1);
+  --rt-texto: #f2f7f8;
+  --rt-gris: rgb(242 247 248 / 0.58);
+  --rt-apagado: rgb(242 247 248 / 0.26);
   --rt-cian: #34d3ee;
-  --rt-menta: #2ef2a6;
+  --rt-raya: #ff5a36;
   --rt-ease: cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  padding: clamp(90px, 10vw, 150px) var(--gut) clamp(80px, 9vw, 130px);
+  display: grid;
+  max-width: 1440px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  column-gap: clamp(32px, 6vw, 110px);
+  margin: 0 auto;
+  padding: clamp(96px, 11vw, 160px) var(--gut) clamp(80px, 9vw, 130px);
   color: var(--rt-texto);
-  background: radial-gradient(50% 36% at 85% 8%, rgb(52 211 238 / 0.08), transparent 70%);
   scroll-margin-top: 80px;
 }
 
-/* ── Título ─────────────────────────────────────────────────────────── */
+/* ── El lado fijo: título y contador ─────────────────────────────────────── */
 
-.rt-cabeza {
-  display: grid;
-  max-width: 1320px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
-  align-items: end;
-  gap: 18px 40px;
-  margin: 0 auto;
+.rt-lado {
+  position: sticky;
+  top: 120px;
+  align-self: start;
 }
 
 .rt-ante {
-  grid-column: 1 / -1;
   font-family: var(--f-mono);
   font-size: 11px;
   letter-spacing: 0.26em;
@@ -41,584 +42,415 @@
 }
 
 .rt-h2 {
+  margin-top: 18px;
   font-family: var(--f-display);
-  font-size: clamp(52px, 9vw, 150px);
+  font-size: clamp(48px, 6.4vw, 104px);
   font-weight: 800;
-  line-height: 0.86;
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
 }
 
 .rt-h2 span {
   display: block;
-  color: transparent;
-  -webkit-text-stroke: 1.4px rgb(234 248 252 / 0.85);
+  color: var(--rt-cian);
 }
 
 .rt-lede {
-  padding-bottom: 8px;
-  font-size: 17px;
-  line-height: 1.5;
+  max-width: 34ch;
+  margin-top: 20px;
+  font-size: 16.5px;
+  line-height: 1.55;
   color: var(--rt-gris);
 }
 
-.rt-lede em {
-  display: block;
-  margin-top: 6px;
-  font-family: var(--f-serif);
-  font-size: 1.35em;
-  font-style: italic;
-  line-height: 1.2;
+.rt-cuenta {
+  margin-top: clamp(36px, 7vh, 72px);
+}
+
+.rt-cuenta__num {
+  height: 0.82em;
+  overflow: hidden;
+  font-family: var(--f-display);
+  font-size: clamp(110px, 12vw, 210px);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.07em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(242 247 248 / 0.72);
+  transition: color 0.6s;
+}
+
+.rt-cuenta__num span {
+  display: inline-block;
+  animation: rt-rueda 0.7s var(--rt-ease) both;
+}
+
+.rt-cuenta[data-cero] .rt-cuenta__num {
+  color: var(--rt-cian);
+  -webkit-text-stroke-color: transparent;
+}
+
+.rt-cuenta__txt {
+  margin-top: 14px;
+  font-size: 15px;
+  color: var(--rt-gris);
+}
+
+.rt-cuenta__txt b {
   color: var(--rt-texto);
+  font-weight: 600;
 }
 
-/* ── Las preguntas y la escena ──────────────────────────────────────── */
-
-.rt-cuerpo {
-  display: grid;
-  max-width: 1320px;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  align-items: start;
-  gap: clamp(28px, 4vw, 64px);
-  margin: clamp(48px, 6vw, 80px) auto 0;
+.rt-cuenta__barra {
+  display: flex;
+  max-width: 320px;
+  gap: 6px;
+  margin-top: 20px;
 }
+
+.rt-cuenta__barra i {
+  height: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.12);
+  transition:
+    background-color 0.5s,
+    box-shadow 0.5s;
+}
+
+.rt-cuenta__barra i[data-on] {
+  background: var(--rt-cian);
+  box-shadow: 0 0 12px rgb(52 211 238 / 0.55);
+}
+
+/* ── Las seis preguntas ──────────────────────────────────────────────────── */
 
 .rt-lista {
-  display: grid;
-  border-top: 1px solid var(--rt-borde);
-}
-
-.rt-lista__item {
-  position: relative;
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  gap: 6px 10px;
-  padding: 20px 8px 22px 0;
-  border-bottom: 1px solid var(--rt-borde);
-  text-align: left;
-  color: var(--rt-gris-2);
-  transition: color 0.3s;
-}
-
-.rt-lista__item:hover,
-.rt-lista__item[aria-pressed="true"] {
-  color: var(--rt-texto);
-}
-
-.rt-lista__item:focus-visible {
-  outline: 2px solid var(--rt-cian);
-  outline-offset: 2px;
-}
-
-.rt-lista__n {
-  grid-row: span 2;
-  padding-top: 2px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-}
-
-.rt-lista__servicio {
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.rt-lista__item[aria-pressed="true"] .rt-lista__n,
-.rt-lista__item[aria-pressed="true"] .rt-lista__servicio {
-  color: var(--rt-cian);
-}
-
-.rt-lista__pregunta {
-  font-size: clamp(16px, 1.3vw, 19px);
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-}
-
-/* La rayita de avance: cuando se llena, pasa a la siguiente. */
-.rt-lista__avance {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 2px;
-  background: var(--rt-cian);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-.rt[data-anda] .rt-lista__avance {
-  animation: rt-avance var(--rt-vuelta) linear forwards;
-}
-
-.rt-cuerpo:hover .rt-lista__avance,
-.rt-cuerpo:focus-within .rt-lista__avance {
-  animation-play-state: paused;
-}
-
-/* En la compu, las seis escenas en el mismo lugar: se ve la activa. */
-.rt-pista {
-  position: relative;
-  display: grid;
+  min-width: 0;
 }
 
 .rt-reto {
-  grid-area: 1 / 1;
-  display: grid;
-  gap: 22px;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.45s var(--rt-ease),
-    transform 0.6s var(--rt-ease),
-    visibility 0s 0.45s;
+  padding: clamp(44px, 10vh, 100px) 0;
+  border-top: 1px solid var(--rt-borde);
 }
 
-.rt-reto[data-activo] {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.5s var(--rt-ease) 0.05s,
-    transform 0.7s var(--rt-ease) 0.05s,
-    visibility 0s;
+.rt-reto:first-child {
+  border-top: 0;
+  padding-top: 8px;
 }
 
-.rt-foto {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 1px solid var(--rt-borde);
-  border-radius: 26px;
-  background: #000;
-}
-
-.rt-foto__img {
-  object-fit: contain;
-  transform: scale(1.04);
-  transition: transform 1.4s var(--rt-ease);
-}
-
-.rt[data-vista] .rt-reto[data-activo] .rt-foto__img {
-  transform: none;
-}
-
-/* Los dos avisos: el pedido y cómo quedó, uno después del otro. */
-.rt-avisos {
-  position: absolute;
-  left: clamp(14px, 2.4vw, 26px);
-  bottom: clamp(14px, 2.4vw, 26px);
-  display: grid;
-  max-width: min(330px, calc(100% - 28px));
-  gap: 8px;
-}
-
-.rt-aviso {
-  display: grid;
-  gap: 3px;
-  padding: 11px 15px 12px;
-  border: 1px solid rgb(255 255 255 / 0.12);
-  border-radius: 16px;
-  background: rgb(14 20 27 / 0.86);
-  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.8);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  opacity: 0;
-  transform: translateY(12px) scale(0.97);
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
-}
-
-.rt[data-vista] .rt-reto[data-activo] .rt-aviso {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.5s var(--rt-ease) calc(0.45s + var(--i) * 1s),
-    transform 0.7s var(--rt-ease) calc(0.45s + var(--i) * 1s);
-}
-
-.rt-aviso small {
+.rt-reto__servicio {
   display: flex;
+  min-height: 26px;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 8px 14px;
   font-family: var(--f-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--rt-gris);
 }
 
-.rt-aviso span {
-  font-size: 14.5px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: #fff;
+.rt-reto__servicio > span:first-child {
+  color: var(--rt-apagado);
+  transition: color 0.5s;
 }
 
-.rt-aviso[data-listo] {
-  border-color: rgb(52 211 238 / 0.45);
-}
-
-.rt-aviso[data-listo] small {
+.rt-reto[data-hecho] .rt-reto__servicio > span:first-child {
   color: var(--rt-cian);
 }
 
-.rt-aviso b {
-  display: grid;
-  width: 15px;
-  height: 15px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--rt-cian);
-  font-size: 9px;
-  letter-spacing: 0;
-  color: #06232b;
-}
-
-/* En la compu la pregunta ya está en la lista. */
-.rt-reto__servicio,
-.rt-reto__pregunta {
+/* "Sí, se puede" aparece cuando la raya terminó de recogerse. */
+.rt-si:empty {
   display: none;
 }
 
 .rt-si {
-  display: grid;
-  grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
-  gap: 14px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 8px;
+  border-radius: 999px;
+  background: var(--rt-cian);
+  color: #031015;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  animation: rt-sello 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s both;
 }
 
-.rt-si__titulo {
-  font-family: var(--f-serif);
-  font-size: 22px;
-  font-style: italic;
+.rt-si::before {
+  content: "";
+  width: 10px;
+  height: 6px;
+  margin-top: -3px;
+  border-bottom: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  rotate: -45deg;
+}
+
+.rt-reto__pregunta {
+  margin-top: 18px;
+  font-family: var(--f-display);
+  font-size: clamp(27px, 3.3vw, 52px);
+  font-weight: 600;
   line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  color: var(--rt-apagado);
+  transition: color 0.9s ease 0.35s;
+}
+
+/* La raya cruza todos los renglones como si fueran uno: al recogerse, va del final al principio. */
+.rt-reto__tachado {
+  background: linear-gradient(var(--rt-raya), var(--rt-raya)) no-repeat 0 62% / 100% 0.08em;
+  transition: background-size 1.15s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.rt-reto[data-hecho] .rt-reto__pregunta {
   color: var(--rt-texto);
 }
 
-.rt-si ul {
+.rt-reto[data-hecho] .rt-reto__tachado {
+  background-size: 0% 0.08em;
+}
+
+.rt-como {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 16px 28px;
+  margin-top: 30px;
+  counter-reset: rt-paso;
 }
 
-.rt-si li {
-  padding-top: 12px;
+.rt-como li {
+  padding-top: 14px;
   border-top: 1px solid var(--rt-borde);
-  font-size: 14px;
-  line-height: 1.45;
+  font-size: 14.5px;
+  line-height: 1.5;
   color: var(--rt-gris);
+  counter-increment: rt-paso;
+  opacity: 0;
+  translate: 0 12px;
+  transition:
+    opacity 0.6s ease calc(0.95s + var(--j, 0) * 0.1s),
+    translate 0.8s var(--rt-ease) calc(0.95s + var(--j, 0) * 0.1s),
+    border-color 0.6s ease calc(0.95s + var(--j, 0) * 0.1s);
 }
 
-.rt-puntos {
+.rt-como li::before {
+  content: "0" counter(rt-paso);
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--rt-cian);
+}
+
+.rt-reto[data-hecho] .rt-como li {
+  border-color: rgb(52 211 238 / 0.35);
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ── ¿Otra? ──────────────────────────────────────────────────────────────── */
+
+.rt-otra {
+  grid-column: 2;
+  display: grid;
+  gap: 22px;
+  padding-top: clamp(40px, 6vw, 64px);
+  border-top: 1px solid var(--rt-borde);
+}
+
+.rt-otra p {
+  font-family: var(--f-display);
+  font-size: clamp(26px, 2.8vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.rt-otra em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--rt-cian);
+}
+
+.rt-otra__botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rt-boton {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 22px;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  border-radius: 999px;
+  color: var(--rt-texto);
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    transform 0.4s var(--rt-ease);
+}
+
+.rt-boton:hover {
+  border-color: var(--rt-texto);
+  transform: translateY(-2px);
+}
+
+.rt-boton--cian {
+  border-color: var(--rt-cian);
+  background: var(--rt-cian);
+  color: #031015;
+}
+
+.rt-boton--cian:hover {
+  border-color: #7ee8fa;
+  background: #7ee8fa;
+}
+
+.rt-boton:focus-visible {
+  outline: 2px solid var(--rt-cian);
+  outline-offset: 3px;
+}
+
+/* La pastilla con el contador solo va en el celular. */
+.rt-pastilla {
   display: none;
 }
 
-/* ── La marca, dibujada ─────────────────────────────────────────────── */
+/* ── Celular y tablets paradas ───────────────────────────────────────────── */
 
-.rt-marca {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(60% 60% at 50% 42%, rgb(52 211 238 / 0.12), transparent 70%);
-}
-
-.rt-marca__grande {
-  width: 52%;
-  color: var(--rt-cian);
-  transform: translateY(-8%) scale(0.18);
-  transition: transform 1.3s var(--rt-ease) 0.2s;
-}
-
-.rt[data-vista] .rt-reto[data-activo] .rt-marca__grande {
-  transform: translateY(-8%);
-}
-
-.rt-marca__pestana {
-  position: absolute;
-  left: 7%;
-  top: 8%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border: 1px solid rgb(255 255 255 / 0.12);
-  border-radius: 10px 10px 4px 4px;
-  background: rgb(255 255 255 / 0.05);
-  font-size: 12.5px;
-  color: var(--rt-texto);
-}
-
-.rt-marca__favicon {
-  width: 16px;
-  color: var(--rt-cian);
-}
-
-.rt-marca__pestana i {
-  margin-left: 14px;
-  font-style: normal;
-  color: var(--rt-gris-2);
-}
-
-.rt-marca__perfil {
-  position: absolute;
-  right: 8%;
-  top: 7%;
-  display: grid;
-  width: 54px;
-  height: 54px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--rt-cian);
-  color: #06232b;
-}
-
-.rt-marca__perfil svg {
-  width: 30px;
-}
-
-.rt-marca__medida {
-  position: absolute;
-  left: 24%;
-  right: 24%;
-  bottom: 30%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--rt-gris);
-}
-
-.rt-marca__medida i {
-  flex: 1;
-  height: 1px;
-  background: rgb(255 255 255 / 0.25);
-}
-
-/* ── Tablet y celular: tarjetas que se deslizan de lado ─────────────── */
-
-@media (max-width: 1023px) {
-  .rt-cabeza,
-  .rt-cuerpo {
+@media (max-width: 900px) {
+  .rt {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .rt-cuerpo {
-    gap: 18px;
+  .rt-lado {
+    position: static;
+    margin-bottom: 40px;
   }
 
-  .rt-lista {
-    display: none;
+  .rt-cuenta {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 6px 18px;
+    margin-top: 32px;
   }
 
-  .rt-pista {
-    display: flex;
-    gap: 14px;
-    margin: 0 calc(var(--gut) * -1);
-    padding: 0 var(--gut) 4px;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gut);
-    scrollbar-width: none;
+  .rt-cuenta__num {
+    grid-row: span 2;
+    font-size: 92px;
   }
 
-  .rt-pista::-webkit-scrollbar {
-    display: none;
+  .rt-cuenta__txt {
+    margin-top: 0;
+  }
+
+  .rt-cuenta__barra {
+    margin-top: 0;
   }
 
   .rt-reto {
-    flex: 0 0 min(86%, 460px);
-    gap: 16px;
-    visibility: visible;
-    opacity: 1;
-    transform: none;
-    scroll-snap-align: start;
+    padding: 44px 0;
   }
 
-  .rt-reto:not([data-activo]) .rt-foto {
-    opacity: 0.55;
-  }
-
-  .rt-foto {
-    border-radius: 22px;
-    transition: opacity 0.4s;
-  }
-
-  .rt-reto__texto {
-    display: grid;
-    gap: 10px;
-  }
-
-  .rt-reto__servicio {
-    display: block;
-    font-family: var(--f-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--rt-cian);
-  }
-
-  .rt-reto__pregunta {
-    display: block;
-    font-size: 18.5px;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.015em;
-  }
-
-  .rt-si {
+  .rt-como {
     grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
-    margin-top: 4px;
+    gap: 12px;
+    margin-top: 22px;
   }
 
-  .rt-si__titulo {
-    font-size: 18px;
+  .rt-otra {
+    grid-column: 1;
   }
 
-  .rt-si ul {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-  }
-
-  .rt-si li {
-    padding: 8px 0;
-    font-size: 13.5px;
-  }
-
-  .rt-si li:last-child {
-    border-bottom: 1px solid var(--rt-borde);
-  }
-
-  /* Un aviso por vez: aparece el pedido y después lo reemplaza cómo quedó. */
-  .rt-avisos {
-    grid-template-areas: "aviso";
-  }
-
-  .rt-aviso {
-    grid-area: aviso;
-    padding: 9px 12px 10px;
-    border-radius: 14px;
-  }
-
-  .rt[data-vista] .rt-reto[data-activo] .rt-aviso:first-child {
-    animation: rt-pasa 2.6s var(--rt-ease) 0.35s both;
-    transition: none;
-  }
-
-  .rt[data-vista] .rt-reto[data-activo] .rt-aviso:last-child {
-    transition-delay: 2.75s;
-  }
-
-  .rt-aviso span {
-    font-size: 13px;
-  }
-
-  .rt-puntos {
+  .rt-pastilla {
+    position: sticky;
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    z-index: 5;
     display: flex;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .rt-puntos button {
-    width: 8px;
-    height: 8px;
-    padding: 0;
+    width: fit-content;
+    align-items: center;
+    gap: 10px;
+    margin: 28px auto 0;
+    padding: 9px 16px 9px 10px;
+    border: 1px solid var(--rt-borde);
     border-radius: 999px;
-    background: rgb(255 255 255 / 0.22);
-    transition:
-      width 0.35s var(--rt-ease),
-      background-color 0.35s;
-  }
-
-  .rt-puntos button[aria-current="true"] {
-    width: 26px;
-    background: var(--rt-cian);
-  }
-}
-
-@media (max-width: 480px) {
-  .rt-avisos {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    max-width: none;
-    gap: 6px;
-  }
-
-  .rt-aviso small {
-    font-size: 9px;
-  }
-
-  .rt-marca__perfil {
-    width: 40px;
-    height: 40px;
-  }
-
-  .rt-marca__perfil svg {
-    width: 22px;
-  }
-
-  .rt-marca__pestana {
-    padding: 6px 10px;
+    background: rgb(16 18 22 / 0.86);
+    backdrop-filter: blur(14px);
+    font-family: var(--f-mono);
     font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rt-gris);
+    box-shadow: 0 14px 30px -14px rgb(0 0 0 / 0.8);
+  }
+
+  .rt-pastilla span {
+    display: grid;
+    min-width: 34px;
+    height: 26px;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--rt-raya);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    animation: rt-rueda 0.6s var(--rt-ease) both;
+  }
+
+  .rt-pastilla[data-cero] span {
+    background: var(--rt-cian);
+    color: #031015;
   }
 }
 
-@keyframes rt-avance {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes rt-pasa {
-  0% {
+@keyframes rt-rueda {
+  from {
     opacity: 0;
-    transform: translateY(12px) scale(0.97);
-  }
-  14%,
-  78% {
-    opacity: 1;
-    transform: none;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.98);
+    transform: translateY(-45%);
+    filter: blur(6px);
   }
 }
 
+@keyframes rt-sello {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+/* Sin movimiento: todo queda resuelto y a la vista. */
 @media (prefers-reduced-motion: reduce) {
-  .rt-reto,
-  .rt-reto[data-activo],
-  .rt-aviso,
-  .rt[data-vista] .rt-reto[data-activo] .rt-aviso,
-  .rt-foto__img,
-  .rt-marca__grande {
+  .rt-reto__pregunta {
+    color: var(--rt-texto);
     transition: none;
   }
 
-  .rt-aviso,
-  .rt-foto__img,
-  .rt-marca__grande {
+  .rt-reto__tachado {
+    background-size: 0% 0.08em;
+    transition: none;
+  }
+
+  .rt-como li {
     opacity: 1;
-    transform: none;
+    translate: none;
+    transition: none;
   }
 
-  .rt[data-vista] .rt-reto[data-activo] .rt-aviso:first-child {
+  .rt-si,
+  .rt-cuenta__num span,
+  .rt-pastilla span {
     animation: none;
-  }
-}
-
-/* Quieto y en el celular: solo cómo quedó. */
-@media (prefers-reduced-motion: reduce) and (max-width: 1023px) {
-  .rt-aviso:first-child {
-    display: none;
   }
 }

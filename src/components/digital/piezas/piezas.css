@@ -598,6 +598,123 @@
   transform: translateX(3px);
 }
 
+/* Los botones de la escena: "Más información" (abre el servicio completo) y el de siempre. */
+.pz-texto__botones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin-top: 26px;
+}
+
+.pz-texto__botones .pz-texto__accion {
+  margin-top: 0;
+}
+
+.pz-texto__mas {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px 11px 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: var(--pz-tinta);
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    transform 0.4s var(--pz-ease),
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.pz-texto__mas svg {
+  width: 15px;
+  height: 15px;
+  transition: rotate 0.45s var(--pz-resorte);
+}
+
+.pz-texto__mas:hover svg {
+  rotate: 90deg;
+}
+
+.pz-texto__mas:focus-visible,
+.pz-texto__accion:focus-visible {
+  outline: 2px solid var(--pz-acento);
+  outline-offset: 3px;
+}
+
+/* 01 Web: un recuadro a mano, como las etiquetas. */
+.pz-escenario[data-escena="web"] .pz-texto__mas {
+  padding: 4px 14px 5px 16px;
+  border-width: 2px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: #fffaf0;
+  font-family: var(--ff-mano), cursive;
+  font-size: 25px;
+  font-weight: 700;
+  box-shadow: 3px 4px 0 rgb(29 26 22 / 0.16);
+  rotate: -1deg;
+}
+
+.pz-escenario[data-escena="web"] .pz-texto__mas:hover {
+  background: #ffe066;
+}
+
+/* 02 Onvi: botón de píxeles con borde y sombra dura. */
+.pz-escenario[data-escena="onvi"] .pz-texto__mas {
+  border: 3px solid #f4ecd8;
+  border-radius: 0;
+  font-family: var(--ff-pixel), var(--f-mono);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  box-shadow: 5px 5px 0 #f2b705;
+}
+
+.pz-escenario[data-escena="onvi"] .pz-texto__mas:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 #f2b705;
+}
+
+/* 03 Software: píldora blanca con el más en lima. */
+.pz-escenario[data-escena="software"] .pz-texto__mas {
+  border-color: rgb(12 15 10 / 0.12);
+  background: #fff;
+  box-shadow: 0 10px 24px -14px rgb(12 15 10 / 0.4);
+}
+
+.pz-escenario[data-escena="software"] .pz-texto__mas svg {
+  box-sizing: content-box;
+  padding: 3px;
+  border-radius: 50%;
+  background: #c6f432;
+}
+
+/* 04 Apps: vidrio, como un botón de iPhone. */
+.pz-escenario[data-escena="apps"] .pz-texto__mas {
+  border-color: rgb(255 255 255 / 0.22);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(12px);
+}
+
+/* 05 Panel: contorno cian. */
+.pz-escenario[data-escena="panel"] .pz-texto__mas {
+  border-color: rgb(52 211 238 / 0.55);
+  color: #bdf2fb;
+}
+
+.pz-escenario[data-escena="panel"] .pz-texto__mas:hover {
+  background: rgb(52 211 238 / 0.12);
+}
+
+/* 06 Marca: píldora blanca con sombra de estudio. */
+.pz-escenario[data-escena="marca"] .pz-texto__mas {
+  border-color: transparent;
+  background: #fff;
+  box-shadow: 0 10px 24px -14px rgb(10 13 18 / 0.45);
+}
+
 /* 01 Web: letra a mano, resaltador y lapicero rojo. */
 .pz-escenario[data-escena="web"] .pz-texto__ante {
   margin-bottom: 8px;
@@ -2651,6 +2768,21 @@
 
   .pz-escenario[data-escena="web"] .pz-texto__accion {
     font-size: 23px;
+  }
+
+  .pz-texto__botones {
+    gap: 10px 14px;
+    margin-top: 14px;
+  }
+
+  .pz-texto__mas {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .pz-escenario[data-escena="web"] .pz-texto__mas {
+    padding: 2px 12px 3px 14px;
+    font-size: 21px;
   }
 
   .pz-cuerpo {

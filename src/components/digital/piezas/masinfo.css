@@ -1,0 +1,550 @@
+/* ==========================================================================
+   "Más información" de cada servicio: la misma escena de Servicios y, con
+   scroll normal, más trabajos en el mismo estilo (cada uno, una tarjeta
+   redondeada como las del resto del sitio); abajo, siempre, el menú de las
+   seis piezas. Entra y sale con la cortina de la escena.
+   ========================================================================== */
+
+html.mi-abierto {
+  overflow: hidden;
+}
+
+/* La cortina que tapa la pantalla al abrir, cambiar o cerrar (también el menú de arriba). */
+.mi-cortina {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mi-cortina[data-on="0"] {
+  visibility: hidden;
+}
+
+/* Debajo del menú de arriba (que sigue a mano) y arriba de todo lo demás. */
+.mi {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 12px calc(104px + env(safe-area-inset-bottom));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--negro);
+  outline: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+}
+
+/* ── Cada sección: una escena entera, en el flujo normal ───────────────── */
+
+.pz-escenario.mi-escena {
+  position: relative;
+  top: auto;
+  flex: none;
+  height: auto;
+  min-height: calc(100svh - 24px);
+  overflow: clip;
+  border-radius: var(--radio);
+}
+
+.mi-cuerpo {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  min-height: calc(100svh - 24px);
+  grid-template-columns: minmax(280px, 400px) minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(24px, 4vw, 72px);
+  padding: 108px clamp(56px, 6.5vw, 112px) 96px clamp(24px, 6vw, 104px);
+}
+
+.mi-escena[data-carta="izq"] .mi-cuerpo {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+  padding-right: clamp(24px, 6vw, 104px);
+  padding-left: clamp(56px, 6.5vw, 112px);
+}
+
+.mi-escena[data-carta="izq"] .mi-rig {
+  order: -1;
+}
+
+.mi-rig {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  padding: 48px 0;
+  container-type: inline-size;
+  opacity: 0;
+  translate: 0 64px;
+  rotate: 2.5deg;
+  transition:
+    opacity 0.8s ease,
+    translate 1.1s var(--pz-ease),
+    rotate 1.1s var(--pz-ease);
+}
+
+.mi-escena[data-visto] .mi-rig {
+  opacity: 1;
+  translate: 0 0;
+  rotate: 0deg;
+}
+
+.mi-escena[data-carta="izq"] .mi-rig {
+  rotate: -2.5deg;
+}
+
+.mi-escena[data-carta="izq"][data-visto] .mi-rig {
+  rotate: 0deg;
+}
+
+.mi-marco {
+  position: relative;
+  width: min(90cqw, 680px);
+  aspect-ratio: 667 / 391;
+  container-type: inline-size;
+  transform: perspective(1400px) rotateX(calc(var(--my, 0) * -3deg)) rotateY(calc(var(--mx, 0) * 5deg));
+  transition: transform 0.9s var(--pz-ease);
+}
+
+/* Hasta que la sección se ve, sus animaciones esperan (el texto entra al llegar). */
+.mi-escena:not([data-visto]) *,
+.mi-escena:not([data-visto]) *::before,
+.mi-escena:not([data-visto]) *::after {
+  animation-play-state: paused !important;
+}
+
+/* El fondo de una sección con la tarjeta a la izquierda va espejado. */
+@media (min-width: 1024px) {
+  .mi-escena[data-carta="izq"] .pz-fondo__halo,
+  .mi-escena[data-carta="izq"] .pz-fondo__fantasma {
+    left: 36%;
+  }
+}
+
+/* ── Portada: "bajá para ver más" ───────────────────────────────────────── */
+
+.mi-bajar {
+  position: absolute;
+  left: 50%;
+  bottom: 96px;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  translate: -50% 0;
+  color: var(--pz-suave);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  pointer-events: none;
+  animation: pz-aparece 0.8s ease 1.2s both;
+}
+
+.mi-bajar i {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(currentColor, transparent);
+  animation: mi-baja 1.8s var(--pz-ease) infinite;
+  transform-origin: top;
+}
+
+.mi-escena[data-escena="web"] .mi-bajar {
+  font-family: var(--ff-mano), cursive;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #e8472d;
+}
+
+.mi-escena[data-escena="onvi"] .mi-bajar {
+  font-family: var(--ff-pixel), var(--f-mono);
+  color: #f2b705;
+}
+
+/* ── Cierre ─────────────────────────────────────────────────────────────── */
+
+.pz-escenario.mi-escena--cierre {
+  min-height: 78svh;
+}
+
+.mi-cierre {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  min-height: inherit;
+  justify-items: center;
+  align-content: center;
+  padding: 120px 24px 132px;
+  text-align: center;
+}
+
+.mi-cierre .pz-texto__bajada {
+  margin-inline: auto;
+}
+
+.mi-cierre .pz-texto__botones {
+  justify-content: center;
+}
+
+.mi-volver {
+  margin-top: 34px;
+  padding: 4px 2px;
+  color: var(--pz-suave);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.3s;
+}
+
+.mi-volver:hover {
+  color: var(--pz-tinta);
+}
+
+/* ── El menú de abajo ───────────────────────────────────────────────────── */
+
+.pz-escenario.mi-barra {
+  position: fixed;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  height: auto;
+  justify-content: center;
+  padding: 0 12px calc(18px + env(safe-area-inset-bottom));
+  overflow: visible;
+  background: none;
+  isolation: auto;
+  pointer-events: none;
+}
+
+.mi-barra .pz-selector {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: min(860px, 100%);
+  grid-template-columns: auto repeat(6, minmax(0, 1fr));
+  pointer-events: auto;
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.55);
+}
+
+.mi-selector__volver {
+  align-items: center;
+  gap: 7px;
+  padding-right: 14px;
+  opacity: 0.85;
+}
+
+.mi-selector__volver svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  transition: translate 0.3s var(--pz-ease);
+}
+
+.mi-selector__volver:hover svg {
+  translate: -3px 0;
+}
+
+.mi-barra .pz-selector__item[aria-current] .pz-selector__riel i {
+  transform: scaleX(0.04);
+  transition: transform 0.15s linear;
+}
+
+/* ── Pop-ups de las secciones (en % de la tarjeta, como los de la escena) ── */
+
+.mi-marco .pz-pops {
+  z-index: 50;
+}
+
+/* Páginas web · la tienda (tarjeta a la izquierda). */
+.mi-pop--t-cinta {
+  left: -4%;
+  top: 4%;
+  width: 15%;
+  height: 7%;
+  rotate: -38deg;
+  animation-name: pz-aparece;
+}
+
+.mi-pop--t-filtros {
+  left: 6%;
+  top: -31%;
+  width: 30%;
+  color: #e8472d;
+  animation-name: pz-aparece;
+}
+
+.mi-pop--t-filtros .pz-mano {
+  display: block;
+  font-size: 1.6em;
+  white-space: nowrap;
+  rotate: -3deg;
+}
+
+.mi-pop--t-filtros .pz-trazo {
+  width: 52%;
+  margin: 0.1em 0 0 6%;
+}
+
+.mi-pop--t-oferta {
+  left: 33.5%;
+  top: 14%;
+  width: 11%;
+  height: 11%;
+  color: #e8472d;
+  animation-name: pz-aparece;
+}
+
+.mi-pop--t-sinpe {
+  left: 80%;
+  top: -12%;
+  width: 25%;
+  rotate: 5deg;
+}
+
+.mi-pop--t-pedido {
+  left: -9%;
+  top: 66%;
+  width: 24%;
+  rotate: -5deg;
+}
+
+.mi-pop--t-sello {
+  left: 60%;
+  top: 80%;
+  rotate: -9deg;
+}
+
+/* Páginas web · componentes (tarjeta a la derecha). */
+.mi-pop--c-cinta {
+  left: 88%;
+  top: 88%;
+  width: 15%;
+  height: 7%;
+  rotate: 32deg;
+  animation-name: pz-aparece;
+}
+
+.mi-pop--c-bancos {
+  left: 38%;
+  top: -30%;
+  width: 28%;
+  color: #e8472d;
+  animation-name: pz-aparece;
+}
+
+.mi-pop--c-bancos .pz-mano {
+  display: block;
+  font-size: 1.7em;
+  white-space: nowrap;
+  rotate: 3deg;
+}
+
+.mi-pop--c-bancos .pz-trazo {
+  width: 50%;
+  margin: 0.1em 0 0 18%;
+}
+
+.mi-pop--c-cuota {
+  left: 7%;
+  top: 51%;
+  width: 30%;
+  height: 16%;
+  color: #e8472d;
+  animation-name: pz-aparece;
+}
+
+.mi-pop--c-calculo {
+  left: -8%;
+  top: 74%;
+  width: 27%;
+  rotate: -4deg;
+}
+
+.mi-pop--c-idiomas {
+  left: 87%;
+  top: 9%;
+  width: 22%;
+  rotate: 6deg;
+}
+
+.mi-pop--c-sello {
+  left: 55%;
+  top: 82%;
+  rotate: -8deg;
+}
+
+/* ── Celulares y tablets paradas: texto arriba, captura abajo ───────────── */
+
+@media (max-width: 1023px) and (orientation: portrait), (max-width: 640px) {
+  .mi-cuerpo,
+  .mi-escena[data-carta="izq"] .mi-cuerpo {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 104px clamp(18px, 5vw, 48px) 40px;
+  }
+
+  .mi-escena--portada .mi-cuerpo {
+    min-height: calc(100svh - 16px);
+    justify-content: center;
+    padding-bottom: 150px;
+  }
+
+  .pz-escenario.mi-escena:not(.mi-escena--portada, .mi-escena--cierre) {
+    min-height: 0;
+  }
+
+  .mi-escena[data-carta="izq"] .mi-rig {
+    order: 0;
+  }
+
+  .mi-rig {
+    padding: 64px 0 72px;
+  }
+
+  .mi-marco {
+    width: min(100%, 620px);
+  }
+
+  .mi-escena .pz-texto__etiquetas {
+    display: flex;
+  }
+
+  .mi-bajar {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .mi {
+    gap: 8px;
+    padding: 8px 8px calc(88px + env(safe-area-inset-bottom));
+  }
+
+  .pz-escenario.mi-escena {
+    border-radius: 24px;
+  }
+
+  .mi-cuerpo,
+  .mi-escena[data-carta="izq"] .mi-cuerpo {
+    padding-top: 96px;
+  }
+
+  .mi-escena--portada .mi-cuerpo {
+    min-height: calc(100svh - 16px);
+  }
+
+  .pz-escenario.mi-barra {
+    padding: 0 8px calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .mi-barra .pz-selector {
+    padding: 3px;
+    border-radius: 14px;
+  }
+
+  .mi-barra .pz-selector__item {
+    padding: 9px 4px 13px;
+    justify-content: center;
+  }
+
+  .mi-selector__volver {
+    padding-inline: 10px;
+  }
+
+  .mi-cierre {
+    padding: 96px 20px 112px;
+  }
+
+  .mi-volver {
+    margin-top: 26px;
+  }
+
+  /* En el celular: las notas al borde de la tarjeta, sin salirse de la pantalla. */
+  .mi-pop--t-filtros,
+  .mi-pop--c-bancos,
+  .mi-pop--t-cinta,
+  .mi-pop--c-cinta {
+    display: none;
+  }
+
+  .mi-pop--t-sinpe {
+    left: 58%;
+    top: -30%;
+    width: 44%;
+  }
+
+  .mi-pop--t-pedido {
+    left: -3%;
+    top: 84%;
+    width: 44%;
+  }
+
+  .mi-pop--t-sello {
+    left: 58%;
+    top: 92%;
+    font-size: 9px;
+  }
+
+  .mi-pop--c-idiomas {
+    left: 64%;
+    top: -32%;
+    width: 38%;
+  }
+
+  .mi-pop--c-calculo {
+    left: -3%;
+    top: 86%;
+    width: 48%;
+  }
+
+  .mi-pop--c-sello {
+    left: 56%;
+    top: 94%;
+    font-size: 9px;
+  }
+}
+
+@keyframes mi-baja {
+  0% {
+    scale: 1 0;
+  }
+  50% {
+    scale: 1 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 1 1;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mi-rig {
+    opacity: 1;
+    translate: none;
+    rotate: none;
+    transition: none;
+  }
+
+  .mi-bajar i {
+    animation: none;
+  }
+}
