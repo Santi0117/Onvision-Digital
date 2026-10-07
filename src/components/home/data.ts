@@ -56,7 +56,6 @@ export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nucleo", nombre: "Núcleo" },
   { id: "trabajos", nombre: "Trabajos" },
-  { id: "lo-que-hacemos", nombre: "Lo que hacemos" },
   { id: "planes-inicio", nombre: "Planes" },
   { id: "contacto", nombre: "Contacto" },
 ] as const;

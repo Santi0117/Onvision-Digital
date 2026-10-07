@@ -9,8 +9,9 @@ import { Archivo, Caveat, Cormorant_Garamond, Geist, Geist_Mono, Silkscreen } fr
  * - Geist: el texto de siempre de Onvision.
  * - Geist Mono: etiquetas, contadores y botones de terminal.
  *
- * Y dos de escena, solo para "Lo que hacemos" (sin precarga: están más
- * abajo): Caveat, la letra a mano del cuaderno, y Silkscreen, la de píxeles.
+ * Y dos de escena, solo para las escenas de Servicios (sin precarga: están
+ * más abajo): Caveat, la letra a mano del cuaderno, y Silkscreen, la de
+ * píxeles.
  */
 const display = Archivo({
   subsets: ["latin", "latin-ext"],

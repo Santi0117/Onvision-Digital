@@ -35,7 +35,8 @@ type Trabajo = {
   avisos: readonly string[];
   /** Con qué servicio llega "Quiero uno así" al formulario de contacto. */
   quiero: string;
-  ver: { label: string; href: string };
+  /** A dónde lleva "Ir a Servicios": su "Más información" si lo tiene; si no, Servicios. */
+  servicios: string;
   /** Los archivos en /trabajos: .mp4 (H.264), .webm (VP9) y la imagen .webp. */
   video: string;
   forma: "navegador" | "telefono";
@@ -58,7 +59,7 @@ const TRABAJOS: readonly Trabajo[] = [
     ideal: "restaurantes, tiendas, estudios y servicios.",
     avisos: ["Se abre al bajar", "Reservá tu mesa", "Agendá tu sesión"],
     quiero: "Página web",
-    ver: { label: "Ver páginas web", href: "/digital?servicio=web" },
+    servicios: "/digital?servicio=web",
     video: "web",
     forma: "navegador",
     tono: "#34d3ee",
@@ -77,7 +78,7 @@ const TRABAJOS: readonly Trabajo[] = [
     ideal: "ropa, accesorios y todo lo que se vende por catálogo.",
     avisos: ["₡52.000 · al carrito", "Filtros por liga", "Armá tu outfit"],
     quiero: "Tienda online",
-    ver: { label: "Ver tiendas en línea", href: "/digital?servicio=web" },
+    servicios: "/digital?servicio=web",
     video: "ecommerce",
     forma: "navegador",
     tono: "#4d7cff",
@@ -96,7 +97,7 @@ const TRABAJOS: readonly Trabajo[] = [
     ideal: "clínicas, empresas de servicios y educación.",
     avisos: ["7 con stock bajo", "Agenda de la semana", "4 temas de color"],
     quiero: "Software a medida",
-    ver: { label: "Ver software a medida", href: "/digital?servicio=software" },
+    servicios: "/digital?servicio=software",
     video: "software",
     forma: "navegador",
     tono: "#ff7a1a",
@@ -115,7 +116,7 @@ const TRABAJOS: readonly Trabajo[] = [
     ideal: "salud, hogar, suscripciones y clientes frecuentes.",
     avisos: ["Tocá el sticker", "Aviso a tu familia", "Meta diaria · 2.25 L"],
     quiero: "App móvil",
-    ver: { label: "Ver apps móviles", href: "/digital#servicios" },
+    servicios: "/digital#servicios",
     video: "apps",
     forma: "telefono",
     tono: "#b65cff",
@@ -187,9 +188,10 @@ function Candado() {
  * de forma (navegador para sitios, tienda y sistemas; teléfono para la app),
  * con la luz de su color y avisos sacados del video; las pestañas llevan
  * una rayita que avanza con el video y, al terminar, pasa el próximo. Si la
- * persona elige uno, ese se repite. Solo se reproduce mientras se ve; con
- * movimiento reducido no arranca solo. En el celular también se cambia
- * deslizando la pantalla, y cualquiera se puede ver en pantalla completa.
+ * persona elige uno, ese se repite. Debajo de cada video, siempre en el mismo
+ * lugar, "Ir a Servicios". Solo se reproduce mientras se ve; con movimiento
+ * reducido no arranca solo. En el celular también se cambia deslizando la
+ * pantalla, y cualquiera se puede ver en pantalla completa.
  *
  * La sección se anota en la escena 3D: la laptop se apaga mientras esta entra.
  */
@@ -600,9 +602,13 @@ export default function Trabajos() {
             </div>
 
             <div className="tb__pie">
-              <p className="tb__en">
-                En pantalla · <b key={t.id}>{t.proyectos}</b>
-              </p>
+              {/* Con carga completa: Servicios abre su "Más información" leyendo la dirección al entrar. */}
+              <a href={t.servicios} className="tb__ir" aria-label={`Ir a Servicios: ${t.servicio}`}>
+                Ir a Servicios
+                <i aria-hidden>
+                  <Flecha />
+                </i>
+              </a>
               <div className="tb__control">
                 <button
                   type="button"
@@ -633,27 +639,26 @@ export default function Trabajos() {
                 className="tb__panel"
                 data-on={i === activo ? "" : undefined}
               >
-                <h3 className="tb__titulo">{x.titulo}</h3>
-                <p className="tb__texto" style={conI(1)}>
+                <p className="tb__en">
+                  En pantalla · <b>{x.proyectos}</b>
+                </p>
+                <h3 className="tb__titulo" style={conI(1)}>
+                  {x.titulo}
+                </h3>
+                <p className="tb__texto" style={conI(2)}>
                   {x.texto}
                 </p>
-                <ul className="tb__incluye" style={conI(2)}>
+                <ul className="tb__incluye" style={conI(3)}>
                   {x.incluye.map((c) => (
                     <li key={c}>{c}</li>
                   ))}
                 </ul>
-                <p className="tb__ideal" style={conI(3)}>
+                <p className="tb__ideal" style={conI(4)}>
                   <span>Ideal para</span> {x.ideal}
                 </p>
-                <div className="tb__acciones" style={conI(4)}>
-                  <button type="button" className="tb__quiero" onClick={() => pedirServicio(x.quiero)}>
-                    Quiero uno así <Flecha />
-                  </button>
-                  {/* Con carga completa: Servicios abre su "Más información" leyendo la dirección al entrar. */}
-                  <a href={x.ver.href} className="tb__ver">
-                    {x.ver.label}
-                  </a>
-                </div>
+                <button type="button" className="tb__quiero" style={conI(5)} onClick={() => pedirServicio(x.quiero)}>
+                  Quiero uno así <Flecha />
+                </button>
               </div>
             ))}
           </div>
