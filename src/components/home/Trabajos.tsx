@@ -29,16 +29,21 @@ type Trabajo = {
   direccion: string;
   titulo: string;
   texto: string;
+  /** En la compu, en vez del texto: una sola frase. */
+  resumen: string;
   incluye: readonly string[];
   ideal: string;
-  /** Los avisos que flotan alrededor de la pantalla, sacados del video. */
-  avisos: readonly string[];
   /** Con qué servicio llega "Quiero uno así" al formulario de contacto. */
   quiero: string;
   /** A dónde lleva "Ir a Servicios": su "Más información" si lo tiene; si no, Servicios. */
   servicios: string;
-  /** Los archivos en /trabajos: .mp4 (H.264), .webm (VP9) y la imagen .webp. */
+  /**
+   * Los archivos en /trabajos: .mp4 (H.264) en calidad alta, .webm (VP9) de
+   * respaldo y la imagen .webp. Con `movil`, también un -movil.mp4 más
+   * liviano para pantallas chicas.
+   */
   video: string;
+  movil?: boolean;
   forma: "navegador" | "telefono";
   tono: string;
 };
@@ -55,12 +60,13 @@ const TRABAJOS: readonly Trabajo[] = [
     titulo: "Páginas con carácter propio.",
     texto:
       "Cada marca, con su sitio desde cero: el teléfono 3D de Helio que se abre al bajar, las reservas de mesa de Toksu y las sesiones que Alchemy agenda en línea.",
+    resumen: "Sitios desde cero con 3D, reservas de mesa y sesiones que se agendan solas.",
     incluye: ["Diseño desde cero", "Animaciones y 3D", "Reservas y formularios", "Rápida en el celular"],
     ideal: "restaurantes, tiendas, estudios y servicios.",
-    avisos: ["Se abre al bajar", "Reservá tu mesa", "Agendá tu sesión"],
     quiero: "Página web",
     servicios: "/digital?servicio=web",
     video: "web",
+    movil: true,
     forma: "navegador",
     tono: "#34d3ee",
   },
@@ -74,9 +80,9 @@ const TRABAJOS: readonly Trabajo[] = [
     titulo: "Una tienda lista para vender.",
     texto:
       "Firstdown vende jerseys originales: catálogo por liga y por equipo, un probador 3D para armar el outfit y un carrito con tallas, colores y precios en colones.",
+    resumen: "Catálogo por liga, probador 3D y carrito con precios en colones.",
     incluye: ["Catálogo con filtros", "Carrito y pagos", "Probador 3D", "Ofertas y envíos"],
     ideal: "ropa, accesorios y todo lo que se vende por catálogo.",
-    avisos: ["₡52.000 · al carrito", "Filtros por liga", "Armá tu outfit"],
     quiero: "Tienda online",
     servicios: "/digital?servicio=web",
     video: "ecommerce",
@@ -93,12 +99,13 @@ const TRABAJOS: readonly Trabajo[] = [
     titulo: "Tu operación, en un solo lugar.",
     texto:
       "Sistemas hechos a la medida de cómo trabajás: la mesa de operaciones de Meridiano, la agenda y el inventario de la Clínica Santa Elena y un aula virtual con cursos y entregas.",
+    resumen: "Operaciones, agenda, inventario y cursos, cada uno a la medida de su equipo.",
     incluye: ["Agenda y citas", "Inventario con alertas", "Reportes en vivo", "Usuarios y roles"],
     ideal: "clínicas, empresas de servicios y educación.",
-    avisos: ["7 con stock bajo", "Agenda de la semana", "4 temas de color"],
     quiero: "Software a medida",
     servicios: "/digital?servicio=software",
     video: "software",
+    movil: true,
     forma: "navegador",
     tono: "#ff7a1a",
   },
@@ -112,9 +119,9 @@ const TRABAJOS: readonly Trabajo[] = [
     titulo: "Tu negocio, en el bolsillo.",
     texto:
       "Tappy convierte un sticker NFC en avisos para la familia: recordatorios de medicamentos, metas de agua y luces de la casa, con hogar compartido y plan Premium.",
+    resumen: "Stickers NFC que avisan a la familia, con hogar compartido y plan Premium.",
     incluye: ["iPhone y Android", "Avisos al instante", "Cuentas y planes", "Stickers NFC"],
     ideal: "salud, hogar, suscripciones y clientes frecuentes.",
-    avisos: ["Tocá el sticker", "Aviso a tu familia", "Meta diaria · 2.25 L"],
     quiero: "App móvil",
     servicios: "/digital#servicios",
     video: "apps",
@@ -186,7 +193,7 @@ function Candado() {
  * "Trabajos": los videos de la versión anterior del sitio, ahora en el
  * inicio, justo después de la laptop. Una sola pantalla grande que cambia
  * de forma (navegador para sitios, tienda y sistemas; teléfono para la app),
- * con la luz de su color y avisos sacados del video; las pestañas llevan
+ * con la luz de su color detrás y nada encima del video; las pestañas llevan
  * una rayita que avanza con el video y, al terminar, pasa el próximo. Si la
  * persona elige uno, ese se repite. Debajo de cada video, siempre en el mismo
  * lugar, "Ir a Servicios". Solo se reproduce mientras se ve; con movimiento
@@ -518,6 +525,7 @@ export default function Trabajos() {
             <div
               ref={escenario}
               className="tb__escenario"
+              data-forma={t.forma}
               onPointerDown={alTocar}
               onPointerUp={alSoltar}
               onPointerCancel={() => {
@@ -582,21 +590,17 @@ export default function Trabajos() {
                           }}
                           onEnded={() => alTerminar(i)}
                         >
-                          <source src={`/trabajos/${x.video}.mp4`} type="video/mp4" />
+                          <source
+                            src={`/trabajos/${x.video}.mp4`}
+                            type="video/mp4"
+                            media={x.movil ? "(min-width: 768px)" : undefined}
+                          />
+                          {x.movil ? <source src={`/trabajos/${x.video}-movil.mp4`} type="video/mp4" /> : null}
                           <source src={`/trabajos/${x.video}.webm`} type="video/webm" />
                         </video>
                       ))}
                     </div>
                   </div>
-
-                  <ul key={t.id} className="tb__avisos" aria-hidden>
-                    {t.avisos.map((a, k) => (
-                      <li key={a} className="tb__aviso" style={conI(k)}>
-                        <i />
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
             </div>
@@ -646,7 +650,8 @@ export default function Trabajos() {
                   {x.titulo}
                 </h3>
                 <p className="tb__texto" style={conI(2)}>
-                  {x.texto}
+                  <span className="tb__texto-largo">{x.texto}</span>
+                  <span className="tb__texto-corto">{x.resumen}</span>
                 </p>
                 <ul className="tb__incluye" style={conI(3)}>
                   {x.incluye.map((c) => (

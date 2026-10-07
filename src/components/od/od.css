@@ -10,9 +10,11 @@
   color: var(--cian-p);
 }
 
+/* Invisible hasta que tiene foco: en el Safari del iPhone, lo que queda justo
+   arriba de la pantalla se ve detrás de la barra de estado al bajar. */
 .od-saltar {
   position: fixed;
-  top: 10px;
+  top: calc(10px + env(safe-area-inset-top));
   left: 10px;
   z-index: 400;
   padding: 10px 16px;
@@ -20,11 +22,17 @@
   background: var(--blanco);
   color: var(--tinta);
   font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
   transform: translateY(-160%);
-  transition: transform 0.3s var(--ease);
+  transition:
+    transform 0.3s var(--ease),
+    opacity 0.2s ease;
 }
 
 .od-saltar:focus {
+  opacity: 1;
+  pointer-events: auto;
   transform: none;
 }
 

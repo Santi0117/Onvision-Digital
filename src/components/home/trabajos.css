@@ -1,9 +1,10 @@
 /* ==========================================================================
    Trabajos: los videos de la versión anterior del sitio, mejorados. Cuatro
    trabajos reales en una pantalla que se vuelve teléfono para la app, con
-   la luz de su color y sus avisos flotando; al lado, las pestañas (cada una
-   con su rayita de avance) y lo que trae el que se ve. Se reproducen solos,
-   uno detrás del otro, solo mientras se ven. Entra encima de la laptop.
+   la luz de su color detrás y nada encima; al lado, las pestañas (cada una
+   con su rayita de avance) y lo que trae el que se ve: en la compu, solo el
+   título y una frase; en el celular, todo. Se reproducen solos, uno detrás
+   del otro, solo mientras se ven. Entra encima de la laptop.
    ========================================================================== */
 
 @property --tb-tono {
@@ -257,6 +258,10 @@
   line-height: 1.55;
   color: var(--v-muted);
   text-wrap: pretty;
+}
+
+.tb__texto-corto {
+  display: none;
 }
 
 .tb__incluye {
@@ -550,81 +555,6 @@
   scale: 1;
 }
 
-/* Los avisos que flotan: sobre los bordes del navegador, a los costados del teléfono. */
-.tb__avisos {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.tb__aviso {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px 8px 10px;
-  border: 1px solid rgb(255 255 255 / 0.14);
-  border-radius: 999px;
-  background: rgb(12 18 25 / 0.8);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
-  backdrop-filter: blur(12px) saturate(1.4);
-  box-shadow: 0 16px 32px -14px rgb(0 0 0 / 0.7);
-  color: #f8fafc;
-  font-family: var(--font-vision-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  animation:
-    tb-aviso 0.8s var(--ease) both,
-    tb-flota 5s ease-in-out infinite alternate;
-  animation-delay: calc(0.6s + var(--i) * 0.16s), calc(var(--i) * -1.7s);
-}
-
-.tb__aviso i {
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--tb-tono);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tb-tono) 28%, transparent);
-}
-
-.tb__aviso:nth-child(1) {
-  top: 20%;
-  left: -22px;
-}
-
-.tb__aviso:nth-child(2) {
-  top: 52%;
-  right: -18px;
-}
-
-.tb__aviso:nth-child(3) {
-  bottom: -17px;
-  left: 9%;
-}
-
-.tb__cuadro[data-forma="telefono"] .tb__aviso:nth-child(1) {
-  top: 20%;
-  right: calc(100% + 22px);
-  left: auto;
-}
-
-.tb__cuadro[data-forma="telefono"] .tb__aviso:nth-child(2) {
-  top: 44%;
-  right: auto;
-  left: calc(100% + 22px);
-}
-
-.tb__cuadro[data-forma="telefono"] .tb__aviso:nth-child(3) {
-  top: 70%;
-  right: calc(100% + 22px);
-  bottom: auto;
-  left: auto;
-}
-
 /* ── Debajo de cada video: "Ir a Servicios" y los controles ─────────────── */
 
 /* Por encima de la luz de la pantalla, que se derrama hacia abajo. */
@@ -756,6 +686,45 @@
   stroke-linecap: round;
 }
 
+/* ── Compu: solo las pestañas y, abajo, el título y una frase ───────────── */
+
+@media (min-width: 1024px) {
+  .tb__en,
+  .tb__incluye,
+  .tb__ideal,
+  .tb__quiero {
+    display: none;
+  }
+
+  /* Lo que trae el que se ve, al pie, a la altura de "Ir a Servicios". */
+  .tb__paneles {
+    align-self: end;
+    padding-bottom: 8px;
+  }
+
+  .tb__titulo {
+    font-size: clamp(26px, 2.3vw, 34px);
+  }
+
+  .tb__texto {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .tb__texto-largo {
+    display: none;
+  }
+
+  .tb__texto-corto {
+    display: inline;
+  }
+
+  .tb__tab {
+    padding-block: 18px;
+  }
+}
+
 /* Compus chicas: la columna de texto más angosta, para que el video crezca. */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .tb__cuerpo {
@@ -859,15 +828,17 @@
     font-size: 15px;
   }
 
-  /* Más alta que el navegador: el teléfono se ve grande. El navegador va
-     abajo, pegado a "Ir a Servicios", y los avisos flotan arriba. */
+  /* La pantalla toma la altura del video que se ve: el navegador, justo; el
+     teléfono, más alto. "Ir a Servicios" queda siempre pegado debajo. */
   .tb__escenario {
     --tb-giro: 10deg;
-    aspect-ratio: 6 / 7;
+    aspect-ratio: auto;
+    height: calc((100vw - 32px) / 1.772 + 26px);
+    transition: height 0.7s var(--ease);
   }
 
-  .tb__giro {
-    place-items: end center;
+  .tb__escenario[data-forma="telefono"] {
+    height: calc((100vw - 32px) * 7 / 6);
   }
 
   .tb__cuadro {
@@ -896,52 +867,6 @@
     height: 17px;
     padding: 0 9px;
     font-size: 9.5px;
-  }
-
-  .tb__aviso {
-    padding: 7px 11px 7px 9px;
-    font-size: 10px;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: rgb(14 20 27 / 0.92);
-  }
-
-  .tb__aviso:nth-child(1) {
-    top: auto;
-    bottom: calc(100% + 100px);
-    left: 2px;
-  }
-
-  .tb__aviso:nth-child(2) {
-    top: auto;
-    bottom: calc(100% + 30px);
-    right: 2px;
-  }
-
-  .tb__aviso:nth-child(3) {
-    display: none;
-  }
-
-  /* En el teléfono los avisos van pegados a los bordes de la pantalla. */
-  .tb__cuadro[data-forma="telefono"] .tb__aviso:nth-child(1) {
-    top: 16%;
-    right: auto;
-    bottom: auto;
-    left: calc((100% - 100cqw) / 2);
-  }
-
-  .tb__cuadro[data-forma="telefono"] .tb__aviso:nth-child(2) {
-    top: 46%;
-    right: calc((100% - 100cqw) / 2);
-    bottom: auto;
-    left: auto;
-  }
-
-  .tb__cuadro[data-forma="telefono"] .tb__aviso:nth-child(3) {
-    display: inline-flex;
-    top: 76%;
-    right: auto;
-    left: calc((100% - 100cqw) / 2);
   }
 
   .tb__pie {
@@ -988,30 +913,9 @@
   }
 }
 
-@keyframes tb-aviso {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.92);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-}
-
-@keyframes tb-flota {
-  from {
-    translate: 0 -3px;
-  }
-  to {
-    translate: 0 3px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .tb,
+  .tb__escenario,
   .tb__cuadro,
   .tb__marco,
   .tb__barra,
@@ -1030,7 +934,6 @@
   }
 
   .tb__panel[data-on] > *,
-  .tb__aviso,
   .tb__url span {
     animation: none;
   }
