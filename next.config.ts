@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const SISTEMA = "https://sistema.onvisiondigital.com";
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
@@ -21,8 +23,27 @@ const nextConfig: NextConfig = {
       { source: "/web", destination: "/", permanent: false },
       { source: "/landing", destination: "/", permanent: true },
       { source: "/index.html", destination: "/", permanent: true },
-      { source: "/activar", destination: "https://sistema.onvisiondigital.com/activar", permanent: false },
-      { source: "/producto", destination: "https://sistema.onvisiondigital.com/producto", permanent: false },
+      { source: "/vision", destination: "/", permanent: false },
+      // Lo del sistema (activar y producto) sigue en sistema.onvisiondigital.com.
+      { source: "/activar", destination: `${SISTEMA}/activar`, permanent: false },
+      { source: "/activar/:path+", destination: `${SISTEMA}/activar/:path+`, permanent: false },
+      { source: "/producto", destination: `${SISTEMA}/producto`, permanent: false },
+      // El portal de demostración ahora se muestra en el Panel Onvi de Servicios.
+      { source: "/portal", destination: "/digital?servicio=panel", permanent: false },
+      { source: "/portal/:path+", destination: "/digital?servicio=panel", permanent: false },
+    ];
+  },
+  /**
+   * Los avisos de pago (Onvo y TiloPay) y el cobro de los verticales los
+   * atiende el proyecto de sistema.onvisiondigital.com, con sus propias claves.
+   * Si Onvo o TiloPay quedaron apuntando a onvisiondigital.com, el aviso pasa
+   * tal cual.
+   */
+  async rewrites() {
+    return [
+      { source: "/api/webhooks/:path+", destination: `${SISTEMA}/api/webhooks/:path+` },
+      { source: "/api/pagos/:path+", destination: `${SISTEMA}/api/pagos/:path+` },
+      { source: "/api/checkout", destination: `${SISTEMA}/api/checkout` },
     ];
   },
 };

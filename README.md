@@ -79,8 +79,17 @@ respuestas de siempre.
 1. **Add New → Project** e importá este repositorio.
 2. Cargá las variables de `.env.example` en **Settings → Environment Variables**.
 3. Probalo primero en la dirección de Vercel. Para ponerlo en
-   `onvisiondigital.com`, mové el dominio a este proyecto; `sistema.onvisiondigital.com`
-   puede seguir apuntando al proyecto de la landing oficial.
+   `onvisiondigital.com`, mové `onvisiondigital.com` y `www.onvisiondigital.com`
+   a este proyecto; `sistema.onvisiondigital.com` se queda donde está.
+4. Después de cargar o cambiar variables, volvé a publicar (**Deployments →
+   Redeploy**): las `NEXT_PUBLIC_…` se leen al compilar.
+
+Con el dominio acá, las direcciones viejas siguen andando (`next.config.ts`):
+`/activar` y `/producto` llevan a `sistema.onvisiondigital.com`, `/portal` al
+Panel Onvi de Servicios, y los avisos de pago que lleguen a
+`/api/webhooks/…` (Onvo), `/api/pagos/…` (TiloPay) o `/api/checkout` pasan
+tal cual al proyecto de `sistema.onvisiondigital.com`, que los atiende con sus
+llaves.
 
 En el plan Hobby, Vercel solo publica los commits cuyo autor es el dueño de la
 cuenta: los de otro autor los salta sin avisar (no aparece ningún deploy). Los
