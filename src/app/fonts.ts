@@ -1,4 +1,4 @@
-import { Archivo, Caveat, Cormorant_Garamond, Geist, Geist_Mono, Silkscreen } from "next/font/google";
+import localFont from "next/font/local";
 
 /**
  * Cuatro familias de base, cada una registrada una sola vez:
@@ -12,45 +12,56 @@ import { Archivo, Caveat, Cormorant_Garamond, Geist, Geist_Mono, Silkscreen } fr
  * Y dos de escena, solo para las escenas de Servicios (sin precarga: están
  * más abajo): Caveat, la letra a mano del cuaderno, y Silkscreen, la de
  * píxeles.
+ *
+ * Van guardadas en `fuentes/` (las de Google Fonts, recortadas a latín y
+ * latín extendido, como antes): bajarlas de Google en cada compilación a veces
+ * fallaba en Vercel y la publicación no salía.
  */
-const display = Archivo({
-  subsets: ["latin", "latin-ext"],
-  axes: ["wdth"],
+const display = localFont({
+  src: "./fuentes/archivo.woff2",
+  weight: "100 900",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
   variable: "--ff-display",
   display: "swap",
 });
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
+const serif = localFont({
+  src: [
+    { path: "./fuentes/cormorant.woff2", weight: "300 500", style: "normal" },
+    { path: "./fuentes/cormorant-italica.woff2", weight: "300 500", style: "italic" },
+  ],
   variable: "--ff-serif",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
-const sans = Geist({
-  subsets: ["latin", "latin-ext"],
+const sans = localFont({
+  src: "./fuentes/geist.woff2",
+  weight: "100 900",
   variable: "--ff-sans",
   display: "swap",
 });
 
-const mono = Geist_Mono({
-  subsets: ["latin", "latin-ext"],
+const mono = localFont({
+  src: "./fuentes/geist-mono.woff2",
+  weight: "100 900",
   variable: "--ff-mono",
   display: "swap",
 });
 
-const mano = Caveat({
-  subsets: ["latin", "latin-ext"],
-  weight: ["500", "700"],
+const mano = localFont({
+  src: "./fuentes/caveat.woff2",
+  weight: "500 700",
   variable: "--ff-mano",
   display: "swap",
   preload: false,
 });
 
-const pixel = Silkscreen({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "700"],
+const pixel = localFont({
+  src: [
+    { path: "./fuentes/silkscreen-400.woff2", weight: "400", style: "normal" },
+    { path: "./fuentes/silkscreen-700.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--ff-pixel",
   display: "swap",
   preload: false,
