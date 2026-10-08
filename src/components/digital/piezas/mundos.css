@@ -4,11 +4,13 @@
    menú de abajo (cuando la sección pasa por debajo) y los pop-ups.
 
    tienda  la tienda deportiva: azul de camiseta, naranja de oferta
-   cuotas  la página de bienes raíces: marfil, dorado y serif
+   plano   los componentes, como lámina de arquitecto: azul, blanco y amarillo
    guia    Onvi dentro del sistema de la clínica: vidrio oscuro y cian
    chat    Onvi en la página del taller: crema, naranja y burbujas
    finca   el sistema de la finca: salvia y tarjetas de colores suaves
    salon   el sistema del restaurante: cuadrícula, blanco y rojo
+   registros  el monitor del Panel Onvi: verde sobre negro, con su pulso
+   soporte    la mesa de ayuda del Panel Onvi: lila, tickets y sellos
    ========================================================================== */
 
 /* ── tienda ────────────────────────────────────────────────────────────── */
@@ -302,270 +304,437 @@
   width: 1.2em;
 }
 
-/* ── cuotas ────────────────────────────────────────────────────────────── */
+/* ── plano: los componentes, dibujados como plano de arquitecto ────────── */
 
-.pz-escenario[data-escena="cuotas"] {
-  --pz-fondo: #f3eee5;
-  --pz-tinta: #2a2622;
-  --pz-suave: rgb(42 38 34 / 0.7);
-  --pz-acento: #a8834f;
-  --pz-linea: rgb(42 38 34 / 0.18);
-  --pz-sombra: 0 30px 60px -32px rgb(70 50 25 / 0.45), 0 0 0 1px rgb(42 38 34 / 0.08);
-  --pz-sel-fondo: #fbf8f2;
-  --pz-sel-on: #2a2622;
-  --pz-sel-on-tinta: #f3e7d3;
-  --pz-sel-barra: #a8834f;
-  --pz-grano: 0.08;
+.pz-escenario[data-escena="plano"] {
+  --pz-fondo: #0b3487;
+  --pz-tinta: #f2f7ff;
+  --pz-suave: rgb(226 236 255 / 0.78);
+  --pz-acento: #ffd84d;
+  --pz-linea: rgb(226 236 255 / 0.34);
+  --pz-sombra: 0 40px 80px -34px rgb(2 12 40 / 0.85), 0 0 0 1px rgb(226 236 255 / 0.3);
+  --pz-sel-fondo: rgb(9 38 102 / 0.82);
+  --pz-sel-on: #ffd84d;
+  --pz-sel-on-tinta: #0b2a6b;
+  --pz-sel-barra: #ffd84d;
+  --pz-grano: 0.16;
 }
 
-.pz-escenario[data-escena="cuotas"] .pz-fondo {
-  background: radial-gradient(90% 80% at 60% 30%, #fcf9f3, #f2ece2 60%, #e8dfcf);
-}
-
-/* Líneas de plano, finas y doradas. */
-.pz-escenario[data-escena="cuotas"] .pz-fondo__textura {
+.pz-escenario[data-escena="plano"] .pz-fondo {
   background:
-    repeating-linear-gradient(90deg, rgb(168 131 79 / 0.13) 0 1px, transparent 1px 96px),
-    repeating-linear-gradient(0deg, rgb(168 131 79 / 0.13) 0 1px, transparent 1px 96px);
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 20%, transparent 80%);
+    radial-gradient(60% 70% at 72% 40%, #1d56c4, transparent 70%),
+    radial-gradient(70% 70% at 6% 100%, #06235c, transparent 70%), #0b3487;
 }
 
-.pz-escenario[data-escena="cuotas"] .pz-fondo__halo {
-  background: radial-gradient(closest-side, rgb(214 178 120 / 0.28), transparent 72%);
+/* Papel de plano: cuadrícula fina y, cada cinco, una más marcada. */
+.pz-escenario[data-escena="plano"] .pz-fondo__textura {
+  background-image:
+    linear-gradient(rgb(226 236 255 / 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(226 236 255 / 0.15) 1px, transparent 1px),
+    linear-gradient(rgb(226 236 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(226 236 255 / 0.06) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+  background-position: -1px -1px;
 }
 
-.pz-escenario[data-escena="cuotas"] .pz-fondo__fantasma {
-  font-family: var(--f-serif);
-  font-size: clamp(320px, 46vw, 720px);
-  font-weight: 400;
-  font-stretch: normal;
-  font-style: italic;
-  color: rgb(168 131 79 / 0.1);
+.pz-escenario[data-escena="plano"] .pz-fondo__halo {
+  background: radial-gradient(closest-side, rgb(120 170 255 / 0.22), transparent 72%);
 }
 
-/* Una casa dibujada con línea fina, abajo. */
-.pz-escenario[data-escena="cuotas"] .pz-fondo__extra:not(.pz-fondo__extra--b) {
-  left: 4%;
-  bottom: 6%;
-  width: min(30vw, 380px);
-  aspect-ratio: 4 / 3;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' fill='none' stroke='%23a8834f' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M30 290V150L200 30l170 120v140z'/%3E%3Cpath d='M10 164 200 22l190 142'/%3E%3Cpath d='M160 290v-90h80v90'/%3E%3Cpath d='M70 180h60v50H70zM270 180h60v50h-60z'/%3E%3Cpath d='M290 92V50h30v64'/%3E%3C/svg%3E")
-    center / contain no-repeat;
-  opacity: 0.35;
-  animation: pz-aparece 1.2s ease 0.3s both;
-}
-
-.pz-escenario[data-escena="cuotas"] .pz-texto__ante {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--f-sans);
-  font-size: 11px;
-  letter-spacing: 0.32em;
-}
-
-.pz-escenario[data-escena="cuotas"] .pz-texto__ante::before {
-  content: "";
-  width: 34px;
-  height: 1px;
-  background: currentColor;
-}
-
-.pz-escenario[data-escena="cuotas"] .pz-texto__titulo {
-  font-family: var(--f-serif);
-  font-size: clamp(56px, 6.8vw, 112px);
-  font-weight: 500;
-  font-stretch: normal;
-  line-height: 0.92;
+.pz-escenario[data-escena="plano"] .pz-fondo__fantasma {
+  font-stretch: 62%;
+  font-size: clamp(200px, 30vw, 520px);
   letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(226 236 255 / 0.13);
 }
 
-.pz-escenario[data-escena="cuotas"] .pz-texto__titulo em {
-  font-style: italic;
-  color: var(--pz-acento);
+/* El margen de la hoja, doble, como en las láminas. */
+.pz-escenario[data-escena="plano"] .pz-fondo__extra:not(.pz-fondo__extra--b) {
+  inset: 16px;
+  border: 1.5px solid rgb(226 236 255 / 0.4);
+  border-radius: 14px;
+  outline: 1px solid rgb(226 236 255 / 0.16);
+  outline-offset: -8px;
+  animation: pz-aparece 1s ease 0.2s both;
 }
 
-.pz-escenario[data-escena="cuotas"] .pz-texto__etiquetas li {
-  border-color: rgb(168 131 79 / 0.55);
-  border-radius: 2px;
-  background: #fffaf2;
-  font-family: var(--f-sans);
-  font-size: 10.5px;
-  letter-spacing: 0.2em;
+/* La rosa del norte, en una esquina. */
+.pz-escenario[data-escena="plano"] .pz-fondo__extra--b {
+  right: 46px;
+  top: 40px;
+  width: 64px;
+  aspect-ratio: 1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23e2ecff' stroke-width='1.4'%3E%3Ccircle cx='32' cy='36' r='22'/%3E%3Cpath d='M32 10v52M6 36h52'/%3E%3Cpath d='M32 14l7 22h-14z' fill='%23ffd84d' stroke='%23ffd84d'/%3E%3Cpath d='M28.5 8V1.5l7 6.5V1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  opacity: 0.7;
+  animation: pz-aparece 1s ease 0.6s both;
 }
 
-.pz-escenario[data-escena="cuotas"] .pz-selector__nombre {
-  font-family: var(--f-serif);
-  font-size: 16px;
-  font-style: italic;
+/* La casa en elevación: se dibuja trazo a trazo al llegar, con sus cotas. */
+.mp-dibujo {
+  position: absolute;
+  left: 50%;
+  bottom: 11%;
+  width: min(36vw, 520px);
+  translate: -50% 0;
+  overflow: visible;
+  pointer-events: none;
 }
 
-/* Pop-ups de los componentes. */
-.mc-marco {
-  left: 7.2%;
-  top: 7%;
-  width: 29.5%;
-  height: 60%;
-  color: #b8925a;
+.mi-escena[data-carta="izq"] .mp-dibujo {
+  left: 74%;
+}
+
+.mi-escena[data-carta="der"] .mp-dibujo {
+  left: 26%;
+}
+
+.mp-dibujo path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pz-traza 1.4s ease-in-out forwards;
+}
+
+.mp-dibujo__casa path {
+  stroke: rgb(226 236 255 / 0.2);
+  stroke-width: 1.6;
+}
+
+.mp-dibujo__casa path:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.mp-dibujo__casa path:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.mp-dibujo__casa path:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.mp-dibujo__casa path:nth-child(4),
+.mp-dibujo__casa path:nth-child(5) {
+  animation-delay: 1.1s;
+}
+
+.mp-dibujo__casa path:nth-child(6) {
+  animation-delay: 1.3s;
+}
+
+.mp-dibujo__casa path:nth-child(7) {
+  animation-delay: 0.1s;
+  stroke-dasharray: 0.006 0.006;
+  stroke-dashoffset: 0;
   animation-name: pz-aparece;
 }
 
-.mc-marco rect {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2.5;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: pz-traza 1s ease-in-out calc(var(--d) + 100ms) forwards;
+.mp-dibujo__cota path {
+  stroke: rgb(255 216 77 / 0.45);
+  stroke-width: 1.2;
+  animation-delay: 1.6s;
 }
 
-.mc-cuota,
-.mc-plazo,
-.mc-idiomas {
-  background: #fffdf9;
-  color: #2a2622;
-  box-shadow:
-    0 0 0 1px rgb(168 131 79 / 0.3),
-    0 22px 40px -22px rgb(70 50 25 / 0.55);
+.mp-dibujo__cota text {
+  fill: rgb(255 216 77 / 0.6);
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+  animation: pz-aparece 0.8s ease 2.2s both;
 }
 
-.mc-cuota {
-  left: -9%;
-  top: 60%;
-  display: grid;
-  gap: 0.2em;
-  padding: 1em 1.3em 1.1em;
-  border-radius: 4px;
+.pz-escenario[data-escena="plano"] .pz-texto__ante {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1.5px solid rgb(226 236 255 / 0.55);
+  color: var(--pz-tinta);
+  gap: 12px;
+  padding-right: 12px;
+  font-size: 10.5px;
+  line-height: 2.6;
+  letter-spacing: 0.26em;
 }
 
-.mc-cuota small,
-.mc-plazo small {
-  font-size: 0.72em;
-  letter-spacing: 0.24em;
+.pz-escenario[data-escena="plano"] .pz-texto__ante::before {
+  content: "A-03";
+  padding: 7px 10px;
+  border-right: 1.5px solid rgb(226 236 255 / 0.55);
+  background: var(--pz-acento);
+  color: #0b2a6b;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.pz-escenario[data-escena="plano"] .pz-texto__titulo {
+  font-size: clamp(60px, 7.2vw, 124px);
+  font-weight: 800;
+  font-stretch: 62%;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #a8834f;
 }
 
-.mc-cuota b {
-  font-family: var(--f-serif);
-  font-size: 2.5em;
-  font-weight: 500;
-  line-height: 1;
+/* El resaltado va hueco, solo el contorno, y debajo su cota en amarillo. */
+.pz-escenario[data-escena="plano"] .pz-texto__titulo em {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.22em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--pz-tinta);
 }
 
-.mc-cuota span {
-  font-size: 0.82em;
-  color: rgb(42 38 34 / 0.62);
-}
-
-.mc-plazo {
-  left: 38%;
-  top: -15%;
-  display: flex;
-  align-items: center;
-  gap: 0.8em;
-  padding: 0.75em 0.9em;
-  border-radius: 4px;
-}
-
-.mc-plazo span {
-  display: flex;
-  gap: 0.35em;
-}
-
-.mc-plazo i {
-  padding: 0.4em 0.6em;
-  border: 1px solid rgb(42 38 34 / 0.16);
-  border-radius: 3px;
-  font-size: 0.82em;
-  font-style: normal;
-  white-space: nowrap;
-}
-
-.mc-plazo i[data-on] {
-  border-color: #a8834f;
-  background: #f6eedf;
-  box-shadow: inset 0 0 0 1px #a8834f;
-}
-
-.mc-idiomas {
-  left: 84%;
-  top: 16%;
-  display: flex;
-  align-items: center;
-  gap: 0.3em;
-  padding: 0.6em 0.9em 0.6em 0.6em;
-  border-radius: 999px;
-}
-
-.mc-idiomas b {
-  margin-left: 0.4em;
-  font-size: 0.85em;
-  letter-spacing: 0.14em;
-}
-
-.mc-bandera {
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1.5px #fff;
-}
-
-.mc-bandera + .mc-bandera {
-  margin-left: -0.55em;
-}
-
-.mc-bandera--es {
-  background: linear-gradient(#c60b1e 0 28%, #ffc400 28% 72%, #c60b1e 72%);
-}
-
-.mc-bandera--us {
+.pz-escenario[data-escena="plano"] .pz-texto__titulo em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.04em;
+  height: 0.14em;
   background:
-    linear-gradient(#3c3b6e, #3c3b6e) 0 0 / 50% 54% no-repeat,
-    repeating-linear-gradient(#b22234 0 14%, #fff 14% 28%);
+    linear-gradient(var(--pz-acento), var(--pz-acento)) 0 50% / 100% 2px no-repeat,
+    linear-gradient(var(--pz-acento), var(--pz-acento)) 0 0 / 2px 100% no-repeat,
+    linear-gradient(var(--pz-acento), var(--pz-acento)) 100% 0 / 2px 100% no-repeat;
+  transform-origin: left;
+  animation: mi-crece 0.9s var(--pz-ease) 0.7s both;
 }
 
-.mc-bandera--br {
-  background:
-    radial-gradient(circle, #002776 0 22%, transparent 23%),
-    radial-gradient(closest-side, #ffdf00 0 70%, transparent 72%) center / 120% 80% no-repeat,
-    #009b3a;
+.pz-escenario[data-escena="plano"] .pz-texto__etiquetas li {
+  border: 1.5px dashed rgb(226 236 255 / 0.5);
+  border-radius: 0;
+  background: rgb(11 52 135 / 0.6);
+  letter-spacing: 0.16em;
 }
 
-.mc-visita {
-  left: 64%;
-  top: 88%;
+.pz-escenario[data-escena="plano"] .pz-texto__etiquetas li::before {
+  content: "+ ";
+  color: var(--pz-acento);
+}
+
+.pz-escenario[data-escena="plano"] .pz-selector__nombre {
+  font-family: var(--f-display);
+  font-stretch: 62%;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Pop-ups del plano: piezas de lámina, tinta blanca sobre azul. */
+.mp-cuota,
+.mp-bancos,
+.mp-cajetin {
+  border: 1.5px solid #e2ecff;
+  background: rgb(10 44 118 / 0.9);
+  color: #f2f7ff;
+  backdrop-filter: blur(10px);
+  box-shadow: 0.5em 0.5em 0 -0.05em rgb(255 216 77 / 0.9);
+}
+
+.mp-cuota small,
+.mp-bancos small {
   display: flex;
   align-items: center;
   gap: 0.6em;
-  padding: 0.85em 1.3em;
-  border-radius: 3px;
-  background: #b8925a;
-  color: #fff;
-  font-size: 0.85em;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--f-mono);
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  box-shadow: 0 16px 30px -14px rgb(120 85 35 / 0.7);
+  color: rgb(226 236 255 / 0.75);
 }
 
-.mc-visita svg:not(.mc-visita__puntero) {
-  width: 1.2em;
+/* La letra del detalle, en su círculo, como las llamadas de un plano. */
+.mp-cuota small i,
+.mp-bancos small i {
+  display: grid;
+  width: 1.9em;
+  height: 1.9em;
+  place-items: center;
+  border: 1.5px solid #ffd84d;
+  border-radius: 50%;
+  color: #ffd84d;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-.mc-visita__puntero,
-.ms-boton__puntero,
-.mg-click__puntero {
+.mp-cota {
+  left: 0;
+  top: -12%;
+  display: grid;
+  width: 100%;
+  place-items: center;
+  color: #ffd84d;
+  animation-name: pz-aparece;
+}
+
+.mp-cota__linea {
   position: absolute;
-  width: 1.6em;
-  filter: drop-shadow(0 3px 4px rgb(0 0 0 / 0.3));
-  animation: mi-toca 2.6s var(--pz-ease) calc(var(--d) + 400ms) infinite;
+  inset: 50% 0 auto;
+  height: 1.5px;
+  background: currentColor;
+  transform-origin: center;
+  animation: mi-crece 1s var(--pz-ease) calc(var(--d) + 100ms) both;
 }
 
-.mc-visita__puntero {
-  right: -0.6em;
-  bottom: -1.4em;
+.mp-cota__linea::before,
+.mp-cota__linea::after {
+  content: "";
+  position: absolute;
+  top: -0.55em;
+  width: 1.5px;
+  height: 1.1em;
+  background: currentColor;
+  rotate: 35deg;
+}
+
+.mp-cota__linea::before {
+  left: 0;
+}
+
+.mp-cota__linea::after {
+  right: 0;
+}
+
+.mp-cota span {
+  position: relative;
+  padding: 0.2em 0.9em;
+  background: #ffd84d;
+  color: #0b2a6b;
+  font-family: var(--f-mono);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mp-cuota {
+  left: -8%;
+  top: 56%;
+  display: grid;
+  gap: 0.35em;
+  padding: 0.9em 1.2em 1em;
+}
+
+.mp-cuota b {
+  font-family: var(--f-display);
+  font-size: 2.9em;
+  font-weight: 800;
+  font-stretch: 62%;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+}
+
+.mp-cuota span {
+  font-family: var(--f-mono);
+  font-size: 0.74em;
+  color: rgb(226 236 255 / 0.7);
+}
+
+.mp-bancos {
+  left: 74%;
+  top: 4%;
+  display: grid;
+  width: 34%;
+  gap: 0.55em;
+  padding: 0.9em 1em 1em;
+}
+
+.mp-bancos__fila {
+  display: grid;
+  grid-template-columns: 5.6em 1fr auto;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.86em;
+  animation: pz-entra 0.5s var(--pz-ease) calc(var(--d) + 300ms + var(--i) * 140ms) both;
+}
+
+.mp-bancos__fila span:last-child {
+  font-family: var(--f-mono);
+  font-size: 0.92em;
+}
+
+.mp-bancos__fila i {
+  height: 0.5em;
+  background: repeating-linear-gradient(135deg, rgb(226 236 255 / 0.55) 0 2px, transparent 2px 5px);
+  border: 1px solid rgb(226 236 255 / 0.6);
+  scale: var(--w) 1;
+  transform-origin: left;
+  animation: mi-crece 0.9s var(--pz-ease) calc(var(--d) + 400ms + var(--i) * 140ms) both;
+}
+
+.mp-bancos__fila[data-mejor] {
+  color: #ffd84d;
+  font-weight: 700;
+}
+
+.mp-bancos__fila[data-mejor] i {
+  border-color: #ffd84d;
+  background: #ffd84d;
+}
+
+/* El cajetín de la lámina: proyecto, escala, idiomas y hoja. */
+.mp-cajetin {
+  left: 58%;
+  top: 86%;
+  display: grid;
+  width: 46%;
+  grid-template-columns: 1.4fr 0.8fr;
+  box-shadow: none;
+}
+
+.mp-cajetin span {
+  display: grid;
+  gap: 0.2em;
+  padding: 0.5em 0.75em;
+  font-family: var(--f-mono);
+  font-size: 0.8em;
+  letter-spacing: 0.06em;
+}
+
+.mp-cajetin span:nth-child(odd) {
+  border-right: 1.5px solid #e2ecff;
+}
+
+.mp-cajetin span:nth-child(-n + 2) {
+  border-bottom: 1.5px solid #e2ecff;
+}
+
+.mp-cajetin small {
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ffd84d;
+}
+
+/* La nota a mano del arquitecto, con su flecha a la cuota. */
+.mp-nota {
+  left: -15%;
+  top: 18%;
+  display: grid;
+  color: #ffd84d;
+  rotate: -6deg;
+  animation-name: pz-aparece;
+}
+
+.mp-nota .pz-mano {
+  font-size: 2em;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgb(4 20 60 / 0.8);
+}
+
+.mp-nota .pz-trazo {
+  width: 4.4em;
+  margin: 0.1em 0 0 -1.2em;
+  rotate: 50deg;
+  filter: drop-shadow(0 2px 6px rgb(4 20 60 / 0.7));
 }
 
 /* ── guia: Onvi dentro del sistema ─────────────────────────────────────── */
@@ -1634,7 +1803,737 @@
   width: 0.95em;
 }
 
+/* ── registros: el monitor del Panel Onvi, verde sobre negro ───────────── */
+
+.pz-escenario[data-escena="registros"] {
+  --pz-fondo: #03100a;
+  --pz-tinta: #e6fff0;
+  --pz-suave: rgb(214 255 230 / 0.68);
+  --pz-acento: #3dfc8f;
+  --pz-linea: rgb(61 252 143 / 0.3);
+  --pz-sombra: 0 40px 80px -30px rgb(0 0 0 / 0.9), 0 0 0 1px rgb(61 252 143 / 0.25), 0 0 70px -20px rgb(61 252 143 / 0.25);
+  --pz-sel-fondo: rgb(6 24 16 / 0.82);
+  --pz-sel-on: rgb(61 252 143 / 0.16);
+  --pz-sel-on-tinta: #3dfc8f;
+  --pz-sel-barra: #3dfc8f;
+  --pz-grano: 0.14;
+}
+
+.pz-escenario[data-escena="registros"] .pz-fondo {
+  background:
+    radial-gradient(55% 60% at 70% 45%, rgb(26 120 70 / 0.35), transparent 70%),
+    radial-gradient(40% 50% at 12% 90%, rgb(16 80 50 / 0.4), transparent 70%), #03100a;
+}
+
+/* Líneas de pantalla y una cuadrícula de puntos, como un osciloscopio. */
+.pz-escenario[data-escena="registros"] .pz-fondo__textura {
+  background:
+    repeating-linear-gradient(0deg, rgb(61 252 143 / 0.045) 0 1px, transparent 1px 4px),
+    radial-gradient(rgb(61 252 143 / 0.22) 1px, transparent 1.5px) 0 0 / 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 30%, transparent 85%);
+}
+
+.pz-escenario[data-escena="registros"] .pz-fondo__halo {
+  background: radial-gradient(closest-side, rgb(61 252 143 / 0.14), transparent 72%);
+}
+
+.pz-escenario[data-escena="registros"] .pz-fondo__fantasma {
+  font-family: var(--f-mono);
+  font-size: clamp(110px, 17vw, 300px);
+  font-weight: 600;
+  font-stretch: normal;
+  letter-spacing: -0.08em;
+  color: rgb(61 252 143 / 0.06);
+}
+
+/* Una barrida de luz que baja por la pantalla, de vez en cuando. */
+.pz-escenario[data-escena="registros"] .pz-fondo__extra:not(.pz-fondo__extra--b) {
+  inset: 0 0 auto;
+  height: 30%;
+  background: linear-gradient(transparent, rgb(61 252 143 / 0.06) 70%, transparent);
+  animation: mr-barre 7s linear infinite;
+}
+
+/* El pulso del sitio, de punta a punta, con una luz que lo recorre. */
+.mr-pulso {
+  position: absolute;
+  left: 0;
+  bottom: 9%;
+  width: 100%;
+  height: clamp(70px, 9vw, 120px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.mr-pulso path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mr-pulso__base {
+  stroke: rgb(61 252 143 / 0.16);
+  stroke-width: 1.6;
+}
+
+.mr-pulso__luz {
+  stroke: #3dfc8f;
+  stroke-width: 2.4;
+  stroke-dasharray: 0.12 0.88;
+  stroke-dashoffset: 1.12;
+  filter: drop-shadow(0 0 6px rgb(61 252 143 / 0.9));
+  animation: mr-recorre 4.2s linear 0.4s infinite;
+}
+
+.pz-escenario[data-escena="registros"] .pz-texto__ante {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 7px 12px;
+  border: 1px solid rgb(61 252 143 / 0.3);
+  border-radius: 6px;
+  background: rgb(61 252 143 / 0.07);
+  color: #3dfc8f;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.pz-escenario[data-escena="registros"] .pz-texto__ante::before {
+  content: "$";
+  color: rgb(214 255 230 / 0.5);
+}
+
+/* El cursor de la terminal, titilando. */
+.pz-escenario[data-escena="registros"] .pz-texto__ante::after {
+  content: "";
+  width: 0.6em;
+  height: 1.15em;
+  background: #3dfc8f;
+  animation: pz-parpadea 1s steps(1) infinite;
+}
+
+.pz-escenario[data-escena="registros"] .pz-texto__titulo {
+  font-family: var(--f-mono);
+  font-size: clamp(44px, 5vw, 84px);
+  font-weight: 600;
+  font-stretch: normal;
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+}
+
+.pz-escenario[data-escena="registros"] .pz-texto__titulo em {
+  display: block;
+  color: #3dfc8f;
+  text-shadow: 0 0 28px rgb(61 252 143 / 0.45);
+}
+
+.pz-escenario[data-escena="registros"] .pz-texto__etiquetas li {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  border-color: rgb(61 252 143 / 0.28);
+  border-radius: 6px;
+  background: rgb(61 252 143 / 0.06);
+  letter-spacing: 0.08em;
+}
+
+.pz-escenario[data-escena="registros"] .pz-texto__etiquetas li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3dfc8f;
+  box-shadow: 0 0 8px #3dfc8f;
+}
+
+.pz-escenario[data-escena="registros"] .pz-selector__nombre {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: -0.02em;
+}
+
+/* Pop-ups del monitor: paneles de vidrio negro con borde verde. */
+.mr-estado,
+.mr-barras,
+.mr-ms,
+.mr-log {
+  border: 1px solid rgb(61 252 143 / 0.28);
+  background: rgb(5 22 14 / 0.86);
+  color: #e6fff0;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 24px 50px -24px rgb(0 0 0 / 0.95),
+    0 0 40px -18px rgb(61 252 143 / 0.5);
+}
+
+.mr-barras small,
+.mr-ms small {
+  font-family: var(--f-mono);
+  font-size: 0.72em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(214 255 230 / 0.6);
+}
+
+.mr-estado {
+  left: 64%;
+  top: -14%;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  padding: 0.75em 1.1em 0.75em 0.9em;
+  border-radius: 0.8em;
+}
+
+.mr-estado__punto {
+  width: 0.8em;
+  height: 0.8em;
+  flex: none;
+  border-radius: 50%;
+  background: #3dfc8f;
+  animation: mr-vivo 1.8s ease-out calc(var(--d) + 600ms) infinite;
+}
+
+.mr-estado span {
+  display: grid;
+  line-height: 1.25;
+}
+
+.mr-estado small {
+  font-family: var(--f-mono);
+  font-size: 0.78em;
+  color: rgb(214 255 230 / 0.6);
+}
+
+.mr-barras {
+  left: -10%;
+  top: 40%;
+  display: grid;
+  width: 44%;
+  gap: 0.7em;
+  padding: 0.9em 1em 1em;
+  border-radius: 0.8em;
+}
+
+.mr-barras small b {
+  margin-left: 0.4em;
+  color: #3dfc8f;
+  font-weight: 600;
+}
+
+.mr-barras__fila {
+  display: flex;
+  height: 2.2em;
+  gap: 2px;
+}
+
+.mr-barras__fila i {
+  flex: 1;
+  border-radius: 2px;
+  background: #3dfc8f;
+  transform-origin: bottom;
+  animation: mr-sube 0.5s var(--pz-ease) calc(var(--d) + 300ms + var(--i) * 28ms) both;
+}
+
+.mr-barras__fila i[data-t="lento"] {
+  background: #ffc94d;
+}
+
+.mr-barras__fila i[data-t="caido"] {
+  height: 70%;
+  margin-top: auto;
+  background: #ff5a5a;
+}
+
+.mr-ms {
+  left: 78%;
+  top: 50%;
+  display: grid;
+  width: 30%;
+  gap: 0.2em;
+  padding: 0.9em 1em 0.7em;
+  border-radius: 0.8em;
+}
+
+.mr-ms b {
+  font-family: var(--f-mono);
+  font-size: 2.3em;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 1.05;
+}
+
+.mr-ms b > span + span {
+  margin-left: 0.15em;
+  font-size: 0.45em;
+  letter-spacing: 0;
+  color: #3dfc8f;
+}
+
+.mr-ms__linea {
+  width: 100%;
+  height: 2.2em;
+  overflow: visible;
+}
+
+.mr-ms__linea path {
+  fill: none;
+  stroke: #3dfc8f;
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pz-traza 1.2s ease-in-out calc(var(--d) + 400ms) forwards;
+}
+
+.mr-log {
+  left: 14%;
+  top: 88%;
+  display: grid;
+  gap: 0.35em;
+  padding: 0.8em 1.1em;
+  border-radius: 0.7em;
+  font-family: var(--f-mono);
+  font-size: 0.86em;
+}
+
+.mr-log span {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  animation: pz-entra 0.45s var(--pz-ease) calc(var(--d) + 300ms + var(--i) * 260ms) both;
+}
+
+.mr-log time {
+  color: rgb(214 255 230 / 0.45);
+}
+
+.mr-log svg {
+  width: 1em;
+  flex: none;
+  color: #3dfc8f;
+}
+
+@keyframes mr-recorre {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mr-barre {
+  from {
+    translate: 0 -100%;
+  }
+  to {
+    translate: 0 340%;
+  }
+}
+
+@keyframes mr-sube {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes mr-vivo {
+  0% {
+    box-shadow: 0 0 0 0 rgb(61 252 143 / 0.6);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.7em rgb(61 252 143 / 0);
+  }
+}
+
+/* ── soporte: la mesa de ayuda del Panel Onvi, lila y con tickets ──────── */
+
+.pz-escenario[data-escena="soporte"] {
+  --pz-fondo: #f1edff;
+  --pz-tinta: #1d1442;
+  --pz-suave: rgb(29 20 66 / 0.68);
+  --pz-acento: #6d4aff;
+  --pz-linea: rgb(29 20 66 / 0.16);
+  --pz-sombra: 0 34px 70px -34px rgb(60 30 160 / 0.5), 0 0 0 1px rgb(29 20 66 / 0.08);
+  --pz-sel-fondo: #fbfaff;
+  --pz-sel-on: #1d1442;
+  --pz-sel-on-tinta: #fff;
+  --pz-sel-barra: #6d4aff;
+  --pz-grano: 0.07;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-fondo {
+  background:
+    radial-gradient(50% 60% at 78% 30%, #fde2f1, transparent 70%),
+    radial-gradient(55% 60% at 14% 86%, #dcd3ff, transparent 70%), #f1edff;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-fondo__textura {
+  background: radial-gradient(rgb(109 74 255 / 0.2) 1.2px, transparent 1.8px) 0 0 / 22px 22px;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 25%, transparent 85%);
+}
+
+.pz-escenario[data-escena="soporte"] .pz-fondo__halo {
+  background: radial-gradient(closest-side, rgb(109 74 255 / 0.12), transparent 72%);
+}
+
+.pz-escenario[data-escena="soporte"] .pz-fondo__fantasma {
+  font-size: clamp(140px, 22vw, 380px);
+  font-weight: 800;
+  color: rgb(109 74 255 / 0.07);
+}
+
+/* Dos tickets troquelados, grandes y de canto, flotando en el fondo. */
+.pz-escenario[data-escena="soporte"] .pz-fondo__extra:not(.pz-fondo__extra--b),
+.pz-escenario[data-escena="soporte"] .pz-fondo__extra--b {
+  left: 4%;
+  top: 8%;
+  width: min(26vw, 340px);
+  aspect-ratio: 2 / 1;
+  border: 2px dashed rgb(109 74 255 / 0.26);
+  border-radius: 18px;
+  rotate: -10deg;
+  mask:
+    radial-gradient(circle at 0 50%, transparent 15%, #000 15.5%) left / 51% 100% no-repeat,
+    radial-gradient(circle at 100% 50%, transparent 15%, #000 15.5%) right / 51% 100% no-repeat;
+  animation:
+    pz-aparece 1s ease 0.3s both,
+    mo-flota 9s ease-in-out infinite alternate;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-fondo__extra--b {
+  left: auto;
+  right: 6%;
+  top: auto;
+  bottom: 10%;
+  width: min(20vw, 260px);
+  rotate: 12deg;
+  border-color: rgb(236 72 153 / 0.24);
+  animation-delay: 0.5s, -4s;
+}
+
+/* El antetítulo es un ticket chico, con sus muescas a los lados. */
+.pz-escenario[data-escena="soporte"] .pz-texto__ante {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 8px 18px;
+  border-radius: 6px;
+  background: #6d4aff;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  mask:
+    radial-gradient(circle 6px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 6px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-texto__ante::after {
+  content: "#1024";
+  padding-left: 0.8em;
+  border-left: 1.5px dashed rgb(255 255 255 / 0.6);
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-texto__titulo {
+  font-family: var(--f-sans);
+  font-size: clamp(50px, 5.8vw, 96px);
+  font-weight: 700;
+  font-stretch: normal;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+/* El resaltado, pasado con marcador lila. */
+.pz-escenario[data-escena="soporte"] .pz-texto__titulo em {
+  padding: 0 0.06em;
+  background: linear-gradient(100deg, #cbbcff, #f9c4e3) 0 90% / 0% 0.42em no-repeat;
+  animation: mo-marca 0.9s var(--pz-ease) 0.6s forwards;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-texto__etiquetas li {
+  border: 1.5px dashed rgb(109 74 255 / 0.4);
+  border-radius: 8px;
+  background: #fff;
+  color: #3b2a8a;
+  font-family: var(--f-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pz-escenario[data-escena="soporte"] .pz-selector__nombre {
+  font-family: var(--f-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Pop-ups de soporte: tarjetas blancas, redondas, con sombra lila. */
+.mo-ticket,
+.mo-prioridad,
+.mo-pasos,
+.mo-respuesta {
+  background: #fff;
+  color: #1d1442;
+  box-shadow:
+    0 0 0 1px rgb(29 20 66 / 0.07),
+    0 24px 44px -22px rgb(60 30 160 / 0.5);
+}
+
+/* El ticket, troquelado: muescas a los lados y su línea de puntos. */
+.mo-ticket {
+  left: 56%;
+  top: -18%;
+  display: grid;
+  width: 46%;
+  gap: 0.5em;
+  padding: 0.9em 1.2em 1em;
+  background: none;
+  filter: drop-shadow(0 0 1px rgb(29 20 66 / 0.12)) drop-shadow(0 20px 22px rgb(60 30 160 / 0.28));
+  box-shadow: none;
+}
+
+/* El papel va aparte, para que la sombra siga la forma troquelada. */
+.mo-ticket::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 0.9em;
+  background: #fff;
+  mask:
+    radial-gradient(circle 0.6em at 0 62%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 0.6em at 100% 62%, transparent 98%, #000) right / 51% 100% no-repeat;
+}
+
+.mo-ticket__cabeza {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8em;
+  padding-bottom: 0.6em;
+  border-bottom: 1.5px dashed rgb(109 74 255 / 0.35);
+}
+
+.mo-ticket__cabeza small {
+  color: #6d4aff;
+  font-size: 0.8em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mo-ticket__asunto {
+  padding-top: 0.15em;
+  font-size: 0.95em;
+  color: rgb(29 20 66 / 0.75);
+}
+
+/* El sello de "Recibida", estampado de canto. */
+.mo-ticket__sello {
+  position: absolute;
+  right: 1em;
+  bottom: -0.9em;
+  padding: 0.15em 0.6em;
+  background: rgb(255 255 255 / 0.9);
+  border: 2px solid #ec4899;
+  border-radius: 0.3em;
+  color: #ec4899;
+  font-family: var(--f-mono);
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  rotate: -12deg;
+  opacity: 0.85;
+  animation: pz-golpe 0.5s var(--pz-ease) calc(var(--d) + 900ms) both;
+}
+
+.mo-prioridad {
+  left: -8%;
+  top: 22%;
+  display: grid;
+  gap: 0.5em;
+  padding: 0.8em 0.9em;
+  border-radius: 0.8em;
+}
+
+.mo-prioridad small {
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(29 20 66 / 0.5);
+}
+
+.mo-prioridad span {
+  display: flex;
+  gap: 0.25em;
+  padding: 0.25em;
+  border-radius: 0.6em;
+  background: #f1edff;
+}
+
+.mo-prioridad i {
+  padding: 0.35em 0.65em;
+  border-radius: 0.45em;
+  font-size: 0.85em;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
+  color: rgb(29 20 66 / 0.6);
+}
+
+.mo-prioridad i[data-on] {
+  background: #6d4aff;
+  color: #fff;
+  box-shadow: 0 6px 14px -6px rgb(109 74 255 / 0.8);
+}
+
+/* Los pasos de la solicitud, en fila. */
+.mo-pasos {
+  left: 4%;
+  top: 88%;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.7em 1em;
+  border-radius: 999px;
+  font-size: 0.9em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mo-pasos span {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  animation: pz-entra 0.45s var(--pz-ease) calc(var(--d) + 300ms + var(--i) * 220ms) both;
+}
+
+.mo-pasos span + span::before {
+  content: "";
+  width: 1.6em;
+  height: 2px;
+  margin-right: 0.15em;
+  border-radius: 2px;
+  background: rgb(29 20 66 / 0.14);
+}
+
+.mo-pasos span[data-e="ahora"]::before {
+  background: #6d4aff;
+}
+
+.mo-pasos i {
+  display: grid;
+  width: 1.5em;
+  height: 1.5em;
+  flex: none;
+  place-items: center;
+  border: 2px solid rgb(29 20 66 / 0.18);
+  border-radius: 50%;
+}
+
+.mo-pasos i svg {
+  width: 0.95em;
+}
+
+.mo-pasos [data-e="hecho"] i {
+  border-color: #6d4aff;
+  background: #6d4aff;
+  color: #fff;
+}
+
+.mo-pasos [data-e="ahora"] {
+  color: #6d4aff;
+}
+
+.mo-pasos [data-e="ahora"] i {
+  border-color: #6d4aff;
+  background: radial-gradient(circle, #6d4aff 0 32%, transparent 36%);
+  animation: mo-late 1.8s ease-out calc(var(--d) + 900ms) infinite;
+}
+
+.mo-pasos [data-e="falta"] {
+  color: rgb(29 20 66 / 0.45);
+}
+
+.mo-respuesta {
+  left: 66%;
+  top: 68%;
+  display: flex;
+  width: 40%;
+  align-items: flex-start;
+  gap: 0.7em;
+  padding: 0.85em 1em;
+  border-radius: 1em 1em 0.3em 1em;
+  font-size: 0.92em;
+  line-height: 1.4;
+}
+
+.mo-respuesta__avatar {
+  display: grid;
+  width: 2.1em;
+  height: 2.1em;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #8b6bff, #ec4899);
+  color: #fff;
+  font-weight: 700;
+}
+
+.mo-respuesta b {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  margin-bottom: 0.1em;
+  white-space: nowrap;
+}
+
+.mo-respuesta b small {
+  font-size: 0.78em;
+  font-weight: 500;
+  color: rgb(29 20 66 / 0.45);
+}
+
+@keyframes mo-marca {
+  to {
+    background-size: 100% 0.42em;
+  }
+}
+
+@keyframes mo-flota {
+  to {
+    transform: translate(18px, -14px);
+  }
+}
+
+@keyframes mo-late {
+  0% {
+    box-shadow: 0 0 0 0 rgb(109 74 255 / 0.5);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.6em rgb(109 74 255 / 0);
+  }
+}
+
 /* ── Movimientos compartidos ───────────────────────────────────────────── */
+
+/* La flecha del mouse que "toca" un botón sola. */
+.ms-boton__puntero,
+.mg-click__puntero {
+  position: absolute;
+  width: 1.6em;
+  filter: drop-shadow(0 3px 4px rgb(0 0 0 / 0.3));
+  animation: mi-toca 2.6s var(--pz-ease) calc(var(--d) + 400ms) infinite;
+}
 
 @keyframes mt-gira {
   from {
@@ -1728,8 +2627,9 @@
 
 @media (max-width: 767px) {
   .mt-tallas,
-  .mc-plazo,
-  .mc-visita,
+  .mp-bancos,
+  .mp-cajetin,
+  .mp-nota,
   .mg-toast,
   .mg-click,
   .mh-pin,
@@ -1737,7 +2637,11 @@
   .mf-toast,
   .mf-merma,
   .ms-boton,
-  .ms-fe {
+  .ms-fe,
+  .mr-barras,
+  .mr-ms,
+  .mo-prioridad,
+  .mo-pasos {
     display: none;
   }
 
@@ -1757,14 +2661,21 @@
     top: 84%;
   }
 
-  .mc-cuota {
-    left: -3%;
-    top: 78%;
+  .mp-cota {
+    top: -16%;
   }
 
-  .mc-idiomas {
-    left: 56%;
-    top: -26%;
+  .mp-cuota {
+    left: -3%;
+    top: 70%;
+  }
+
+  .mp-dibujo,
+  .mi-escena[data-carta] .mp-dibujo {
+    left: 50%;
+    bottom: 2%;
+    width: 120%;
+    opacity: 0.6;
   }
 
   .mg-burbuja {
@@ -1812,26 +2723,63 @@
     left: 44%;
     top: -26%;
   }
+
+  .mr-estado {
+    left: 40%;
+    top: -24%;
+  }
+
+  .mr-log {
+    left: -3%;
+    top: 74%;
+  }
+
+  .mo-ticket {
+    left: 36%;
+    top: -30%;
+    width: 66%;
+  }
+
+  .mo-respuesta {
+    left: -3%;
+    top: 74%;
+    width: 78%;
+  }
+
+  .pz-escenario[data-escena="plano"] .pz-fondo__extra--b {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mi-escena .mc-visita__puntero,
   .mi-escena .ms-boton__puntero,
   .mi-escena .mg-click__puntero,
   .mi-escena .mg-click__onda,
   .mi-escena .mh-puntos i,
   .mi-escena .mh-pin__icono,
-  .mi-escena .ms-toast__icono svg {
+  .mi-escena .ms-toast__icono svg,
+  .mi-escena .mr-pulso__luz,
+  .mi-escena .mr-estado__punto,
+  .mi-escena .mo-pasos [data-e="ahora"] i,
+  .pz-escenario[data-escena="registros"] .pz-fondo__extra,
+  .pz-escenario[data-escena="registros"] .pz-texto__ante::after,
+  .pz-escenario[data-escena="soporte"] .pz-fondo__extra {
     animation: none;
+  }
+
+  .mi-escena .mp-dibujo path {
+    stroke-dashoffset: 0;
   }
 }
 
 /* Las píldoras y avisos van en una línea (no se aprietan contra el borde de la tarjeta). */
 .mt-carrito,
 .mt-pago,
-.mc-plazo,
-.mc-idiomas,
-.mc-visita,
+.mp-cota span,
+.mp-cuota span,
+.mr-estado,
+.mr-log span,
+.mo-prioridad span,
 .mg-toast,
 .mh-yo,
 .mh-pin,

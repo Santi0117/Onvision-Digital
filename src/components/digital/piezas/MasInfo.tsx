@@ -16,7 +16,7 @@ import { celda, pintar, type Pintura } from "./cortina";
 import { PIEZAS, type IdPieza, type Pieza } from "./datos";
 import { MAS, tieneMas, type Extra, type Mas } from "./mas";
 import Popups from "./Popups";
-import PopupsMas from "./PopupsMas";
+import PopupsMas, { ArteMas } from "./PopupsMas";
 import { BotonAccion, TextoPieza } from "./Texto";
 import "./masinfo.css";
 import "./mundos.css";
@@ -80,7 +80,7 @@ function useVisto<T extends Element>() {
   return [ref, visto] as const;
 }
 
-function Fondo({ fantasma }: { fantasma: string }) {
+function Fondo({ fantasma, children }: { fantasma: string; children?: React.ReactNode }) {
   return (
     <div className="pz-fondo" aria-hidden>
       <span className="pz-fondo__textura" />
@@ -88,6 +88,7 @@ function Fondo({ fantasma }: { fantasma: string }) {
       <span className="pz-fondo__fantasma">{fantasma}</span>
       <span className="pz-fondo__extra" />
       <span className="pz-fondo__extra pz-fondo__extra--b" />
+      {children}
     </div>
   );
 }
@@ -152,7 +153,9 @@ function SeccionExtra({ extra, carta }: { extra: Extra; carta: "izq" | "der" }) 
       aria-labelledby={`mi-${extra.id}`}
       {...inclinar}
     >
-      <Fondo fantasma={extra.fantasma} />
+      <Fondo fantasma={extra.fantasma}>
+        <ArteMas mundo={extra.mundo} />
+      </Fondo>
       <span className="pz-grano" aria-hidden />
       <div className="mi-cuerpo">
         <div className="pz-texto">

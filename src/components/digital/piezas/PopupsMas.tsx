@@ -5,10 +5,11 @@ import { Cuenta } from "./Popups";
 
 /**
  * Los pop-ups de las secciones de "Más información": cada sección tiene su
- * mundo, sacado del diseño de su captura (la tienda deportiva, la página de
- * bienes raíces, el sistema de la clínica, el chat del taller, la finca y el
- * restaurante), y sus pop-ups hablan ese idioma. Son decorado: lo que
- * cuentan también está en el texto de la sección.
+ * mundo, sacado del diseño de su captura (la tienda deportiva, el plano de
+ * la página de bienes raíces, el sistema de la clínica, el chat del taller,
+ * la finca, el restaurante y el monitor y el soporte del Panel Onvi), y sus
+ * pop-ups hablan ese idioma. Son decorado: lo que cuentan también está en
+ * el texto de la sección.
  */
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
@@ -78,41 +79,68 @@ function Tienda() {
   );
 }
 
-/* ── Páginas web · componentes: bienes raíces, marfil y dorado ────────── */
+/* ── Páginas web · componentes: el plano del arquitecto, azul y a mano ─── */
 
-function Cuotas() {
+const BANCOS = [
+  { banco: "BAC", tasa: "7,80 %", largo: 0.62 },
+  { banco: "BN", tasa: "8,50 %", largo: 0.78 },
+  { banco: "Davivienda", tasa: "9,25 %", largo: 0.94 },
+] as const;
+
+function Plano() {
   return (
     <>
-      <svg className="pz-pop pz-trazo mc-marco" viewBox="0 0 100 100" preserveAspectRatio="none" style={v({ "--d": "200ms", "--z": 4 })} aria-hidden>
-        <rect x="1" y="1" width="98" height="98" rx="4" pathLength={1} />
-      </svg>
-      <div className="pz-pop mc-cuota" style={v({ "--d": "340ms", "--z": 20 })}>
-        <small>Cuota mensual</small>
+      <div className="pz-pop mp-cota" style={v({ "--d": "120ms", "--z": 8 })}>
+        <i className="mp-cota__linea" />
+        <span>6 bancos · 1 clic</span>
+      </div>
+      <div className="pz-pop mp-cuota" style={v({ "--d": "360ms", "--z": 22 })}>
+        <small>
+          <i>A</i>
+          Cuota mensual
+        </small>
         <b>
           <Cuenta antes="₡" hasta={532837} retraso={700} dur={1300} />
         </b>
         <span>BAC · 15 años · tasa fija 7,80 %</span>
       </div>
-      <div className="pz-pop mc-plazo" style={v({ "--d": "120ms", "--z": 14 })}>
-        <small>Plazo</small>
+      <div className="pz-pop mp-bancos" style={v({ "--d": "560ms", "--z": 16 })}>
+        <small>
+          <i>B</i>
+          Compara tasas
+        </small>
+        {BANCOS.map((b, i) => (
+          <span key={b.banco} className="mp-bancos__fila" data-mejor={i === 0 || undefined} style={v({ "--i": i, "--w": b.largo })}>
+            <span>{b.banco}</span>
+            <i />
+            <span>{b.tasa}</span>
+          </span>
+        ))}
+      </div>
+      <div className="pz-pop mp-cajetin" style={v({ "--d": "780ms", "--z": 12 })}>
         <span>
-          {["10", "15", "20", "25"].map((a) => (
-            <i key={a} data-on={a === "15" || undefined}>
-              {a} años
-            </i>
-          ))}
+          <small>Proyecto</small>
+          JOPA · cuotas
+        </span>
+        <span>
+          <small>Escala</small>
+          1:1
+        </span>
+        <span>
+          <small>Idiomas</small>
+          ES · EN · PT
+        </span>
+        <span>
+          <small>Hoja</small>
+          03 / 03
         </span>
       </div>
-      <div className="pz-pop mc-idiomas" style={v({ "--d": "560ms", "--z": 22 })}>
-        <span className="mc-bandera mc-bandera--es" />
-        <span className="mc-bandera mc-bandera--us" />
-        <span className="mc-bandera mc-bandera--br" />
-        <b>ES · EN · PT</b>
-      </div>
-      <div className="pz-pop mc-visita" style={v({ "--d": "820ms", "--z": 26 })}>
-        Agendar visita
-        <Flecha />
-        <Puntero className="mc-visita__puntero" />
+      <div className="pz-pop mp-nota" style={v({ "--d": "1000ms", "--z": 28 })}>
+        <span className="pz-mano">¡calcula solo!</span>
+        <svg className="pz-trazo" viewBox="0 0 80 60" aria-hidden>
+          <path d="M6 10 C 30 4, 58 16, 64 48" pathLength={1} />
+          <path d="M54 40 L 64 50 L 71 37" pathLength={1} />
+        </svg>
       </div>
     </>
   );
@@ -300,13 +328,163 @@ function Salon() {
   );
 }
 
+/* ── Panel Onvi · registros: el monitor, verde sobre negro ─────────────── */
+
+const BARRAS = Array.from({ length: 30 }, (_, i) => (i === 11 ? "lento" : i === 22 ? "caido" : "ok"));
+
+const LOG = [
+  { hora: "10:00", texto: "Sitio en línea · 182 ms" },
+  { hora: "10:10", texto: "Formulario recibido" },
+  { hora: "10:20", texto: "Pago confirmado" },
+] as const;
+
+function Registros() {
+  return (
+    <>
+      <div className="pz-pop mr-estado" style={v({ "--d": "120ms", "--z": 20 })}>
+        <i className="mr-estado__punto" />
+        <span>
+          <b>Todo en línea</b>
+          <small>99,91 % · últimos 90 días</small>
+        </span>
+      </div>
+      <div className="pz-pop mr-barras" style={v({ "--d": "320ms", "--z": 14 })}>
+        <small>
+          Disponibilidad <b>90 días</b>
+        </small>
+        <span className="mr-barras__fila">
+          {BARRAS.map((t, i) => (
+            <i key={i} data-t={t} style={v({ "--i": i })} />
+          ))}
+        </span>
+      </div>
+      <div className="pz-pop mr-ms" style={v({ "--d": "560ms", "--z": 24 })}>
+        <small>Respuesta media</small>
+        <b>
+          <Cuenta hasta={180} retraso={800} dur={900} /> <span>ms</span>
+        </b>
+        <svg viewBox="0 0 120 34" className="mr-ms__linea" preserveAspectRatio="none" aria-hidden>
+          <path d="M0 24 C 10 22, 16 26, 26 20 S 42 14, 52 18 S 70 26, 80 16 S 98 8, 108 12 L 120 26" pathLength={1} />
+        </svg>
+      </div>
+      <div className="pz-pop mr-log" style={v({ "--d": "800ms", "--z": 18 })}>
+        {LOG.map((l, i) => (
+          <span key={l.hora} style={v({ "--i": i })}>
+            <time>{l.hora}</time>
+            <Ok />
+            {l.texto}
+          </span>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/* ── Panel Onvi · soporte: la mesa de ayuda, lila y con tickets ────────── */
+
+const PASOS = [
+  { paso: "Recibida", estado: "hecho" },
+  { paso: "En curso", estado: "ahora" },
+  { paso: "Lista", estado: "falta" },
+] as const;
+
+function Soporte() {
+  return (
+    <>
+      <div className="pz-pop mo-ticket" style={v({ "--d": "120ms", "--z": 20 })}>
+        <span className="mo-ticket__cabeza">
+          <b>Solicitud #1024</b>
+          <small>Cambio en el sitio</small>
+        </span>
+        <span className="mo-ticket__asunto">Cambiar el horario de atención</span>
+        <span className="mo-ticket__sello">Recibida</span>
+      </div>
+      <div className="pz-pop mo-prioridad" style={v({ "--d": "340ms", "--z": 14 })}>
+        <small>Prioridad</small>
+        <span>
+          {["Baja", "Normal", "Alta", "Urgente"].map((p) => (
+            <i key={p} data-on={p === "Normal" || undefined}>
+              {p}
+            </i>
+          ))}
+        </span>
+      </div>
+      <div className="pz-pop mo-pasos" style={v({ "--d": "560ms", "--z": 22 })}>
+        {PASOS.map((p, i) => (
+          <span key={p.paso} data-e={p.estado} style={v({ "--i": i })}>
+            <i>{p.estado === "hecho" ? <Ok /> : null}</i>
+            {p.paso}
+          </span>
+        ))}
+      </div>
+      <div className="pz-pop mo-respuesta" style={v({ "--d": "820ms", "--z": 26 })}>
+        <span className="mo-respuesta__avatar">O</span>
+        <span>
+          <b>
+            Equipo Onvision <small>hace 5 min</small>
+          </b>
+          Recibido. Ya estamos cambiando el horario.
+        </span>
+      </div>
+    </>
+  );
+}
+
+/* ── Lo que se dibuja en el fondo de algunos mundos ────────────────────── */
+
+/** El pulso del monitor: seis latidos seguidos, de punta a punta. */
+const PULSO = `M0 70 ${Array.from({ length: 6 }, (_, k) => {
+  const x = k * 200;
+  return `L${x + 40} 70 Q${x + 52} 58 ${x + 64} 70 L${x + 84} 70 L${x + 92} 82 L${x + 102} 14 L${x + 112} 106 L${x + 120} 70 L${x + 142} 70 Q${x + 160} 52 ${x + 178} 70 L${x + 200} 70`;
+}).join(" ")}`;
+
+/**
+ * El dibujo de fondo de un mundo, detrás del texto y la captura: la casa en
+ * elevación del plano (se traza al llegar, con sus cotas) o el pulso del
+ * monitor de Registros. Los demás mundos no tienen.
+ */
+export function ArteMas({ mundo }: { mundo: string }) {
+  if (mundo === "plano") {
+    return (
+      <svg className="mp-dibujo" viewBox="0 0 520 400" aria-hidden>
+        <g className="mp-dibujo__casa">
+          <path d="M60 340 V180 L250 60 L440 180 V340 Z" pathLength={1} />
+          <path d="M34 198 L250 44 L466 198" pathLength={1} />
+          <path d="M210 340 V252 H290 V340" pathLength={1} />
+          <path d="M100 212 H170 V266 H100 Z M135 212 V266 M100 239 H170" pathLength={1} />
+          <path d="M330 212 H400 V266 H330 Z M365 212 V266 M330 239 H400" pathLength={1} />
+          <path d="M356 116 V72 H390 V140" pathLength={1} />
+          <path d="M8 340 H512" pathLength={1} />
+        </g>
+        <g className="mp-dibujo__cota">
+          <path d="M60 366 H440 M60 356 V376 M440 356 V376 M60 366 l10 -5 M60 366 l10 5 M440 366 l-10 -5 M440 366 l-10 5" pathLength={1} />
+          <path d="M486 180 V340 M476 180 H496 M476 340 H496" pathLength={1} />
+          <text x="250" y="392">8,40 m</text>
+          <text x="500" y="266" transform="rotate(90 500 266)">4,20 m</text>
+        </g>
+      </svg>
+    );
+  }
+  if (mundo === "registros") {
+    return (
+      <svg className="mr-pulso" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden>
+        <path className="mr-pulso__base" d={PULSO} />
+        <path className="mr-pulso__luz" d={PULSO} pathLength={1} />
+      </svg>
+    );
+  }
+  return null;
+}
+
 const SECCIONES: Record<string, () => JSX.Element> = {
   "web-tienda": Tienda,
-  "web-componentes": Cuotas,
+  "web-componentes": Plano,
   "onvi-software": Guia,
   "onvi-pagina": Chat,
   "software-cosecha": Finca,
   "software-mesas": Salon,
+  "panel-registros": Registros,
+  "panel-soporte": Soporte,
 };
 
 export default function PopupsMas({ id }: { id: string }) {

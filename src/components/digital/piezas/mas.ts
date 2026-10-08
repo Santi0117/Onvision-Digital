@@ -9,7 +9,7 @@ import type { IdPieza } from "./datos";
  */
 
 /** El mundo de cada sección: su piel en mundos.css (y el menú de abajo la toma al pasar). */
-export type Mundo = "tienda" | "cuotas" | "guia" | "chat" | "finca" | "salon";
+export type Mundo = "tienda" | "plano" | "guia" | "chat" | "finca" | "salon" | "registros" | "soporte";
 
 export type Extra = {
   /** También elige los pop-ups de la sección (ver PopupsMas). */
@@ -50,8 +50,8 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
       },
       {
         id: "web-componentes",
-        mundo: "cuotas",
-        tema: "claro",
+        mundo: "plano",
+        tema: "oscuro",
         imagen: "/servicios/web-componentes.webp",
         alt: "Sitio de bienes raíces que calcula la cuota mensual de una casa en seis bancos a la vez",
         antetitulo: "componentes a medida",
@@ -59,7 +59,7 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         bajada:
           "Lo que tu negocio necesita dentro de la página: calculadoras, cotizadores, reservas o comparadores. Como la cuota de una casa en seis bancos, al instante y en tres idiomas.",
         etiquetas: ["Calculadoras", "Cotizadores", "Varios idiomas"],
-        fantasma: "₡",
+        fantasma: "A-03",
       },
     ],
     cierre: {
@@ -133,9 +133,44 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
       },
     ],
     cierre: {
-      antetitulo: "03 — ¿y el tuyo?",
+      antetitulo: "02 — ¿y el tuyo?",
       titulo: ["¿Qué sistema ", "te hace falta?"],
       bajada: "Contanos cómo trabajás hoy y lo convertimos en un sistema a tu medida: ventas, inventario, reportes y clientes en un solo lugar.",
+    },
+  },
+  panel: {
+    extras: [
+      {
+        id: "panel-registros",
+        mundo: "registros",
+        tema: "oscuro",
+        imagen: "/servicios/panel-registros.webp",
+        alt: "Registros del Panel Onvi: el sitio en línea el 99,91 % de los últimos 90 días, la velocidad de respuesta y las interrupciones recientes",
+        antetitulo: "onvi registros",
+        titulo: ["Tu sitio, ", "siempre en línea"],
+        bajada:
+          "Todo lo que pasa detrás de tu sitio: formularios, correos, pagos y publicaciones, con un monitor que lo revisa cada 10 minutos y cuánto tarda en responder.",
+        etiquetas: ["Monitor cada 10 min", "Formularios y pagos", "Velocidad"],
+        fantasma: "99,91%",
+      },
+      {
+        id: "panel-soporte",
+        mundo: "soporte",
+        tema: "claro",
+        imagen: "/servicios/panel-soporte.webp",
+        alt: "Soporte del Panel Onvi: una nueva solicitud de cambio en el sitio, con el tipo, el asunto y la prioridad",
+        antetitulo: "soporte",
+        titulo: ["Pedí un cambio, ", "seguí el avance"],
+        bajada:
+          "Textos, fotos, precios o una sección nueva: lo pedís desde el panel, con tus capturas, y ves en qué va cada solicitud hasta que queda lista.",
+        etiquetas: ["Cambios en el sitio", "Prioridad", "Capturas"],
+        fantasma: "#1024",
+      },
+    ],
+    cierre: {
+      antetitulo: "05 — incluido en todos los planes",
+      titulo: ["Tu negocio, ", "en un solo lugar"],
+      bajada: "Reservas, registros y soporte en el mismo panel, desde la compu o el celular. Viene con todos los planes.",
     },
   },
 };
