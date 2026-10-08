@@ -1,9 +1,9 @@
 # Onvision Digital — sitio nuevo
 
-El sitio de [onvisiondigital.com](https://onvisiondigital.com) rediseñado desde
-cero, con toda su información, sus partes y sus productos. Es un proyecto
-**aparte**: no toca la landing oficial (`onvision-landing`) ni la página de
-verticales (`verticales`).
+El sitio de [onvisiondigital.com](https://onvisiondigital.com), rediseñado desde
+cero con toda su información, sus partes y sus productos. Desde octubre de 2026
+es el que está en el dominio. No toca `sistema.onvisiondigital.com`
+(`onvision-landing`) ni la página de verticales (`verticales`).
 
 El diseño mezcla cuatro referencias:
 
@@ -76,21 +76,26 @@ respuestas de siempre.
 
 ## Publicarlo en Vercel
 
-1. **Add New → Project** e importá este repositorio.
-2. Cargá las variables de `.env.example` en **Settings → Environment Variables**.
-3. Probalo primero en la dirección de Vercel. Para ponerlo en
-   `onvisiondigital.com`, mové `onvisiondigital.com` y `www.onvisiondigital.com`
-   a este proyecto; `sistema.onvisiondigital.com` se queda donde está.
-4. Después de cargar o cambiar variables, volvé a publicar (**Deployments →
-   Redeploy**): las `NEXT_PUBLIC_…` se leen al compilar.
+Este repositorio publica en dos proyectos de Vercel:
 
-Con el dominio acá, las direcciones viejas siguen andando (`next.config.ts`):
-`/activar` y `/producto` llevan a `sistema.onvisiondigital.com`, `/portal` al
-Panel Onvi de Servicios, y `/api/pagos/…` (TiloPay) y `/api/checkout` (el
-cobro de los verticales) pasan tal cual al proyecto de
-`sistema.onvisiondigital.com`. El aviso de pago de Onvo (`/api/webhooks/onvo`,
-el cobro recurrente de los planes) se atiende acá, igual que en el sitio
-oficial.
+- **apex-digital**: el de `onvisiondigital.com`, el sitio oficial. Cada push a
+  `main` se publica ahí. Sus variables (Supabase, Onvo, OpenAI y
+  `NEXT_PUBLIC_SITE_URL`) son las del sitio de siempre y están marcadas como
+  "Sensitive": no se pueden leer, solo reemplazar.
+- **onvision-digital**: una copia en `onvision-digital.vercel.app`, con sus
+  propias variables (su agenda no está conectada).
+
+`sistema.onvisiondigital.com` es otro proyecto (`onvision-landing`) y no se
+toca desde acá. Si una publicación sale mal, en apex-digital → **Deployments**
+se elige la anterior y **Instant Rollback**. Después de cambiar variables hay
+que volver a publicar: las `NEXT_PUBLIC_…` se leen al compilar.
+
+Las direcciones viejas siguen andando (`next.config.ts`): `/activar` y
+`/producto` llevan a `sistema.onvisiondigital.com`, `/portal` al Panel Onvi de
+Servicios, y `/api/pagos/…` (TiloPay) y `/api/checkout` (el cobro de los
+verticales) pasan tal cual al proyecto de `sistema.onvisiondigital.com`. El
+aviso de pago de Onvo (`/api/webhooks/onvo`, el cobro recurrente de los planes)
+se atiende acá, igual que en el sitio anterior.
 
 En el plan Hobby, Vercel solo publica los commits cuyo autor es el dueño de la
 cuenta: los de otro autor los salta sin avisar (no aparece ningún deploy). Los
