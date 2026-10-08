@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   useCallback,
   useEffect,
@@ -35,8 +36,6 @@ type Trabajo = {
   ideal: string;
   /** Con qué servicio llega "Quiero uno así" al formulario de contacto. */
   quiero: string;
-  /** A dónde lleva "Ir a Servicios": su "Más información" si lo tiene; si no, Servicios. */
-  servicios: string;
   /**
    * Los archivos en /trabajos (ver Fuentes): AV1 y HEVC, livianos y nítidos,
    * un .mp4 H.264 de respaldo y la portada .webp. Con `movil`, el AV1 y el
@@ -64,7 +63,6 @@ const TRABAJOS: readonly Trabajo[] = [
     incluye: ["Diseño desde cero", "Animaciones y 3D", "Reservas y citas", "Calculadoras a medida"],
     ideal: "bares, estudios, inmobiliarias, autos y servicios.",
     quiero: "Página web",
-    servicios: "/digital?servicio=web",
     video: "web",
     movil: true,
     forma: "navegador",
@@ -84,7 +82,6 @@ const TRABAJOS: readonly Trabajo[] = [
     incluye: ["Catálogo con filtros", "Carrito y pagos", "Productos personalizables", "Pedidos por WhatsApp"],
     ideal: "ropa, cosmética, alimentos y todo lo que se vende por catálogo.",
     quiero: "Tienda online",
-    servicios: "/digital?servicio=web",
     video: "ecommerce",
     movil: true,
     forma: "navegador",
@@ -104,7 +101,6 @@ const TRABAJOS: readonly Trabajo[] = [
     incluye: ["Agenda y pacientes", "Inventario con alertas", "Reportes y notas", "Usuarios y roles"],
     ideal: "clínicas, centros educativos y empresas de servicios.",
     quiero: "Software a medida",
-    servicios: "/digital?servicio=software",
     video: "software",
     movil: true,
     forma: "navegador",
@@ -124,7 +120,6 @@ const TRABAJOS: readonly Trabajo[] = [
     incluye: ["iPhone y Android", "Avisos al instante", "Cuentas y planes", "Stickers NFC"],
     ideal: "salud, hogar, suscripciones y clientes frecuentes.",
     quiero: "App móvil",
-    servicios: "/digital#servicios",
     video: "apps",
     forma: "telefono",
     tono: "#b65cff",
@@ -147,6 +142,9 @@ type VideoWebkit = HTMLVideoElement & { webkitEnterFullscreen?: () => void; webk
 const enGrande = (v: VideoWebkit) => document.fullscreenElement === v || Boolean(v.webkitDisplayingFullscreen);
 
 const conI = (i: number) => ({ "--i": i }) as CSSProperties;
+
+/** "Ir a Servicios": la sección principal, con las seis piezas (sin abrir "Más información"). */
+const SERVICIOS = "/digital#servicios";
 
 /** Compu y tablet: la versión 1080p; el celular, la de 720p. */
 const GRANDE = "(min-width: 768px)";
@@ -638,13 +636,12 @@ export default function Trabajos() {
             </div>
 
             <div className="tb__pie">
-              {/* Con carga completa: Servicios abre su "Más información" leyendo la dirección al entrar. */}
-              <a href={t.servicios} className="tb__ir" aria-label={`Ir a Servicios: ${t.servicio}`}>
+              <Link href={SERVICIOS} className="tb__ir">
                 Ir a Servicios
                 <i aria-hidden>
                   <Flecha />
                 </i>
-              </a>
+              </Link>
               <div className="tb__control">
                 <button
                   type="button"
