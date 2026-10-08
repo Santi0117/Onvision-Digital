@@ -38,9 +38,9 @@ type Trabajo = {
   /** A dónde lleva "Ir a Servicios": su "Más información" si lo tiene; si no, Servicios. */
   servicios: string;
   /**
-   * Los archivos en /trabajos: .mp4 (H.264) en calidad alta, .webm (VP9) de
-   * respaldo y la imagen .webp. Con `movil`, también un -movil.mp4 más
-   * liviano para pantallas chicas.
+   * Los archivos en /trabajos (ver Fuentes): AV1 y HEVC, livianos y nítidos,
+   * un .mp4 H.264 de respaldo y la portada .webp. Con `movil`, el AV1 y el
+   * HEVC vienen también en 720p para pantallas chicas.
    */
   video: string;
   movil?: boolean;
@@ -48,21 +48,21 @@ type Trabajo = {
   tono: string;
 };
 
-/** Los videos del sitio anterior, cada uno con lo que se ve en él. */
+/** Los videos de los trabajos, cada uno con lo que se ve en él. */
 const TRABAJOS: readonly Trabajo[] = [
   {
     id: "web",
     n: "01",
     servicio: "Sitios web",
     corto: "Web",
-    proyectos: "Helio · Toksu · Alchemy",
-    direccion: "helio · toksu · alchemy",
+    proyectos: "Helio · Alchemy · Etílico · JOPA",
+    direccion: "helio · alchemy · etílico · jopa",
     titulo: "Páginas con carácter propio.",
     texto:
-      "Cada marca, con su sitio desde cero: el teléfono 3D de Helio que se abre al bajar, las reservas de mesa de Toksu y las sesiones que Alchemy agenda en línea.",
-    resumen: "Sitios desde cero con 3D, reservas de mesa y sesiones que se agendan solas.",
-    incluye: ["Diseño desde cero", "Animaciones y 3D", "Reservas y formularios", "Rápida en el celular"],
-    ideal: "restaurantes, tiendas, estudios y servicios.",
+      "Cada marca, con su sitio desde cero: el teléfono 3D de Helio, las sesiones que Alchemy agenda en línea, la carta y los eventos de Etílico, y las visitas y el financiamiento de JOPA.",
+    resumen: "Sitios desde cero con 3D, reservas, visitas y calculadoras de financiamiento.",
+    incluye: ["Diseño desde cero", "Animaciones y 3D", "Reservas y citas", "Calculadoras a medida"],
+    ideal: "bares, estudios, inmobiliarias, autos y servicios.",
     quiero: "Página web",
     servicios: "/digital?servicio=web",
     video: "web",
@@ -75,17 +75,18 @@ const TRABAJOS: readonly Trabajo[] = [
     n: "02",
     servicio: "E-commerce",
     corto: "Tienda",
-    proyectos: "Firstdown",
-    direccion: "firstdown",
-    titulo: "Una tienda lista para vender.",
+    proyectos: "Firstdown · Lunea · Frutas Guba",
+    direccion: "firstdown · lunea · guba",
+    titulo: "Tiendas listas para vender.",
     texto:
-      "Firstdown vende jerseys originales: catálogo por liga y por equipo, un probador 3D para armar el outfit y un carrito con tallas, colores y precios en colones.",
-    resumen: "Catálogo por liga, probador 3D y carrito con precios en colones.",
-    incluye: ["Catálogo con filtros", "Carrito y pagos", "Probador 3D", "Ofertas y envíos"],
-    ideal: "ropa, accesorios y todo lo que se vende por catálogo.",
+      "Firstdown personaliza jerseys con tu nombre y número, Lunea vende su cosmética natural por categorías y Frutas Guba toma pedidos por kilo con día y hora de entrega, directo a WhatsApp.",
+    resumen: "Jerseys personalizados, cosmética natural y pedidos de frutas con entrega programada.",
+    incluye: ["Catálogo con filtros", "Carrito y pagos", "Productos personalizables", "Pedidos por WhatsApp"],
+    ideal: "ropa, cosmética, alimentos y todo lo que se vende por catálogo.",
     quiero: "Tienda online",
     servicios: "/digital?servicio=web",
     video: "ecommerce",
+    movil: true,
     forma: "navegador",
     tono: "#4d7cff",
   },
@@ -94,14 +95,14 @@ const TRABAJOS: readonly Trabajo[] = [
     n: "03",
     servicio: "Software a medida",
     corto: "Software",
-    proyectos: "Meridiano · Santa Elena · aula virtual",
-    direccion: "meridiano · santa elena · aula",
+    proyectos: "ClinicOS · UniLearn · Meridiano",
+    direccion: "clinicos · unilearn · meridiano",
     titulo: "Tu operación, en un solo lugar.",
     texto:
-      "Sistemas hechos a la medida de cómo trabajás: la mesa de operaciones de Meridiano, la agenda y el inventario de la Clínica Santa Elena y un aula virtual con cursos y entregas.",
-    resumen: "Operaciones, agenda, inventario y cursos, cada uno a la medida de su equipo.",
-    incluye: ["Agenda y citas", "Inventario con alertas", "Reportes en vivo", "Usuarios y roles"],
-    ideal: "clínicas, empresas de servicios y educación.",
+      "Sistemas hechos a la medida de cómo trabajás: la agenda, los pacientes y el inventario de una clínica en ClinicOS, los cursos y las notas de UniLearn y la mesa de operaciones de Meridiano.",
+    resumen: "Clínicas, plataformas educativas y operaciones, cada una a su medida.",
+    incluye: ["Agenda y pacientes", "Inventario con alertas", "Reportes y notas", "Usuarios y roles"],
+    ideal: "clínicas, centros educativos y empresas de servicios.",
     quiero: "Software a medida",
     servicios: "/digital?servicio=software",
     video: "software",
@@ -146,6 +147,40 @@ type VideoWebkit = HTMLVideoElement & { webkitEnterFullscreen?: () => void; webk
 const enGrande = (v: VideoWebkit) => document.fullscreenElement === v || Boolean(v.webkitDisplayingFullscreen);
 
 const conI = (i: number) => ({ "--i": i }) as CSSProperties;
+
+/** Compu y tablet: la versión 1080p; el celular, la de 720p. */
+const GRANDE = "(min-width: 768px)";
+const AV1_1080 = 'video/mp4; codecs="av01.0.08M.08"';
+const AV1_720 = 'video/mp4; codecs="av01.0.05M.08"';
+const HEVC_1080 = 'video/mp4; codecs="hvc1.1.6.L120.90"';
+const HEVC_720 = 'video/mp4; codecs="hvc1.1.6.L93.90"';
+
+/**
+ * Las fuentes de un video, de la más liviana a la de respaldo: AV1 (Chrome,
+ * Android, Firefox), HEVC (iPhone y Safari) y H.264 para cualquier otro. El
+ * navegador usa la primera que puede reproducir.
+ */
+function Fuentes({ x }: { x: Trabajo }) {
+  const base = `/trabajos/${x.video}`;
+  if (!x.movil) {
+    return (
+      <>
+        <source src={`${base}.av1.mp4`} type={AV1_1080} />
+        <source src={`${base}.hevc.mp4`} type={HEVC_1080} />
+        <source src={`${base}.mp4`} type="video/mp4" />
+      </>
+    );
+  }
+  return (
+    <>
+      <source src={`${base}.av1.mp4`} type={AV1_1080} media={GRANDE} />
+      <source src={`${base}.hevc.mp4`} type={HEVC_1080} media={GRANDE} />
+      <source src={`${base}-movil.av1.mp4`} type={AV1_720} />
+      <source src={`${base}-movil.hevc.mp4`} type={HEVC_720} />
+      <source src={`${base}.mp4`} type="video/mp4" />
+    </>
+  );
+}
 
 /** Las flechas mueven entre pestañas, como en cualquier lista de pestañas. */
 const FLECHAS: Partial<Record<string, number>> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
@@ -219,6 +254,8 @@ export default function Trabajos() {
   const [pausa, setPausa] = useState<boolean | null>(null);
   const [sonando, setSonando] = useState(false);
   const [enVista, setEnVista] = useState(false);
+  /** Ya cerca de la pantalla: recién ahí se piden las portadas (la página abre más liviana). */
+  const [cerca, setCerca] = useState(false);
   const [visto, setVisto] = useState(false);
   const quieto = useSyncExternalStore(suscribirQuieto, quietoAhora, quietoServidor);
   const detenido = pausa ?? quieto;
@@ -254,7 +291,7 @@ export default function Trabajos() {
     return () => io.disconnect();
   }, []);
 
-  // A la vista: se reproduce. Cerca: el video que toca ya empieza a cargar.
+  // A la vista: se reproduce. Cerca: las portadas y el video que toca empiezan a cargar.
   useEffect(() => {
     const el = escenario.current;
     if (!el) return;
@@ -262,6 +299,7 @@ export default function Trabajos() {
     const cerca = new IntersectionObserver(
       ([e]) => {
         if (!e?.isIntersecting) return;
+        setCerca(true);
         const v = videos.current[activoRef.current];
         if (v && v.preload === "none" && !quietoAhora()) v.preload = "auto";
         cerca.disconnect();
@@ -478,8 +516,8 @@ export default function Trabajos() {
             </h2>
           </div>
           <p className="tb__lede">
-            Cuatro proyectos reales, grabados tal cual se usan: sitios, una tienda, sistemas y una app. Elegí uno y
-            miralo funcionar.
+            Proyectos reales, grabados tal cual se usan: sitios, tiendas, sistemas y una app. Elegí uno y miralo
+            funcionar.
           </p>
         </div>
 
@@ -535,7 +573,7 @@ export default function Trabajos() {
               onPointerLeave={alSalir}
             >
               <div className="tb__auras" aria-hidden>
-                {TRABAJOS.map((x, i) => (
+                {(cerca ? TRABAJOS : []).map((x, i) => (
                   <Image
                     key={x.id}
                     className="tb__aura"
@@ -572,7 +610,7 @@ export default function Trabajos() {
                           }}
                           className="tb__video"
                           data-on={i === activo ? "" : undefined}
-                          poster={`/trabajos/${x.video}.webp`}
+                          poster={cerca ? `/trabajos/${x.video}.webp` : undefined}
                           muted
                           playsInline
                           preload="none"
@@ -590,13 +628,7 @@ export default function Trabajos() {
                           }}
                           onEnded={() => alTerminar(i)}
                         >
-                          <source
-                            src={`/trabajos/${x.video}.mp4`}
-                            type="video/mp4"
-                            media={x.movil ? "(min-width: 768px)" : undefined}
-                          />
-                          {x.movil ? <source src={`/trabajos/${x.video}-movil.mp4`} type="video/mp4" /> : null}
-                          <source src={`/trabajos/${x.video}.webm`} type="video/webm" />
+                          <Fuentes x={x} />
                         </video>
                       ))}
                     </div>
