@@ -34,14 +34,12 @@ const nextConfig: NextConfig = {
     ];
   },
   /**
-   * Los avisos de pago (Onvo y TiloPay) y el cobro de los verticales los
-   * atiende el proyecto de sistema.onvisiondigital.com, con sus propias claves.
-   * Si Onvo o TiloPay quedaron apuntando a onvisiondigital.com, el aviso pasa
-   * tal cual.
+   * El cobro de los verticales y el aviso de TiloPay los atiende el proyecto de
+   * sistema.onvisiondigital.com: si llegan acá, pasan tal cual. (El aviso de
+   * Onvo sí se atiende acá, en /api/webhooks/onvo.)
    */
   async rewrites() {
     return [
-      { source: "/api/webhooks/:path+", destination: `${SISTEMA}/api/webhooks/:path+` },
       { source: "/api/pagos/:path+", destination: `${SISTEMA}/api/pagos/:path+` },
       { source: "/api/checkout", destination: `${SISTEMA}/api/checkout` },
     ];

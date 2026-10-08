@@ -86,10 +86,11 @@ respuestas de siempre.
 
 Con el dominio acá, las direcciones viejas siguen andando (`next.config.ts`):
 `/activar` y `/producto` llevan a `sistema.onvisiondigital.com`, `/portal` al
-Panel Onvi de Servicios, y los avisos de pago que lleguen a
-`/api/webhooks/…` (Onvo), `/api/pagos/…` (TiloPay) o `/api/checkout` pasan
-tal cual al proyecto de `sistema.onvisiondigital.com`, que los atiende con sus
-llaves.
+Panel Onvi de Servicios, y `/api/pagos/…` (TiloPay) y `/api/checkout` (el
+cobro de los verticales) pasan tal cual al proyecto de
+`sistema.onvisiondigital.com`. El aviso de pago de Onvo (`/api/webhooks/onvo`,
+el cobro recurrente de los planes) se atiende acá, igual que en el sitio
+oficial.
 
 En el plan Hobby, Vercel solo publica los commits cuyo autor es el dueño de la
 cuenta: los de otro autor los salta sin avisar (no aparece ningún deploy). Los
