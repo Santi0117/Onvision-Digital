@@ -168,14 +168,14 @@ export default function Agenda() {
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; error?: string };
       if (!res.ok || !data.ok) {
-        setError(data.error || "No se pudo agendar. Intentá de nuevo.");
+        setError(data.error || "No se pudo agendar. Intenta de nuevo.");
         setEnviando(false);
         return;
       }
       setListo(data.message || "¡Cita agendada!");
       setEnviando(false);
     } catch {
-      setError("No se pudo agendar. Intentá de nuevo.");
+      setError("No se pudo agendar. Intenta de nuevo.");
       setEnviando(false);
     }
   };
@@ -202,7 +202,7 @@ export default function Agenda() {
           {!elegido ? (
             <div className="od-agenda__vacio">
               <p className="od-agenda__vacio-titulo">¿Cuándo te queda bien?</p>
-              <p>Elegí un día en el calendario para empezar.</p>
+              <p>Elige un día en el calendario para empezar.</p>
               <ol className="od-agenda__pasos">
                 {Object.values(digitalMeeting.steps).map((s, i) => (
                   <li key={s}>

@@ -28,19 +28,19 @@ export const MONTHLY_CHECKOUT_PLANS: Record<string, MonthlyCheckoutPlan> = {
   },
   "shop-standard": {
     id: "shop-standard",
-    description: "Mensualidad · E-commerce estándar — Onvision Digital",
+    description: "Mensualidad · Tienda estándar — Onvision Digital",
     currency: "CRC",
     unitAmount: 2_200_000,
   },
   "shop-pro": {
     id: "shop-pro",
-    description: "Mensualidad · E-commerce Pro — Onvision Digital",
+    description: "Mensualidad · Tienda Pro — Onvision Digital",
     currency: "CRC",
     unitAmount: 3_000_000,
   },
   "software-saas": {
     id: "software-saas",
-    description: "Mensualidad · Software SaaS — Onvision Digital",
+    description: "Mensualidad · Software a medida — Onvision Digital",
     currency: "USD",
     unitAmount: 13_000,
   },

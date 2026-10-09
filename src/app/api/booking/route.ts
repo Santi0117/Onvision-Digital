@@ -84,7 +84,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "La agenda aún no está configurada. Escribinos por WhatsApp para coordinar.",
+            "La agenda aún no está configurada. Escríbenos por WhatsApp para coordinar.",
         },
         { status: 503 },
       );
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     const clientId = getClientId(request);
     if (isRateLimited(clientId)) {
       return NextResponse.json(
-        { error: "Demasiados intentos. Probá de nuevo en un minuto." },
+        { error: "Demasiados intentos. Prueba de nuevo en un minuto." },
         { status: 429 },
       );
     }
@@ -138,42 +138,42 @@ export async function POST(request: Request) {
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json(
-        { error: "Ingresá un correo válido." },
+        { error: "Ingresa un correo válido." },
         { status: 400 },
       );
     }
 
     if (!name || name.length < 2) {
       return NextResponse.json(
-        { error: "Ingresá tu nombre o el de tu empresa." },
+        { error: "Ingresa tu nombre o el de tu empresa." },
         { status: 400 },
       );
     }
 
     if (!phone || phone.replace(/\D/g, "").length < 8) {
       return NextResponse.json(
-        { error: "Ingresá un teléfono válido." },
+        { error: "Ingresa un teléfono válido." },
         { status: 400 },
       );
     }
 
     if (modality === "in_person" && location.length < 3) {
       return NextResponse.json(
-        { error: "Indicá dónde te gustaría la reunión presencial." },
+        { error: "Indica dónde te gustaría la reunión presencial." },
         { status: 400 },
       );
     }
 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       return NextResponse.json(
-        { error: "Seleccioná una fecha válida." },
+        { error: "Selecciona una fecha válida." },
         { status: 400 },
       );
     }
 
     if (!isValidBookingSlot(hour, minute)) {
       return NextResponse.json(
-        { error: "Seleccioná un horario válido." },
+        { error: "Selecciona un horario válido." },
         { status: 400 },
       );
     }
@@ -182,7 +182,7 @@ export async function POST(request: Request) {
     const scheduledDate = new Date(scheduledAt);
     if (scheduledDate.getTime() <= Date.now()) {
       return NextResponse.json(
-        { error: "Elegí una fecha y hora futuras." },
+        { error: "Elige una fecha y hora futuras." },
         { status: 400 },
       );
     }
@@ -255,13 +255,13 @@ export async function POST(request: Request) {
     if (dbError) {
       if (dbError.code === "23505") {
         return NextResponse.json(
-          { error: "Ese horario ya está ocupado. Elegí otro." },
+          { error: "Ese horario ya está ocupado. Elige otro." },
           { status: 409 },
         );
       }
       console.error("[booking] insert error:", dbError.message);
       return NextResponse.json(
-        { error: "No se pudo agendar la cita. Intentá de nuevo." },
+        { error: "No se pudo agendar la cita. Intenta de nuevo." },
         { status: 500 },
       );
     }

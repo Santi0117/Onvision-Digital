@@ -209,6 +209,18 @@
   color: var(--gris);
 }
 
+.od-plan__otros span + span::before {
+  content: "·";
+  margin-right: 10px;
+}
+
+/* En el celular van en dos renglones: sin el punto al inicio del segundo. */
+@media (max-width: 767px) {
+  .od-plan__otros span + span::before {
+    content: none;
+  }
+}
+
 .od-plan__otros em {
   margin-left: 4px;
   padding: 2px 7px;
@@ -216,6 +228,14 @@
   background: #d9f8ea;
   font-style: normal;
   color: var(--menta-p);
+}
+
+/* La condición del plan, justo debajo del precio. */
+.od-plan__condicion {
+  margin-top: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--tinta);
 }
 
 .od-plan__pagar {
@@ -242,6 +262,14 @@
   padding-top: 18px;
   border-top: 1px solid var(--linea);
   color: var(--gris);
+}
+
+/* "Todo lo de Página estándar, más:" sobre la lista del Pro. */
+.od-plan__previo {
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--tinta);
 }
 
 .od-plan__lista {

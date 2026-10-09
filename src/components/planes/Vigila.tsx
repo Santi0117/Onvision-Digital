@@ -8,7 +8,7 @@ import { OJO_CONTORNO } from "../od/ui";
  * del ojo) vienen en los seis planes; los de afuera, según el plan.
  */
 const ADENTRO = ["Onvi IA", "Panel Onvi"];
-const AFUERA = ["Hosting", "SSL", "Respaldos", "Soporte", "Actualizaciones", "Velocidad"];
+const AFUERA = ["Hosting", "Sitio seguro", "Copias de seguridad", "Soporte", "Actualizaciones", "Velocidad"];
 
 /** Una vuelta del barrido; cada cosa se enciende cuando el barrido le pasa por encima. */
 const VUELTA_S = 6;
@@ -60,13 +60,13 @@ export default function Vigila() {
   return (
     <section className="pl-vigila" aria-labelledby="pl-vigila-titulo">
       <div className="pl-vigila__texto">
-        <p className="pl-vigila__ante">Todos los meses</p>
+        <p className="pl-vigila__ante">Incluido todos los meses</p>
         <h2 id="pl-vigila-titulo" className="pl-vigila__h2">
           Nosotros nos encargamos del resto<i>.</i>
         </h2>
         <p className="pl-vigila__lede">
-          Hosting, seguridad, soporte y mejoras: Onvision vigila tu sitio mientras tu negocio vende. Onvi IA y el Panel vienen en los
-          seis planes; lo demás, según el plan.
+          Hosting, seguridad, soporte y mejoras: cuidamos tu página mientras tú te enfocas en vender. Los 6 planes incluyen a Onvi y el
+          Panel; lo demás depende del plan.
         </p>
         <ul className="sr-only">
           {[...ADENTRO, ...AFUERA].map((c) => (

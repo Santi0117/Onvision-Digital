@@ -25,7 +25,7 @@ function Ovalo() {
   );
 }
 
-/** El acento que cambia (Accesible · A medida · Sostenible · Humano). */
+/** El acento que cambia dentro del óvalo (Accesible · A medida · Con soporte · Humano). */
 function Acentos() {
   const [i, setI] = useState(0);
   useEffect(() => {
@@ -76,7 +76,6 @@ function Manifiesto() {
         ))}
       </h1>
       <div className="od-man__pie">
-        <p className="od-man__lead">{aboutPage.hero.lead}</p>
         <div className="od-man__botones">
           <button type="button" className="od-boton od-boton--linea-d" onClick={() => irA("#objetivo")}>
             Seguir leyendo <Flecha dir="abajo" />
@@ -86,11 +85,6 @@ function Manifiesto() {
           </Link>
         </div>
       </div>
-      <p className="od-man__equipo" aria-hidden>
-        {aboutPage.hero.accents.map((a) => (
-          <span key={a}>{a}</span>
-        ))}
-      </p>
     </section>
   );
 }
@@ -148,6 +142,7 @@ function Stack() {
               <Mark />
             </span>
             <span>{name}</span>
+            {aboutPage.tools.uses[name] ? <span className="od-stack__para">{aboutPage.tools.uses[name]}</span> : null}
           </motion.li>
         ))}
       </ul>
@@ -159,8 +154,7 @@ function Habilidades() {
   return (
     <section className="od-hab" aria-labelledby="od-hab-titulo">
       <h2 id="od-hab-titulo" className="od-hab__titulo">
-        {aboutPage.skills.title.replace(/:$/, "")}
-        <em className="od-serif">:</em>
+        {aboutPage.skills.title}
       </h2>
       <ol className="od-hab__lista">
         {aboutPage.skills.items.map((s) => (

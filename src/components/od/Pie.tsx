@@ -33,7 +33,7 @@ function Hora() {
 
 /**
  * El pie: la tarjeta redondeada con la marca gigante de driveberry, los
- * datos en mono de hobro y el "Quedate al tanto" del sitio oficial.
+ * datos en mono de hobro y el "Mantente al tanto" del sitio oficial.
  */
 export default function Pie() {
   const [correo, setCorreo] = useState("");
@@ -59,11 +59,11 @@ export default function Pie() {
         <div className="od-pie__arriba">
           <div className="od-pie__intro">
             <p className="od-pie__lema">
-              Sitios, tiendas, software y el SaaS Onvision. Una empresa, varias puertas<span className="od-punto">.</span>
+              Sitios, tiendas, software y el sistema Onvision. Una empresa, varias soluciones<span className="od-punto">.</span>
             </p>
             <form className="od-pie__form" onSubmit={enviar} noValidate>
               <label className="od-pie__rotulo" htmlFor="od-pie-correo">
-                Quedate al tanto
+                Mantente al tanto
               </label>
               <div className="od-pie__campo">
                 <input
@@ -81,7 +81,7 @@ export default function Pie() {
                   aria-describedby={error ? "od-pie-error" : undefined}
                 />
                 <button type="submit">
-                  {listo ? "Listo" : "Avisame"}
+                  {listo ? "Listo" : "Avísame"}
                   <Flecha />
                 </button>
               </div>

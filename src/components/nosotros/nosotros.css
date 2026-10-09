@@ -85,48 +85,13 @@
   margin-top: clamp(36px, 5vw, 70px);
 }
 
-.od-man__lead {
-  max-width: 40ch;
-  font-size: 19px;
-  line-height: 1.5;
-  color: var(--gris-3);
-}
-
 .od-man__botones {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.od-man__equipo {
-  position: absolute;
-  top: clamp(150px, 15vw, 210px);
-  right: var(--gut);
-  display: grid;
-  font-family: var(--f-sans);
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.35;
-  text-transform: uppercase;
-}
-
-.od-man__equipo span:nth-child(2) {
-  padding-left: 3.5em;
-}
-
-.od-man__equipo span:nth-child(3) {
-  padding-left: 1.6em;
-}
-
-.od-man__equipo span:nth-child(4) {
-  padding-left: 5em;
-}
-
 @media (max-width: 900px) {
-  .od-man__equipo {
-    display: none;
-  }
-
   .od-man__hueco {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(255 255 255 / 0.75);
@@ -254,6 +219,15 @@
 .od-stack__grilla li:hover {
   border-color: var(--cian);
   transform: translateY(-4px);
+}
+
+/* Para qué sirve cada herramienta, en una línea gris. */
+.od-stack__para {
+  margin-top: -6px;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--gris-3);
 }
 
 .od-stack__marca {

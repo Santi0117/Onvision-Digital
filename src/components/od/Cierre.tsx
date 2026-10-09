@@ -51,7 +51,8 @@ export default function Cierre({
 }: {
   pregunta?: string;
   palabra?: string;
-  lead?: string;
+  /** `null`: sin frase debajo de la palabra gigante. */
+  lead?: string | null;
   primario?: { label: string; href: string };
   secundario?: { label: string; href: string };
 }) {
@@ -66,7 +67,7 @@ export default function Cierre({
         <Revuelta palabra={palabra} />
         <span className="od-cierre__par">)</span>
       </p>
-      <p className="od-cierre__lead">{lead}</p>
+      {lead ? <p className="od-cierre__lead">{lead}</p> : null}
       <div className="od-cierre__botones">
         <Link href={primario.href} className="od-boton od-boton--cian">
           {primario.label} <Flecha />

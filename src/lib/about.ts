@@ -1,50 +1,63 @@
 export const aboutPage = {
   hero: {
     label: "Manifiesto",
-    accents: ["Accesible", "A medida", "Sostenible", "Humano"],
+    /** Lo que va cambiando dentro del óvalo, junto a "Manifiesto". */
+    accents: ["Accesible", "A medida", "Con soporte", "Humano"],
     /** Outline / solid segments for manifesto headline */
     lines: [
       {
         parts: [
-          { text: "Nuestro objetivo era hacer que las ", style: "outline" },
-          { text: "empresas y negocios", style: "solid" },
+          { text: "Nuestro objetivo es que ", style: "outline" },
+          { text: "cualquier negocio", style: "solid" },
         ],
       },
       {
         parts: [
-          { text: "pudieran digitalizarse sin necesidad de ", style: "outline" },
-          { text: "pagar demasiado.", style: "solid" },
+          { text: "pueda digitalizarse ", style: "outline" },
+          { text: "sin pagar de más.", style: "solid" },
         ],
       },
     ],
-    lead: "Sitios, tiendas y software a medida — calidad seria, precios que se pueden sostener.",
   },
   mission: {
     kicker: "01 · Objetivo",
     title: "Hacer la digitalización accesible de verdad.",
-    body: "Vimos demasiados negocios pagar de más por páginas genéricas, o quedarse sin sistema porque el presupuesto no alcanzaba. Nuestro objetivo es simple: que cualquier empresa pueda digitalizarse bien, sin renunciar a diseño, velocidad ni soporte.",
+    body: "Somos Onvision Digital, un equipo de Costa Rica que crea páginas web, tiendas, sistemas y apps. Vimos a muchos negocios pagar de más por páginas genéricas o quedarse sin sistema por falta de presupuesto. Por eso trabajamos con pagos mensuales: buen diseño, rapidez y soporte.",
     pillars: [
       {
         label: "Accesible",
-        text: "Planes claros y mensuales que un negocio puede sostener.",
+        text: "Pagos mensuales claros, sin un gran pago al inicio.",
       },
       {
         label: "A medida",
-        text: "Cada proyecto se adapta a tu operación, no al revés.",
+        text: "Cada proyecto se adapta a cómo trabaja tu negocio.",
       },
       {
-        label: "Listo para operar",
-        text: "Entregamos para usar: pagos, IA, hosting y soporte.",
+        label: "Listo para usar",
+        text: "Te lo entregamos funcionando: cobros en línea, asistente con IA, hosting y soporte.",
       },
     ],
   },
   tools: {
-    kicker: "02 · Stack",
-    title: "Las mismas herramientas con las que construimos en serio.",
-    body: "No improvisamos. Usamos un stack moderno, seguro y rápido — el mismo que sostiene sitios, tiendas y sistemas en producción.",
+    kicker: "02 · Tecnología",
+    title: "Tecnología moderna, la misma que usan empresas grandes.",
+    body: "Trabajamos con herramientas modernas y seguras, usadas en todo el mundo. Tu página carga rápido, está protegida y crece contigo.",
+    /** Una línea debajo de cada logo: para qué sirve. */
+    uses: {
+      "Next.js": "Páginas que cargan rápido",
+      ONVO: "Cobros con tarjeta",
+      React: "Pantallas fluidas",
+      PostgreSQL: "Tus datos ordenados",
+      Neon: "Datos en la nube",
+      Notion: "Proyecto organizado",
+      Postman: "Todo probado",
+      OWASP: "Normas de seguridad",
+      AWS: "Servidores confiables",
+      Vercel: "Tu sitio siempre en línea",
+    } as Record<string, string>,
   },
   skills: {
-    title: "Habilidades detrás:",
+    title: "Lo que hay detrás de cada proyecto",
     items: [
       {
         code: "01",
@@ -67,7 +80,7 @@ export const aboutPage = {
     ],
   },
   cta: {
-    title: "¿Listos para digitalizar?",
+    title: "¿Todo listo para digitalizar tu negocio?",
     primary: { label: "Ver los servicios", href: "/digital" },
     secondary: {
       label: "Agendar reunión",

@@ -55,7 +55,7 @@ export const companySistema = {
 } as const;
 
 export const companyOffers = {
-  title: "No te atrasés en digitalizar tu negocio. Onvision es para todos.",
+  title: "Digitaliza tu negocio sin pagar de más. Hay un plan para ti.",
 } as const;
 
 export type CliStepKind = "think" | "read" | "search" | "write" | "text" | "code";

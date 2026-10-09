@@ -9,7 +9,7 @@ import "@/components/planes/planes.css";
 export const metadata: Metadata = {
   title: "Planes — Onvision Digital",
   description:
-    "Planes claros para sitios, tiendas, software y apps, con Onvi IA y el Panel incluidos. Pagá la mensualidad o agendá una reunión.",
+    "Planes claros para páginas web, tiendas, software y apps, con Onvi IA y el Panel incluidos. Paga mes a mes o agenda una reunión.",
 };
 
 /** Planes, en una sola página: elegir la línea y el plan (y pagarlo) o agendar una reunión. */

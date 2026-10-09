@@ -6,7 +6,7 @@ import "@/components/nosotros/nosotros.css";
 
 export const metadata: Metadata = {
   title: "Sobre nosotros — Onvision Digital",
-  description: aboutPage.hero.lead,
+  description: aboutPage.mission.body,
 };
 
 export default function SobreNosotros() {
@@ -16,7 +16,7 @@ export default function SobreNosotros() {
       <Cierre
         pregunta={aboutPage.cta.title}
         palabra="EMPECEMOS"
-        lead="Sitios, tiendas y software a medida — calidad seria, precios que se pueden sostener."
+        lead={null}
         primario={{ label: aboutPage.cta.primary.label, href: aboutPage.cta.primary.href }}
         secundario={{ label: aboutPage.cta.secondary.label, href: aboutPage.cta.secondary.href }}
       />

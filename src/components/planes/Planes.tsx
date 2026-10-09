@@ -17,20 +17,28 @@ type Plan = (typeof digitalPlans.groups)[DigitalPlanGroupKey]["plans"][number];
 
 const VISIBLES = 6;
 
-/** La tarjeta de nordpixel: ícono de píxeles, precio grande, pagar, cotizar y qué incluye. */
+/**
+ * La tarjeta de nordpixel: ícono de píxeles, precio grande, los botones y qué
+ * incluye. Las páginas y tiendas se pagan desde acá; el software y las apps
+ * (`cotizar`) primero se cotizan, así que su botón principal es cotizar y el
+ * otro, agendar una reunión.
+ */
 function Tarjeta({
   plan,
   grupo,
   indice,
+  cotizar,
   alPagar,
 }: {
   plan: Plan;
   grupo: DigitalPlanGroupKey;
   indice: number;
+  cotizar?: string;
   alPagar: () => void;
 }) {
   const [todo, setTodo] = useState(false);
   const destacado = "highlighted" in plan && plan.highlighted;
+  const pestaña = "badge" in plan && plan.badge ? plan.badge : digitalPlans.mostChosen;
   const desde = "startsAt" in plan && plan.startsAt ? `${digitalPlans.fromLabel} ` : "";
   const lista = todo ? plan.features : plan.features.slice(0, VISIBLES);
   const idLista = `pl-plan-${grupo}-${indice}`;
@@ -42,7 +50,7 @@ function Tarjeta({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: EASE, delay: indice * 0.08 }}
     >
-      {destacado ? <p className="od-plan__pestaña">{digitalPlans.mostChosen}</p> : null}
+      {destacado ? <p className="od-plan__pestaña">{pestaña}</p> : null}
       <Pixel figura={FIGURA[grupo]} className="od-plan__pixel" />
       <p className="od-mono od-plan__n">{pad(indice + 1)}</p>
       <h3 className="od-plan__nombre">{plan.name}</h3>
@@ -55,30 +63,51 @@ function Tarjeta({
           <span>{digitalPlans.period}</span>
         </p>
         {"priceAlt" in plan && plan.priceAlt ? <p className="od-plan__alt">{plan.priceAlt}</p> : null}
+        {/* "$350 al año (ahorras 17%) · o $550 en un solo pago" */}
         <p className="od-plan__otros">
           {"priceYear" in plan && plan.priceYear ? (
             <span>
-              {desde}
+              {desde ? "Desde " : ""}
               {plan.priceYear} {digitalPlans.yearLabel} <em>{digitalPlans.yearSave}</em>
             </span>
           ) : null}
           {"priceFull" in plan && plan.priceFull ? (
             <span>
-              {desde}
+              o {desde}
               {plan.priceFull} {digitalPlans.onceLabel}
             </span>
           ) : null}
         </p>
+        {"condition" in plan && plan.condition ? <p className="od-plan__condicion">{plan.condition}</p> : null}
       </div>
 
-      <button type="button" className={`od-boton ${destacado ? "od-boton--negro" : "od-boton--linea"} od-plan__pagar`} onClick={alPagar}>
-        {digitalPlans.payMonthlyCta} <Flecha dir="diagonal" />
-      </button>
-      <a href={digitalPlans.quoteHref} target="_blank" rel="noopener noreferrer" className="od-plan__cotizar">
-        {digitalPlans.quoteCta}
-      </a>
+      {cotizar ? (
+        <>
+          <a
+            href={digitalPlans.quoteHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`od-boton ${destacado ? "od-boton--negro" : "od-boton--linea"} od-plan__pagar`}
+          >
+            {cotizar} <Flecha />
+          </a>
+          <a href={digitalPlans.meetingHref} className="od-plan__cotizar">
+            {digitalPlans.meetingCta}
+          </a>
+        </>
+      ) : (
+        <>
+          <button type="button" className={`od-boton ${destacado ? "od-boton--negro" : "od-boton--linea"} od-plan__pagar`} onClick={alPagar}>
+            {digitalPlans.payMonthlyCta} <Flecha />
+          </button>
+          <a href={digitalPlans.quoteHref} target="_blank" rel="noopener noreferrer" className="od-plan__cotizar">
+            {digitalPlans.quoteCta}
+          </a>
+        </>
+      )}
 
       <p className="od-mono od-plan__rotulo">Qué incluye</p>
+      {"includesPrevious" in plan && plan.includesPrevious ? <p className="od-plan__previo">{plan.includesPrevious}</p> : null}
       <ul id={idLista} className="od-plan__lista">
         {lista.map((f) => (
           <li key={f}>
@@ -89,7 +118,7 @@ function Tarjeta({
       </ul>
       {plan.features.length > VISIBLES ? (
         <button type="button" className="od-plan__mas" aria-expanded={todo} aria-controls={idLista} onClick={() => setTodo((v) => !v)}>
-          {todo ? "Ver menos" : `Ver todo (${plan.features.length})`}
+          {todo ? "Ver menos ↑" : `Ver todo (${plan.features.length}) ↓`}
         </button>
       ) : null}
     </motion.article>
@@ -116,7 +145,7 @@ function Lineas({ linea, alElegir }: { linea: Linea; alElegir: (l: Linea) => voi
 }
 
 /**
- * Planes: "No te atrasés…" y "Planes claros" en una sola sección. Arriba el
+ * Planes: "Digitaliza tu negocio…" y "Planes claros" en una sola sección. Arriba el
  * titular en serif y la línea de servicio; después, directo, las tarjetas
  * de la línea (pagar la mensualidad con Onvo, cotizar y qué incluye) y el
  * ojo de Onvision que cuida el resto.
@@ -159,7 +188,7 @@ export default function Planes() {
           <div className="pl-planes__cabeza">
             <p className="od-eyebrow od-eyebrow--rayas">
               <i aria-hidden />
-              <span>{digitalPlans.tabs[linea]}</span>
+              <span>{digitalPlans.eyebrows[linea]}</span>
               <i aria-hidden />
             </p>
             <h2 className="od-h2">
@@ -172,7 +201,14 @@ export default function Planes() {
               <p className="od-planes__grupo">{datos.description}</p>
               <div className={`od-planes__grilla od-planes__grilla--${datos.plans.length}`}>
                 {datos.plans.map((plan, i) => (
-                  <Tarjeta key={`${linea}-${plan.name}`} plan={plan} grupo={linea} indice={i} alPagar={() => pagar(plan)} />
+                  <Tarjeta
+                    key={`${linea}-${plan.name}`}
+                    plan={plan}
+                    grupo={linea}
+                    indice={i}
+                    cotizar={"quoteCta" in datos ? datos.quoteCta : undefined}
+                    alPagar={() => pagar(plan)}
+                  />
                 ))}
               </div>
             </motion.div>
