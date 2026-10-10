@@ -13,7 +13,7 @@ function fallbackReply(message: string): string {
   if (texts.length) return texts.join("\n\n");
   return (
     reply.ask ??
-    "Puedo ayudarte con sitios, tiendas, software o el SaaS Onvision. Contame qué necesitás o agendá en /planes#agendar."
+    "Puedo ayudarte con sitios, tiendas, software o el Sistema Onvision. Cuéntame qué necesitas o agenda en /planes#agendar."
   );
 }
 

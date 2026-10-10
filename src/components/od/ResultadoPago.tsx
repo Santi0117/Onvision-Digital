@@ -6,14 +6,14 @@ const COPY = {
   success: {
     label: "Pago",
     title: "Listo. Recibimos tu mensualidad.",
-    body: "Si acabás de completar el checkout de Onvo, tu plan quedó registrado. Te contactamos pronto para activar o continuar el proyecto.",
+    body: "Si acabas de completar el pago en Onvo, tu plan quedó registrado. Te contactamos pronto para activar o continuar el proyecto.",
     primary: "Volver a planes",
     secondary: "Agendar reunión",
   },
   cancelled: {
     label: "Pago",
     title: "Pago cancelado",
-    body: "No se cobró nada. Podés volver a los planes cuando quieras o escribirnos si necesitás ayuda.",
+    body: "No se cobró nada. Puedes volver a los planes cuando quieras o escribirnos si necesitas ayuda.",
     primary: "Volver a planes",
     secondary: "Hablar por WhatsApp",
   },

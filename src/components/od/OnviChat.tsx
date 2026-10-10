@@ -42,7 +42,7 @@ function Escribe({ texto }: { texto: string }) {
   return <>{quieto ? texto : visto}</>;
 }
 
-const SUGERENCIAS = ["Ver planes", "Contame del sistema", "Quiero una tienda"];
+const SUGERENCIAS = ["Ver planes", "Cuéntame del sistema", "Quiero una tienda"];
 
 /**
  * Onvi, la IA de Onvision (el mismo chat del sitio oficial): la pestaña
@@ -133,7 +133,7 @@ export default function OnviChat() {
       });
       const data = (await res.json().catch(() => ({}))) as { reply?: string; error?: string };
       if (corrida.current !== id) return;
-      const respuesta = data.reply?.trim() || data.error || "No pude responder ahora. Probá de nuevo o agendá una reunión.";
+      const respuesta = data.reply?.trim() || data.error || "No pude responder ahora. Prueba de nuevo o agenda una reunión.";
       historia.current = [
         ...historia.current,
         { role: "user" as const, content: texto },
@@ -244,7 +244,7 @@ export default function OnviChat() {
                   value={borrador}
                   onChange={(e) => setBorrador(e.target.value)}
                   disabled={ocupada}
-                  placeholder="Escribile a Onvi…"
+                  placeholder="Escríbele a Onvi…"
                   aria-label="Mensaje para Onvi"
                   maxLength={500}
                 />

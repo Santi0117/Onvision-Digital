@@ -44,7 +44,7 @@ export const companyChats = {
 } as const;
 
 export const companySistema = {
-  title: "Un mismo núcleo, un sistema para tu industria:",
+  title: "Una misma base, un sistema para tu industria:",
   points: [
     "FACTURACIÓN 4.4 INCLUIDA",
     "INVENTARIO Y SINPE LISTOS",
@@ -83,14 +83,14 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
         },
         {
           kind: "code",
-          text: "web-standard  ₡15.000/mes\nweb-pro        ₡25.000/mes\nshop-standard  ₡22.000/mes\nsaas           $130/mes",
+          text: "web-standard  ₡15.000/mes\nweb-pro        ₡25.000/mes\nshop-standard  ₡22.000/mes\nsoftware       $130/mes",
         },
         {
           kind: "text",
-          text: "Después del mes 5 podés seguir, pasar a cobro manual o cancelar. Software y apps móviles no tienen ese mínimo. El pago único se coordina aparte.",
+          text: "Después del mes 5 puedes seguir, pasar a cobro manual o cancelar. Software y apps móviles no tienen ese mínimo. El pago único se coordina aparte.",
         },
       ],
-      ask: "¿Querés que te abra el producto SaaS o te arme el brief de tu sitio?",
+      ask: "¿Quieres que te muestre el Sistema Onvision o te arme el brief de tu sitio?",
     },
   },
   {
@@ -98,18 +98,18 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
     reply: {
       steps: [
         { kind: "think", text: "Pensé 4s" },
-        { kind: "search", text: "Onvision SaaS · FE 4.4 · verticales" },
+        { kind: "search", text: "Sistema Onvision · FE 4.4 · industrias" },
         { kind: "read", text: "/producto, industrias y el flujo de /activar…" },
         {
           kind: "text",
-          text: "Onvision es el SaaS de la casa: facturación electrónica 4.4, inventario, POS y SINPE. Un núcleo, módulos por industria.",
+          text: "El Sistema Onvision es el de la casa: facturación electrónica 4.4, inventario, caja y SINPE, con módulos para cada industria.",
         },
         {
           kind: "code",
-          text: "onvision/activar  →  elegí vertical  →  ₡10.500/mes",
+          text: "onvision/activar  →  elige tu industria  →  ₡10.500/mes",
         },
       ],
-      ask: "¿Te llevo a Activar o preferís ver industrias primero?",
+      ask: "¿Te llevo a Activar o prefieres ver las industrias primero?",
     },
   },
   {
@@ -127,7 +127,7 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
           text: "la-pacifica.com\nfirstdown-store.com\nonvisiondigital.com/empresas",
         },
       ],
-      ask: "¿Querés que te prepare una ficha para tu negocio?",
+      ask: "¿Quieres que te prepare una ficha para tu negocio?",
     },
   },
   {
@@ -138,14 +138,14 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
         { kind: "search", text: "tiendas Onvision · catálogo · checkout" },
         {
           kind: "text",
-          text: "Armamos tiendas a medida: catálogo, personalización, checkout y envíos. FirstDown es el ejemplo vivo de jerseys en colones.",
+          text: "Armamos tiendas a medida: catálogo, personalización, checkout y envíos. FirstDown es el ejemplo vivo: camisetas deportivas en colones.",
         },
         {
           kind: "code",
           text: "tienda/  catálogo  +variantes  +whatsapp  +onvo",
         },
       ],
-      ask: "¿Es una tienda nueva o ya tenés inventario?",
+      ask: "¿Es una tienda nueva o ya tienes inventario?",
     },
   },
   {
@@ -156,7 +156,7 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
         { kind: "read", text: "clínicas del portafolio y el flujo de reservas…" },
         {
           kind: "text",
-          text: "Para una clínica armo landing premium, servicios, reservas y WhatsApp. Si querés, también la ficha en Empresas.",
+          text: "Para una clínica armo landing premium, servicios, reservas y WhatsApp. Si quieres, también la ficha en Empresas.",
         },
         {
           kind: "code",
@@ -173,14 +173,14 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
         { kind: "think", text: "Pensé 1s" },
         {
           kind: "text",
-          text: `Escribinos y coordinamos. WhatsApp ${site.phone} o ${site.email}. También podés agendar desde el sitio principal.`,
+          text: `Escríbenos y coordinamos. WhatsApp ${site.phone} o ${site.email}. También puedes agendar desde el sitio principal.`,
         },
         {
           kind: "code",
           text: `wa.me/${site.whatsapp}\n${site.email}`,
         },
       ],
-      ask: "¿Preferís que te deje el mensaje listo para WhatsApp?",
+      ask: "¿Prefieres que te deje el mensaje listo para WhatsApp?",
     },
   },
 ];
@@ -188,14 +188,14 @@ const REPLIES: { test: RegExp; reply: CliReply }[] = [
 const DEFAULT_REPLY: CliReply = {
   steps: [
     { kind: "think", text: "Pensé 3s" },
-    { kind: "search", text: "sitios, tiendas, SaaS y apps en Onvision…" },
+    { kind: "search", text: "sitios, tiendas, sistemas y apps en Onvision…" },
     {
       kind: "text",
-      text: "Puedo ayudarte a plantear un sitio, una tienda, una app o el SaaS de Onvision. Contame el negocio, el plazo y si preferís mensualidad o pago único.",
+      text: "Puedo ayudarte a plantear un sitio, una tienda, una app o el Sistema Onvision. Cuéntame sobre tu negocio, para cuándo lo necesitas y si prefieres pagar mes a mes o en un solo pago.",
     },
     {
       kind: "code",
-      text: "sitios · tiendas · software · apps · onvision saas",
+      text: "sitios · tiendas · software · apps · sistema onvision",
     },
   ],
   ask: "¿Empezamos por el tipo de proyecto o por presupuesto?",
@@ -209,11 +209,11 @@ export const cliWelcomeReply: CliReply = {
     },
     {
       kind: "text",
-      text: "Hacemos sitios web, tiendas online, software a medida y apps, siempre a tu marca y listos para revisar.",
+      text: "Hacemos sitios web, tiendas en línea, software a medida y apps, siempre a tu marca y listos para revisar.",
     },
     {
       kind: "text",
-      text: "También tenemos el Sistema Onvision: facturación electrónica 4.4, inventario, POS y SINPE, con un núcleo por industria.",
+      text: "También tenemos el Sistema Onvision: facturación electrónica 4.4, inventario, caja y SINPE, con módulos para cada industria.",
     },
     {
       kind: "text",
@@ -235,7 +235,7 @@ export function replyForPrompt(prompt: string): CliReply {
       { kind: "think", text: "Pensé 2s" },
       {
         kind: "text",
-        text: `Anoté esto: “${trimmed.slice(0, 160)}”. Lo encajo en un proyecto Onvision — sitio, tienda, app o el SaaS — y te propongo el siguiente paso.`,
+        text: `Anoté esto: “${trimmed.slice(0, 160)}”. Lo encajo en un proyecto Onvision — sitio, tienda, app o el Sistema — y te propongo el siguiente paso.`,
       },
       ...DEFAULT_REPLY.steps.slice(1),
     ],

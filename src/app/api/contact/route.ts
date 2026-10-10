@@ -53,13 +53,13 @@ export async function POST(request: Request) {
   try {
     if (!isDatabaseConfigured()) {
       return NextResponse.json(
-        { error: `El formulario todavía no está conectado. Escribinos a ${site.email}.` },
+        { error: `El formulario todavía no está conectado. Escríbenos a ${site.email}.` },
         { status: 503 },
       );
     }
 
     if (isRateLimited(getClientId(request))) {
-      return NextResponse.json({ error: "Demasiados envíos. Probá de nuevo en un minuto." }, { status: 429 });
+      return NextResponse.json({ error: "Demasiados envíos. Prueba de nuevo en un minuto." }, { status: 429 });
     }
 
     const body = await request.json();
@@ -77,19 +77,19 @@ export async function POST(request: Request) {
     const budget = texto(body.budget, LIMITS.budget);
 
     if (!email || !isValidEmail(email)) {
-      return NextResponse.json({ error: "Revisá el correo." }, { status: 400 });
+      return NextResponse.json({ error: "Revisa el correo." }, { status: 400 });
     }
     if (!name || name.length < 2) {
-      return NextResponse.json({ error: "Escribí tu nombre o el de tu empresa." }, { status: 400 });
+      return NextResponse.json({ error: "Escribe tu nombre o el de tu empresa." }, { status: 400 });
     }
     if (!phone || phone.replace(/\D/g, "").length < 8) {
-      return NextResponse.json({ error: "Revisá el teléfono (mínimo 8 números)." }, { status: 400 });
+      return NextResponse.json({ error: "Revisa el teléfono (mínimo 8 números)." }, { status: 400 });
     }
     if (!service) {
-      return NextResponse.json({ error: "Elegí qué querés construir." }, { status: 400 });
+      return NextResponse.json({ error: "Elige qué quieres construir." }, { status: 400 });
     }
     if (!interest || interest.length < 10) {
-      return NextResponse.json({ error: "Contanos un poco más de la idea (mínimo 10 caracteres)." }, { status: 400 });
+      return NextResponse.json({ error: "Cuéntanos un poco más de la idea (mínimo 10 caracteres)." }, { status: 400 });
     }
 
     const supabase = getSupabaseAdmin();
@@ -131,7 +131,7 @@ export async function POST(request: Request) {
     if (dbError) {
       console.error("[contacto] DB error:", dbError.message);
       return NextResponse.json(
-        { error: `No se pudo guardar tu idea. Probá de nuevo o escribinos a ${site.email}.` },
+        { error: `No se pudo guardar tu idea. Prueba de nuevo o escríbenos a ${site.email}.` },
         { status: 500 },
       );
     }

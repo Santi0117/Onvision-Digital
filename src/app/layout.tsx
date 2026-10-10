@@ -11,14 +11,14 @@ import "./globals.css";
 const ARRANQUE = `(function(){try{var d=document.documentElement;if(sessionStorage.getItem("od-boot")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-boot","off")}else{sessionStorage.setItem("od-boot","1")}}catch(e){}})()`;
 
 export const metadata: Metadata = {
-  title: `${site.parentName} — Sitios, software y SaaS`,
+  title: `${site.parentName} — Sitios, tiendas, software y apps`,
   description:
-    "Onvision Digital construye sitios, tiendas y software a medida para empresas en Latinoamérica, y el SaaS Onvision.",
+    "Onvision Digital construye sitios, tiendas y software a medida para empresas en Latinoamérica, y el Sistema Onvision.",
   keywords: [
     "páginas web Latinoamérica",
-    "tiendas online Latinoamérica",
+    "tiendas en línea Latinoamérica",
     "páginas web Costa Rica",
-    "tiendas online Costa Rica",
+    "tiendas en línea Costa Rica",
     "software a medida",
     "apps móviles",
     "facturación electrónica Costa Rica",

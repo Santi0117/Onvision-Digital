@@ -7,7 +7,7 @@ const [ANTES, DESPUES = ""] = digitalPlans.title.split(". ");
 
 /**
  * La píldora gigante con el precio de entrada y la puerta a Planes (la
- * flecha), a los servicios y a la agenda.
+ * flecha y el botón) y a la agenda.
  */
 export default function PlanesInicio() {
   const base = planes[0]!;
@@ -35,13 +35,13 @@ export default function PlanesInicio() {
           </Link>
         </div>
         <p className="oh-pildora oh-pildora--corrida">
-          Onvi IA y el Panel incluidos en los <span className="oh-pildora__sol">{planes.length}</span> planes.
+          Asistente con IA y Panel incluidos en los <span className="oh-pildora__sol">{planes.length}</span> planes.
         </p>
       </div>
 
       <div className="oh-entrada__botones">
-        <Link href="/digital" className="oh-boton-lila">
-          Ver servicios
+        <Link href="/planes" className="oh-boton-lila">
+          Ver planes
           <Flecha className="h-4 w-4" />
         </Link>
         <Link href="/planes#agendar" className="oh-entrada__agendar">

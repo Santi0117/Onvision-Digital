@@ -65,7 +65,7 @@ export default function Marco({ children }: { children: React.ReactNode }) {
       </main>
       <Pie />
       <OnviChat />
-      <a href={wa()} target="_blank" rel="noopener noreferrer" className="od-wa" aria-label="Escribinos por WhatsApp">
+      <a href={wa()} target="_blank" rel="noopener noreferrer" className="od-wa" aria-label="Escríbenos por WhatsApp">
         <IconoWhatsApp className="h-6 w-6" />
       </a>
     </MotionConfig>

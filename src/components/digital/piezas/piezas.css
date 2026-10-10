@@ -63,16 +63,16 @@
 }
 
 .pz-escenario[data-escena="onvi"] {
-  --pz-fondo: #0c0c0c;
-  --pz-tinta: #f4ecd8;
-  --pz-suave: rgb(244 236 216 / 0.7);
-  --pz-acento: #f2b705;
-  --pz-linea: rgb(244 236 216 / 0.22);
-  --pz-sombra: 10px 10px 0 0 #f2b705;
-  --pz-sel-fondo: #0c0c0c;
-  --pz-sel-on: #f2b705;
-  --pz-sel-on-tinta: #0c0c0c;
-  --pz-sel-barra: #f2b705;
+  --pz-fondo: #06080b;
+  --pz-tinta: #f3f6f9;
+  --pz-suave: rgb(243 246 249 / 0.7);
+  --pz-acento: #34d3ee;
+  --pz-linea: rgb(243 246 249 / 0.22);
+  --pz-sombra: 10px 10px 0 0 #34d3ee;
+  --pz-sel-fondo: #06080b;
+  --pz-sel-on: #34d3ee;
+  --pz-sel-on-tinta: #06080b;
+  --pz-sel-barra: #34d3ee;
   --pz-grano: 0;
 }
 
@@ -222,7 +222,7 @@
 
 /* 02 Onvi: pantalla negra de píxeles, con líneas de monitor viejo. */
 .pz-escenario[data-escena="onvi"] .pz-fondo {
-  background: radial-gradient(80% 70% at 62% 50%, #171410, #0c0c0c 70%);
+  background: radial-gradient(80% 70% at 62% 50%, #0b1a22, #06080b 70%);
 }
 
 .pz-escenario[data-escena="onvi"] .pz-fondo__textura {
@@ -234,7 +234,7 @@
 }
 
 .pz-escenario[data-escena="onvi"] .pz-fondo__halo {
-  background: radial-gradient(closest-side, rgb(242 183 5 / 0.14), transparent 72%);
+  background: radial-gradient(closest-side, rgb(52 211 238 / 0.14), transparent 72%);
 }
 
 .pz-escenario[data-escena="onvi"] .pz-fondo__fantasma {
@@ -242,7 +242,7 @@
   font-weight: 700;
   font-stretch: normal;
   letter-spacing: 0;
-  color: rgb(242 183 5 / 0.045);
+  color: rgb(52 211 238 / 0.045);
   animation-timing-function: steps(5);
 }
 
@@ -254,7 +254,7 @@
 
 .pz-escenario[data-escena="onvi"] .pz-fondo__extra--b {
   inset: 6% 3% 10% 34%;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80' shape-rendering='crispEdges'%3E%3Cg fill='%23f2b705'%3E%3Cpath d='M10 6h2v6h-2zM8 8h6v2H8z'/%3E%3Cpath d='M104 58h2v6h-2zM102 60h6v2h-6z'/%3E%3C/g%3E%3Cg fill='%23f4ecd8'%3E%3Cpath d='M92 10h2v2h-2zM20 66h2v2h-2zM60 4h2v2h-2zM114 30h2v2h-2z'/%3E%3C/g%3E%3Cg fill='%23f4ecd8' opacity='.5'%3E%3Cpath d='M70 70h12v2H70zM68 72h16v2H68zM72 68h6v2h-6z'/%3E%3C/g%3E%3C/svg%3E")
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80' shape-rendering='crispEdges'%3E%3Cg fill='%2334d3ee'%3E%3Cpath d='M10 6h2v6h-2zM8 8h6v2H8z'/%3E%3Cpath d='M104 58h2v6h-2zM102 60h6v2h-6z'/%3E%3C/g%3E%3Cg fill='%23f3f6f9'%3E%3Cpath d='M92 10h2v2h-2zM20 66h2v2h-2zM60 4h2v2h-2zM114 30h2v2h-2z'/%3E%3C/g%3E%3Cg fill='%23f3f6f9' opacity='.5'%3E%3Cpath d='M70 70h12v2H70zM68 72h16v2H68zM72 68h6v2h-6z'/%3E%3C/g%3E%3C/svg%3E")
     center / 100% 100% no-repeat;
   image-rendering: pixelated;
   opacity: 0.55;
@@ -662,18 +662,18 @@
 
 /* 02 Onvi: botón de píxeles con borde y sombra dura. */
 .pz-escenario[data-escena="onvi"] .pz-texto__mas {
-  border: 3px solid #f4ecd8;
+  border: 3px solid #f3f6f9;
   border-radius: 0;
   font-family: var(--ff-pixel), var(--f-mono);
   font-size: 13px;
   font-weight: 400;
   text-transform: uppercase;
-  box-shadow: 5px 5px 0 #f2b705;
+  box-shadow: 5px 5px 0 #34d3ee;
 }
 
 .pz-escenario[data-escena="onvi"] .pz-texto__mas:hover {
   transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0 #f2b705;
+  box-shadow: 2px 2px 0 #34d3ee;
 }
 
 /* 03 Software: píldora blanca con el más en lima. */
@@ -767,7 +767,7 @@
   font-weight: 700;
 }
 
-/* 02 Onvi: píxeles, amarillo y sombras duras. */
+/* 02 Onvi: píxeles, cian de Onvision y sombras duras. */
 .pz-escenario[data-escena="onvi"] .pz-texto > * {
   animation-timing-function: steps(5);
 }
@@ -789,8 +789,8 @@
 }
 
 .pz-escenario[data-escena="onvi"] .pz-texto__titulo em {
-  color: #f2b705;
-  text-shadow: 6px 6px 0 #b3261e;
+  color: #34d3ee;
+  text-shadow: 6px 6px 0 #0e7490;
 }
 
 .pz-escenario[data-escena="onvi"] .pz-texto__bajada {
@@ -799,28 +799,28 @@
 }
 
 .pz-escenario[data-escena="onvi"] .pz-texto__etiquetas li {
-  border: 2px solid #f4ecd8;
+  border: 2px solid #f3f6f9;
   border-radius: 0;
   font-family: var(--ff-pixel), var(--f-mono);
   font-size: 11px;
   letter-spacing: 0.04em;
-  box-shadow: 3px 3px 0 #f2b705;
+  box-shadow: 3px 3px 0 #34d3ee;
 }
 
 .pz-escenario[data-escena="onvi"] .pz-texto__accion {
   border-radius: 0;
-  background: #f2b705;
-  color: #0c0c0c;
+  background: #34d3ee;
+  color: #06080b;
   font-family: var(--ff-pixel), var(--f-mono);
   font-size: 13px;
   font-weight: 400;
   text-transform: uppercase;
-  box-shadow: 5px 5px 0 #f4ecd8;
+  box-shadow: 5px 5px 0 #f3f6f9;
 }
 
 .pz-escenario[data-escena="onvi"] .pz-texto__accion:hover {
   transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0 #f4ecd8;
+  box-shadow: 2px 2px 0 #f3f6f9;
 }
 
 /* 03 Software: sans limpia, subrayado lima. */
@@ -1166,9 +1166,9 @@
 }
 
 .pz-escenario[data-escena="onvi"] .pz-selector {
-  border: 3px solid #f4ecd8;
+  border: 3px solid #f3f6f9;
   border-radius: 0;
-  box-shadow: 5px 5px 0 #f2b705;
+  box-shadow: 5px 5px 0 #34d3ee;
 }
 
 .pz-escenario[data-escena="onvi"] .pz-selector__item,
@@ -1431,12 +1431,12 @@
 }
 
 .pz-px-ventana {
-  border: 3px solid #0c0c0c;
-  background: #f4ecd8;
-  color: #0c0c0c;
+  border: 3px solid #06080b;
+  background: #f3f6f9;
+  color: #06080b;
   box-shadow:
-    0 0 0 3px #f4ecd8,
-    9px 9px 0 3px #f2b705;
+    0 0 0 3px #f3f6f9,
+    9px 9px 0 3px #34d3ee;
 }
 
 .pz-px-ventana__barra {
@@ -1444,8 +1444,8 @@
   align-items: center;
   gap: 0.4em;
   padding: 0.35em 0.5em;
-  background: #f2b705;
-  border-bottom: 3px solid #0c0c0c;
+  background: #34d3ee;
+  border-bottom: 3px solid #06080b;
   font-size: 0.95em;
 }
 
@@ -1458,8 +1458,8 @@
   width: 1.3em;
   height: 1.3em;
   place-items: center;
-  border: 2px solid #0c0c0c;
-  background: #f4ecd8;
+  border: 2px solid #06080b;
+  background: #f3f6f9;
   font-style: normal;
   line-height: 1;
 }
@@ -1483,7 +1483,7 @@
   width: 0.6em;
   height: 1em;
   margin-top: 0.2em;
-  background: #0c0c0c;
+  background: #06080b;
   animation: pz-parpadea 0.9s steps(2) infinite;
 }
 
@@ -1493,60 +1493,15 @@
   width: 42%;
 }
 
-.pz-px-burbuja {
-  display: grid;
-  gap: 0.2em;
-  padding: 0.8em 1em;
-  background: #f4ecd8;
-  color: #0c0c0c;
-  box-shadow:
-    0 -4px 0 0 #0c0c0c,
-    0 4px 0 0 #0c0c0c,
-    -4px 0 0 0 #0c0c0c,
-    4px 0 0 0 #0c0c0c,
-    8px 8px 0 2px rgb(0 0 0 / 0.55);
-}
-
-.pz-px-burbuja b {
-  font-size: 1.15em;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.pz-px-burbuja span {
-  font-size: 0.85em;
-  color: #6b5d3a;
-}
-
-.pz-px-burbuja::after {
-  content: "";
-  position: absolute;
-  right: 18%;
-  bottom: -12px;
-  width: 8px;
-  height: 8px;
-  background: #0c0c0c;
-  box-shadow:
-    -4px -4px 0 #f4ecd8,
-    0 -4px 0 #f4ecd8,
-    4px -4px 0 #0c0c0c,
-    -8px -4px 0 #0c0c0c;
-}
-
-.pz-pop--burbuja {
-  left: -15%;
-  top: 60%;
-}
-
 .pz-px-lead {
   display: flex;
   align-items: center;
   gap: 0.6em;
   padding: 0.6em 0.9em;
-  border: 3px solid #0c0c0c;
-  background: #f2b705;
-  color: #0c0c0c;
-  box-shadow: 6px 6px 0 #f4ecd8;
+  border: 3px solid #06080b;
+  background: #34d3ee;
+  color: #06080b;
+  box-shadow: 6px 6px 0 #f3f6f9;
   white-space: nowrap;
   font-size: 1.05em;
 }
@@ -1558,52 +1513,7 @@
 
 .pz-pop--lead {
   left: 62%;
-  top: 90%;
-}
-
-.pz-px-carga {
-  display: grid;
-  gap: 0.4em;
-  color: #f4ecd8;
-  font-family: var(--ff-pixel), var(--f-mono);
-  font-size: 0.9em;
-  animation-name: pz-px-entra;
-  animation-timing-function: steps(4);
-}
-
-.pz-px-carga__barra {
-  display: flex;
-  gap: 3px;
-  padding: 3px;
-  border: 2px solid #f4ecd8;
-}
-
-.pz-px-carga__barra i {
-  width: 0.9em;
-  height: 0.9em;
-  background: #f2b705;
-  opacity: 0;
-  animation: pz-bloque 2.4s steps(1) calc(var(--i) * 0.22s + 0.8s) infinite;
-}
-
-.pz-pop--carga {
-  left: -12%;
-  top: -16%;
-}
-
-.pz-px-flecha {
-  width: 100%;
-}
-
-.pz-pop--cursor {
-  left: 46%;
-  top: 70%;
-  width: 4.5%;
-  filter: drop-shadow(3px 3px 0 rgb(0 0 0 / 0.6));
-  animation-name: pz-px-cursor;
-  animation-duration: 3.2s;
-  animation-timing-function: steps(8);
-  animation-iteration-count: infinite;
+  top: 95%;
 }
 
 .pz-px-chispa {
@@ -1632,6 +1542,307 @@
 .pz-pop--chispa-c {
   left: 36%;
   top: -16%;
+}
+
+/* La tarjeta de Onvi: el chat del sitio, con una pregunta y su respuesta. */
+.oc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: inherit;
+  background:
+    radial-gradient(70% 60% at 85% 0%, rgb(52 211 238 / 0.14), transparent 70%),
+    #06080b;
+  color: #fff;
+  font-family: var(--f-sans);
+  font-size: 2.3cqw;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.oc__cabeza {
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+  padding: 1.1em 1.5em 0.95em;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.oc__avatar {
+  position: relative;
+  display: grid;
+  width: 2.9em;
+  height: 2.9em;
+  flex: none;
+  place-items: center;
+  border-radius: 0.8em;
+  background: #161b22;
+  color: #34d3ee;
+}
+
+.oc__ojo {
+  width: 1.9em;
+}
+
+.oc__avatar i {
+  position: absolute;
+  right: -0.15em;
+  bottom: -0.15em;
+  width: 0.75em;
+  height: 0.75em;
+  border: 0.15em solid #06080b;
+  border-radius: 50%;
+  background: #2ef2a6;
+}
+
+.oc__quien {
+  display: grid;
+}
+
+.oc__quien b {
+  font-size: 1.12em;
+  font-weight: 600;
+}
+
+/* "lista para ayudarte" y, mientras responde, "escribiendo…" en el mismo lugar. */
+.oc__estado {
+  display: grid;
+  color: #8a94a2;
+  font-size: 0.88em;
+}
+
+.oc__estado > span {
+  grid-area: 1 / 1;
+}
+
+.oc__estado-escribe {
+  opacity: 0;
+  color: #34d3ee;
+}
+
+.oc__rotulo {
+  padding: 0.85em 1.5em 0;
+  color: #8a94a2;
+  font-family: var(--f-mono);
+  font-size: 0.72em;
+  letter-spacing: 0.22em;
+}
+
+.oc__hilo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.7em;
+  min-height: 0;
+  padding: 0.9em 1.5em 0.6em;
+}
+
+.oc__fila {
+  position: relative;
+  display: flex;
+}
+
+.oc__fila--yo {
+  justify-content: flex-end;
+}
+
+.oc__burbuja {
+  max-width: 74%;
+  padding: 0.7em 1em;
+  border-radius: 1.1em 1.1em 1.1em 0.35em;
+  background: #1f2731;
+}
+
+.oc__fila--yo .oc__burbuja {
+  border-radius: 1.1em 1.1em 0.35em 1.1em;
+  background: #34d3ee;
+  color: #000;
+  font-weight: 500;
+}
+
+.oc__puntos {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  gap: 0.35em;
+  padding: 0.95em 1em;
+  border-radius: 1.1em;
+  background: #1f2731;
+  opacity: 0;
+}
+
+.oc__puntos i {
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: #8a94a2;
+  animation: oc-rebote 1.2s infinite;
+}
+
+.oc__puntos i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.oc__puntos i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.oc__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.oc__chips span {
+  padding: 0.42em 0.85em;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 999px;
+  color: #b8c0ca;
+  font-size: 0.88em;
+}
+
+.oc__chips span:first-child {
+  border-color: #34d3ee;
+  color: #fff;
+}
+
+.oc__form {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin: 0 1em 1em;
+  padding: 0.5em 0.5em 0.5em 1em;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 0.95em;
+  background: #000;
+}
+
+.oc__prompt {
+  color: #34d3ee;
+  font-family: var(--f-mono);
+}
+
+.oc__placeholder {
+  flex: 1;
+  color: #8a94a2;
+}
+
+.oc__enviar {
+  padding: 0.5em 1em;
+  border-radius: 0.7em;
+  background: #fff;
+  color: #000;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+/* Cada vez que la tarjeta queda al frente: pregunta, "escribiendo…", respuesta y opciones. */
+.pz-carta[data-lugar="activa"] .oc__fila--yo .oc__burbuja {
+  animation: oc-entra 0.5s var(--pz-ease) 0.35s both;
+}
+
+.pz-carta[data-lugar="activa"] .oc__puntos {
+  animation: oc-escribe 1.3s ease 0.85s both;
+}
+
+.pz-carta[data-lugar="activa"] .oc__estado-escribe {
+  animation: oc-escribe 1.3s ease 0.85s both;
+}
+
+.pz-carta[data-lugar="activa"] .oc__estado-lista {
+  animation: oc-calla 1.3s ease 0.85s both;
+}
+
+.pz-carta[data-lugar="activa"] .oc__fila--onvi .oc__burbuja {
+  animation: oc-entra 0.55s var(--pz-ease) 2.1s both;
+}
+
+.pz-carta[data-lugar="activa"] .oc__chips span {
+  animation: oc-entra 0.45s var(--pz-ease) 2.6s both;
+}
+
+.pz-carta[data-lugar="activa"] .oc__chips span:nth-child(2) {
+  animation-delay: 2.7s;
+}
+
+.pz-carta[data-lugar="activa"] .oc__chips span:nth-child(3) {
+  animation-delay: 2.8s;
+}
+
+/* Tarjeta chica (celular): sin el rótulo ni las opciones, y la letra un poco más grande. */
+@container (max-width: 440px) {
+  .oc {
+    font-size: 2.7cqw;
+  }
+
+  .oc__rotulo,
+  .oc__chips {
+    display: none;
+  }
+
+  .oc__cabeza {
+    padding: 0.8em 1.1em 0.7em;
+  }
+
+  .oc__hilo {
+    padding: 0.8em 1.1em 0.4em;
+  }
+
+  .oc__burbuja {
+    max-width: 84%;
+  }
+
+  .oc__form {
+    margin: 0 0.8em 0.8em;
+  }
+}
+
+@keyframes oc-entra {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em) scale(0.96);
+  }
+}
+
+/* Aparece, se queda mientras Onvi escribe y se va. */
+@keyframes oc-escribe {
+  0% {
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes oc-calla {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  12%,
+  88% {
+    opacity: 0;
+  }
+}
+
+@keyframes oc-rebote {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-0.35em);
+  }
 }
 
 /* 03 Software ------------------------------------------------------------- */
@@ -2811,8 +3022,6 @@
 
   .pz-pop--cinta,
   .pz-pop--flecha,
-  .pz-pop--carga,
-  .pz-pop--cursor,
   .pz-pop--chispa-c,
   .pz-pop--cmdk,
   .pz-pop--ia,
@@ -2887,8 +3096,8 @@
 
   .pz-px-ventana {
     box-shadow:
-      0 0 0 2px #f4ecd8,
-      6px 6px 0 2px #f2b705;
+      0 0 0 2px #f3f6f9,
+      6px 6px 0 2px #34d3ee;
   }
 
   .pz-px-ventana__cuerpo {
@@ -2902,12 +3111,6 @@
     right: 0.9em;
     bottom: 0.8em;
     margin: 0;
-  }
-
-  .pz-pop--burbuja {
-    left: -6%;
-    top: 84%;
-    width: 46%;
   }
 
   .pz-pop--lead {
@@ -3127,34 +3330,6 @@
 @keyframes pz-late {
   50% {
     transform: scale(1.2);
-  }
-}
-
-@keyframes pz-bloque {
-  0% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes pz-px-cursor {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  40% {
-    transform: translate(-60%, -80%);
-  }
-  55% {
-    transform: translate(-60%, -80%) scale(0.85);
-  }
-  70% {
-    transform: translate(-60%, -80%);
   }
 }
 

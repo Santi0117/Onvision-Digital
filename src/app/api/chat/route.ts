@@ -49,7 +49,7 @@ export async function POST(request: Request) {
 
     if (isRateLimited(clientId)) {
       return NextResponse.json(
-        { error: "Demasiados mensajes. Intentá de nuevo en un minuto." },
+        { error: "Demasiados mensajes. Intenta de nuevo en un minuto." },
         { status: 429 },
       );
     }

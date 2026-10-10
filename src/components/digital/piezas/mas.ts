@@ -5,18 +5,23 @@ import type { IdPieza } from "./datos";
  * Servicios vienen más trabajos de verdad, cada uno en su propio mundo (el
  * fondo, la letra, los colores y los pop-ups salen del diseño de su
  * captura, como las escenas de Servicios), y al final un cierre para
- * arrancar. Un servicio aparece con su botón cuando tiene al menos un extra.
+ * empezar. Un servicio aparece con su botón cuando tiene al menos un extra.
  */
 
 /** El mundo de cada sección: su piel en mundos.css (y el menú de abajo la toma al pasar). */
-export type Mundo = "tienda" | "plano" | "guia" | "chat" | "finca" | "salon" | "registros" | "soporte";
+export type Mundo = "tienda" | "plano" | "guia" | "chat" | "agenda" | "ventas" | "registros" | "soporte";
+
+/** Los sistemas que se ven funcionando (con pestañas por industria) en vez de una captura. */
+export type Vivo = "agenda" | "ventas";
 
 export type Extra = {
   /** También elige los pop-ups de la sección (ver PopupsMas). */
   id: string;
   mundo: Mundo;
   tema: "claro" | "oscuro";
-  imagen: string;
+  /** La captura; o, con `vivo`, el sistema armado en la página. */
+  imagen?: string;
+  vivo?: Vivo;
   alt: string;
   antetitulo: string;
   /** El título, con la parte que se resalta en el estilo del mundo. */
@@ -44,8 +49,8 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         antetitulo: "tiendas en línea",
         titulo: ["Tu tienda, ", "vendiendo"],
         bajada:
-          "Catálogo con filtros, tallas y colores, carrito y pagos con tarjeta o SINPE. Las ofertas y el stock se actualizan solos y cada pedido te llega al instante.",
-        etiquetas: ["Carrito y pagos", "Filtros", "Stock al día"],
+          "Tu catálogo en línea con fotos, tallas, colores y filtros. Tus clientes pagan con tarjeta o transferencia, el inventario se descuenta solo y te avisamos al instante de cada pedido.",
+        etiquetas: ["Pagos con tarjeta", "Inventario automático", "Ofertas y descuentos"],
         fantasma: "77",
       },
       {
@@ -54,18 +59,19 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         tema: "oscuro",
         imagen: "/servicios/web-componentes.webp",
         alt: "Sitio de bienes raíces que calcula la cuota mensual de una casa en seis bancos a la vez",
-        antetitulo: "componentes a medida",
-        titulo: ["Piezas que ", "trabajan"],
+        antetitulo: "herramientas a medida",
+        titulo: ["Herramientas que ", "trabajan por ti"],
         bajada:
-          "Lo que tu negocio necesita dentro de la página: calculadoras, cotizadores, reservas o comparadores. Como la cuota de una casa en seis bancos, al instante y en tres idiomas.",
-        etiquetas: ["Calculadoras", "Cotizadores", "Varios idiomas"],
+          "Agregamos a tu página lo que tu negocio necesita: reservas en línea, cotizadores, calculadoras o comparadores de precios. Tu cliente obtiene su respuesta al instante, sin tener que llamarte.",
+        etiquetas: ["Reservas", "Cotizadores", "Calculadoras", "Varios idiomas"],
         fantasma: "A-03",
       },
     ],
     cierre: {
       antetitulo: "¿y la tuya?",
-      titulo: ["¿Arrancamos ", "tu página?"],
-      bajada: "Diseño a medida, tu dominio con correo propio y Onvi incluido. La primera versión, lista para revisar.",
+      titulo: ["¿Empezamos ", "tu página?"],
+      bajada:
+        "Diseño a medida, dominio con correo propio, hosting y Onvi, tu asistente con IA, desde $35 al mes. Te entregamos una primera versión para que la revises antes de publicarla.",
     },
   },
   onvi: {
@@ -79,7 +85,7 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         antetitulo: "dentro de tu software",
         titulo: ["Te guía ", "paso a paso"],
         bajada:
-          "Onvi también vive dentro del software que te hacemos: acompaña a tu equipo a configurarlo, explica cada pantalla y responde dudas. Como dejar una clínica lista para facturar ante Hacienda, campo por campo.",
+          "Onvi también trabaja dentro del sistema que te hacemos. Le enseña a tu equipo a usarlo, responde sus dudas al instante y lo guía paso a paso en cada tarea: registrar un paciente, cobrar una venta, cargar inventario o emitir una factura electrónica.",
         etiquetas: ["Guía paso a paso", "Responde dudas", "Dentro del sistema"],
         fantasma: "guía",
       },
@@ -92,7 +98,7 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         antetitulo: "en tu página",
         titulo: ["¿En qué te ", "ayudo?"],
         bajada:
-          "En tu sitio, Onvi responde horarios, precios, envíos y cómo llegar, con los datos de tu negocio, y pasa a WhatsApp a quien quiere comprar o agendar.",
+          "En tu página, Onvi contesta al instante lo que más te preguntan: horarios, precios, envíos y cómo llegar. Cuando alguien quiere comprar o agendar, lo pasa directo a tu WhatsApp.",
         etiquetas: ["Horarios y precios", "Cómo llegar", "Pasa a WhatsApp"],
         fantasma: "hola",
       },
@@ -100,42 +106,44 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
     cierre: {
       antetitulo: "> ¿lo probamos?",
       titulo: ["¿Le damos voz a ", "tu negocio?"],
-      bajada: "Onvi aprende de tu negocio, atiende 24/7 en español e inglés y te pasa los contactos listos.",
+      bajada:
+        "Onvi aprende cómo funciona tu negocio, atiende a tus clientes 24/7 en español e inglés y te envía cada interesado listo para cerrar la venta.",
     },
   },
   software: {
     extras: [
       {
-        id: "software-cosecha",
-        mundo: "finca",
+        id: "software-agenda",
+        mundo: "agenda",
         tema: "claro",
-        imagen: "/servicios/software-cosecha.webp",
-        alt: "Sistema de una finca: valor de la cosecha, insumos y lo que hay en bodega, producto por producto",
-        antetitulo: "fincas y producción",
-        titulo: ["Tu finca, ", "en números"],
+        vivo: "agenda",
+        alt: "Sistema de agenda: las citas del día, los recordatorios por WhatsApp y lo facturado, según el tipo de negocio",
+        antetitulo: "Negocios con citas y clientes",
+        titulo: ["Tu agenda, ", "siempre en orden"],
         bajada:
-          "Cosecha en bodega, insumos, merma y rendimientos en un solo lugar. Cada cosecha registrada actualiza el inventario y el valor de lo que tenés.",
-        etiquetas: ["Inventario", "Rendimientos", "Merma"],
-        fantasma: "cosecha",
+          "Para clínicas, consultorios, salones, gimnasios, talleres y centros educativos: citas, historial de cada cliente, recordatorios por WhatsApp, cobros y facturación electrónica en un solo sistema.",
+        etiquetas: ["Clínicas", "Salones y barberías", "Gimnasios", "Talleres", "Educación", "Despachos"],
+        fantasma: "agenda",
       },
       {
-        id: "software-mesas",
-        mundo: "salon",
+        id: "software-ventas",
+        mundo: "ventas",
         tema: "claro",
-        imagen: "/servicios/software-mesas.webp",
-        alt: "Sistema de un restaurante con las mesas del salón, libres y ocupadas, y el botón para pasar al punto de venta",
-        antetitulo: "restaurantes",
-        titulo: ["Del salón ", "a la cocina"],
+        vivo: "ventas",
+        alt: "Resumen de ventas: lo vendido hoy, los pedidos, lo que falta cobrar y el inventario que hay que reponer, según el tipo de negocio",
+        antetitulo: "Negocios que venden y producen",
+        titulo: ["Ventas e inventario, ", "en números"],
         bajada:
-          "Las mesas libres y ocupadas de un vistazo: tocás una, abrís la orden y pasás a cobrar. La comanda llega a la cocina y la factura electrónica sale al cobrar.",
-        etiquetas: ["Mesas y órdenes", "Punto de venta", "Factura electrónica"],
-        fantasma: "mesas",
+          "Para restaurantes, tiendas, distribuidoras, fincas, inmobiliarias y venta de autos: caja y ventas, inventario que se actualiza solo, pedidos, entregas, cobros pendientes y reportes del día.",
+        etiquetas: ["Restaurantes", "Tiendas", "Distribuidoras", "Fincas", "Inmobiliarias", "Autos"],
+        fantasma: "ventas",
       },
     ],
     cierre: {
       antetitulo: "02 — ¿y el tuyo?",
       titulo: ["¿Qué sistema ", "te hace falta?"],
-      bajada: "Contanos cómo trabajás hoy y lo convertimos en un sistema a tu medida: ventas, inventario, reportes y clientes en un solo lugar.",
+      bajada:
+        "Cuéntanos cómo trabajas hoy, ya sea con Excel, cuadernos o WhatsApp, y lo convertimos en un sistema a tu medida. Antes de empezar, te mostramos una propuesta.",
     },
   },
   panel: {
@@ -147,10 +155,10 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         imagen: "/servicios/panel-registros.webp",
         alt: "Registros del Panel Onvi: el sitio en línea el 99,91 % de los últimos 90 días, la velocidad de respuesta y las interrupciones recientes",
         antetitulo: "onvi registros",
-        titulo: ["Tu sitio, ", "siempre en línea"],
+        titulo: ["Tu página, ", "siempre en línea"],
         bajada:
-          "Todo lo que pasa detrás de tu sitio: formularios, correos, pagos y publicaciones, con un monitor que lo revisa cada 10 minutos y cuánto tarda en responder.",
-        etiquetas: ["Monitor cada 10 min", "Formularios y pagos", "Velocidad"],
+          "Revisamos tu página cada 10 minutos para que nunca se caiga sin que lo sepamos. En el panel ves todo lo que pasa detrás: formularios recibidos, correos, pagos y qué tan rápido carga.",
+        etiquetas: ["Monitor cada 10 min", "Formularios y pagos", "Velocidad de carga"],
         fantasma: "99,91%",
       },
       {
@@ -160,17 +168,17 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
         imagen: "/servicios/panel-soporte.webp",
         alt: "Soporte del Panel Onvi: una nueva solicitud de cambio en el sitio, con el tipo, el asunto y la prioridad",
         antetitulo: "soporte",
-        titulo: ["Pedí un cambio, ", "seguí el avance"],
+        titulo: ["¿Un cambio? ", "Pídelo en un clic"],
         bajada:
-          "Textos, fotos, precios o una sección nueva: lo pedís desde el panel, con tus capturas, y ves en qué va cada solicitud hasta que queda lista.",
-        etiquetas: ["Cambios en el sitio", "Prioridad", "Capturas"],
+          "¿Quieres cambiar un texto, una foto, un precio o agregar una sección? Lo pides desde el panel, adjuntas capturas de pantalla y ves en qué va tu solicitud hasta que queda lista.",
+        etiquetas: ["Cambios en tu página", "Eliges la prioridad", "Adjuntas capturas"],
         fantasma: "#1024",
       },
     ],
     cierre: {
       antetitulo: "05 — incluido en todos los planes",
       titulo: ["Tu negocio, ", "en un solo lugar"],
-      bajada: "Reservas, registros y soporte en el mismo panel, desde la compu o el celular. Viene con todos los planes.",
+      bajada: "Reservas, estadísticas y soporte en un mismo panel, desde la computadora o el celular. Incluido en todos los planes, sin costo extra.",
     },
   },
 };

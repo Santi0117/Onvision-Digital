@@ -1,0 +1,519 @@
+/* ==========================================================================
+   Los sistemas de Software, funcionando en "Más información": la agenda y
+   el resumen de ventas. Blanco, gris verdoso y lima, como la escena de
+   Software. Todo se mide en em (la letra crece con la tarjeta) y cambia con
+   la industria: las filas entran de a una y los avisos vuelven a saltar.
+   ========================================================================== */
+
+.mi-marco--vivo {
+  width: min(96cqw, 700px);
+  aspect-ratio: auto;
+}
+
+.sv {
+  position: relative;
+  display: grid;
+  grid-template-columns: 21% minmax(0, 1fr);
+  border-radius: 1.7em;
+  background: #fff;
+  box-shadow: var(--pz-sombra);
+  color: #0c0f0a;
+  font-family: var(--f-sans);
+  font-size: clamp(10px, 1.9cqw, 13px);
+  line-height: 1.3;
+  text-align: left;
+}
+
+.sv b {
+  font-weight: 650;
+}
+
+.sv small {
+  color: rgb(12 15 10 / 0.58);
+  font-size: 0.86em;
+}
+
+/* ── El menú del sistema, a la izquierda ─────────────────────────────── */
+
+.sv__lado {
+  display: grid;
+  align-content: start;
+  gap: 2.2em;
+  padding: 1.9em 0.9em;
+  border-right: 1px solid rgb(12 15 10 / 0.07);
+  border-radius: 1.7em 0 0 1.7em;
+  background: #fbfbf8;
+}
+
+.sv__lado > b {
+  padding-inline: 0.75em;
+  font-size: 1.12em;
+  line-height: 1.2;
+}
+
+.sv__lado ul {
+  display: grid;
+  gap: 0.2em;
+}
+
+.sv__lado li {
+  padding: 0.62em 0.75em;
+  border-radius: 0.6em;
+  color: rgb(12 15 10 / 0.62);
+}
+
+.sv__lado li[data-on] {
+  background: #0c0f0a;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Lo de adentro ───────────────────────────────────────────────────── */
+
+.sv__main {
+  min-width: 0;
+  padding: 1.5em 1.5em 1.7em;
+}
+
+/* Las pestañas por industria: corren de lado si no entran. */
+.sv__pestañas {
+  display: flex;
+  gap: 0.45em;
+  margin: 0 -1.5em 1.1em 0;
+  padding-right: 1.5em;
+  overflow-x: auto;
+  scrollbar-width: none;
+  mask-image: linear-gradient(to right, #000 calc(100% - 2.2em), transparent);
+}
+
+.sv__pestañas::-webkit-scrollbar {
+  display: none;
+}
+
+.sv__pestañas button {
+  flex: none;
+  padding: 0.5em 0.95em;
+  border-radius: 999px;
+  background: #f1f2ed;
+  color: rgb(12 15 10 / 0.72);
+  font-size: 0.95em;
+  font-weight: 550;
+  white-space: nowrap;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+.sv__pestañas button:hover {
+  background: #e6e8df;
+}
+
+.sv__pestañas button[aria-pressed="true"] {
+  background: #c6f432;
+  color: #1f3304;
+}
+
+.sv__pestañas button:focus-visible {
+  outline: 2px solid #4d7c0f;
+  outline-offset: 2px;
+}
+
+.sv__titulo {
+  display: grid;
+  gap: 0.2em;
+  margin-bottom: 1em;
+}
+
+.sv__titulo b {
+  font-size: 1.45em;
+  letter-spacing: -0.02em;
+}
+
+/* Todo lo que cambia con la industria entra de nuevo, fila por fila. */
+.sv__titulo,
+.sv__citas li,
+.sv__numeros p,
+.sv__grafico,
+.sv__pendientes li {
+  animation: sv-entra 0.6s var(--pz-ease) calc(var(--i, 0) * 70ms) both;
+}
+
+.sv__numeros p {
+  animation-delay: calc(180ms + var(--i, 0) * 70ms);
+}
+
+/* ── Agenda: las citas del día ───────────────────────────────────────── */
+
+.sv__citas {
+  display: grid;
+  gap: 0.6em;
+}
+
+.sv__citas li {
+  display: grid;
+  grid-template-columns: 3.6em minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.9em;
+  padding: 0.85em 1.05em;
+  border: 1px solid rgb(12 15 10 / 0.09);
+  border-radius: 0.85em;
+}
+
+.sv__citas time {
+  font-size: 1.1em;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.sv__citas span,
+.sv__pendientes span {
+  display: grid;
+  min-width: 0;
+  gap: 0.15em;
+}
+
+.sv__citas span b,
+.sv__citas span small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sv__citas span b {
+  font-size: 1.08em;
+}
+
+.sv__citas span small {
+  font-size: 0.92em;
+}
+
+.sv em {
+  padding: 0.32em 0.75em;
+  border-radius: 999px;
+  font-size: 0.86em;
+  font-style: normal;
+  font-weight: 650;
+  white-space: nowrap;
+  animation: sv-sello 0.5s var(--pz-resorte) calc(320ms + var(--i, 0) * 90ms) both;
+}
+
+.sv em[data-e="confirmada"] {
+  background: #ecf8cf;
+  color: #3f7a0e;
+}
+
+.sv em[data-e="recordatorio"],
+.sv em[data-t="info"] {
+  background: #dcf6e4;
+  color: #15803d;
+}
+
+.sv em[data-e="pagada"],
+.sv em[data-t="ok"] {
+  background: #eaf8c4;
+  color: #4d7c0f;
+}
+
+.sv em[data-e="libre"],
+.sv em[data-t="alerta"] {
+  background: #fdf0d6;
+  color: #b45309;
+}
+
+/* El espacio libre, punteado: se puede reservar. */
+.sv__citas li:has(em[data-e="libre"]) {
+  border-style: dashed;
+}
+
+/* ── Los números de abajo (o de arriba, en ventas) ───────────────────── */
+
+.sv__numeros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75em;
+  margin-top: 0.9em;
+}
+
+.sv__numeros p {
+  display: grid;
+  min-width: 0;
+  gap: 0.2em;
+  padding: 0.8em 1em 0.85em;
+  border-radius: 0.85em;
+  background: #f3f4ef;
+}
+
+.sv__numeros small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sv__numeros b {
+  font-size: 1.75em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sv__numeros p[data-oscuro] {
+  background: #0c0f0a;
+  color: #fff;
+}
+
+.sv__numeros p[data-oscuro] small {
+  color: #c6f432;
+}
+
+.sv__numeros--ventas {
+  margin: 0 0 0.9em;
+}
+
+/* ── Ventas: la semana y lo pendiente ────────────────────────────────── */
+
+.sv__abajo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 0.75em;
+}
+
+.sv__grafico {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1em;
+  padding: 1em 1.05em 1.1em;
+  border: 1px solid rgb(12 15 10 / 0.06);
+  border-radius: 0.85em;
+  background: #f6f7f2;
+}
+
+.sv__grafico small {
+  color: #0c0f0a;
+  font-size: 0.98em;
+  font-weight: 650;
+}
+
+.sv__barras {
+  display: flex;
+  min-height: 7em;
+  align-items: flex-end;
+  gap: 0.5em;
+}
+
+.sv__barras i {
+  flex: 1;
+  height: calc(var(--h) * 100%);
+  border-radius: 0.3em 0.3em 0.15em 0.15em;
+  background: #dcebc4;
+  transform-origin: bottom;
+  animation: sv-barra 0.7s var(--pz-ease) calc(200ms + var(--i, 0) * 55ms) both;
+}
+
+.sv__barras i[data-max] {
+  background: #6cc024;
+}
+
+.sv__pendientes {
+  display: grid;
+  gap: 0.6em;
+}
+
+.sv__pendientes li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6em;
+  padding: 0.75em 0.85em;
+  border: 1px solid rgb(12 15 10 / 0.09);
+  border-radius: 0.85em;
+  animation-delay: calc(140ms + var(--i, 0) * 80ms);
+}
+
+.sv__pendientes span b {
+  font-size: 1.02em;
+  line-height: 1.2;
+}
+
+/* ── Los avisos que saltan afuera de la tarjeta ──────────────────────── */
+
+.sv-toasts {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  font-size: clamp(10px, 1.9cqw, 13.5px);
+  pointer-events: none;
+}
+
+.sv-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.8em 1.25em 0.8em 0.85em;
+  border-radius: 1.1em;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgb(12 15 10 / 0.05),
+    0 18px 40px -16px rgb(30 50 10 / 0.4);
+  color: #0c0f0a;
+  font-size: 1.02em;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.sv-toast__ok {
+  display: grid;
+  flex: none;
+  width: 1.7em;
+  height: 1.7em;
+  place-items: center;
+  border-radius: 50%;
+  background: #3fb950;
+  color: #fff;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.sv-toast__ok svg {
+  width: 62%;
+}
+
+.sv-toast__ok--plata {
+  background: #0c0f0a;
+}
+
+.sv-toast--arriba {
+  top: -2.5em;
+  right: -5%;
+}
+
+.sv-toast--derecha {
+  top: -2.6em;
+  right: -2%;
+}
+
+.sv-toast--abajo {
+  bottom: -1.9em;
+  left: -6%;
+}
+
+/* ── Tarjeta angosta (tablet parada, celular): sin el menú de la izquierda ── */
+
+@container (max-width: 560px) {
+  .sv {
+    grid-template-columns: minmax(0, 1fr);
+    font-size: clamp(10.5px, 2.75cqw, 12.5px);
+  }
+
+  .sv__lado {
+    display: none;
+  }
+
+  .sv__main {
+    padding: 1.2em 1.1em 1.3em;
+  }
+
+  .sv__pestañas {
+    margin-right: -1.1em;
+    padding-right: 1.1em;
+  }
+
+  .sv__citas li {
+    grid-template-columns: 3.2em minmax(0, 1fr) auto;
+    gap: 0.7em;
+    padding: 0.75em 0.85em;
+  }
+
+  .sv__numeros {
+    gap: 0.5em;
+  }
+
+  .sv__numeros p {
+    padding: 0.7em 0.75em;
+  }
+
+  .sv__numeros b {
+    font-size: 1.45em;
+  }
+
+  .sv__abajo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sv__barras {
+    min-height: 4.5em;
+  }
+
+  .sv-toasts {
+    font-size: clamp(10px, 2.75cqw, 12px);
+  }
+
+  .sv-toast--arriba,
+  .sv-toast--derecha {
+    top: -2.3em;
+    right: 3%;
+  }
+
+  .sv-toast--abajo {
+    bottom: -2em;
+    left: 3%;
+  }
+}
+
+/* En el celular, "Recordatorio enviado" no entra al lado del nombre: va solo el punto. */
+@container (max-width: 400px) {
+  .sv__citas em {
+    width: 0.75em;
+    height: 0.75em;
+    padding: 0;
+    overflow: hidden;
+    color: transparent;
+  }
+
+  .sv__citas em[data-e="confirmada"] {
+    background: #6cc024;
+  }
+
+  .sv__citas em[data-e="recordatorio"] {
+    background: #22c55e;
+  }
+
+  .sv__citas em[data-e="pagada"] {
+    background: #4d7c0f;
+  }
+
+  .sv__citas em[data-e="libre"] {
+    background: #f59e0b;
+  }
+}
+
+@keyframes sv-entra {
+  from {
+    opacity: 0;
+    transform: translateY(0.7em);
+  }
+}
+
+@keyframes sv-sello {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes sv-barra {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv *,
+  .sv *::before,
+  .sv *::after {
+    animation: none !important;
+  }
+
+  .sv__pestañas button {
+    transition: none;
+  }
+}

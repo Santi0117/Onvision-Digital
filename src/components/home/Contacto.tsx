@@ -10,13 +10,13 @@ import "./contacto.css";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const SERVICIOS = ["Página web", "Tienda online", "Software a medida", "App móvil", "Onvi, asistente con IA", "Tu marca desde cero", "Todavía no sé"];
+const SERVICIOS = ["Página web", "Tienda en línea", "Software a medida", "App móvil", "Onvi, asistente con IA", "Tu marca desde cero", "Todavía no sé"];
 const PRESUPUESTOS = ["Menos de $500", "$500 – $1.500", "$1.500 – $5.000", "Más de $5.000", "Prefiero conversarlo"];
 const EMPUJONES = ["Quiero vender en línea", "Necesito que me reserven citas", "Quiero ordenar inventario y facturas", "Quiero una app para mis clientes"];
 
 const PASOS = [
-  { corto: "Qué", pregunta: "¿Qué querés construir?", ayuda: "Elegí lo que más se parezca. Si todavía no sabés, también vale." },
-  { corto: "Idea", pregunta: "Contanos la idea.", ayuda: "Qué hace tu negocio, qué te gustaría resolver y para cuándo." },
+  { corto: "Qué", pregunta: "¿Qué quieres construir?", ayuda: "Elige la opción que más se parezca. Si aún no lo tienes claro, te ayudamos a definirlo." },
+  { corto: "Idea", pregunta: "Cuéntanos la idea.", ayuda: "Qué hace tu negocio, qué te gustaría resolver y para cuándo." },
   { corto: "Contacto", pregunta: "¿Cómo te contactamos?", ayuda: "Te escribimos en menos de 24 horas hábiles." },
 ];
 
@@ -76,12 +76,12 @@ export default function Contacto() {
   }, []);
 
   const validar = (k: number): [string, Campo] | null => {
-    if (k === 0 && !servicio) return ["Elegí qué querés construir.", "service"];
-    if (k === 1 && idea.trim().length < 10) return ["Contanos un poco más (mínimo 10 caracteres).", "interest"];
+    if (k === 0 && !servicio) return ["Elige qué quieres construir.", "service"];
+    if (k === 1 && idea.trim().length < 10) return ["Cuéntanos un poco más (mínimo 10 caracteres).", "interest"];
     if (k === 2) {
-      if (nombre.trim().length < 2) return ["Escribí tu nombre o el de tu empresa.", "name"];
-      if (!esCorreo(correo.trim())) return ["Revisá el correo.", "email"];
-      if (telefono.replace(/\D/g, "").length < 8) return ["Revisá el teléfono (mínimo 8 números).", "phone"];
+      if (nombre.trim().length < 2) return ["Escribe tu nombre o el de tu empresa.", "name"];
+      if (!esCorreo(correo.trim())) return ["Revisa el correo.", "email"];
+      if (telefono.replace(/\D/g, "").length < 8) return ["Revisa el teléfono (mínimo 8 números).", "phone"];
     }
     return null;
   };
@@ -120,12 +120,12 @@ export default function Contacto() {
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; message?: string; error?: string };
       if (!res.ok || !data.ok) {
-        setError(data.error || `No se pudo enviar. Probá de nuevo o escribinos a ${site.email}.`);
+        setError(data.error || `No se pudo enviar. Prueba de nuevo o escríbenos a ${site.email}.`);
         return;
       }
       setListo(data.message || "Recibimos tu idea. Te escribimos en menos de 24 horas hábiles.");
     } catch {
-      setError("No se pudo enviar. Revisá tu conexión y probá de nuevo.");
+      setError("No se pudo enviar. Revisa tu conexión y prueba de nuevo.");
     } finally {
       setEnviando(false);
     }
@@ -157,9 +157,9 @@ export default function Contacto() {
   return (
     <section id="contacto" className="oc" aria-labelledby="oc-titulo">
       <div className="oc-cabeza">
-        <p className="oh-eyebrow">Empezá hoy</p>
+        <p className="oh-eyebrow">Empieza hoy</p>
         <h2 id="oc-titulo" className="oh-serif-h2">
-          Contanos tu idea. <em>Te respondemos en menos de 24 horas.</em>
+          Cuéntanos tu idea. <em>Te respondemos en menos de 24 horas.</em>
         </h2>
       </div>
 
@@ -193,7 +193,7 @@ export default function Contacto() {
               <p className="oc-pregunta" aria-live="polite">
                 {listo ? "¡Listo! Ya la tenemos." : PASOS[paso]!.pregunta}
               </p>
-              <p className="oc-ayuda">{listo ? "Mientras tanto, podés mirar los planes o agendar una reunión." : PASOS[paso]!.ayuda}</p>
+              <p className="oc-ayuda">{listo ? "Mientras tanto, puedes mirar los planes o agendar una reunión." : PASOS[paso]!.ayuda}</p>
             </motion.div>
           </AnimatePresence>
 
@@ -261,7 +261,7 @@ export default function Contacto() {
                     <>
                       <fieldset className="oc-grupo">
                         {/* La pregunta ya está grande al lado (o arriba, en el celular). */}
-                        <legend className="sr-only">Qué querés construir</legend>
+                        <legend className="sr-only">Qué quieres construir</legend>
                         <div className="oc-chips">
                           {SERVICIOS.map((s) => (
                             <button
@@ -281,7 +281,7 @@ export default function Contacto() {
                       </fieldset>
                       <fieldset className="oc-grupo">
                         <legend>
-                          ¿Tenés un presupuesto en mente? <small>Opcional</small>
+                          ¿Tienes un presupuesto en mente? <small>Opcional</small>
                         </legend>
                         <div className="oc-chips oc-chips--chicas">
                           {PRESUPUESTOS.map((p) => (

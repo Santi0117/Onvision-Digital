@@ -17,7 +17,6 @@ const ANTES = [
 /** Después: las piezas de tu sitio, como las nombra /web. */
 const DESPUES = webModules.map((m) =>
   m.label
-    .replace("seo", "SEO")
     .replace("onvi", "Onvi")
     .replace(/^\p{L}/u, (c) => c.toUpperCase()),
 );

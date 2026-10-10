@@ -43,9 +43,9 @@ function Revuelta({ palabra }: { palabra: string }) {
  * gigantes y letras que se acomodan) con el contacto en mono de jeffmilanes.
  */
 export default function Cierre({
-  pregunta = "¿Tenés un proyecto?",
+  pregunta = "¿Tienes un proyecto?",
   palabra = "HABLEMOS",
-  lead = "Agendá una reunión y vemos qué vale la pena construir primero.",
+  lead = "Agenda una reunión y vemos qué vale la pena construir primero.",
   primario = { label: "Agendar reunión", href: "/planes#agendar" },
   secundario,
 }: {

@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error:
-          "Onvo no está configurado. Agregá ONVO_SECRET_KEY en .env.local / Vercel.",
+          "Onvo no está configurado. Agrega ONVO_SECRET_KEY en .env.local / Vercel.",
       },
       { status: 503 },
     );

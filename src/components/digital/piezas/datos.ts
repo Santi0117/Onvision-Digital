@@ -24,7 +24,8 @@ export type Pieza = {
   nombre: string;
   /** Nombre corto para el selector. */
   corto: string;
-  imagen: string;
+  /** La captura de la tarjeta; sin captura, la tarjeta es el chat de Onvi armado en la página. */
+  imagen?: string;
   alt: string;
   antetitulo: string;
   /** El título, con la parte que se resalta en el estilo de la escena. */
@@ -51,8 +52,8 @@ export const PIEZAS: readonly Pieza[] = [
     antetitulo: "01 · páginas web",
     titulo: ["Páginas ", "web"],
     bajada:
-      "Sitios y tiendas diseñados desde cero para tu negocio: rápidos, claros y listos para vender desde el celular.",
-    etiquetas: ["Diseño a medida", "Tienda y pagos", "Tu dominio"],
+      "Diseñamos tu página desde cero: rápida, fácil de usar y lista para vender desde el celular. Incluye dominio con correo propio, formulario de contacto, botón de WhatsApp y presencia en Google.",
+    etiquetas: ["Diseño a medida", "Tienda y pagos", "Tu marca digitalizada"],
     accion: { texto: "Ver planes", destino: "planes" },
     fantasma: "web",
     tema: "claro",
@@ -67,11 +68,11 @@ export const PIEZAS: readonly Pieza[] = [
     imagen: "/escenas/software.webp",
     alt: "Onvi IA: tablero financiero con ingresos, operaciones y el asistente a un lado",
     antetitulo: "02 — software a medida",
-    titulo: ["", "Software"],
+    titulo: ["Software ", "a medida"],
     bajada:
-      "Paneles, sistemas y automatizaciones que ordenan tu operación: ventas, inventario, reportes y clientes en un solo lugar.",
-    etiquetas: ["Paneles", "Automatizaciones", "Reportes"],
-    accion: { texto: "Contanos tu idea", destino: "agendar" },
+      "Un sistema hecho para tu negocio: controla ventas, inventario, citas, facturación y clientes desde un solo lugar, en la computadora o el celular. Sin Excel ni cuadernos.",
+    etiquetas: ["Ventas e inventario", "Facturación electrónica", "Reportes al instante"],
+    accion: { texto: "Cuéntanos tu idea", destino: "agendar" },
     fantasma: "software",
     tema: "claro",
     cortina: "barras",
@@ -87,8 +88,8 @@ export const PIEZAS: readonly Pieza[] = [
     antetitulo: "03 · apps móviles",
     titulo: ["Apps ", "móviles"],
     bajada:
-      "Apps para iPhone y Android con tu marca en el bolsillo del cliente: cuenta, pedidos, recordatorios y notificaciones.",
-    etiquetas: ["iOS y Android", "Notificaciones", "Pagos in-app"],
+      "Tu negocio en el celular de tus clientes: una app con tu marca para iPhone y Android donde pueden pedir, reservar, pagar y recibir avisos al instante.",
+    etiquetas: ["iPhone y Android", "Avisos al instante", "Pagos dentro de la app"],
     accion: { texto: "Cotizar mi app", destino: "agendar" },
     fantasma: "apps",
     tema: "oscuro",
@@ -100,18 +101,17 @@ export const PIEZAS: readonly Pieza[] = [
     n: "04",
     nombre: "Onvi",
     corto: "Onvi",
-    imagen: "/escenas/onvi.webp",
-    alt: "El asistente de Tappy en estilo píxel, respondiendo preguntas en el chat",
-    antetitulo: "04/06 > asistente IA",
+    alt: "El chat de Onvi: un cliente pregunta si hay espacio mañana en la tarde y Onvi le ofrece dos horarios para reservar",
+    antetitulo: "04/06 > asistente con IA · incluido",
     titulo: ["", "Onvi"],
     bajada:
-      "Tu asistente con IA: atiende a tus clientes por chat las 24 horas, en español e inglés, agenda citas y te pasa los contactos listos.",
-    etiquetas: ["24/7", "Agenda citas", "Capta clientes"],
+      "Tu asistente con inteligencia artificial: responde a tus clientes por chat las 24 horas, en español e inglés, agenda citas y te envía los datos de cada interesado. Incluido en todos los planes.",
+    etiquetas: ["Atiende 24/7", "Agenda citas", "Consigue clientes"],
     accion: { texto: "Hablar con Onvi", destino: "onvi" },
     fantasma: "ONVI",
     tema: "oscuro",
     cortina: "pixeles",
-    colores: { fondo: "#0c0c0c", borde: "#f2b705" },
+    colores: { fondo: "#06080b", borde: "#34d3ee" },
   },
   {
     id: "panel",
@@ -123,8 +123,8 @@ export const PIEZAS: readonly Pieza[] = [
     antetitulo: "05 — incluido en todos los planes",
     titulo: ["Panel ", "Onvi"],
     bajada:
-      "Tu negocio en un solo lugar: reservas, formularios, analítica y soporte. Confirmá citas y escribile a tus clientes en un toque.",
-    etiquetas: ["Reservas", "Registros", "Soporte"],
+      "Tu centro de control: revisa tus reservas, los mensajes de tus clientes y las visitas a tu página. Confirma citas y pide cambios, todo desde un solo lugar.",
+    etiquetas: ["Reservas y citas", "Estadísticas", "Soporte"],
     accion: { texto: "Ver planes", destino: "planes" },
     fantasma: "panel",
     tema: "oscuro",
@@ -141,8 +141,8 @@ export const PIEZAS: readonly Pieza[] = [
     antetitulo: "06 — identidad",
     titulo: ["Tu marca ", "desde cero"],
     bajada:
-      "Logo, colores, tipografía y tu presencia en Google e Instagram: todo conectado para que te encuentren y te reconozcan.",
-    etiquetas: ["Identidad", "SEO en Google", "Instagram"],
+      "Creamos la identidad de tu negocio (logo, colores y tipografía) y la llevamos a tu página, a tu perfil de Google y a Instagram, para que te encuentren y te reconozcan en todos lados.",
+    etiquetas: ["Logo e identidad", "Perfil de Google", "Instagram"],
     accion: { texto: "Empezar mi marca", destino: "agendar" },
     fantasma: "marca.",
     tema: "claro",

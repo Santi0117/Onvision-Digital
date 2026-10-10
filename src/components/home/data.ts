@@ -54,7 +54,7 @@ export type Empresa = (typeof empresas)[number];
 
 export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
-  { id: "nucleo", nombre: "Núcleo" },
+  { id: "nucleo", nombre: "Qué incluye" },
   { id: "trabajos", nombre: "Trabajos" },
   { id: "planes-inicio", nombre: "Planes" },
   { id: "contacto", nombre: "Contacto" },

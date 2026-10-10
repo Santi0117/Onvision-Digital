@@ -2,7 +2,6 @@ import { site } from "./site";
 
 export const digitalShowreel = {
   title: "onvision",
-  lead: "Sitios, tiendas y software a medida — a tu gusto, con Onvi IA incluido.",
   cta: {
     label: "Saber más",
     href: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, quiero una demo de Onvision Digital.")}`,
@@ -17,7 +16,7 @@ export const digitalShowreel = {
     {
       id: "shop",
       label: "Tiendas en línea",
-      body: "Catálogo, carrito, pagos online y panel admin. Con utilidades que las hacen únicas y personalizables.",
+      body: "Catálogo, carrito, pagos en línea y panel admin. Con utilidades que las hacen únicas y personalizables.",
       poster: "/digital/ecom-firstdown-tienda-cut2.png",
     },
     {
@@ -29,7 +28,7 @@ export const digitalShowreel = {
     {
       id: "mobile",
       label: "Apps móviles",
-      body: "iOS y Android a medida cuando el negocio necesita estar en el bolsillo del cliente.",
+      body: "iPhone y Android a medida cuando el negocio necesita estar en el bolsillo del cliente.",
       poster: "/digital/mobile-run-cut5.png",
     },
   ],
@@ -80,7 +79,7 @@ export const digitalMeeting = {
   serviceLabel: "¿Qué quieres conversar?",
   services: [
     "Sitio web",
-    "Tienda online",
+    "Tienda en línea",
     "Software a medida",
     "App móvil",
     "Consulta general",
@@ -328,23 +327,23 @@ export const digitalPlans = {
 export type DigitalPlanGroupKey = keyof typeof digitalPlans.groups;
 
 export const digitalFaq = {
-  label: "01 — FAQ",
-  title: "Lo que se pregunta todo el mundo antes de empezar",
+  label: "01 — Preguntas frecuentes",
+  title: "Lo que todos preguntan antes de empezar",
   description:
-    "Las dudas más comunes sobre la mensualidad, el dominio y qué pasa si querés parar.",
-  itemPrefix: "FAQ-",
+    "Las dudas más comunes sobre la mensualidad, el dominio y qué pasa si quieres cancelar.",
+  itemPrefix: "",
   items: [
     {
       q: "¿El sitio es mío o de ustedes?",
       a: "Tuyo. Con el pago único queda a tu nombre desde que se entrega. Con la mensualidad también es tuyo, mientras la mensualidad esté al día.",
     },
     {
-      q: "Si elegís la mensualidad, ¿cuál es el mínimo antes de poder cancelar?",
-      a: "En sitios web y tiendas, el mínimo son 5 meses. Después de eso podés cancelar en cualquier momento, e incluso pedir la devolución de esa mensualidad si la usaste menos de la mitad del mes. Software y apps móviles no tienen ese mínimo.",
+      q: "Si eliges la mensualidad, ¿cuál es el mínimo antes de poder cancelar?",
+      a: "En sitios web y tiendas, el mínimo son 5 meses. Después de eso puedes cancelar en cualquier momento, e incluso pedir la devolución de esa mensualidad si la usaste menos de la mitad del mes. Software y apps móviles no tienen ese mínimo.",
     },
     {
       q: "¿Qué pasa si cancelo o me atraso con el pago?",
-      a: "Tenés 5 días para ponerte al día antes de que se desactiven la página y los demás servicios. Tené en cuenta que la mensualidad no cubre solo la página web: incluye el mantenimiento, el pago del servicio de IA y tu espacio promocional en nuestro sitio.",
+      a: "Tienes 5 días para ponerte al día antes de que se desactiven la página y los demás servicios. Ten en cuenta que la mensualidad no cubre solo la página web: incluye el mantenimiento, el pago del servicio de IA y tu espacio promocional en nuestro sitio.",
     },
     {
       q: "¿Qué cubre exactamente el soporte incluido?",
@@ -370,7 +369,7 @@ export const digitalFaq = {
     },
     {
       q: "¿A nombre de quién queda el dominio?",
-      a: "El dominio lo comprás vos y queda a tu nombre. Ronda los $11 al año (unos ₡5.000 colones). Nosotros lo dejamos comprado, configurado y apuntando a tu sitio.",
+      a: "El dominio lo compras tú y queda a tu nombre. Ronda los $11 al año (unos ₡5.000 colones). Nosotros lo dejamos comprado, configurado y apuntando a tu sitio.",
     },
     {
       q: "¿Cuánto tarda desde que pago?",
@@ -382,10 +381,10 @@ export const digitalFaq = {
     },
     {
       q: "¿Por qué mensualidad y no un solo pago?",
-      a: "La mensualidad se añadió para darle la oportunidad a los negocios de tener un servicio digital de manera más accesible. Aun así, podés elegir la que te sirva: el pago único aparece en cada plan.",
+      a: "La mensualidad se añadió para darle la oportunidad a los negocios de tener un servicio digital de manera más accesible. Aun así, puedes elegir la que te sirva: el pago único aparece en cada plan.",
     },
   ],
   footerText: "¿Te quedó otra duda? ",
-  footerCta: "Escribinos",
+  footerCta: "Escríbenos",
   footerHref: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, tengo una duda sobre Onvision Digital.")}`,
 } as const;

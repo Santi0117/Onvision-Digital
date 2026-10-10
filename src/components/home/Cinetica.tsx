@@ -4,13 +4,23 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { Fragment, useRef } from "react";
 import { servicios } from "../od/data";
 import { Ojo } from "../od/ui";
-import { empresas } from "./data";
 
 /** Lo que hacemos: las cuatro líneas y lo que va incluido en todas. */
 const HACEMOS = [...servicios.map((s) => s.label), "Onvi IA", "Hosting"];
 
-/** Para quién: el rubro de cada empresa que ya está corriendo (en grande, Software en vez de Estudio musical). */
-const PARA = [...new Set(empresas.map((e) => e.sector.split(" · ")[0]!))].map((s) => (s === "Estudio musical" ? "Software" : s));
+/** Abajo: para quién y lo que trae cada plan, en palabras de cliente. */
+const PARA = [
+  "Software",
+  "Soporte incluido",
+  "Panel Onvi",
+  "Sitio web",
+  "Servicios legales",
+  "Tienda de camisetas",
+  "Clínica dental",
+  "Educación",
+  "Venta de vehículos",
+  "Comercio",
+];
 
 function Palabras({ palabras, desfase }: { palabras: readonly string[]; desfase: number }) {
   // Una vuelta alcanza: la fila se corre menos de media pantalla.

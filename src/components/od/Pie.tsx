@@ -10,8 +10,11 @@ function esCorreo(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 }
 
-/** La hora de Costa Rica, como el reloj del pie de sibal/hobro. */
-function Hora() {
+/**
+ * La hora de Costa Rica, como el reloj del pie de sibal/hobro. Se calcula en
+ * el navegador: hasta tenerla, el renglón no se ve (antes quedaba "--:--").
+ */
+function HoraCR() {
   const [hora, setHora] = useState<string | null>(null);
   useEffect(() => {
     const f = new Intl.DateTimeFormat("es-CR", {
@@ -28,7 +31,11 @@ function Hora() {
       window.clearInterval(id);
     };
   }, []);
-  return <span suppressHydrationWarning>{hora ?? "--:--"}</span>;
+  return (
+    <span className="od-pie__estado" style={hora ? undefined : { visibility: "hidden" }} suppressHydrationWarning>
+      <i aria-hidden /> Hora CR <span suppressHydrationWarning>{hora ?? "00:00"}</span>
+    </span>
+  );
 }
 
 /**
@@ -45,7 +52,7 @@ export default function Pie() {
     e.preventDefault();
     const v = correo.trim();
     if (!esCorreo(v)) {
-      setError("Ingresá un correo válido.");
+      setError("Ingresa un correo válido.");
       setListo(false);
       return;
     }
@@ -157,9 +164,7 @@ export default function Pie() {
 
         <div className="od-pie__abajo">
           <span>© {año} Onvision Digital · Latinoamérica</span>
-          <span className="od-pie__estado">
-            <i aria-hidden /> Hora CR <Hora />
-          </span>
+          <HoraCR />
           <span className="od-pie__redes">
             <a href={site.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <IconoInstagram className="h-4 w-4" />

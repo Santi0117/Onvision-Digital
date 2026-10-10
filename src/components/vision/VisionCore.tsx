@@ -4,10 +4,9 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import { webCore, webModules, type VisionPin } from "@/lib/web";
 import { smoothstep, visionStore, type Anchor } from "./store";
 
-/** "chatbot onvi" → "Chatbot Onvi", "seo y velocidad" → "SEO y velocidad". */
+/** "onvi, asistente con IA" → "Onvi, asistente con IA", "agenda" → "Agenda". */
 const nombre = (t: string) =>
   t
-    .replace("seo", "SEO")
     .replace("onvi", "Onvi")
     .replace(/^\p{L}/u, (c) => c.toUpperCase());
 
@@ -89,7 +88,7 @@ const visionCore = webCore;
 const visionModules = webModules;
 
 /** Lo que dice el contador antes de que se abra la primera pieza. */
-const ESPERA = "Seguí bajando: cada pieza que se abre suma a la cuenta.";
+const ESPERA = "Sigue bajando: cada pieza que se abre se suma a la cuenta.";
 
 export default function VisionCore() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -264,7 +263,7 @@ export default function VisionCore() {
     <section id="nucleo" ref={sectionRef} className="vision-core" data-tema="oscuro" aria-labelledby="vision-core-titulo">
       <div ref={stickyRef} className="vision-core__sticky">
         <div className="vision-core__copy">
-          <p className="oh-indice">(02) Núcleo</p>
+          <p className="oh-indice">(02) Qué incluye</p>
           <h2 id="vision-core-titulo" className="vision-core__title">
             {visionCore.title.map((line) => (
               <span key={line} className="block">

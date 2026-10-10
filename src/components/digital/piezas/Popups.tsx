@@ -47,48 +47,21 @@ export function Cuenta({ hasta, antes = "", despues = "", dur = 1100, retraso = 
   );
 }
 
-/** Dibujo de píxeles: "X" tinta, "O" relleno, "." vacío. */
-function Bitmap({ filas, className, tinta, relleno }: {
-  filas: readonly string[];
-  className?: string;
-  tinta: string;
-  relleno?: string;
-}) {
+/** Dibujo de píxeles: "X" tinta, "." vacío. */
+function Bitmap({ filas, className, tinta }: { filas: readonly string[]; className?: string; tinta: string }) {
   const ancho = filas[0]?.length ?? 0;
   return (
     <svg viewBox={`0 0 ${ancho} ${filas.length}`} className={className} shapeRendering="crispEdges" aria-hidden>
       {filas.flatMap((fila, y) =>
         fila.split("").map((c, x) =>
           c === "." ? null : (
-            <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill={c === "O" ? relleno : tinta} />
+            <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill={tinta} />
           ),
         ),
       )}
     </svg>
   );
 }
-
-const CURSOR = [
-  "X...........",
-  "XX..........",
-  "XOX.........",
-  "XOOX........",
-  "XOOOX.......",
-  "XOOOOX......",
-  "XOOOOOX.....",
-  "XOOOOOOX....",
-  "XOOOOOOOX...",
-  "XOOOOOOOOX..",
-  "XOOOOOOOOOX.",
-  "XOOOOOOXXXXX",
-  "XOOOXOOX....",
-  "XOOXXOOX....",
-  "XOX..XOOX...",
-  "XX...XOOX...",
-  "X.....XOOX..",
-  "......XOOX..",
-  ".......XX...",
-] as const;
 
 const CORAZON = [".XX.XX.", "XXXXXXX", "XXXXXXX", ".XXXXX.", "..XXX..", "...X..."] as const;
 const CHISPA = ["..X..", "..X..", "XXXXX", "..X..", "..X.."] as const;
@@ -117,20 +90,13 @@ function Papel() {
           pathLength={1}
         />
       </svg>
-      <div className="pz-pop pz-pop--flecha" style={v({ "--d": "610ms", "--z": 12 })}>
-        <span className="pz-mano">¡carga en 1 segundo!</span>
-        <svg viewBox="0 0 160 200" className="pz-trazo" aria-hidden>
-          <path d="M150 14 C 118 12, 84 30, 66 64 C 52 92, 44 128, 40 176" pathLength={1} />
-          <path d="M24 160 L40 178 L56 162" pathLength={1} />
-        </svg>
-      </div>
       <div className="pz-pop pz-nota pz-nota--rosa pz-pop--cel" style={v({ "--d": "290ms", "--z": 22 })}>
         <span className="pz-nota__cinta" />
         <svg viewBox="0 0 24 40" className="pz-nota__cel" aria-hidden>
           <rect x="2.5" y="2.5" width="19" height="35" rx="4" />
           <path d="M9 33.5h6" />
         </svg>
-        <b>Se ve perfecta en el cel</b>
+        <b>Se ve perfecta en el celular</b>
       </div>
       <div className="pz-pop pz-sello pz-pop--sello" style={v({ "--d": "840ms", "--z": 14 })}>
         <b>Aprobado</b>
@@ -140,7 +106,7 @@ function Papel() {
   );
 }
 
-/* ── 02 Onvi: ventanas, burbujas y cursor de píxeles ──────────────────── */
+/* ── 02 Onvi: la ventana de píxeles y el cliente nuevo, en cian ───────── */
 
 function Pixeles() {
   return (
@@ -161,28 +127,13 @@ function Pixeles() {
           <span className="pz-px-cursor" />
         </div>
       </div>
-      <div className="pz-pop pz-px pz-px-burbuja pz-pop--burbuja" style={v({ "--d": "340ms", "--z": 16 })}>
-        <b>RESPONDO 24/7</b>
-        <span>ES · EN</span>
-      </div>
       <div className="pz-pop pz-px pz-px-lead pz-pop--lead" style={v({ "--d": "720ms", "--z": 24 })}>
-        <Bitmap filas={CORAZON} tinta="#e8472d" className="pz-px-lead__icono" />
+        <Bitmap filas={CORAZON} tinta="#06080b" className="pz-px-lead__icono" />
         <b>+1 CLIENTE NUEVO</b>
-      </div>
-      <div className="pz-pop pz-px-carga pz-pop--carga" style={v({ "--d": "210ms", "--z": 10 })}>
-        <span>ESCRIBIENDO</span>
-        <span className="pz-px-carga__barra">
-          {Array.from({ length: 8 }, (_, i) => (
-            <i key={i} style={v({ "--i": i })} />
-          ))}
-        </span>
-      </div>
-      <div className="pz-pop pz-pop--cursor" style={v({ "--d": "560ms", "--z": 28 })}>
-        <Bitmap filas={CURSOR} tinta="#0c0c0c" relleno="#f4ecd8" className="pz-px-flecha" />
       </div>
       {(["a", "b", "c"] as const).map((k, i) => (
         <span key={k} className={`pz-pop pz-pop--chispa-${k}`} style={v({ "--d": `${240 + i * 210}ms`, "--z": 30 })}>
-          <Bitmap filas={CHISPA} tinta="#f2b705" className="pz-px-chispa" />
+          <Bitmap filas={CHISPA} tinta="#34d3ee" className="pz-px-chispa" />
         </span>
       ))}
     </>

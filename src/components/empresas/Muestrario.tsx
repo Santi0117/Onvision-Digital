@@ -22,7 +22,7 @@ type Tipo = Empresa["kind"];
 
 const GRUPOS: { tipo: Tipo; nombre: string }[] = [
   { tipo: "website", nombre: "Sitio web" },
-  { tipo: "ecommerce", nombre: "E-commerce" },
+  { tipo: "ecommerce", nombre: "Tiendas en línea" },
   { tipo: "software", nombre: "Software" },
 ];
 

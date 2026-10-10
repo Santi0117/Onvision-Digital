@@ -76,9 +76,9 @@ export const webModules: readonly VisionModule[] = [
   { id: "agenda", label: "agenda", detail: "Reservas y citas en línea.", pin: "right" },
   { id: "contacto", label: "contacto", detail: "Formularios que llegan a WhatsApp y correo.", pin: "right" },
   { id: "animaciones", label: "animaciones", detail: "Movimiento que se siente premium.", pin: "left" },
-  { id: "chatbot", label: "chatbot onvi", detail: "Responde a tus clientes 24/7.", accent: true, pin: "down" },
-  { id: "tienda", label: "catálogo y tienda", detail: "Vendé con SINPE y tarjeta.", pin: "right" },
-  { id: "seo", label: "seo y velocidad", detail: "Google te encuentra y carga rápido.", pin: "right" },
+  { id: "chatbot", label: "onvi, asistente con IA", detail: "Responde a tus clientes 24/7.", accent: true, pin: "down" },
+  { id: "tienda", label: "catálogo y tienda", detail: "Vende con SINPE y tarjeta.", pin: "right" },
+  { id: "seo", label: "visible en Google y rápido", detail: "Google te encuentra y carga rápido.", pin: "right" },
   { id: "base", label: "hosting incluido", detail: "Dominio, hosting y soporte, todo en la cuota.", pin: "down" },
 ] as const;
 
@@ -95,7 +95,7 @@ export const webFeatures: readonly VisionFeature[] = [
   {
     id: "seo",
     color: "#f8fafc",
-    title: "SEO y velocidad",
+    title: "Visible en Google",
     lead: "Un sitio que Google entiende y que carga en menos de un segundo, también en el teléfono.",
     bullets: ["Métricas en verde", "Textos y etiquetas optimizados", "Imágenes livianas"],
     snippet: ["sitio.medir();", "// → rendimiento 98 · seo 100"],
@@ -106,7 +106,7 @@ export const webFeatures: readonly VisionFeature[] = [
     color: "#f8fafc",
     title: "Software a medida",
     lead: "Paneles, inventario y flujos propios, hechos para cómo opera tu negocio todos los días.",
-    bullets: ["Hecho para tu operación", "Paneles e inventario", "Se integra con lo que ya usás"],
+    bullets: ["Hecho para tu operación", "Paneles e inventario", "Se integra con lo que ya usas"],
     snippet: ["sistema.operar({", "  panel: 'administrativo',", "  flujo: 'pedidos',", "});"],
     demo: "sinpe",
   },
@@ -144,7 +144,7 @@ export const webOutro = {
   modulesTitle: "Todo lo que trae tu sitio.",
   title: "Un sitio a tu medida, no una plantilla.",
   lead:
-    "Nos contás el negocio, elegimos las piezas y en días tenés tu sitio publicado en tu dominio, con Onvi incluida.",
+    "Nos cuentas el negocio, elegimos las piezas y en días tienes tu sitio publicado en tu dominio, con Onvi incluida.",
   primaryCta: { label: "Quiero mi sitio", href: "/planes#agendar" },
   secondaryCta: { label: "Ver planes", href: "/planes" },
 } as const;

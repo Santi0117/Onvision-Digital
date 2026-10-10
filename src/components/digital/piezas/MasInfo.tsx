@@ -12,11 +12,13 @@ import {
   type RefObject,
 } from "react";
 import { createPortal } from "react-dom";
+import ChatOnvi from "./ChatOnvi";
 import { celda, pintar, type Pintura } from "./cortina";
 import { PIEZAS, type IdPieza, type Pieza } from "./datos";
 import { MAS, tieneMas, type Extra, type Mas } from "./mas";
 import Popups from "./Popups";
 import PopupsMas, { ArteMas } from "./PopupsMas";
+import Sistema, { INDUSTRIAS } from "./Sistemas";
 import { BotonAccion, TextoPieza } from "./Texto";
 import "./masinfo.css";
 import "./mundos.css";
@@ -80,6 +82,51 @@ function useVisto<T extends Element>() {
   return [ref, visto] as const;
 }
 
+/**
+ * La industria que muestra un sistema en vivo: cambia sola mientras la
+ * sección está en pantalla; tocar una (en el texto o en la tarjeta) la deja
+ * quieta un rato, y con el mouse encima de la tarjeta no cambia.
+ */
+function useIndustria(total: number, ref: RefObject<HTMLElement | null>) {
+  const [activa, setActiva] = useState(0);
+  const [enPantalla, setEnPantalla] = useState(false);
+  const quietaHasta = useRef(0);
+  const encima = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || total < 2) return;
+    const io = new IntersectionObserver(([e]) => setEnPantalla(!!e?.isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref, total]);
+
+  useEffect(() => {
+    if (!enPantalla || quieto()) return;
+    const id = window.setInterval(() => {
+      if (encima.current || Date.now() < quietaHasta.current) return;
+      setActiva((n) => (n + 1) % total);
+    }, 3600);
+    return () => window.clearInterval(id);
+  }, [enPantalla, total]);
+
+  const elegir = useCallback((i: number) => {
+    quietaHasta.current = Date.now() + 9000;
+    setActiva(i);
+  }, []);
+
+  const sobre = {
+    onPointerEnter: (e: PunteroReact<HTMLElement>) => {
+      if (e.pointerType === "mouse") encima.current = true;
+    },
+    onPointerLeave: () => {
+      encima.current = false;
+    },
+  };
+
+  return { activa, elegir, sobre };
+}
+
 function Fondo({ fantasma, children }: { fantasma: string; children?: React.ReactNode }) {
   return (
     <div className="pz-fondo" aria-hidden>
@@ -93,21 +140,34 @@ function Fondo({ fantasma, children }: { fantasma: string; children?: React.Reac
   );
 }
 
-function Tarjeta({ imagen, alt, children }: { imagen: string; alt: string; children: React.ReactNode }) {
+/** La captura del trabajo (sin captura, el chat de Onvi) o, en vez de tarjeta, el sistema funcionando (`vivo`). */
+function Tarjeta({
+  imagen,
+  alt,
+  vivo,
+  children,
+}: {
+  imagen?: string;
+  alt: string;
+  vivo?: React.ReactNode;
+  children?: React.ReactNode;
+}) {
   return (
     <div className="mi-rig">
-      <div className="mi-marco">
-        <figure className="pz-carta" data-lugar="activa">
-          {/* Tal cual: ya vienen a su tamaño y comprimidas; otra pasada les borra el texto chico. */}
-          <Image src={imagen} alt={alt} fill unoptimized className="pz-carta__img" />
-        </figure>
+      <div className={vivo ? "mi-marco mi-marco--vivo" : "mi-marco"}>
+        {vivo ?? (
+          <figure className="pz-carta" data-lugar="activa">
+            {/* Tal cual: ya vienen a su tamaño y comprimidas; otra pasada les borra el texto chico. */}
+            {imagen ? <Image src={imagen} alt={alt} fill unoptimized className="pz-carta__img" /> : <ChatOnvi alt={alt} />}
+          </figure>
+        )}
         {children}
       </div>
     </div>
   );
 }
 
-/** Lo primero: la misma escena de Servicios, ahora con "bajá para ver más". */
+/** Lo primero: la misma escena de Servicios, ahora con "baja para ver más". */
 function Portada({ pieza }: { pieza: Pieza }) {
   const [ref, visto] = useVisto<HTMLElement>();
   return (
@@ -131,7 +191,7 @@ function Portada({ pieza }: { pieza: Pieza }) {
         </Tarjeta>
       </div>
       <p className="mi-bajar" aria-hidden>
-        <span>Bajá para ver más</span>
+        <span>Baja para ver más</span>
         <i />
       </p>
     </section>
@@ -141,6 +201,7 @@ function Portada({ pieza }: { pieza: Pieza }) {
 /** Otro trabajo del mismo servicio, en su propio mundo: su captura, su texto y sus pop-ups. */
 function SeccionExtra({ extra, carta }: { extra: Extra; carta: "izq" | "der" }) {
   const [ref, visto] = useVisto<HTMLElement>();
+  const { activa, elegir, sobre } = useIndustria(extra.vivo ? INDUSTRIAS[extra.vivo] : 0, ref);
   const [antes, resalto] = extra.titulo;
   return (
     <section
@@ -165,14 +226,28 @@ function SeccionExtra({ extra, carta }: { extra: Extra; carta: "izq" | "der" }) 
             <em>{resalto}</em>
           </h3>
           <p className="pz-texto__bajada">{extra.bajada}</p>
-          <ul className="pz-texto__etiquetas">
-            {extra.etiquetas.map((e) => (
-              <li key={e}>{e}</li>
-            ))}
+          <ul className="pz-texto__etiquetas" aria-label={extra.vivo ? "Ver el sistema de cada tipo de negocio" : undefined}>
+            {extra.etiquetas.map((e, i) =>
+              extra.vivo ? (
+                <li key={e}>
+                  <button type="button" aria-pressed={i === activa} onClick={() => elegir(i)}>
+                    {e}
+                  </button>
+                </li>
+              ) : (
+                <li key={e}>{e}</li>
+              ),
+            )}
           </ul>
         </div>
-        <Tarjeta imagen={extra.imagen} alt={extra.alt}>
-          {visto ? <PopupsMas id={extra.id} /> : null}
+        <Tarjeta
+          imagen={extra.imagen}
+          alt={extra.alt}
+          vivo={
+            extra.vivo ? <Sistema vivo={extra.vivo} activa={activa} alElegir={elegir} etiqueta={extra.alt} {...sobre} /> : undefined
+          }
+        >
+          {visto && !extra.vivo ? <PopupsMas id={extra.id} /> : null}
         </Tarjeta>
       </div>
     </section>

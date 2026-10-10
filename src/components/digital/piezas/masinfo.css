@@ -128,7 +128,7 @@ html.mi-abierto {
   }
 }
 
-/* ── Portada: "bajá para ver más" ───────────────────────────────────────── */
+/* ── Portada: "baja para ver más" ───────────────────────────────────────── */
 
 .mi-bajar {
   position: absolute;
@@ -167,7 +167,7 @@ html.mi-abierto {
 
 .mi-escena[data-escena="onvi"] .mi-bajar {
   font-family: var(--ff-pixel), var(--f-mono);
-  color: #f2b705;
+  color: #34d3ee;
 }
 
 /* ── Cierre ─────────────────────────────────────────────────────────────── */

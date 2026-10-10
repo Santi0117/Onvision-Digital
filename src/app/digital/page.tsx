@@ -9,7 +9,7 @@ import "@/components/digital/digital.css";
 export const metadata: Metadata = {
   title: "Onvision Digital — Sitios, tiendas y software a medida",
   description:
-    "Sitios web, e-commerce, software a medida y apps. Diseño a tu marca, Onvi incluido y entrega lista para revisar.",
+    "Páginas web, tiendas en línea, software a medida y apps. Diseño a tu marca, Onvi incluido y entrega lista para revisar.",
 };
 
 export default function Digital() {
@@ -22,9 +22,9 @@ export default function Digital() {
         <Faq />
       </div>
       <Cierre
-        pregunta="¿Seguís con dudas?"
-        palabra="ESCRIBINOS"
-        lead="Contanos el negocio, el plazo y si preferís mensualidad o pago único."
+        pregunta="¿Sigues con dudas?"
+        palabra="ESCRÍBENOS"
+        lead="Cuéntanos sobre tu negocio, para cuándo lo necesitas y si prefieres pagar mes a mes o en un solo pago. Te respondemos en menos de 24 horas."
         primario={{ label: "Agendar reunión", href: "/planes#agendar" }}
         secundario={{ label: "Ver planes", href: "/planes" }}
       />

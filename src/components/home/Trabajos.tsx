@@ -58,8 +58,9 @@ const TRABAJOS: readonly Trabajo[] = [
     direccion: "helio · alchemy · etílico · jopa",
     titulo: "Páginas con carácter propio.",
     texto:
-      "Cada marca, con su sitio desde cero: el teléfono 3D de Helio, las sesiones que Alchemy agenda en línea, la carta y los eventos de Etílico, y las visitas y el financiamiento de JOPA.",
-    resumen: "Sitios desde cero con 3D, reservas, visitas y calculadoras de financiamiento.",
+      "Cada marca, con su sitio desde cero: el teléfono 3D de Helio, las sesiones que Alchemy agenda en línea, el menú y los eventos de Etílico, y las visitas y el financiamiento de JOPA.",
+    resumen:
+      "Sitios web desde cero con elementos 3D, reservas, imágenes, información de la empresa, redes sociales y calculadoras de financiamiento.",
     incluye: ["Diseño desde cero", "Animaciones y 3D", "Reservas y citas", "Calculadoras a medida"],
     ideal: "bares, estudios, inmobiliarias, autos y servicios.",
     quiero: "Página web",
@@ -71,17 +72,18 @@ const TRABAJOS: readonly Trabajo[] = [
   {
     id: "tienda",
     n: "02",
-    servicio: "E-commerce",
+    servicio: "Tiendas en línea",
     corto: "Tienda",
     proyectos: "Firstdown · Lunea · Frutas Guba",
     direccion: "firstdown · lunea · guba",
     titulo: "Tiendas listas para vender.",
     texto:
-      "Firstdown personaliza jerseys con tu nombre y número, Lunea vende su cosmética natural por categorías y Frutas Guba toma pedidos por kilo con día y hora de entrega, directo a WhatsApp.",
-    resumen: "Jerseys personalizados, cosmética natural y pedidos de frutas con entrega programada.",
+      "Firstdown personaliza camisetas deportivas con tu nombre y número, Lunea vende su cosmética natural por categorías y Frutas Guba toma pedidos por kilo con día y hora de entrega, directo a WhatsApp.",
+    resumen:
+      "Inventarios personalizados, ventas 24/7, gestión operativa eficiente, imágenes en alta resolución y facturación electrónica.",
     incluye: ["Catálogo con filtros", "Carrito y pagos", "Productos personalizables", "Pedidos por WhatsApp"],
     ideal: "ropa, cosmética, alimentos y todo lo que se vende por catálogo.",
-    quiero: "Tienda online",
+    quiero: "Tienda en línea",
     video: "ecommerce",
     movil: true,
     forma: "navegador",
@@ -96,9 +98,10 @@ const TRABAJOS: readonly Trabajo[] = [
     direccion: "clinicos · unilearn · meridiano",
     titulo: "Tu operación, en un solo lugar.",
     texto:
-      "Sistemas hechos a la medida de cómo trabajás: la agenda, los pacientes y el inventario de una clínica en ClinicOS, los cursos y las notas de UniLearn y la mesa de operaciones de Meridiano.",
-    resumen: "Clínicas, plataformas educativas y operaciones, cada una a su medida.",
-    incluye: ["Agenda y pacientes", "Inventario con alertas", "Reportes y notas", "Usuarios y roles"],
+      "Sistemas hechos a la medida de cómo trabajas: la agenda, los pacientes y el inventario de una clínica en ClinicOS, los cursos y las notas de UniLearn y el control de operaciones de Meridiano.",
+    resumen:
+      "Agenda, inventario, ventas, facturación y reportes en un solo sistema, diseñado según cómo trabaja tu equipo. Tú nos dices qué necesitas y nosotros lo construimos.",
+    incluye: ["Agenda y pacientes", "Inventario con alertas", "Reportes y notas", "Usuarios y permisos"],
     ideal: "clínicas, centros educativos y empresas de servicios.",
     quiero: "Software a medida",
     video: "software",
@@ -115,9 +118,9 @@ const TRABAJOS: readonly Trabajo[] = [
     direccion: "tappy",
     titulo: "Tu negocio, en el bolsillo.",
     texto:
-      "Tappy convierte un sticker NFC en avisos para la familia: recordatorios de medicamentos, metas de agua y luces de la casa, con hogar compartido y plan Premium.",
-    resumen: "Stickers NFC que avisan a la familia, con hogar compartido y plan Premium.",
-    incluye: ["iPhone y Android", "Avisos al instante", "Cuentas y planes", "Stickers NFC"],
+      "Tappy convierte un sticker inteligente en avisos para la familia: acercas el celular y llegan recordatorios de medicamentos, metas de agua y luces de la casa, con hogar compartido y plan Premium.",
+    resumen: "Pedidos, reservas, pagos y avisos al instante, en una app con tu marca para iPhone y Android.",
+    incluye: ["iPhone y Android", "Avisos al instante", "Cuentas y planes", "Stickers inteligentes"],
     ideal: "salud, hogar, suscripciones y clientes frecuentes.",
     quiero: "App móvil",
     video: "apps",
@@ -513,10 +516,6 @@ export default function Trabajos() {
               <span>Así se ven</span> <span>funcionando.</span>
             </h2>
           </div>
-          <p className="tb__lede">
-            Proyectos reales, grabados tal cual se usan: sitios, tiendas, sistemas y una app. Elegí uno y miralo
-            funcionar.
-          </p>
         </div>
 
         <div className="tb__cuerpo">

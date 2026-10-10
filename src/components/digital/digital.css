@@ -19,8 +19,22 @@
   color: var(--tinta);
 }
 
-.od-reel--cabeza .od-reel__lead {
-  color: #4c5663;
+/* El ojo de la marca, a la derecha del "onvision." */
+.od-reel__ojo {
+  width: clamp(80px, 11vw, 170px);
+  margin-bottom: clamp(4px, 1vw, 16px);
+  color: var(--tinta);
+  overflow: visible;
+}
+
+.od-reel__pupila {
+  fill: var(--cian);
+}
+
+@media (max-width: 767px) {
+  .od-reel__ojo {
+    display: none;
+  }
 }
 
 @media (max-width: 767px) {
@@ -69,13 +83,6 @@
   font-stretch: 118%;
   line-height: 0.78;
   letter-spacing: -0.06em;
-}
-
-.od-reel__lead {
-  max-width: 34ch;
-  font-size: 18px;
-  line-height: 1.45;
-  color: var(--gris-3);
 }
 
 /* ── Planes (nordpixel) ──────────────────────────────────────────────── */

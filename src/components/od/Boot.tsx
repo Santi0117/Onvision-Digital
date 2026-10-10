@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { OJO_CONTORNO } from "./ui";
 
 /** Lo que "arranca": las piezas que trae cada proyecto. */
-const FILAS = ["Diseño a tu marca", "Onvi IA", "SEO y velocidad", "SINPE y tarjeta", "Hosting incluido"];
+const FILAS = ["Diseño a tu marca", "Onvi IA", "Visible en Google", "SINPE y tarjeta", "Hosting incluido"];
 
 const R = 52;
 const CIRCUNFERENCIA = 2 * Math.PI * R;

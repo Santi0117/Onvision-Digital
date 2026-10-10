@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { scrollA } from "../../home/data";
+import ChatOnvi from "./ChatOnvi";
 import { celda, pintar, type Pintura } from "./cortina";
 import { PIEZAS, type IdPieza } from "./datos";
 import { tieneMas } from "./mas";
@@ -418,7 +419,11 @@ export default function Piezas() {
                     }
                   >
                     {/* Tal cual: ya vienen a su tamaño y comprimidas; otra pasada les borra el texto chico. */}
-                    <Image src={p.imagen} alt={p.alt} fill unoptimized className="pz-carta__img" />
+                    {p.imagen ? (
+                      <Image src={p.imagen} alt={p.alt} fill unoptimized className="pz-carta__img" />
+                    ) : (
+                      <ChatOnvi alt={p.alt} />
+                    )}
                   </figure>
                 );
               })}

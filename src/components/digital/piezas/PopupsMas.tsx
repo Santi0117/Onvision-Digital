@@ -6,10 +6,11 @@ import { Cuenta } from "./Popups";
 /**
  * Los pop-ups de las secciones de "Más información": cada sección tiene su
  * mundo, sacado del diseño de su captura (la tienda deportiva, el plano de
- * la página de bienes raíces, el sistema de la clínica, el chat del taller,
- * la finca, el restaurante y el monitor y el soporte del Panel Onvi), y sus
- * pop-ups hablan ese idioma. Son decorado: lo que cuentan también está en
- * el texto de la sección.
+ * la página de bienes raíces, el sistema de la clínica, el chat del taller
+ * y el monitor y el soporte del Panel Onvi), y sus pop-ups hablan ese
+ * idioma. Son decorado: lo que cuentan también está en el texto de la
+ * sección. Los dos de Software no tienen: su tarjeta es el sistema
+ * funcionando (ver Sistemas).
  */
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
@@ -17,12 +18,6 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 const Ok = () => (
   <svg viewBox="0 0 16 16" aria-hidden>
     <path d="M4 8.5l2.6 2.5L12 5.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const Flecha = () => (
-  <svg viewBox="0 0 16 16" aria-hidden>
-    <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -232,102 +227,6 @@ function Chat() {
   );
 }
 
-/* ── Software · la finca: verde salvia y tarjetas de colores suaves ────── */
-
-function Finca() {
-  return (
-    <>
-      <div className="pz-pop mf-kpi" style={v({ "--d": "120ms", "--z": 18 })}>
-        <small>Valor cosecha</small>
-        <b>
-          <Cuenta antes="₡" hasta={8119140} retraso={600} dur={1400} />
-        </b>
-        <svg viewBox="0 0 120 30" className="mf-kpi__linea" preserveAspectRatio="none" aria-hidden>
-          <path d="M0 26 C 14 24, 22 18, 34 20 S 52 24, 64 14 S 86 6, 98 9 S 112 6, 120 2" pathLength={1} />
-        </svg>
-      </div>
-      <div className="pz-pop mf-producto" style={v({ "--d": "360ms", "--z": 22 })}>
-        <span className="mf-producto__cabeza">
-          <b>Plátano verde</b>
-          <i />
-        </span>
-        <small>PLA-001</small>
-        <b className="mf-producto__kg">
-          <Cuenta hasta={265} retraso={800} dur={1000} /> <span>kg</span>
-        </b>
-        <span className="mf-producto__barra">
-          <i />
-        </span>
-        <span className="mf-producto__pie">
-          <small>₡620/kg</small>
-          <small>En bodega</small>
-        </span>
-      </div>
-      <div className="pz-pop mf-toast" style={v({ "--d": "620ms", "--z": 26 })}>
-        <span className="mf-toast__ok">
-          <Ok />
-        </span>
-        Cosecha registrada · +265 kg
-      </div>
-      <div className="pz-pop mf-merma" style={v({ "--d": "860ms", "--z": 14 })}>
-        <svg viewBox="0 0 16 16" aria-hidden>
-          <path d="M2 4l5 5 3-3 4 4M14 7v3h-3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        Merma −3 %
-      </div>
-    </>
-  );
-}
-
-/* ── Software · el restaurante: cuadrícula, rojo y la comanda ─────────── */
-
-function Salon() {
-  return (
-    <>
-      <div className="pz-pop ms-comanda" style={v({ "--d": "160ms", "--z": 20 })}>
-        <span className="ms-comanda__papel">
-          <b>Comanda · Mesa 2</b>
-          <small>#1 · 12:41 p. m.</small>
-          <span className="ms-comanda__fila">
-            <span>2× Casado</span>
-            <span>₡7.000</span>
-          </span>
-          <span className="ms-comanda__fila">
-            <span>1× Fresco natural</span>
-            <span>₡1.500</span>
-          </span>
-          <span className="ms-comanda__fila ms-comanda__fila--total">
-            <span>Total</span>
-            <span>₡8.500</span>
-          </span>
-        </span>
-      </div>
-      <div className="pz-pop ms-toast" style={v({ "--d": "420ms", "--z": 24 })}>
-        <span className="ms-toast__icono">
-          <svg viewBox="0 0 16 16" aria-hidden>
-            <path d="M8 2.2a4 4 0 0 0-4 4v2.6L2.8 11h10.4L12 8.8V6.2a4 4 0 0 0-4-4zM6.6 12.6a1.5 1.5 0 0 0 2.8 0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-          </svg>
-        </span>
-        <span>
-          <b>Orden en la cocina</b>
-          <small>Mesa 2 · hace 1 s</small>
-        </span>
-      </div>
-      <div className="pz-pop ms-boton" style={v({ "--d": "680ms", "--z": 28 })}>
-        Ir a cobrar
-        <Flecha />
-        <Puntero className="ms-boton__puntero" />
-      </div>
-      <div className="pz-pop ms-fe" style={v({ "--d": "900ms", "--z": 16 })}>
-        <span>
-          <Ok />
-        </span>
-        Factura electrónica aceptada
-      </div>
-    </>
-  );
-}
-
 /* ── Panel Onvi · registros: el monitor, verde sobre negro ─────────────── */
 
 const BARRAS = Array.from({ length: 30 }, (_, i) => (i === 11 ? "lento" : i === 22 ? "caido" : "ok"));
@@ -481,8 +380,6 @@ const SECCIONES: Record<string, () => JSX.Element> = {
   "web-componentes": Plano,
   "onvi-software": Guia,
   "onvi-pagina": Chat,
-  "software-cosecha": Finca,
-  "software-mesas": Salon,
   "panel-registros": Registros,
   "panel-soporte": Soporte,
 };
