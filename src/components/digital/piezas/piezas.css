@@ -3175,15 +3175,142 @@
   }
 }
 
+/* ── Celular: la tarjeta siempre igual ─────────────────────────────────────
+   Abajo, del mismo tamaño y en el mismo lugar en las seis piezas (antes se
+   achicaba según cuánto texto tenía cada una y los pop-ups de arriba
+   tapaban los botones). El texto va arriba, en el lugar que queda. */
+@media (max-width: 767px) {
+  /* Por encima de los botones redondos de WhatsApp y Onvi, para que no la tapen. */
+  .pz-rig {
+    position: absolute;
+    right: clamp(18px, 5vw, 48px);
+    bottom: calc(66px + env(safe-area-inset-bottom));
+    left: clamp(18px, 5vw, 48px);
+    height: 38vh;
+    height: 38svh;
+  }
+
+  .pz-cuerpo .pz-texto__bajada {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* Los dos botones en una sola fila (si no caben, bajan; nunca se cortan). */
+  .pz-cuerpo .pz-texto__botones {
+    gap: 8px;
+  }
+
+  .pz-cuerpo .pz-texto__botones > * {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  .pz-cuerpo .pz-texto__botones .pz-texto__accion,
+  .pz-cuerpo .pz-texto__mas {
+    gap: 8px;
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .pz-cuerpo .pz-texto__mas svg,
+  .pz-cuerpo .pz-texto__accion svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .pz-escenario[data-escena="web"] .pz-cuerpo .pz-texto__mas {
+    padding: 2px 10px 3px 12px;
+    font-size: 19px;
+  }
+
+  .pz-escenario[data-escena="web"] .pz-cuerpo .pz-texto__botones .pz-texto__accion {
+    padding-inline: 4px;
+    font-size: 19px;
+  }
+
+  .pz-escenario[data-escena="onvi"] .pz-cuerpo .pz-texto__mas,
+  .pz-escenario[data-escena="onvi"] .pz-cuerpo .pz-texto__botones .pz-texto__accion {
+    padding: 9px 10px;
+    font-size: 10.5px;
+  }
+
+  .pz-escenario[data-escena="onvi"] .pz-cuerpo .pz-texto__mas {
+    box-shadow: 3px 3px 0 #34d3ee;
+  }
+
+  .pz-escenario[data-escena="onvi"] .pz-cuerpo .pz-texto__botones .pz-texto__accion {
+    box-shadow: 3px 3px 0 #f3f6f9;
+  }
+
+  /* Los pop-ups de arriba de la tarjeta, más pegados a ella: no llegan a los botones. */
+  .pz-pop--kpi {
+    top: -36%;
+  }
+
+  .pz-pop--ventana {
+    top: -40%;
+  }
+
+  .pz-pop--google {
+    top: -34%;
+  }
+
+  .pz-pop--dominio {
+    top: -30%;
+  }
+
+  .pz-pop--barras {
+    top: 44%;
+    width: 36%;
+  }
+
+  /* Los de la esquina de abajo a la derecha, un poco más arriba: ahí va el botón de Onvi. */
+  .pz-pop--cel {
+    top: 60%;
+  }
+
+  .pz-pop--instagram {
+    top: 20%;
+  }
+}
+
+/* Celulares angostos: los botones un poco más chicos para que entren juntos. */
+@media (max-width: 379px) {
+  .pz-cuerpo .pz-texto__botones {
+    gap: 6px;
+  }
+
+  .pz-cuerpo .pz-texto__botones .pz-texto__accion,
+  .pz-cuerpo .pz-texto__mas {
+    gap: 6px;
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+
+  .pz-escenario[data-escena="onvi"] .pz-cuerpo .pz-texto__mas,
+  .pz-escenario[data-escena="onvi"] .pz-cuerpo .pz-texto__botones .pz-texto__accion {
+    padding: 8px 8px;
+    font-size: 9.5px;
+  }
+}
+
 /* Pantallas bajitas: el texto se aprieta para dejarle lugar a la tarjeta. */
 @media (max-height: 720px) and (max-width: 767px) {
   .pz-cuerpo {
     padding-top: 138px;
   }
 
+  /* Acá no hay lugar para subirla: va abajo y un poco más alta. */
+  .pz-rig {
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    height: 42vh;
+    height: 42svh;
+  }
+
   /* Poco lugar sobre la tarjeta: un poco más compactos, sin tocar el texto de arriba. */
   .pz-pop--kpi {
-    top: -76px;
     padding: 0.7em 0.9em;
   }
 
@@ -3191,15 +3318,11 @@
     height: 1.8em;
   }
 
-  .pz-texto__bajada {
+  .pz-cuerpo .pz-texto__bajada {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-  }
-
-  .pz-texto__accion {
-    display: none;
   }
 }
 
