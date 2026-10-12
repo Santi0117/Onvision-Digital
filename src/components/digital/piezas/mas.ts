@@ -71,7 +71,7 @@ export const MAS: Partial<Record<IdPieza, Mas>> = {
       antetitulo: "¿y la tuya?",
       titulo: ["¿Empezamos ", "tu página?"],
       bajada:
-        "Diseño a medida, dominio con correo propio, hosting y Onvi, tu asistente con IA, desde $35 al mes. Te entregamos una primera versión para que la revises antes de publicarla.",
+        "Diseño a medida, hosting y Onvi, tu asistente con IA, desde $35 al mes; tu dominio con correo propio queda a tu nombre y nosotros lo configuramos. Te entregamos una primera versión para que la revises antes de publicarla.",
     },
   },
   onvi: {

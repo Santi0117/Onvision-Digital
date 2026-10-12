@@ -96,6 +96,7 @@ export const digitalMeeting = {
     notePlaceholder: "Cuéntanos brevemente qué necesitas…",
   },
   submit: "Confirmar reunión",
+  /** Solo se puede elegir de lunes a viernes (el calendario y /api/booking lo cuidan). */
   hint: "Lunes a viernes · hora de Costa Rica (GMT-6)",
 } as const;
 
@@ -106,7 +107,11 @@ export const digitalPlans = {
     "Páginas web, tiendas, software y apps. Elige lo que necesitas, revisa qué incluye y paga mes a mes o en un solo pago.",
   period: "/ mes",
   yearLabel: "al año",
-  yearSave: "ahorras 17%",
+  /** Delante del % que se ahorra pagando el año (se calcula con el precio de cada plan). */
+  yearSave: "ahorras",
+  /** El precio en colones es fijo (no es una conversión): lo que cobra Onvo si pagas en colones. */
+  altPrefix: "o",
+  altSuffix: "al mes pagando en colones",
   onceLabel: "en un solo pago",
   /** Software y apps arrancan en ese precio y suben según el alcance. */
   fromLabel: "desde",
@@ -119,6 +124,9 @@ export const digitalPlans = {
     companyNameLabel: "Nombre de tu empresa (opcional)",
     companyNamePlaceholder: "Ej. Mi negocio S.A.",
     note: "Vas a pagar la mensualidad con Onvo (tarjeta, SINPE y más). Si prefieres pagar una sola vez, escríbenos.",
+    /** Planes que se cobran en colones: el monto exacto, para que no haya sorpresas. */
+    colonesLabel: "Se cobra en colones:",
+    colonesNote: "al mes. Es un precio fijo: no cambia con el tipo de cambio.",
     continueCta: "Pagar",
     continueLoading: "Abriendo el pago…",
     cancelCta: "Cancelar",
@@ -167,7 +175,7 @@ export const digitalPlans = {
             "Se ve perfecta en celular y computadora",
             "Botón de WhatsApp para recibir consultas",
             "Onvi, tu asistente con IA, atendiendo 24/7",
-            "Dominio y hosting incluidos",
+            "Hosting incluido; el dominio va aparte (unos $11 al año)",
             "Aparece en Google desde el primer día",
             "Formulario de contacto y enlaces a tus redes",
             "Animaciones a la medida de tu marca",
@@ -297,8 +305,8 @@ export const digitalPlans = {
           name: "App móvil",
           tagline: "Tu negocio en el celular de tus clientes.",
           price: "$150",
-          priceYear: "$1.500",
-          priceFull: "$1.500",
+          priceYear: "$1.100",
+          priceFull: "$1.600",
           checkoutId: "mobile-app",
           highlighted: true,
           badge: "Hecha a tu medida",
@@ -369,7 +377,7 @@ export const digitalFaq = {
     },
     {
       q: "¿A nombre de quién queda el dominio?",
-      a: "El dominio lo compras tú y queda a tu nombre. Ronda los $11 al año (unos ₡5.000 colones). Nosotros lo dejamos comprado, configurado y apuntando a tu sitio.",
+      a: "A tu nombre. El dominio no va incluido en la mensualidad: lo pagas tú y ronda los $11 al año (unos ₡5.000 colones). Nosotros lo dejamos comprado, configurado y apuntando a tu sitio.",
     },
     {
       q: "¿Cuánto tarda desde que pago?",

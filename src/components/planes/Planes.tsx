@@ -17,6 +17,11 @@ type Plan = (typeof digitalPlans.groups)[DigitalPlanGroupKey]["plans"][number];
 
 const VISIBLES = 6;
 
+/** "$1.300" → 1300 */
+const monto = (precio: string) => Number(precio.replace(/\D/g, ""));
+/** Cuánto se ahorra (en %) pagando el año en vez de doce meses. */
+const ahorro = (mes: string, año: string) => Math.round((1 - monto(año) / (12 * monto(mes))) * 100);
+
 /**
  * La tarjeta de nordpixel: ícono de píxeles, precio grande, los botones y qué
  * incluye. Las páginas y tiendas se pagan desde acá; el software y las apps
@@ -62,13 +67,20 @@ function Tarjeta({
           <b>{plan.price}</b>
           <span>{digitalPlans.period}</span>
         </p>
-        {"priceAlt" in plan && plan.priceAlt ? <p className="od-plan__alt">{plan.priceAlt}</p> : null}
+        {"priceAlt" in plan && plan.priceAlt ? (
+          <p className="od-plan__alt">
+            {digitalPlans.altPrefix} {plan.priceAlt} {digitalPlans.altSuffix}
+          </p>
+        ) : null}
         {/* "$350 al año (ahorras 17%) · o $550 en un solo pago" */}
         <p className="od-plan__otros">
           {"priceYear" in plan && plan.priceYear ? (
             <span>
               {desde ? "Desde " : ""}
-              {plan.priceYear} {digitalPlans.yearLabel} <em>{digitalPlans.yearSave}</em>
+              {plan.priceYear} {digitalPlans.yearLabel}{" "}
+              <em>
+                {digitalPlans.yearSave} {ahorro(plan.price, plan.priceYear)}%
+              </em>
             </span>
           ) : null}
           {"priceFull" in plan && plan.priceFull ? (

@@ -79,7 +79,7 @@ export const webModules: readonly VisionModule[] = [
   { id: "chatbot", label: "onvi, asistente con IA", detail: "Responde a tus clientes 24/7.", accent: true, pin: "down" },
   { id: "tienda", label: "catálogo y tienda", detail: "Vende con SINPE y tarjeta.", pin: "right" },
   { id: "seo", label: "visible en Google y rápido", detail: "Google te encuentra y carga rápido.", pin: "right" },
-  { id: "base", label: "hosting incluido", detail: "Dominio, hosting y soporte, todo en la cuota.", pin: "down" },
+  { id: "base", label: "hosting incluido", detail: "Hosting y soporte en la cuota; conectamos tu dominio.", pin: "down" },
 ] as const;
 
 export const webFeatures: readonly VisionFeature[] = [

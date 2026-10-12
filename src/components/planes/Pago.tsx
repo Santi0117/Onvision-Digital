@@ -154,7 +154,11 @@ export default function Pago({ seleccion, alCerrar }: { seleccion: Seleccion | n
                 <b>{seleccion.price}</b>
                 <span>{seleccion.period}</span>
               </p>
-              {seleccion.priceAlt ? <p className="od-pago__alt">{seleccion.priceAlt}</p> : null}
+              {seleccion.priceAlt ? (
+                <p className="od-pago__alt">
+                  {COPY.colonesLabel} <b>{seleccion.priceAlt}</b> {COPY.colonesNote}
+                </p>
+              ) : null}
             </div>
 
             <label className="od-campo">

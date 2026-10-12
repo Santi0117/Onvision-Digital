@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin, isDatabaseConfigured } from "@/lib/supabase";
-import { localCostaRicaToISO, isValidBookingSlot } from "@/lib/booking";
+import { isBookingWeekday, localCostaRicaToISO, isValidBookingSlot } from "@/lib/booking";
 
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 8;
@@ -167,6 +167,13 @@ export async function POST(request: Request) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       return NextResponse.json(
         { error: "Selecciona una fecha válida." },
+        { status: 400 },
+      );
+    }
+
+    if (!isBookingWeekday(date)) {
+      return NextResponse.json(
+        { error: "Agendamos de lunes a viernes. Elige otro día." },
         { status: 400 },
       );
     }

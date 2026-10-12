@@ -14,6 +14,8 @@ const diaCero = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()
 const mismoDia = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 const largo = (d: Date) => d.toLocaleDateString("es-CR", { weekday: "long", day: "numeric", month: "long" });
+/** Sábado y domingo no se agenda (la reunión es de lunes a viernes). */
+const finDeSemana = (d: Date) => d.getDay() === 0 || d.getDay() === 6;
 
 function celdas(vista: Date) {
   const año = vista.getFullYear();
@@ -88,19 +90,20 @@ function Calendario({ hoy, elegido, alElegir }: { hoy: Date; elegido: Date | nul
       <div className="od-cal__grilla">
         {lista.map(({ fecha, delMes }) => {
           const pasado = diaCero(fecha) < hoy;
+          const cerrado = pasado || finDeSemana(fecha);
           const sel = elegido ? mismoDia(fecha, elegido) : false;
           return (
             <button
               key={fecha.toISOString()}
               type="button"
-              disabled={pasado}
+              disabled={cerrado}
               aria-pressed={sel}
               aria-label={largo(fecha)}
               className={["od-cal__dia", delMes ? "" : "is-fuera", sel ? "is-sel" : "", mismoDia(fecha, hoy) && !sel ? "is-hoy" : ""]
                 .filter(Boolean)
                 .join(" ")}
               onClick={() => {
-                if (pasado) return;
+                if (cerrado) return;
                 if (!delMes) setVista(new Date(fecha.getFullYear(), fecha.getMonth(), 1));
                 alElegir(diaCero(fecha));
               }}

@@ -13,6 +13,13 @@ export function isValidBookingSlot(hour: number, minute: number): boolean {
   return true;
 }
 
+/** Las reuniones son de lunes a viernes. `dateKey`: "AAAA-MM-DD". */
+export function isBookingWeekday(dateKey: string): boolean {
+  const [y, m, d] = dateKey.split("-").map(Number);
+  const dia = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+  return dia !== 0 && dia !== 6;
+}
+
 /** ISO UTC para guardar en Supabase a partir de fecha local CR */
 export function localCostaRicaToISO(
   dateKey: string,

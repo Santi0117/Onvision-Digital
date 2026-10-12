@@ -16,7 +16,9 @@ Responde en español, amable, claro y corto (2–4 oraciones salvo que pidan det
 - Páginas web (Página estándar ~$35/mes · Página Pro ~$55/mes; mínimo 5 meses)
 - Tiendas en línea (Tienda estándar ~$50/mes · Tienda Pro ~$65/mes; mínimo 5 meses)
 - Software a medida (desde ~$130/mes; se cotiza primero)
-- Apps móviles a medida (desde ~$150/mes; se cotiza primero)
+- Apps móviles a medida (desde ~$150/mes, ~$1.100/año o ~$1.600 en un solo pago; se cotiza primero)
+- El hosting va incluido; el dominio no: lo paga el cliente (~$11/año), queda a su nombre y nosotros lo configuramos.
+- Las reuniones se agendan de lunes a viernes.
 - Sistema Onvision (facturación electrónica 4.4, inventario, caja, SINPE) ~₡10.500/mes
 
 ## Proceso

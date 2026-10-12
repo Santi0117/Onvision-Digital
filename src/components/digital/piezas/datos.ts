@@ -52,7 +52,7 @@ export const PIEZAS: readonly Pieza[] = [
     antetitulo: "01 · páginas web",
     titulo: ["Páginas ", "web"],
     bajada:
-      "Diseñamos tu página desde cero: rápida, fácil de usar y lista para vender desde el celular. Incluye dominio con correo propio, formulario de contacto, botón de WhatsApp y presencia en Google.",
+      "Diseñamos tu página desde cero: rápida, fácil de usar y lista para vender desde el celular. Incluye formulario de contacto, botón de WhatsApp y presencia en Google, y conectamos tu dominio con correo propio.",
     etiquetas: ["Diseño a medida", "Tienda y pagos", "Tu marca digitalizada"],
     accion: { texto: "Ver planes", destino: "planes" },
     fantasma: "web",
