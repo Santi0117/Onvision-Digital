@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
-import { irA, navegacion, servicios, SISTEMA_URL, wa } from "./data";
+import { irA, navegacion, servicios, SISTEMA_SITIO, wa } from "./data";
 import { Flecha, IconoInstagram, IconoWhatsApp, Ojo } from "./ui";
 
 function esCorreo(v: string) {
@@ -129,7 +129,7 @@ export default function Pie() {
                   </li>
                 ))}
                 <li>
-                  <a href={SISTEMA_URL} target="_blank" rel="noopener noreferrer">
+                  <a href={SISTEMA_SITIO} target="_blank" rel="noopener noreferrer">
                     Sistema Onvision ↗
                   </a>
                 </li>

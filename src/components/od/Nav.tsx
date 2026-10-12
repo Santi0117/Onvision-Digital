@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
-import { SISTEMA_URL, navegacion, wa } from "./data";
+import { SISTEMA_SITIO, navegacion, wa } from "./data";
 import { Cerrar, Flecha, IconoInstagram, IconoWhatsApp, Indice, Ojo } from "./ui";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -127,7 +127,7 @@ export default function Nav() {
 
           <div className="od-seg" role="group" aria-label="Productos">
             <span aria-current="true">Digital</span>
-            <a href={`${SISTEMA_URL}/producto`} target="_blank" rel="noopener noreferrer">
+            <a href={SISTEMA_SITIO} target="_blank" rel="noopener noreferrer">
               Sistema
               <Flecha dir="diagonal" className="od-seg__ext" />
             </a>

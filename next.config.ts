@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const SISTEMA = "https://sistema.onvisiondigital.com";
+/** La página del Sistema con el diseño nuevo (Verticales). */
+const VERTICALES = "https://verticales-plum.vercel.app";
 
 const nextConfig: NextConfig = {
   turbopack: {
@@ -24,10 +26,10 @@ const nextConfig: NextConfig = {
       { source: "/landing", destination: "/", permanent: true },
       { source: "/index.html", destination: "/", permanent: true },
       { source: "/vision", destination: "/", permanent: false },
-      // Lo del sistema (activar y producto) sigue en sistema.onvisiondigital.com.
+      // Activar (el pago) sigue en sistema.onvisiondigital.com; el producto ahora es Verticales.
       { source: "/activar", destination: `${SISTEMA}/activar`, permanent: false },
       { source: "/activar/:path+", destination: `${SISTEMA}/activar/:path+`, permanent: false },
-      { source: "/producto", destination: `${SISTEMA}/producto`, permanent: false },
+      { source: "/producto", destination: VERTICALES, permanent: false },
       // El portal de demostración ahora se muestra en el Panel Onvi de Servicios.
       { source: "/portal", destination: "/digital?servicio=panel", permanent: false },
       { source: "/portal/:path+", destination: "/digital?servicio=panel", permanent: false },
