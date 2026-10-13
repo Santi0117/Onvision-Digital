@@ -4,7 +4,7 @@ export const companyNav = [
   { label: "Servicios", href: "/digital" },
   { label: "Planes", href: "/planes" },
   { label: "Empresas", href: "/empresas" },
-  { label: "Sistema", href: "https://verticales-plum.vercel.app" },
+  { label: "Sistema", href: "https://sistema.onvisiondigital.com" },
   { label: "Sobre nosotros", href: "/sobre-nosotros" },
 ] as const;
 

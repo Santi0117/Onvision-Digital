@@ -2,8 +2,9 @@
 
 El sitio de [onvisiondigital.com](https://onvisiondigital.com), rediseñado desde
 cero con toda su información, sus partes y sus productos. Desde octubre de 2026
-es el que está en el dominio. No toca `sistema.onvisiondigital.com`
-(`onvision-landing`) ni la página de verticales (`verticales`).
+es el que está en el dominio. No toca la página del Sistema
+(`sistema.onvisiondigital.com`, el proyecto `verticales`) ni el sistema
+anterior (`onvision-landing`).
 
 El diseño mezcla cuatro referencias:
 
@@ -85,15 +86,16 @@ Este repositorio publica en dos proyectos de Vercel:
 - **onvision-digital**: una copia en `onvision-digital.vercel.app`, con sus
   propias variables (su agenda no está conectada).
 
-`sistema.onvisiondigital.com` es otro proyecto (`onvision-landing`) y no se
-toca desde acá. Si una publicación sale mal, en apex-digital → **Deployments**
+`sistema.onvisiondigital.com` es otro proyecto (`verticales`) y no se toca
+desde acá; el sistema anterior (`onvision-landing`) sigue publicado en
+`onvision-landing.vercel.app`. Si una publicación sale mal, en apex-digital → **Deployments**
 se elige la anterior y **Instant Rollback**. Después de cambiar variables hay
 que volver a publicar: las `NEXT_PUBLIC_…` se leen al compilar.
 
 Las direcciones viejas siguen andando (`next.config.ts`): `/activar` y
 `/producto` llevan a `sistema.onvisiondigital.com`, `/portal` al Panel Onvi de
 Servicios, y `/api/pagos/…` (TiloPay) y `/api/checkout` (el cobro de los
-verticales) pasan tal cual al proyecto de `sistema.onvisiondigital.com`. El
+verticales) pasan tal cual al sistema anterior (`onvision-landing.vercel.app`). El
 aviso de pago de Onvo (`/api/webhooks/onvo`, el cobro recurrente de los planes)
 se atiende acá, igual que en el sitio anterior.
 
