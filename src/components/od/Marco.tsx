@@ -4,7 +4,7 @@ import Lenis from "lenis";
 import { MotionConfig } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import Boot from "./Boot";
+import VisionBoot from "@/components/vision/VisionBoot";
 import Cursor from "./Cursor";
 import Nav from "./Nav";
 import OnviChat from "./OnviChat";
@@ -20,6 +20,14 @@ import "./od.css";
  */
 export default function Marco({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+
+  // La página arrancó bien: el guardia del <head> ya no tiene que recargarla.
+  useEffect(() => {
+    (window as unknown as { __odVivo?: boolean }).__odVivo = true;
+    try {
+      sessionStorage.removeItem("od-recarga");
+    } catch {}
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -53,8 +61,8 @@ export default function Marco({ children }: { children: React.ReactNode }) {
 
   return (
     <MotionConfig reducedMotion="user">
-      {/* El inicio trae su propia intro: la de la preview, que termina en la laptop. */}
-      {pathname === "/" ? null : <Boot />}
+      {/* La misma intro en todas: el inicio la monta él mismo, porque termina en la laptop. */}
+      {pathname === "/" ? null : <VisionBoot escena={false} />}
       <Cursor />
       <a href="#contenido" className="od-saltar">
         Saltar al contenido

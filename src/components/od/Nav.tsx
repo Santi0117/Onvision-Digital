@@ -74,7 +74,7 @@ export default function Nav() {
       let tema = "claro";
       for (const el of document.elementsFromPoint(r.left + 8, y)) {
         // El menú mismo y las intros (que tapan todo un momento) no cuentan.
-        if (el.closest(".od-nav, .od-boot, .vision-boot")) continue;
+        if (el.closest(".od-nav, .vision-boot")) continue;
         const marcado = el.closest<HTMLElement>("[data-tema]");
         if (marcado) tema = marcado.dataset.tema ?? "claro";
         break;

@@ -1,0 +1,155 @@
+/* ==========================================================================
+   La intro del sitio (instrumento de arranque de la preview oficial). Sale
+   en la primera página de la visita, sea el inicio o cualquier otra.
+   ========================================================================== */
+
+.vision-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  display: grid;
+  place-items: center;
+  background: #000;
+  color: #f8fafc;
+  pointer-events: none;
+}
+
+.vision-boot--boot {
+  pointer-events: auto;
+  touch-action: none;
+}
+
+/* Si el JavaScript no llega (no marcó `data-vivo`), igual se va sola. */
+.vision-boot--boot:not([data-vivo]) {
+  animation: vision-boot-fuera 0.01s linear 8s forwards;
+}
+
+/* Ya vista en esta visita (o con menos movimiento): ni se pinta. */
+html:is([data-boot="off"], [data-boot="done"]) .vision-boot--boot {
+  display: none;
+}
+
+.vision-boot__stage {
+  position: relative;
+  width: min(72vw, 360px);
+  aspect-ratio: 1;
+  will-change: transform, opacity;
+}
+
+.vision-boot__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.vision-boot__ticks line {
+  stroke: rgb(255 255 255 / 0.13);
+  stroke-width: 1.2;
+  transition: stroke 0.25s ease;
+}
+
+.vision-boot__ticks line.is-on {
+  stroke: #f8fafc;
+}
+
+.vision-boot__arcs path {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.vision-boot__rings circle {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.12);
+  stroke-width: 1;
+}
+
+.vision-boot__rings circle.is-thick {
+  stroke: rgb(255 255 255 / 0.05);
+  stroke-width: 10;
+}
+
+.vision-boot__eye,
+.vision-boot__pupil {
+  transform-origin: 50% 50%;
+  transform-box: view-box;
+}
+
+.vision-boot__eye > path {
+  fill: #f8fafc;
+}
+
+/* Trazos guía (dentro de máscaras): cada uno destapa su parte del logo. */
+.vision-boot__lid,
+.vision-boot__spiral {
+  fill: none;
+  stroke: #fff;
+}
+
+.vision-boot__lid {
+  stroke-width: 44;
+  stroke-linecap: round;
+}
+
+.vision-boot__spiral {
+  stroke-width: 33;
+}
+
+.vision-boot__cut {
+  fill: #000;
+}
+
+.vision-boot__pupil circle {
+  fill: #000;
+}
+
+.vision-boot__meta {
+  position: absolute;
+  left: 50%;
+  bottom: max(4.5rem, 10vh);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.vision-boot__mark {
+  font-family: var(--ff-display), "Archivo", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgb(248 250 252 / 0.85);
+}
+
+.vision-boot__status {
+  display: flex;
+  gap: 14px;
+  font-family: var(--ff-mono), "Geist Mono", ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  color: rgb(248 250 252 / 0.45);
+}
+
+.vision-boot__pct {
+  color: #f8fafc;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes vision-boot-fuera {
+  to {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vision-boot {
+    display: none;
+  }
+}

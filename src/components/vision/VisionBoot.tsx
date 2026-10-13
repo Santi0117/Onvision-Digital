@@ -2,18 +2,19 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { EYE_PUPIL_R, eyeOutlinePath } from "@/lib/ojo";
-import { RING_COLORS } from "./scene/laptopModel";
+import { RING_COLORS } from "./anillos";
 import { clamp01, visionStore } from "./store";
+import "./vision-boot.css";
 
 /**
  * Arranque estilo instrumento de la preview oficial (el flujo de animejs.com,
  * con el ojo Onvision): pantalla negra → los ticks se van encendiendo con la
  * carga, los arcos parpadean como neón, el ojo se dibuja y abre → todo se
  * encoge hasta el logo de la tapa mientras la laptop se enciende detrás y
- * aparece el texto.
+ * aparece el texto. En las demás páginas (sin laptop) se encoge al centro.
  *
- * Una vez por visita en todo el sitio: lo decide el script del <head>
- * (`html[data-boot]`), el mismo que usa la intro de las demás páginas.
+ * Una vez por visita en todo el sitio, sea cual sea la primera página: lo
+ * decide el script del <head> (`html[data-boot]`).
  */
 
 /**
@@ -145,10 +146,16 @@ type Phase = "boot" | "exit" | "quick" | "done";
 
 type Props = {
   /** Cuando el texto del hero ya puede entrar. */
-  onReady: () => void;
+  onReady?: () => void;
+  /**
+   * Con la laptop 3D detrás (el inicio): espera a que la escena esté lista,
+   * sube arriba y frena el scroll mientras dura. Sin escena no espera nada y
+   * deja la página donde está (así un enlace /planes#agendar llega igual).
+   */
+  escena?: boolean;
 };
 
-export default function VisionBoot({ onReady }: Props) {
+export default function VisionBoot({ onReady, escena = true }: Props) {
   const [phase, setPhase] = useState<Phase>("boot");
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -185,16 +192,20 @@ export default function VisionBoot({ onReady }: Props) {
     if (yaVista() || reduce) {
       visionStore.reveal = 1;
       remember();
-      readyRef.current();
+      readyRef.current?.();
       return;
     }
 
     const root = rootRef.current;
     if (!root) return;
 
-    html.classList.add("ov-preloader-lock");
-    lenis()?.stop();
-    window.scrollTo(0, 0);
+    // El JavaScript llegó: ya no hace falta la salida de emergencia del CSS.
+    root.setAttribute("data-vivo", "");
+    if (escena) {
+      html.classList.add("ov-preloader-lock");
+      lenis()?.stop();
+      window.scrollTo(0, 0);
+    }
     visionStore.reveal = 0;
 
     const ticks = ticksRef.current ? Array.from(ticksRef.current.children) : [];
@@ -232,7 +243,7 @@ export default function VisionBoot({ onReady }: Props) {
         /* ---------- arranque ---------- */
         const u = t / BOOT_MIN_MS;
         // Hasta 92% por tiempo; el último tramo espera a que la escena 3D esté lista.
-        const canFinish = visionStore.sceneReady || t > BOOT_MAX_MS;
+        const canFinish = !escena || visionStore.sceneReady || t > BOOT_MAX_MS;
         const prog = 0.92 * easeOut(seg(u, 0, 0.72)) + 0.08 * (canFinish ? easeOut(seg(u, 0.72, 0.9)) : 0);
 
         const want = Math.floor(prog * TICKS);
@@ -273,8 +284,10 @@ export default function VisionBoot({ onReady }: Props) {
           const r = stageRef.current?.getBoundingClientRect();
           if (r) base = { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: r.width };
           remember();
-          html.classList.remove("ov-preloader-lock");
-          lenis()?.start();
+          if (escena) {
+            html.classList.remove("ov-preloader-lock");
+            lenis()?.start();
+          }
           setPhase("exit");
         }
       } else {
@@ -285,7 +298,7 @@ export default function VisionBoot({ onReady }: Props) {
         visionStore.reveal = easeInOut(since / REVEAL_MS);
         if (!readyFired && e > 0.22) {
           readyFired = true;
-          readyRef.current();
+          readyRef.current?.();
         }
 
         const stage = stageRef.current;
@@ -322,10 +335,12 @@ export default function VisionBoot({ onReady }: Props) {
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
-      html.classList.remove("ov-preloader-lock");
-      lenis()?.start();
+      if (escena) {
+        html.classList.remove("ov-preloader-lock");
+        lenis()?.start();
+      }
     };
-  }, []);
+  }, [escena]);
 
   if (phase === "done") return null;
 

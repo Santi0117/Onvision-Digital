@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { clamp01, phoneLidAt, smoothstep, visionStore } from "../store";
 import { EYE_PUPIL_R, traceEyeOutline } from "@/lib/ojo";
+import { RING_COLORS } from "../anillos";
 import {
   addLines,
   addMerged,
@@ -37,9 +38,6 @@ const SCREEN_LOCAL = new THREE.Vector3(0, LID_H / 2, 0.08);
 /** Logo en el dorso de la tapa (mira hacia arriba con la tapa cerrada). */
 const LOGO_Z = -LID_T - 0.02;
 const LOGO_HALF_W = 0.42;
-
-/** Luces del dial, todas blancas (mismo orden que `webFeatures`). */
-export const RING_COLORS = ["#f8fafc", "#f8fafc", "#f8fafc", "#f8fafc", "#f8fafc", "#f8fafc"];
 
 function openAt(p: number) {
   if (visionStore.phone) return phoneLidAt(p);

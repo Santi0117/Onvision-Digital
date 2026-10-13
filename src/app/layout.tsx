@@ -10,6 +10,14 @@ import "./globals.css";
  */
 const ARRANQUE = `(function(){try{var d=document.documentElement;if(sessionStorage.getItem("od-boot")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-boot","off")}else{sessionStorage.setItem("od-boot","1")}}catch(e){}})()`;
 
+/**
+ * Guardia de copias viejas: Safari a veces reabre una pestaña con el HTML de
+ * antes de la última versión, y sus archivos de JavaScript ya no existen.
+ * Si uno de ellos no carga, o la página no arranca (Marco marca `__odVivo`)
+ * a los 6 s de cargar o al volver del historial, recarga una sola vez.
+ */
+const GUARDIA = `(function(){try{var K="od-recarga",w=window;function r(){if(w.__odVivo)return;try{if(sessionStorage.getItem(K))return;sessionStorage.setItem(K,"1")}catch(e){return}location.reload()}w.addEventListener("error",function(e){var t=e.target;if(t&&t.tagName==="SCRIPT"&&String(t.src).indexOf("/_next/")>-1)r()},true);w.addEventListener("load",function(){setTimeout(r,6000)});w.addEventListener("pageshow",function(e){if(e.persisted)r()})}catch(e){}})()`;
+
 export const metadata: Metadata = {
   title: `${site.parentName} — Sitios, tiendas, software y apps`,
   description:
@@ -45,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="es" className={fontVariables} data-boot="on" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: ARRANQUE }} />
+        <script dangerouslySetInnerHTML={{ __html: GUARDIA }} />
       </head>
       <body>
         <Marco>{children}</Marco>
