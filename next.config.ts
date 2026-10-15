@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-/** La página del Sistema (Verticales, el diseño nuevo). */
-const SISTEMA = "https://sistema.onvisiondigital.com";
+/**
+ * La página del Sistema (Verticales, el diseño nuevo), en su dirección de
+ * Vercel. sistema.onvisiondigital.com todavía muestra el sistema anterior:
+ * cuando el dominio pase al proyecto verticales, se puede cambiar acá.
+ */
+const SISTEMA = "https://verticales-plum.vercel.app";
 /**
  * El sistema anterior (proyecto onvision-landing), que antes estaba en
  * sistema.onvisiondigital.com: sigue cobrando los verticales y atendiendo el

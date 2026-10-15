@@ -2,9 +2,9 @@
 
 El sitio de [onvisiondigital.com](https://onvisiondigital.com), rediseñado desde
 cero con toda su información, sus partes y sus productos. Desde octubre de 2026
-es el que está en el dominio. No toca la página del Sistema
-(`sistema.onvisiondigital.com`, el proyecto `verticales`) ni el sistema
-anterior (`onvision-landing`).
+es el que está en el dominio. No toca la página del Sistema (el proyecto
+`verticales`) ni el sistema anterior (`onvision-landing`, que hoy está en
+`sistema.onvisiondigital.com`).
 
 El diseño mezcla cuatro referencias:
 
@@ -42,7 +42,7 @@ Abrí [http://localhost:3040](http://localhost:3040). Necesita Node 20.9 o más 
 | `/pago/exito`, `/pago/cancelado` | La vuelta desde Onvo                                       |
 
 En todas: el menú, Onvi (la IA, a la derecha), WhatsApp y el pie. "Sistema"
-lleva a `sistema.onvisiondigital.com`, como en el sitio oficial. Las
+lleva a la página de Verticales (`verticales-plum.vercel.app`). Las
 direcciones viejas (`/agendar`, `/cotizar`, `/portafolio`…) redirigen igual que antes; `/agendar` y `/cotizar` llevan a la agenda de Planes, y `/contacto` a "Contanos tu idea".
 
 ## Qué hay adentro
@@ -86,14 +86,16 @@ Este repositorio publica en dos proyectos de Vercel:
 - **onvision-digital**: una copia en `onvision-digital.vercel.app`, con sus
   propias variables (su agenda no está conectada).
 
-`sistema.onvisiondigital.com` es otro proyecto (`verticales`) y no se toca
-desde acá; el sistema anterior (`onvision-landing`) sigue publicado en
-`onvision-landing.vercel.app`. Si una publicación sale mal, en apex-digital → **Deployments**
+`sistema.onvisiondigital.com` es otro proyecto (`onvision-landing`, el
+sistema anterior, también en `onvision-landing.vercel.app`) y no se toca
+desde acá. Si una publicación sale mal, en apex-digital → **Deployments**
 se elige la anterior y **Instant Rollback**. Después de cambiar variables hay
 que volver a publicar: las `NEXT_PUBLIC_…` se leen al compilar.
 
 Las direcciones viejas siguen andando (`next.config.ts`): `/activar` y
-`/producto` llevan a `sistema.onvisiondigital.com`, `/portal` al Panel Onvi de
+`/producto` llevan a la página del Sistema (Verticales, en
+`verticales-plum.vercel.app` mientras `sistema.onvisiondigital.com` siga
+mostrando el sistema anterior), `/portal` al Panel Onvi de
 Servicios, y `/api/pagos/…` (TiloPay) y `/api/checkout` (el cobro de los
 verticales) pasan tal cual al sistema anterior (`onvision-landing.vercel.app`). El
 aviso de pago de Onvo (`/api/webhooks/onvo`, el cobro recurrente de los planes)

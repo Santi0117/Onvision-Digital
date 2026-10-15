@@ -3,8 +3,12 @@ import { digitalShowreel } from "@/lib/digital";
 import { empresaProjects, empresasPage } from "@/lib/empresas";
 import { site } from "@/lib/site";
 
-/** La página del Sistema que se abre desde el menú y el pie: Verticales, con el diseño nuevo. */
-export const SISTEMA_SITIO = "https://sistema.onvisiondigital.com";
+/**
+ * La página del Sistema que se abre desde el menú y el pie: Verticales, con el
+ * diseño nuevo, en su dirección de Vercel (sistema.onvisiondigital.com todavía
+ * muestra el sistema anterior).
+ */
+export const SISTEMA_SITIO = "https://verticales-plum.vercel.app";
 
 /** El menú oficial; "Sistema" sale al sitio del SaaS. */
 export const navegacion = companyNav.map((l) => ({
