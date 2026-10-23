@@ -4,8 +4,13 @@
    a la derecha los campos.
    ────────────────────────────────────────────────────────────────────────── */
 
+/* Con su propio fondo claro: el titular (en tinta oscura) no depende de lo
+   que haya detrás. En Safari, a veces, asomaba lo oscuro de más arriba. */
 .oc {
+  position: relative;
+  z-index: 1;
   padding: clamp(24px, 3vw, 48px) var(--gut) clamp(100px, 11vw, 160px);
+  background: var(--cream);
 }
 
 .oc-cabeza {

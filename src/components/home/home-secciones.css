@@ -249,7 +249,11 @@
 /* ── Planes: la puerta al final del inicio ──────────────────────────── */
 
 .oh-entrada {
+  position: relative;
+  z-index: 1;
   padding-bottom: clamp(90px, 10vw, 150px);
+  /* Su propio fondo claro, como "Contanos tu idea" (ver contacto.css). */
+  background: var(--cream);
 }
 
 .oh-entrada__botones {

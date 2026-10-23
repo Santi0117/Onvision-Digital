@@ -436,6 +436,9 @@ export default function VisionScene({ kind = "laptop" }: Props) {
       if (nextOpacity !== lastOpacity) {
         lastOpacity = nextOpacity;
         host.style.opacity = nextOpacity;
+        // Apagada del todo, la capa fija sale de la pantalla: Safari a veces
+        // la seguía mezclando con lo de abajo aunque fuera transparente.
+        host.style.visibility = showLaptop ? "" : "hidden";
       }
       const idle =
         opacity < 0.005 &&
