@@ -30,8 +30,28 @@ export type EmpresaProject = {
   linkLabel?: string;
 };
 
-/** Mismas empresas que /empresas del portafolio (TRUSTED_COMPANIES). */
+/** Las empresas de /empresas; las primeras son las más recientes. */
 export const empresaProjects: EmpresaProject[] = [
+  {
+    id: "etilico",
+    name: "Etílico",
+    sector: "Barra libre para eventos · Costa Rica",
+    kind: "website",
+    kindLabel: "Sitio web",
+    body: "Barra libre y coctelería para eventos en todo el país. Sus barras, la carta y el cotizador en línea, con su Panel Onvi.",
+    image: "/empresas/etilico.webp",
+    href: "https://www.etilicocr.com",
+  },
+  {
+    id: "super-babies",
+    name: "Super Babies",
+    sector: "Estimulación temprana · Tres Ríos",
+    kind: "website",
+    kindLabel: "Sitio web",
+    body: "Centro integral de estimulación temprana y primer Baby Spa del país. Sus servicios, el equipo y las reservas de visita.",
+    image: "/empresas/super-babies.webp",
+    href: "https://super-babies.onvisiondigital.com",
+  },
   {
     id: "alchemy",
     name: "Alchemy Studio",
