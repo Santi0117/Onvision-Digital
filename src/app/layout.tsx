@@ -11,13 +11,6 @@ import "./globals.css";
 const ARRANQUE = `(function(){try{var d=document.documentElement;if(sessionStorage.getItem("od-boot")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-boot","off")}else{sessionStorage.setItem("od-boot","1")}}catch(e){}})()`;
 
 /**
- * Temporal, para encontrar qué oscurece "Cuéntanos tu idea" en Safari:
- * ?prueba=cursor, ?prueba=3d o ?prueba=pie apagan cada sospechoso
- * (ver el final de globals.css). Sin el parámetro no cambia nada.
- */
-const PRUEBA = `(function(){try{var p=new URLSearchParams(location.search).get("prueba");if(p)document.documentElement.setAttribute("data-prueba",p)}catch(e){}})()`;
-
-/**
  * Guardia de copias viejas: Safari a veces reabre una pestaña con el HTML de
  * antes de la última versión, y sus archivos de JavaScript ya no existen.
  * Si uno de ellos no carga, o la página no arranca (Marco marca `__odVivo`)
@@ -61,7 +54,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: ARRANQUE }} />
         <script dangerouslySetInnerHTML={{ __html: GUARDIA }} />
-        <script dangerouslySetInnerHTML={{ __html: PRUEBA }} />
       </head>
       <body>
         <Marco>{children}</Marco>

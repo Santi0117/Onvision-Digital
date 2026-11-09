@@ -132,10 +132,3 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
 }
-
-/* Temporal (?prueba=…, ver layout.tsx): apaga un sospechoso a la vez. */
-html[data-prueba*="cursor"] :is(.od-cursor-punto, .od-cursor-aro),
-html[data-prueba*="3d"] .vision-scene,
-html[data-prueba*="pie"] .od-pie {
-  display: none !important;
-}

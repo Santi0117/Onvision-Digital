@@ -6,14 +6,14 @@ import VisionBoot from "../vision/VisionBoot";
 import Chrome from "./Chrome";
 import Cinetica from "./Cinetica";
 import Contacto from "./Contacto";
-import PlanesInicio from "./PlanesInicio";
+import Proyectos from "./Proyectos";
 import "./home.css";
 import "./home-secciones.css";
 
 /**
  * El inicio de Onvision Digital: la preview oficial (la laptop 3D que se
  * abre pieza por pieza) y los trabajos en video como primer acto, y después
- * tu marca en movimiento, la puerta a Planes y "Contanos tu idea", con
+ * tu marca en movimiento, los proyectos más recientes y "Cuéntanos tu idea", con
  * detalles de jeffmilanes, nordpixel, driveberry y hobro.
  */
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
 
       <div className="oh-resto">
         <Cinetica />
-        <PlanesInicio />
+        <Proyectos />
         <Contacto />
       </div>
 

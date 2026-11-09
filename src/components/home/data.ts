@@ -7,36 +7,7 @@ export const pad = (n: number) => String(n).padStart(2, "0");
 
 export type Linea = DigitalPlanGroupKey;
 
-/* ── Planes con pago (los mismos seis de /planes) ───────────────────────── */
-
-type PlanFuente = {
-  readonly name: string;
-  readonly price: string;
-  readonly priceAlt?: string;
-  readonly checkoutId: string;
-};
-
-export type PlanPago = {
-  id: string;
-  linea: Linea;
-  lineaNombre: string;
-  nombre: string;
-  precio: string;
-  precioAlt?: string;
-};
-
 export const LINEAS = Object.keys(digitalPlans.groups) as Linea[];
-
-export const planes: PlanPago[] = LINEAS.flatMap((linea) =>
-  (digitalPlans.groups[linea].plans as readonly PlanFuente[]).map((p) => ({
-    id: p.checkoutId,
-    linea,
-    lineaNombre: digitalPlans.tabs[linea],
-    nombre: p.name,
-    precio: p.price,
-    precioAlt: p.priceAlt,
-  })),
-);
 
 /* ── Empresas: de qué línea es cada trabajo ─────────────────────────────── */
 
@@ -56,7 +27,7 @@ export const ESCENAS = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nucleo", nombre: "Qué incluye" },
   { id: "trabajos", nombre: "Trabajos" },
-  { id: "planes-inicio", nombre: "Planes" },
+  { id: "proyectos", nombre: "Proyectos" },
   { id: "contacto", nombre: "Contacto" },
 ] as const;
 

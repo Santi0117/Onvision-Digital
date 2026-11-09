@@ -1,0 +1,554 @@
+/* ==========================================================================
+   Proyectos más recientes: un proyecto por pantalla, apilados (cada uno
+   entra tapando al anterior). Texto a la izquierda, la imagen grande en
+   una ventana a la derecha y lo que vino aparte flotando encima. En el
+   celular, el texto arriba y la imagen abajo, siempre en una pantalla.
+   ========================================================================== */
+
+.pr {
+  position: relative;
+}
+
+.pr-panel {
+  --pr-tinta: #f3f6f9;
+  --pr-suave: rgb(243 246 249 / 0.68);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  border-radius: 28px 28px 0 0;
+  /* Su propio fondo, entero: no depende de lo que haya detrás. */
+  background:
+    radial-gradient(55% 60% at 76% 42%, color-mix(in srgb, var(--pr-tono) 15%, transparent), transparent 72%),
+    radial-gradient(40% 40% at 0% 100%, color-mix(in srgb, var(--pr-tono) 8%, transparent), transparent 70%),
+    var(--pr-fondo);
+  box-shadow: 0 -30px 60px -20px rgb(0 0 0 / 0.45);
+  color: var(--pr-tinta);
+}
+
+.pr-panel__dentro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  align-items: center;
+  gap: clamp(32px, 4.5vw, 80px);
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(96px, 13vh, 136px) var(--gut) clamp(56px, 9vh, 96px);
+}
+
+/* ── El texto ──────────────────────────────────────────────────────────── */
+
+.pr-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.pr-arriba {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(18px, 3vh, 30px);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pr-suave);
+}
+
+.pr-arriba span:first-child::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--pr-tono);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pr-tono) 22%, transparent);
+  vertical-align: 1px;
+}
+
+.pr-arriba span:last-child {
+  color: var(--pr-tinta);
+}
+
+.pr-cliente {
+  font-family: var(--f-display);
+  font-size: clamp(52px, 6.4vw, 108px);
+  font-weight: 800;
+  font-stretch: 118%;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+}
+
+.pr-tipo {
+  margin-top: clamp(10px, 1.6vh, 16px);
+  font-family: var(--f-serif);
+  font-size: clamp(24px, 2.4vw, 36px);
+  font-style: italic;
+  line-height: 1.05;
+  color: var(--pr-tono);
+}
+
+.pr-resumen {
+  max-width: 42ch;
+  margin-top: clamp(16px, 2.6vh, 26px);
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.55;
+  color: var(--pr-suave);
+}
+
+.pr-puntos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(16px, 2.6vh, 24px);
+}
+
+.pr-puntos li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px 7px 11px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.04);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.pr-puntos li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pr-tono);
+}
+
+.pr-quiero {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(22px, 3.6vh, 36px);
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: var(--pr-tono);
+  color: #0a0d12;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    transform 0.3s var(--ease),
+    background-color 0.3s;
+}
+
+.pr-quiero:hover {
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+/* ── La imagen y lo que flota ─────────────────────────────────────────── */
+
+.pr-visual {
+  position: relative;
+  width: 100%;
+  /* Que la ventana y lo que flota quepan siempre en la pantalla. */
+  max-width: calc((100svh - 260px) * 1.72);
+  justify-self: center;
+}
+
+.pr-ventana {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 16px;
+  background: #0b0f14;
+  box-shadow:
+    0 50px 100px -40px rgb(0 0 0 / 0.8),
+    0 0 0 1px rgb(0 0 0 / 0.35);
+}
+
+.pr-ventana__barra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(255 255 255 / 0.05);
+}
+
+.pr-ventana__barra i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.18);
+}
+
+.pr-ventana__barra span {
+  margin: 0 auto;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.06);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: rgb(255 255 255 / 0.55);
+  transform: translateX(-21px);
+}
+
+.pr-ventana__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pr-flota {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+}
+
+/* Fasamar: los dos datáfonos, uno a cada lado, apenas girados. */
+.pr-flota--ruta,
+.pr-flota--cobro {
+  width: 21%;
+  filter: drop-shadow(0 30px 34px rgb(0 0 0 / 0.6));
+}
+
+.pr-flota--ruta {
+  left: -8%;
+  bottom: -18%;
+  rotate: -7deg;
+}
+
+.pr-flota--cobro {
+  right: -2%;
+  bottom: -22%;
+  rotate: 6deg;
+}
+
+/* Etílico: el Panel Onvi, abajo a la izquierda. */
+.pr-flota--panel {
+  left: -9%;
+  bottom: -15%;
+  width: 58%;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 12px;
+  box-shadow: 0 40px 70px -24px rgb(0 0 0 / 0.85);
+}
+
+/* Tappy: las opiniones, como una hoja más, abajo a la derecha. */
+.pr-flota--opiniones {
+  right: -3%;
+  bottom: -17%;
+  width: 46%;
+  border-radius: 10px;
+  rotate: 2.5deg;
+  box-shadow: 0 40px 70px -24px rgb(0 0 0 / 0.85);
+}
+
+.pr-nota {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 4px;
+  max-width: 250px;
+  padding: 12px 15px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 14px;
+  background: rgb(8 12 16 / 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 50px -20px rgb(0 0 0 / 0.7);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pr-nota b {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--pr-tono);
+}
+
+.pr-nota b::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pr-nota span {
+  color: rgb(243 246 249 / 0.74);
+}
+
+.pr-panel--fasamar .pr-nota {
+  bottom: -13%;
+  left: 31%;
+}
+
+.pr-panel--etilico .pr-nota {
+  top: 16%;
+  right: -5%;
+}
+
+.pr-panel--tappy .pr-nota {
+  top: 14%;
+  left: -10%;
+}
+
+/* ── Entrada: cuando el proyecto se ve (sin JavaScript se ve todo) ────── */
+
+.pr-texto > *,
+.pr-ventana,
+.pr-flota,
+.pr-nota {
+  transition:
+    opacity 0.9s var(--ease),
+    translate 1.1s var(--ease);
+}
+
+.pr[data-listo] .pr-panel:not([data-visto]) :is(.pr-texto > *, .pr-ventana, .pr-flota, .pr-nota) {
+  opacity: 0;
+  translate: 0 36px;
+}
+
+.pr[data-listo] .pr-panel:not([data-visto]) .pr-flota {
+  translate: 0 70px;
+}
+
+.pr-texto > :nth-child(2) {
+  transition-delay: 0.05s;
+}
+
+.pr-texto > :nth-child(3) {
+  transition-delay: 0.1s;
+}
+
+.pr-texto > :nth-child(4) {
+  transition-delay: 0.15s;
+}
+
+.pr-texto > :nth-child(n + 5) {
+  transition-delay: 0.2s;
+}
+
+.pr-ventana {
+  transition-delay: 0.1s;
+}
+
+.pr-flota {
+  transition-delay: 0.35s;
+}
+
+.pr-flota + .pr-flota {
+  transition-delay: 0.45s;
+}
+
+.pr-nota {
+  transition-delay: 0.6s;
+}
+
+/* El botón: entra con el texto y además responde al pasar el mouse. */
+.pr-texto > .pr-quiero {
+  transition:
+    opacity 0.9s var(--ease) 0.2s,
+    translate 1.1s var(--ease) 0.2s,
+    transform 0.3s var(--ease),
+    background-color 0.3s;
+}
+
+/* Lo que flota, flota: apenas sube y baja, despacio. */
+@keyframes pr-flotar {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.pr-panel[data-visto] .pr-flota {
+  animation: pr-flotar 6s ease-in-out 1.4s infinite;
+}
+
+.pr-panel[data-visto] .pr-flota + .pr-flota {
+  animation-delay: 2.4s;
+}
+
+/* ── Celular y tableta vertical: el texto arriba, la imagen abajo ───── */
+
+@media (max-width: 899px) {
+  .pr-panel {
+    border-radius: 22px 22px 0 0;
+  }
+
+  /* Centrado con márgenes automáticos: si no alcanza el alto, no se mete
+     debajo del menú. Abajo queda aire para los botones de WhatsApp y Onvi. */
+  .pr-panel__dentro {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(22px, 4vh, 40px);
+    padding: calc(env(safe-area-inset-top, 0px) + 84px) 18px calc(env(safe-area-inset-bottom, 0px) + 92px);
+  }
+
+  .pr-texto {
+    margin-top: auto;
+  }
+
+  .pr-visual {
+    margin-bottom: auto;
+  }
+
+  .pr-arriba {
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 10px;
+  }
+
+  .pr-cliente {
+    font-size: clamp(42px, 12vw, 64px);
+  }
+
+  .pr-tipo {
+    margin-top: 8px;
+    font-size: clamp(21px, 5.6vw, 28px);
+  }
+
+  .pr-resumen {
+    display: -webkit-box;
+    margin-top: 12px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  .pr-puntos {
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .pr-puntos li {
+    padding: 5px 10px 5px 9px;
+    font-size: 12px;
+  }
+
+  .pr-quiero {
+    margin-top: 16px;
+    padding: 11px 16px;
+    font-size: 13px;
+  }
+
+  .pr-visual {
+    width: calc(100% - 28px);
+    max-width: none;
+    align-self: center;
+  }
+
+  .pr-ventana {
+    border-radius: 12px;
+  }
+
+  .pr-ventana__barra {
+    height: 24px;
+    padding: 0 10px;
+  }
+
+  .pr-ventana__barra i {
+    width: 6px;
+    height: 6px;
+  }
+
+  .pr-ventana__barra span {
+    font-size: 9px;
+    transform: translateX(-15px);
+  }
+
+  .pr-flota--ruta,
+  .pr-flota--cobro {
+    width: 24%;
+  }
+
+  .pr-flota--ruta {
+    left: -5%;
+    bottom: -14%;
+  }
+
+  .pr-flota--cobro {
+    right: -6%;
+    bottom: -18%;
+  }
+
+  .pr-flota--panel {
+    left: -6%;
+    bottom: -18%;
+    width: 64%;
+    border-radius: 8px;
+  }
+
+  .pr-flota--opiniones {
+    right: -6%;
+    bottom: -20%;
+    width: 52%;
+    border-radius: 7px;
+  }
+
+  /* En el celular la nota queda en su título, encima de la esquina. */
+  .pr-nota {
+    max-width: none;
+    padding: 7px 11px;
+    border-radius: 999px;
+    font-size: 11.5px;
+  }
+
+  .pr-nota span {
+    display: none;
+  }
+
+  .pr-panel--fasamar .pr-nota,
+  .pr-panel--tappy .pr-nota {
+    top: -14px;
+    right: -6px;
+    bottom: auto;
+    left: auto;
+  }
+
+  .pr-panel--etilico .pr-nota {
+    top: -14px;
+    right: -6px;
+  }
+}
+
+/* Pantallas bajas (celulares chicos, compus con ventana corta). */
+@media (max-width: 899px) and (max-height: 720px) {
+  .pr-panel__dentro {
+    gap: 18px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 76px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+  }
+
+  .pr-cliente {
+    font-size: clamp(38px, 11vw, 52px);
+  }
+
+  .pr-resumen {
+    display: none;
+  }
+
+  .pr-quiero {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-panel[data-visto] .pr-flota {
+    animation: none;
+  }
+}
