@@ -18,7 +18,7 @@ export function ShowreelCabeza() {
     <section className="od-reel od-reel--cabeza od-claro" aria-labelledby="od-reel-titulo">
       <div className="od-reel__cabeza">
         <h1 id="od-reel-titulo" className="od-reel__marca">
-          <span className="sr-only">Onvision Digital: sitios, tiendas y software a medida</span>
+          <span className="sr-only">Onvision Digital: sitios, tiendas y software a medida. </span>
           <span aria-hidden className="od-reel__letras">
             {letras.map((l, i) => (
               <motion.span

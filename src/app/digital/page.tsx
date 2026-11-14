@@ -1,20 +1,22 @@
-import type { Metadata } from "next";
 import CintaOnvi from "@/components/digital/CintaOnvi";
 import Piezas from "@/components/digital/piezas/Piezas";
 import { ShowreelCabeza } from "@/components/digital/Showreel";
 import Cierre from "@/components/od/Cierre";
 import Faq from "@/components/od/Faq";
+import { jsonLd, metaPagina, schemaFaq } from "@/lib/seo";
 import "@/components/digital/digital.css";
 
-export const metadata: Metadata = {
-  title: "Onvision Digital — Sitios, tiendas y software a medida",
-  description:
+export const metadata = metaPagina({
+  ruta: "/digital",
+  titulo: "Páginas web, tiendas y software a medida — Onvision Digital",
+  descripcion:
     "Páginas web, tiendas en línea, software a medida y apps. Diseño a tu marca, Onvi incluido y entrega lista para revisar.",
-};
+});
 
 export default function Digital() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schemaFaq) }} />
       <ShowreelCabeza />
       <CintaOnvi />
       <Piezas />

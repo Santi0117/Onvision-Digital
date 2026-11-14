@@ -1,0 +1,17 @@
+# Onvision Digital
+
+> Equipo de Costa Rica que crea páginas web, tiendas en línea, software a medida y apps móviles para negocios en Costa Rica y Latinoamérica. Incluyen a Onvi, un asistente con IA entrenado con la información de la empresa que atiende 24/7, y el Panel Onvi para ver mensajes y pedir cambios. Se paga mes a mes o en un solo pago; las páginas web empiezan en $35 al mes.
+
+## Páginas
+
+- [Inicio](https://onvisiondigital.com/): qué hacemos, proyectos recientes (Fasamar, Etílico, Tappy) y formulario de contacto.
+- [Servicios](https://onvisiondigital.com/digital): páginas web, tiendas en línea, software a medida y apps, con preguntas frecuentes sobre la mensualidad, el dominio y los tiempos de entrega.
+- [Planes y precios](https://onvisiondigital.com/planes): los planes de cada servicio y la agenda para una reunión.
+- [Empresas](https://onvisiondigital.com/empresas): proyectos reales, con el enlace a cada sitio.
+- [Sobre nosotros](https://onvisiondigital.com/sobre-nosotros): quiénes somos y cómo trabajamos.
+
+## Contacto
+
+- Correo: info@onvisiondigital.com
+- WhatsApp: +506 6303-0204
+- Instagram: https://www.instagram.com/onvisiondigital

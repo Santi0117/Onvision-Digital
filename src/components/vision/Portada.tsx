@@ -60,34 +60,35 @@ export default function Portada({ ready }: { ready: boolean }) {
           <span className="oh-vh__eyebrow-mas">· Sitios · Tiendas · Software · Apps</span>
         </motion.p>
 
+        {/* El h1 es solo el titular, para que Google lo lea tal cual; las fichas
+            que cambian de palabra van aparte, con la misma letra. */}
         <h1 id="oh-vh-titulo" className="oh-vh__h1">
-          <span className="sr-only">{webHero.title.join(" ")}</span>
           {RENGLONES.map((r, i) => (
-            <span key={r.texto} aria-hidden className={`oh-vh__linea${r.hueco ? " oh-vh__linea--hueca" : ""}`}>
+            <span key={r.texto} className={`oh-vh__linea${r.hueco ? " oh-vh__linea--hueca" : ""}`}>
               <motion.span className="inline-block" {...linea(0.12 + i * 0.08)}>
                 {r.texto}
-              </motion.span>
+              </motion.span>{" "}
             </span>
           ))}
-          <motion.span aria-hidden className="oh-vh__flap" {...entra(0.5, 12)}>
-            <SplitFlapText
-              words={PALABRAS}
-              flipDuration={0.12}
-              stagger={0.05}
-              cycleDelay={2600}
-              charset="alpha"
-              flipsPerChar={8}
-              tileColor="#101820"
-              textColor="#34d3ee"
-              tileRadius={6}
-              gap={3}
-              fontSize={30}
-              loop
-              padTo={11}
-              className="vision-hero__flap oh-vh__fichas"
-            />
-          </motion.span>
         </h1>
+        <motion.span aria-hidden className="oh-vh__h1 oh-vh__flap" {...entra(0.5, 12)}>
+          <SplitFlapText
+            words={PALABRAS}
+            flipDuration={0.12}
+            stagger={0.05}
+            cycleDelay={2600}
+            charset="alpha"
+            flipsPerChar={8}
+            tileColor="#101820"
+            textColor="#34d3ee"
+            tileRadius={6}
+            gap={3}
+            fontSize={30}
+            loop
+            padTo={11}
+            className="vision-hero__flap oh-vh__fichas"
+          />
+        </motion.span>
 
         <motion.p className="vision-hero__lead oh-vh__lead" {...entra(0.62, 12)}>
           {webHero.lead}

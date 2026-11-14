@@ -134,7 +134,7 @@ export default function Muestrario() {
         <header className="em-cabeza">
           <Mono>Empresas</Mono>
           <h1 id="em-titulo" className="em-cabeza__h1">
-            <span className="em-cabeza__grande">Algunos trabajos que ya corren:</span>
+            <span className="em-cabeza__grande">Algunos trabajos que ya corren:</span>{" "}
             <em className="em-cabeza__serif">sitios, tiendas y software a medida</em>
           </h1>
           <p className="em-cabeza__lede">{empresasPage.lead}</p>
@@ -173,7 +173,7 @@ export default function Muestrario() {
                           }}
                         >
                           <span className="em-mini__foto">
-                            <Image src={foto(x, true)} alt="" fill sizes="140px" className="object-contain" />
+                            <Image src={foto(x, true)} alt="" aria-hidden fill sizes="140px" className="object-contain" />
                           </span>
                           <span className="em-mini__nombre">{x.name}</span>
                         </button>

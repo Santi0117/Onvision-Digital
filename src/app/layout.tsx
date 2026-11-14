@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Marco from "@/components/od/Marco";
+import { IMAGEN_REDES, jsonLd, schemaSitio, SITIO_URL } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { fontVariables } from "./fonts";
 import "./globals.css";
@@ -19,6 +20,7 @@ const ARRANQUE = `(function(){try{var d=document.documentElement;if(sessionStora
 const GUARDIA = `(function(){try{var K="od-recarga",w=window;function r(){if(w.__odVivo)return;try{if(sessionStorage.getItem(K))return;sessionStorage.setItem(K,"1")}catch(e){return}location.reload()}w.addEventListener("error",function(e){var t=e.target;if(t&&t.tagName==="SCRIPT"&&String(t.src).indexOf("/_next/")>-1)r()},true);w.addEventListener("load",function(){setTimeout(r,6000)});w.addEventListener("pageshow",function(e){if(e.persisted)r()})}catch(e){}})()`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITIO_URL),
   title: `${site.parentName} — Sitios, tiendas, software y apps`,
   description:
     "Onvision Digital construye sitios, tiendas y software a medida para empresas en Latinoamérica, y el Sistema Onvision.",
@@ -41,7 +43,9 @@ export const metadata: Metadata = {
     siteName: site.parentName,
     title: `${site.parentName} — Soluciones digitales hechas para vender`,
     description: "Construimos lo que tu negocio necesita para vender y operar en digital.",
+    images: [IMAGEN_REDES],
   },
+  twitter: { card: "summary_large_image", images: [IMAGEN_REDES] },
 };
 
 export const viewport: Viewport = {
@@ -56,6 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: GUARDIA }} />
       </head>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schemaSitio) }} />
         <Marco>{children}</Marco>
       </body>
     </html>

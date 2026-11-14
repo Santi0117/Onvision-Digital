@@ -71,7 +71,7 @@ function Manifiesto() {
               >
                 {p.text}
               </motion.span>
-            ))}
+            ))}{" "}
           </span>
         ))}
       </h1>

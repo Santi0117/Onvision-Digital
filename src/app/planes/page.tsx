@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import Agenda from "@/components/planes/Agenda";
 import Planes from "@/components/planes/Planes";
+import { metaPagina } from "@/lib/seo";
 import "@/components/digital/digital.css";
 import "@/components/home/home.css";
 import "@/components/home/home-secciones.css";
 import "@/components/planes/planes.css";
 
-export const metadata: Metadata = {
-  title: "Planes — Onvision Digital",
-  description:
+export const metadata = metaPagina({
+  ruta: "/planes",
+  titulo: "Planes y precios: sitios, tiendas y apps — Onvision Digital",
+  descripcion:
     "Planes claros para páginas web, tiendas, software y apps, con Onvi IA y el Panel incluidos. Paga mes a mes o agenda una reunión.",
-};
+});
 
 /** Planes, en una sola página: elegir la línea y el plan (y pagarlo) o agendar una reunión. */
 export default function PlanesRuta() {
