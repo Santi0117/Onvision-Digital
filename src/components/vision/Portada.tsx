@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { companyHero } from "@/lib/company";
 import { webHero } from "@/lib/web";
 import SplitFlapText from "./SplitFlapText";
 
@@ -11,19 +10,40 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /** La palabra que rota debajo del titular, en las fichas de la preview. */
 const PALABRAS = ["TU SITIO", "TU TIENDA", "TU SOFTWARE", "TU APP", "TU SISTEMA"];
 
-/** El titular en cuatro renglones de cartel (jeffmilanes): arriba macizo, abajo hueco. */
-const RENGLONES = [
-  { texto: "Soluciones", hueco: false },
-  { texto: "digitales", hueco: false },
-  { texto: "hechas para", hueco: true },
-  { texto: "vender.", hueco: true },
+/**
+ * El titular en renglones de cartel (jeffmilanes): arriba macizo, abajo hueco,
+ * con el precio en cian. Cada renglón cabe entero desde un celular de 360
+ * ("Tu página web" es el más largo); juntos se leen como una sola frase.
+ */
+const RENGLONES: readonly { texto: string; hueco: boolean; acento?: string }[] = [
+  { texto: "Tu página web", hueco: false },
+  { texto: "lista para", hueco: false },
+  { texto: "vender,", hueco: false },
+  { texto: "desde $35", hueco: true, acento: "$35" },
+  { texto: "al mes.", hueco: true },
 ];
+
+/** El renglón, con su parte en cian si la tiene. */
+function Renglon({ texto, acento }: { texto: string; acento?: string }) {
+  if (!acento || !texto.includes(acento)) return texto;
+  const [antes, despues] = texto.split(acento);
+  return (
+    <>
+      {antes}
+      <span className="oh-vh__acento">{acento}</span>
+      {despues}
+    </>
+  );
+}
+
+/** Lo que nos diferencia, en una línea debajo de los botones (solo en compu). */
+const ETIQUETAS = ["Hecho en Costa Rica", "Hosting incluido", "Onvi IA incluida", "Respuesta en menos de 24 h"];
 
 /**
  * Portada: la laptop 3D de la preview oficial a la derecha (la escena fija
- * detrás) y a la izquierda el titular gigante de nuestro inicio —
- * "SOLUCIONES DIGITALES / HECHAS PARA VENDER." — con la palabra que rota en
- * las fichas de la preview. Los botones son las tarjetas de la preview.
+ * detrás) y a la izquierda el titular gigante — "TU PÁGINA WEB LISTA PARA
+ * VENDER, DESDE $35 AL MES." — con la palabra que rota en las fichas de la
+ * preview. Los botones son las tarjetas de la preview.
  */
 export default function Portada({ ready }: { ready: boolean }) {
   const reduce = useReducedMotion();
@@ -50,7 +70,7 @@ export default function Portada({ ready }: { ready: boolean }) {
   return (
     <section id="inicio" className="vision-hero vision-hero--scene oh-vh" data-tema="oscuro" aria-labelledby="oh-vh-titulo">
       <p className="oh-riel oh-riel--izq oh-vh__riel" aria-hidden>
-        ONVISION <b>{"//"}</b> LATINOAMÉRICA
+        ONVISION <b>{"//"}</b> COSTA RICA
       </p>
 
       <div className="vision-hero__copy oh-vh__copy">
@@ -65,8 +85,8 @@ export default function Portada({ ready }: { ready: boolean }) {
         <h1 id="oh-vh-titulo" className="oh-vh__h1">
           {RENGLONES.map((r, i) => (
             <span key={r.texto} className={`oh-vh__linea${r.hueco ? " oh-vh__linea--hueca" : ""}`}>
-              <motion.span className="inline-block" {...linea(0.12 + i * 0.08)}>
-                {r.texto}
+              <motion.span className="inline-block" {...linea(0.12 + i * 0.07)}>
+                <Renglon texto={r.texto} acento={r.acento} />
               </motion.span>{" "}
             </span>
           ))}
@@ -96,8 +116,8 @@ export default function Portada({ ready }: { ready: boolean }) {
 
         <div className="vision-hero__actions">
           <motion.span className="vision-hero-card vision-hero-card--price" {...entra(0.72, 18)}>
-            <span className="vision-hero-card__kicker">desde</span>
-            <span className="vision-hero-card__value">$35/mes · Onvi IA</span>
+            <span className="vision-hero-card__kicker">{webHero.price.kicker}</span>
+            <span className="vision-hero-card__value">{webHero.price.value}</span>
           </motion.span>
           <motion.a href={webHero.secondaryCta.href} className="vision-hero-card vision-hero-card--ghost" {...entra(0.8, 18)}>
             {webHero.secondaryCta.label}
@@ -112,9 +132,12 @@ export default function Portada({ ready }: { ready: boolean }) {
             </Link>
           </motion.div>
         </div>
+        <motion.p className="oh-vh__pago" {...entra(0.94, 8)}>
+          {webHero.price.note}
+        </motion.p>
 
         <motion.ul className="oh-vh__meta" {...entra(1, 8)}>
-          {[companyHero.headline.replace(/\.$/, ""), "Onvi IA incluida", "Latinoamérica"].map((parte, i) => (
+          {ETIQUETAS.map((parte, i) => (
             <li key={parte}>
               {i > 0 ? <em aria-hidden>/</em> : null}
               {parte}

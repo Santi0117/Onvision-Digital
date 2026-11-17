@@ -57,11 +57,17 @@ export type VisionContent = {
 
 export const webHero = {
   eyebrow: "Onvision Digital",
-  title: ["Soluciones digitales", "hechas para vender."],
-  lead: "Construimos lo que tu negocio necesita para vender y operar en digital.",
+  title: ["Tu página web lista para vender,", "desde $35 al mes."],
+  lead: "Páginas web, tiendas en línea, software y apps hechas en Costa Rica. Hosting incluido, cobros con SINPE y Onvi, nuestra IA, atendiendo a tus clientes 24/7.",
   pill: "Moderno y accesible",
-  primaryCta: { label: "Quiero mi sitio", href: "/planes#agendar" },
-  secondaryCta: { label: "Ver cómo se arma", href: "#nucleo" },
+  /** La tarjeta del precio y la línea de debajo de los botones. */
+  price: {
+    kicker: "desde",
+    value: "$35 al mes o ₡15.000",
+    note: "Pagas mensual o una sola vez, tú eliges.",
+  },
+  primaryCta: { label: "Ver planes y precios", href: "/planes" },
+  secondaryCta: { label: "Ver trabajos reales", href: "#proyectos" },
 } as const;
 
 export const webCore = {

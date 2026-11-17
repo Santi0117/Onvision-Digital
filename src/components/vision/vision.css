@@ -748,6 +748,11 @@
   -webkit-text-stroke: 1.4px rgb(248 250 252 / 0.6);
 }
 
+/* El precio, en el cian de la marca. */
+.oh-vh__acento {
+  -webkit-text-stroke-color: #34d3ee;
+}
+
 .oh-vh__flap {
   display: block;
   margin-top: 0.34em;
@@ -772,11 +777,27 @@
   width: 100%;
 }
 
+/* Un poco más anchas que las de la preview: el precio en colones y "Ver
+   trabajos reales" caben en un renglón. */
+.oh-vh .vision-hero__actions {
+  max-width: 420px;
+}
+
+/* "Pagas mensual o una sola vez, tú eliges." debajo de los botones. */
+.oh-vh__pago {
+  margin: 12px 0 0;
+  max-width: 420px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  text-align: center;
+  color: rgb(248 250 252 / 0.55);
+}
+
 .oh-vh__meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 12px;
-  margin: 26px 0 0;
+  margin: 22px 0 0;
   padding: 0;
   list-style: none;
   font-family: var(--font-vision-mono);
@@ -1051,6 +1072,12 @@ body:has(.vision-line[data-abierto]) .od-onvi-tab {
 
   .oh-vh__lead {
     font-size: 14px;
+  }
+
+  .oh-vh__pago {
+    max-width: none;
+    margin-top: 10px;
+    font-size: 12px;
   }
 
   .vision-hero__flap.oh-vh__fichas {

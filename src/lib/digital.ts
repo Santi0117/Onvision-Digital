@@ -117,6 +117,8 @@ export const digitalPlans = {
   fromLabel: "desde",
   mostChosen: "El más elegido",
   payMonthlyCta: "Empezar con este plan",
+  /** Debajo del botón de pagar, en los planes que tienen mínimo (sitios y tiendas). */
+  minimumNote: "Plan mensual con mínimo de 5 meses. Después cancelas cuando quieras.",
   paySheet: {
     title: "Continuar al pago",
     categorySeparator: " · ",
@@ -395,4 +397,49 @@ export const digitalFaq = {
   footerText: "¿Te quedó otra duda? ",
   footerCta: "Escríbenos",
   footerHref: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, tengo una duda sobre Onvision Digital.")}`,
+} as const;
+
+/**
+ * Las preguntas de /planes (textos de Daniel). Donde su documento dejaba un
+ * dato por confirmar, va solo lo que el sitio ya dice en las preguntas de
+ * Servicios: tiempos, cancelación, dominio, dueño y forma de pago.
+ */
+export const planesFaq = {
+  label: "Antes de elegir",
+  title: "Preguntas frecuentes",
+  description: "Lo que más nos preguntan sobre los tiempos, el pago, el dominio y qué pasa si cancelas.",
+  itemPrefix: "",
+  items: [
+    {
+      q: "¿Cuánto tarda mi página?",
+      a: "En promedio, una semana desde que nos envías tus textos, fotos y logo; depende de qué tan rápido fluya la información de tu lado. Las tiendas y el software dependen del proyecto: te damos la fecha exacta en la propuesta.",
+    },
+    {
+      q: "¿Qué pasa si quiero cancelar?",
+      a: "Las páginas y tiendas con plan mensual tienen un mínimo de 5 meses. Después cancelas cuando quieras, sin multas. Si cancelas o te atrasas con el pago, tienes 5 días antes de que se desactiven la página y los demás servicios. El software y las apps no tienen ese mínimo.",
+    },
+    {
+      q: "¿El dominio está incluido?",
+      a: "No: el dominio (tunegocio.com) va aparte, queda a tu nombre y cuesta alrededor de $11 al año (unos ₡5.000). Nosotros lo dejamos comprado, configurado y apuntando a tu sitio.",
+    },
+    {
+      q: "¿Me conviene pagar mensual o una sola vez?",
+      a: "Mensual si quieres empezar sin un pago grande: el hosting, el soporte y las actualizaciones van incluidos. Pago único ($550 la Página estándar, $750 la Pro) si prefieres pagar una vez.",
+    },
+    {
+      q: "¿Puedo pagar en colones?",
+      a: "Sí. La Página estándar sale en ₡15.000 al mes y la Pro en ₡25.000, un precio fijo que no cambia con el tipo de cambio. La mensualidad se paga con Onvo: tarjeta, SINPE y más.",
+    },
+    {
+      q: "¿Tengo que saber de tecnología?",
+      a: "No. Nosotros diseñamos, construimos y mantenemos todo. Tú ves tus mensajes y pedidos desde el Panel Onvi.",
+    },
+    {
+      q: "¿De quién es la página?",
+      a: "Tuya. Con el pago único queda a tu nombre desde que se entrega. Con la mensualidad también es tuya, mientras la mensualidad esté al día.",
+    },
+  ],
+  footerText: "¿Te quedó otra duda? ",
+  footerCta: "Escríbenos",
+  footerHref: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hola, tengo una duda sobre los planes de Onvision Digital.")}`,
 } as const;

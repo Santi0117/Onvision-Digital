@@ -41,8 +41,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CR",
     siteName: site.parentName,
-    title: `${site.parentName} — Soluciones digitales hechas para vender`,
-    description: "Construimos lo que tu negocio necesita para vender y operar en digital.",
+    title: `${site.parentName} — Tu página web lista para vender, desde $35 al mes`,
+    description:
+      "Páginas web, tiendas en línea, software y apps para negocios en Costa Rica. Desde $35 al mes, hosting incluido y respuesta en menos de 24 horas.",
     images: [IMAGEN_REDES],
   },
   twitter: { card: "summary_large_image", images: [IMAGEN_REDES] },

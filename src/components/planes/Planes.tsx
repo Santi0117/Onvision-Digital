@@ -90,7 +90,6 @@ function Tarjeta({
             </span>
           ) : null}
         </p>
-        {"condition" in plan && plan.condition ? <p className="od-plan__condicion">{plan.condition}</p> : null}
       </div>
 
       {cotizar ? (
@@ -112,6 +111,8 @@ function Tarjeta({
           <button type="button" className={`od-boton ${destacado ? "od-boton--negro" : "od-boton--linea"} od-plan__pagar`} onClick={alPagar}>
             {digitalPlans.payMonthlyCta} <Flecha />
           </button>
+          {/* El mínimo, a la vista antes de pagar: que nadie se entere en la reunión. */}
+          {"condition" in plan && plan.condition ? <p className="od-plan__minimo">{digitalPlans.minimumNote}</p> : null}
           <a href={digitalPlans.quoteHref} target="_blank" rel="noopener noreferrer" className="od-plan__cotizar">
             {digitalPlans.quoteCta}
           </a>

@@ -2,34 +2,37 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { digitalFaq } from "@/lib/digital";
+import { digitalFaq, type planesFaq } from "@/lib/digital";
 import { ConPunto, Mas } from "./ui";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+type DatosFaq = typeof digitalFaq | typeof planesFaq;
+
 /**
  * "05 — FAQ" como "Klar beantwortet." de nordpixel: renglones en tarjetas
- * blancas con su "+", el número en mono y la respuesta que se abre.
+ * blancas con su "+", el número en mono y la respuesta que se abre. Sirve
+ * para las preguntas de Servicios (por defecto) y las de Planes.
  */
-export default function Faq() {
-  const [abierta, setAbierta] = useState<number | null>(0);
+export default function Faq({ datos = digitalFaq, abiertaInicial = 0 }: { datos?: DatosFaq; abiertaInicial?: number | null }) {
+  const [abierta, setAbierta] = useState<number | null>(abiertaInicial);
 
   return (
     <section id="faq" className="od-faq od-claro" aria-labelledby="od-faq-titulo">
       <div className="od-faq__cabeza">
         <p className="od-eyebrow od-eyebrow--rayas">
           <i aria-hidden />
-          <span>{digitalFaq.label}</span>
+          <span>{datos.label}</span>
           <i aria-hidden />
         </p>
         <h2 id="od-faq-titulo" className="od-h2">
-          <ConPunto>{digitalFaq.title}</ConPunto>
+          <ConPunto>{datos.title}</ConPunto>
         </h2>
-        <p className="od-lede">{digitalFaq.description}</p>
+        <p className="od-lede">{datos.description}</p>
       </div>
 
       <div className="od-faq__lista">
-        {digitalFaq.items.map((it, i) => {
+        {datos.items.map((it, i) => {
           const abierto = abierta === i;
           const id = `od-faq-${i}`;
           return (
@@ -37,7 +40,7 @@ export default function Faq() {
               <h3>
                 <button type="button" aria-expanded={abierto} aria-controls={id} onClick={() => setAbierta(abierto ? null : i)}>
                   <span className="od-mono od-faq__n">
-                    {digitalFaq.itemPrefix}
+                    {datos.itemPrefix}
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="od-faq__q">{it.q}</span>
@@ -80,9 +83,9 @@ export default function Faq() {
       </div>
 
       <p className="od-faq__pie">
-        {digitalFaq.footerText}
-        <a href={digitalFaq.footerHref} target="_blank" rel="noopener noreferrer">
-          {digitalFaq.footerCta}
+        {datos.footerText}
+        <a href={datos.footerHref} target="_blank" rel="noopener noreferrer">
+          {datos.footerCta}
         </a>
       </p>
     </section>

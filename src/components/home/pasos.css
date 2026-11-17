@@ -1,0 +1,224 @@
+/* ==========================================================================
+   Cómo trabajamos: 4 pasos sobre una línea que se llena al verla, en el
+   mismo fondo claro de "Cuéntanos tu idea" (que va justo debajo). En el
+   celular, la línea baja por la izquierda.
+   ========================================================================== */
+
+.op {
+  --op-tono: var(--cian, #34d3ee);
+  --op-tinta: #0a0d12;
+  position: relative;
+  z-index: 1;
+  padding: clamp(64px, 8vw, 112px) var(--gut) clamp(40px, 5vw, 72px);
+  background: var(--cream);
+  color: var(--op-tinta);
+}
+
+.op-cabeza {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.op-titulo {
+  font-family: var(--f-serif);
+  font-size: clamp(30px, 3.6vw, 52px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.op-titulo em {
+  font-style: italic;
+}
+
+.op-pasos {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  max-width: 1080px;
+  margin: clamp(36px, 4.5vw, 56px) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* La línea que une los pasos: gris de fondo y cian que se llena encima. */
+.op-pasos::before,
+.op-pasos::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.op-pasos::before {
+  background: rgb(10 13 18 / 0.1);
+}
+
+.op-pasos::after {
+  background: linear-gradient(90deg, var(--op-tono), #0a86a6);
+  transform-origin: left center;
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+
+.op[data-listo]:not([data-visto]) .op-pasos::after {
+  transform: scaleX(0);
+}
+
+.op-paso {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  transition:
+    opacity 0.6s ease calc(0.2s + var(--i) * 0.28s),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(0.2s + var(--i) * 0.28s);
+}
+
+.op[data-listo]:not([data-visto]) .op-paso {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* Encima de la línea (que se pinta después de los pasos). */
+.op-paso__marca {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 8px;
+  border-radius: 18px;
+  background: #0a0f14;
+  color: var(--op-tono);
+  box-shadow:
+    0 0 0 6px var(--cream),
+    0 14px 28px -14px rgb(10 13 18 / 0.5);
+}
+
+.op-paso__marca svg {
+  width: 24px;
+  height: 24px;
+}
+
+.op-paso__marca b {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--op-tono);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0a0d12;
+}
+
+.op-paso__titulo {
+  font-family: var(--f-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.op-paso__texto {
+  max-width: 24ch;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #4a5563;
+}
+
+/* ── Celular: la línea baja por la izquierda ───────────────────────────── */
+
+@media (max-width: 767px) {
+  .op {
+    padding: 56px 20px 28px;
+  }
+
+  .op-pasos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    max-width: 420px;
+  }
+
+  .op-pasos::before,
+  .op-pasos::after {
+    top: 24px;
+    bottom: 24px;
+    left: 23px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .op-pasos::after {
+    background: linear-gradient(180deg, var(--op-tono), #0a86a6);
+    transform-origin: center top;
+  }
+
+  .op[data-listo]:not([data-visto]) .op-pasos::after {
+    transform: scaleY(0);
+  }
+
+  .op-paso {
+    grid-template-columns: 48px minmax(0, 1fr);
+    justify-items: start;
+    column-gap: 16px;
+    row-gap: 2px;
+    text-align: left;
+  }
+
+  .op-paso__marca {
+    grid-row: span 2;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    border-radius: 15px;
+  }
+
+  .op-paso__marca svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .op-paso__marca b {
+    top: -7px;
+    right: -9px;
+    min-width: 22px;
+    height: 19px;
+    font-size: 9.5px;
+  }
+
+  .op-paso__titulo {
+    align-self: end;
+    font-size: 16px;
+  }
+
+  .op-paso__texto {
+    max-width: none;
+    font-size: 13.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-pasos::after,
+  .op-paso {
+    transition: none;
+  }
+}

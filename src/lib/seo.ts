@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { digitalFaq } from "@/lib/digital";
+import { digitalFaq, type planesFaq } from "@/lib/digital";
 import { site } from "@/lib/site";
 
 /** La dirección pública del sitio: canonical, sitemap, Open Graph y schema salen de acá. */
@@ -16,12 +16,16 @@ export const PAGINAS_PUBLICAS = [
 
 type Ruta = (typeof PAGINAS_PUBLICAS)[number]["ruta"];
 
-/** La imagen que sale al compartir un enlace del sitio (public/og.png). */
+/**
+ * La imagen que sale al compartir un enlace del sitio (public/og.png). El
+ * "?v=" cambia cuando cambia la imagen, para que WhatsApp y las redes no
+ * sigan mostrando la vieja.
+ */
 export const IMAGEN_REDES = {
-  url: "/og.png",
+  url: "/og.png?v=2",
   width: 1200,
   height: 630,
-  alt: "Onvision Digital: soluciones digitales hechas para vender. Sitios, tiendas, software y apps.",
+  alt: "Onvision Digital: tu página web lista para vender, desde $35 al mes. Hecho en Costa Rica, hosting incluido.",
 };
 
 /**
@@ -91,22 +95,21 @@ export const schemaSitio = {
   ],
 };
 
-/** Las preguntas frecuentes de Servicios, tal como se leen en la página. */
-export const schemaFaq = {
+type PreguntaFaq = (typeof digitalFaq.items)[number] | (typeof planesFaq.items)[number];
+
+/** Preguntas frecuentes (las de Servicios o las de Planes), tal como se leen en la página. */
+export const schemaFaq = (items: readonly PreguntaFaq[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: digitalFaq.items.map((it) => ({
+  mainEntity: items.map((it) => ({
     "@type": "Question",
     name: it.q,
     acceptedAnswer: {
       "@type": "Answer",
-      text: [
-        it.a,
-        ...("groups" in it ? it.groups.map((g) => `${g.title}: ${g.points.join(" ")}`) : []),
-      ].join(" "),
+      text: [it.a, ...("groups" in it ? it.groups.map((g) => `${g.title}: ${g.points.join(" ")}`) : [])].join(" "),
     },
   })),
-};
+});
 
 /** Para <script type="application/ld+json">: sin "<" crudos dentro. */
 export const jsonLd = (dato: object) => JSON.stringify(dato).replace(/</g, "\\u003c");

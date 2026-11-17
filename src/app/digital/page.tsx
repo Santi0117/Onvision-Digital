@@ -3,6 +3,7 @@ import Piezas from "@/components/digital/piezas/Piezas";
 import { ShowreelCabeza } from "@/components/digital/Showreel";
 import Cierre from "@/components/od/Cierre";
 import Faq from "@/components/od/Faq";
+import { digitalFaq } from "@/lib/digital";
 import { jsonLd, metaPagina, schemaFaq } from "@/lib/seo";
 import "@/components/digital/digital.css";
 
@@ -16,7 +17,7 @@ export const metadata = metaPagina({
 export default function Digital() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schemaFaq) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schemaFaq(digitalFaq.items)) }} />
       <ShowreelCabeza />
       <CintaOnvi />
       <Piezas />

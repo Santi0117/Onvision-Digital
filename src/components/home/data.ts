@@ -28,6 +28,7 @@ export const ESCENAS = [
   { id: "nucleo", nombre: "Qué incluye" },
   { id: "trabajos", nombre: "Trabajos" },
   { id: "proyectos", nombre: "Proyectos" },
+  { id: "como-trabajamos", nombre: "Cómo trabajamos" },
   { id: "contacto", nombre: "Contacto" },
 ] as const;
 
