@@ -2700,9 +2700,24 @@
 .pz-ig__cabeza {
   display: flex;
   align-items: center;
-  gap: 0.55em;
-  padding: 0.7em 0.8em;
+  gap: 0.45em;
+  padding: 0.7em 0.6em;
   font-size: 0.9em;
+}
+
+/* "onvision__digital" es largo: se achica un poco para que el check quepa. */
+.pz-ig__cabeza b {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.82em;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pz-ig__cabeza .pz-ig__avatar,
+.pz-ig__cabeza .pz-ig__ok {
+  flex: none;
 }
 
 .pz-ig__avatar {

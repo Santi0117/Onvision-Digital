@@ -2,6 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, type CSSProperties } from "react";
+import { site } from "@/lib/site";
 import { Ojo } from "../../od/ui";
 import type { IdPieza } from "./datos";
 
@@ -415,7 +416,7 @@ function Marca() {
           <span className="pz-ig__avatar">
             <Ojo />
           </span>
-          <b>onvision.digital</b>
+          <b>{site.instagramUsuario}</b>
           <i className="pz-ig__ok" />
         </span>
         <span className="pz-ig__foto">

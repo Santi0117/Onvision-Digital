@@ -7,7 +7,9 @@ export const site = {
   email: "info@onvisiondigital.com",
   phone: "+506 6303-0204",
   whatsapp: "50663030204",
-  instagram: "https://www.instagram.com/onvisiondigital",
+  /** La cuenta real lleva dos guiones bajos: @onvision__digital. */
+  instagram: "https://www.instagram.com/onvision__digital/",
+  instagramUsuario: "onvision__digital",
   location: "Latinoamérica",
   region: "Latinoamérica",
   trialDays: 15,
